@@ -2,10 +2,48 @@ from datetime import datetime
 from app import db
 
 
+class Follow(db.Model):
+    __tablename__ = "Follow"
+    # 关注者
+    followed_id = db.Column(db.Integer(), db.ForeignKey('User.user_id'), primary_key=True)
+    # 被关注者
+    follower_id = db.Column(db.Integer(), db.ForeignKey('User.user_id'), primary_key=True)
+    follow_time = db.Column(db.DateTime(), default=datetime.utcnow)
+
+
+class Photograph(db.Model):
+    __tablename__ = "Photograph"
+    photograph_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('User.user_id'))
+    title = db.Column(db.String(64))
+    path = db.Column(db.String(128))
+
+    def __repr__(self):
+        return '<Post %r>' % self.title
+
+
+class AwardRecord(db.Model):
+    __tablename__ = "AwardRecord"
+    record_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    award_id = db.Column(db.Integer())
+    user_id = db.Column(db.Integer(), db.ForeignKey("User.user_id"))
+    receiver = db.Column(db.String(64))
+    phone = db.Column(db.String(11))
+    checked = db.Column(db.Boolean(), default=False)
+    check_time = db.Column(db.DateTime, default=datetime.utcnow)
+    
+
+
+class RankingList(db.Model):
+    __tablename__ = "RankingList"
+    user_id = db.Column(db.Integer, db.ForeignKey("User.user_id"), primary_key=True)
+    follow_number = db.Column(db.Integer)
+
+
 class User(db.Model):
     __tablename__ = "User"
     # oy08L0Zmm6pSjsfj6H0K9hbTC0zM
-    user_id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     open_id = db.Column(db.String(28), unique=True, index=True)
     avatarUrl = db.Column(db.String(128))
     city = db.Column(db.String(32))
@@ -14,13 +52,24 @@ class User(db.Model):
     language = db.Column(db.String(8))
     nickName = db.Column(db.String(32))
     province = db.Column(db.String(32))
-    login_time = db.Column(db.Date, default=datetime.utcnow)
-    following = db.relationship('Follow', foreign_keys=[Follow.follower_id],
-                                backref=db.backref('follower', lazy='joined'),
-                                lazy='dynamic', cascade='all, delete-orphan')
+    login_time = db.Column(db.DateTime, default=datetime.utcnow)
+    # user关注的人
+    followed = db.relationship('Follow', foreign_keys=[Follow.follower_id],
+                               backref=db.backref('follower', lazy='joined'),
+                               lazy='dynamic', cascade='all, delete-orphan')
+    # 被user关注的人
     followers = db.relationship('Follow', foreign_keys=[Follow.followed_id],
                                 backref=db.backref('followed', lazy='joined'),
                                 lazy='dynamic', cascade='all, delete-orphan')
+    awardrecord_user_id = db.relationship('AwardRecord', foreign_keys=[AwardRecord.user_id],
+                                          backref=db.backref('sender', lazy='joined'),
+                                          lazy='dynamic', cascade='all, delete-orphan')
+    photograph_user_id = db.relationship('Photograph', foreign_keys=[Photograph.user_id],
+                                         backref=db.backref('owner', lazy='joined'),
+                                         lazy='dynamic', cascade='all, delete-orphan')
+    rankinglist_user_id = db.relationship('RankingList', foreign_keys=[RankingList.user_id],
+                                          backref=db.backref('owner', lazy='joined'),
+                                          lazy='dynamic', cascade='all, delete-orphan')
 
     def follow(self, user):
         if not self.is_following(user):
@@ -37,50 +86,13 @@ class User(db.Model):
         return '<User %r>' % self.nickName
 
 
-class Follow(db.Model):
-    __tablename__ = "Follow"
-    foll_id = db.Column(db.Integer(), primary_key=True)
-    following_id = db.Column(db.Integer, db.ForeignKey('User.user_id'))
-    follower_id = db.Column(db.Integer, db.ForeignKey('User.user_id'))
-    timestamp = db.Column(db.Date, default=datetime.utcnow)
-
-
-class Photograph(db.Model):
-    __tablename__ = "Photograph"
-    photograph_id = db.Column(db.Integer(), primary_key=True)
-    owner = db.Column(db.Integer(), db.Foreign_key('User.user_id'))
-    title = db.Column(db.String(64))
-    path = db.Column(db.String())
-
-    def __repr__(self):
-        return '<Post %r>' % self.title
-
-
 class Award(db.Model):
     __tablename__ = "Award"
-    award_id = db.Column(db.Integer(), primary_key=True)
+    award_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     name = db.Column(db.String(128))
     description = db.Column(db.Text())
 
     def __repr__(self):
         return '<Post %r>' % self.name
-
-
-class AwardRecord(db.Model):
-    __tablename__ = "AwardRecord"
-    record_id = db.Column(db.Integer(), primary_key=True)
-    award_id = db.Column(db.Integer(), db.ForeignKey('Award.award_id'))
-    receiver = db.Column(db.String(64))
-    phone = db.Column(db.String(11))
-    checked = db.Column(db.Boolean(), default=False)
-
-
-class RankingList(db.Model):
-    __tablename__ = "RankingList"
-    user = db.Column(db.String(), db.ForeignKey('User.user_id'))
-    followers = db.Column(db.String(), db.ForeignKey('User.openid'))
-
-
-
 
 
