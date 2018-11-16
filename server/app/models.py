@@ -3,19 +3,20 @@ from app import db
 
 
 class Follow(db.Model):
-    __tablename__ = "Follow"
+    __tablename__ = "follow"
     # 关注者
-    followed_id = db.Column(db.Integer(), db.ForeignKey('User.user_id'), primary_key=True)
+    followed_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), primary_key=True)
     # 被关注者
-    follower_id = db.Column(db.Integer(), db.ForeignKey('User.user_id'), primary_key=True)
+    follower_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), primary_key=True)
     follow_time = db.Column(db.DateTime(), default=datetime.utcnow)
 
 
 class Photograph(db.Model):
-    __tablename__ = "Photograph"
+    __tablename__ = "photograph"
     photograph_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('User.user_id'))
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
     title = db.Column(db.String(64))
+    description = db.Column(db.String(128))
     path = db.Column(db.String(128))
 
     def __repr__(self):
@@ -23,25 +24,24 @@ class Photograph(db.Model):
 
 
 class AwardRecord(db.Model):
-    __tablename__ = "AwardRecord"
+    __tablename__ = "awardrecord"
     record_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     award_id = db.Column(db.Integer())
-    user_id = db.Column(db.Integer(), db.ForeignKey("User.user_id"))
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.user_id"))
     receiver = db.Column(db.String(64))
     phone = db.Column(db.String(11))
     checked = db.Column(db.Boolean(), default=False)
     check_time = db.Column(db.DateTime, default=datetime.utcnow)
-    
 
 
 class RankingList(db.Model):
-    __tablename__ = "RankingList"
-    user_id = db.Column(db.Integer, db.ForeignKey("User.user_id"), primary_key=True)
+    __tablename__ = "rankinglist"
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
     follow_number = db.Column(db.Integer)
 
 
 class User(db.Model):
-    __tablename__ = "User"
+    __tablename__ = "user"
     # oy08L0Zmm6pSjsfj6H0K9hbTC0zM
     user_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     open_id = db.Column(db.String(28), unique=True, index=True)
@@ -87,9 +87,9 @@ class User(db.Model):
 
 
 class Award(db.Model):
-    __tablename__ = "Award"
+    __tablename__ = "award"
     award_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    name = db.Column(db.String(128))
+    award_name = db.Column(db.String(128))
     description = db.Column(db.Text())
 
     def __repr__(self):
