@@ -1,7 +1,8 @@
 {
   "pages":[
+    "pages/authorize/authorize",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/composition/composition"
   ],
   "window":{
     "backgroundTextStyle":"light",

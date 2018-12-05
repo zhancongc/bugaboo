@@ -1,0 +1,2 @@
+<!--pages/composition/composition.wxml-->
+<button open-type="contact">进入客服会话</button>
