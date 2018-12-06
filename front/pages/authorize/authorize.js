@@ -20,6 +20,8 @@ Page({
         app.globalData.encryptedData = res.encryptedData;
         app.globalData.iv = res.iv;
         //this.saveUserInfo();
+        var userInfo = wx.getStorageInfoSync('userInfo');
+        wx.setStorageSync('userInfo', userInfo);
         console.log(res.userInfo)
         wx.navigateTo({
           url: '/pages/index/index',

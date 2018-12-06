@@ -1,10 +1,17 @@
 //app.js
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    var userInfo = wx.getStorageInfoSync('userInfo');
+    if (userInfo) {
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    } else {
+      // 未授权，跳转到授权页面
+      wx.navigateTo({
+        url: '/pages/authorize/authorize',
+      })
+    }
 
     // 登录
     wx.login({
