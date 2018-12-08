@@ -1,2 +1,15 @@
 <!--pages/composition/composition.wxml-->
-<button open-type="contact">进入客服会话</button>
+<view class='container'>
+  <view class='container-content'>
+    <view class="section">
+      <view class="section-title">参赛组别选择：</view>
+      <picker bindchange="bindPickerChange" value="{{gameGroupIndex}}" range="{{gameGroup}}">
+        <view class="picker">
+          当前选择：{{gameGroup[gameGroupIndex]}}
+        </view>
+      </picker>
+    </view>
+    <button class='bottomButton' bindtap='uploadPhotograph'>上传照片/拍照</button>
+  </view>
+</view>
+

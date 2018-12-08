@@ -2,7 +2,8 @@
   "pages":[
     "pages/authorize/authorize",
     "pages/index/index",
-    "pages/composition/composition"
+    "pages/composition/composition",
+    "pages/preview/pewview"
   ],
   "window":{
     "backgroundTextStyle":"light",

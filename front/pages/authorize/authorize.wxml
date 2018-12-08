@@ -1,7 +1,11 @@
 <!--pages/authorize/authorize.wxml-->
-<view>
-  <open-data type="userAvatarUrl"></open-data>
-  <text>你好，首次登录，请点击下方按钮授权。</text>
-  <button class='user-info' open-type='getUserInfo' bindgetuserinfo="getUserInfo" style='color: #096064'>授权</button>
+<view class='container'>
+  <view class='container-title'>
+    <text>微信授权</text>
+  </view>
+  <view class='container-content'>
+    <text class='container-explanation'>你好!首次登录，请点击下方按钮授权。</text>
+    <button class='user-info' open-type='getUserInfo' bindgetuserinfo="getUserInfo" style='color: #096064'>授权</button>
+  </view>
 </view>
     

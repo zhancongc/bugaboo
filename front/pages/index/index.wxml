@@ -1,5 +1,9 @@
 <!--index.wxml-->
-<view>
-<view class='title'>Bugaboo爱拍助力</view>
-    <button class='bottomButton' bindtap='toComposition'>点击助力</button>
+<view class='container'>
+  <view class='container-title'>
+    <text>Bugaboo爱拍助力</text>
+  </view>
+  <view class='container-content'>
+    <button class='bottomButton' bindtap='toComposition'>点击助力 </button>
+  </view>
 </view>
