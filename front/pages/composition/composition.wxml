@@ -9,7 +9,7 @@
         </view>
       </picker>
     </view>
-    <button class='bottomButton' bindtap='uploadPhotograph'>上传照片/拍照</button>
+    <button class='bottomButton' bindtap='choosePhotograph'>上传照片/拍照</button>
   </view>
 </view>
 

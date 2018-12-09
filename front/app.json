@@ -3,7 +3,8 @@
     "pages/authorize/authorize",
     "pages/index/index",
     "pages/composition/composition",
-    "pages/preview/pewview"
+    "pages/compositionCut/compositionCut",
+    "pages/preview/preview"
   ],
   "window":{
     "backgroundTextStyle":"light",

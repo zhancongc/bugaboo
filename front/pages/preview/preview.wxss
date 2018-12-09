@@ -1,0 +1,46 @@
+/* pages/preview/pewview.wxss */
+.container {
+  width: 96%;
+  margin: 0 auto;
+  padding: 100rpx 0;
+}
+.container title {
+  display: inline-block;
+  flex-wrap: wrap;
+}
+.intro {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.title {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  width: 120rpx;
+  display: inline-block;
+}
+.title-image {
+  width: 120rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.container-content{
+  margin-top: 100rpx;
+  width: 100%;
+  text-align: center;
+}
+.user-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 10rpx;
+  bottom: 40rpx;
+}
+
+.angle90 {
+  transform:rotate(90deg);
+}
+.angle180 {
+  transform:rotate(180deg);
+}
+.angle270{
+  transform:rotate(270deg);
+}

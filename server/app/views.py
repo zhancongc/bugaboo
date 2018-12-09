@@ -1,13 +1,19 @@
 import time
 from app import app, db
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 from .package import wxlogin
 from .models import User
+from config import configs
 
 
-@app.route("/test")
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in configs['development'].PICTURE_ALLOWED_EXTENSIONS
+
+
+@app.route('/')
 def index():
-    return "Hello, World!"
+    print('index')
+    return render_template('index.html')
 
 
 @app.route('/login', methods=['POST'])
@@ -29,4 +35,30 @@ def login():
     db.session.add(user)
     db.session.commit()
     return jsonify({'login': True, 'open_id': open_id})
+
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    res = dict()
+    img = request.files.get('image')
+    if allowed_file(img.filename):
+        image = dict()
+        image.update({
+            'name': str(int(time.time()))+'_' + img.filename,
+            'date': time.strftime(configs['development'].STRFTIME_FORMAT, time.localtime())
+        })
+        image.update({'file_path': configs['development'].UPLOAD_FOLDER + image['name']})
+        img.save(image['file_path'])
+        res.update({
+            'state': 1,
+            'msg': 'upload success',
+            'data': image
+        })
+    else:
+        res.update({
+            'state': 0,
+            'msg': 'file format is not supported'
+        })
+    return jsonify(res)
+
 

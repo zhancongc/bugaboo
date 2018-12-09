@@ -1,0 +1,15 @@
+<!--pages/preview/pewview.wxml-->
+<view class='container'>
+  <view class='container-title'>
+    <view class='title'>恭喜</view>
+    <view class='title-image'>
+      <image class='user-avatar' src='{{avatarUrl}}'>
+      </image></view>
+    <view class='title'>{{nickName}}</view>
+    <view class='intro'>成功参与了Bugaboo爱拍助力活动</view>
+    <view class='intro'>我的助力作品:</view>
+  </view>
+  <view class='container-content'>
+    <image class='{{objectCompositionAngle[compositionAngle]}}' src='{{compositionUrl}}' mode='aspectFit'></image>
+  </view>
+</view>

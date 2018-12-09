@@ -1,5 +1,5 @@
-// pages/composition/composition.js
-const app = getApp()
+// pages/compositionCut/compositionCut.js
+const qiniuUploader = require("../../utils/qiniuUploader");
 
 Page({
 
@@ -7,19 +7,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imageName: '',
-    gameGroupIndex: 0,
-    gameGroup: ['婴儿车组', '非婴儿车组'],
-    objectGameGroup: [{
-      0:'婴儿车组'},{
-      1:'非婴儿车组'
-    }]
+    compositionUrl: '',
+    compositionType: 0,
+    compositionAngle: 0,
+    objectCompositionAngle: {
+      0: '',
+      90: 'angle90',
+      180: 'angle180',
+      270: 'angle270'
+    }
   },
-  bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+  rotate: function (e) {
+    var temp = (this.data.compositionAngle + 90) % 360;
+    console.log(temp);
     this.setData({
-      gameGroupIndex: e.detail.value
+      compositionAngle: temp
     })
+    this.data.compositionAngle+90
   },
   choosePhotograph: function (e) {
     var that = this;
@@ -27,18 +31,15 @@ Page({
       count: 1,
       sizeType: ['compress'],
       sourceType: ['album', 'camera'],
-      success: function(res) {
+      success: function (res) {
         var tempFilesSize = res.tempFiles[0].size;
         if (tempFilesSize <= 5000000) {   //图片小于或者等于5M时 可以执行获取图片
           var tempFilePath = res.tempFilePaths[0]; //获取图片
-          var tempComposition = {
-              compositionUrl: tempFilePath,
-              compositionType: that.data.gameGroupIndex,
-              compositionAngle: 0
-          };
-          wx.navigateTo({
-            url: '/pages/compositionCut/compositionCut?tempComposition='+JSON.stringify(tempComposition)
-          })
+          that.setData({
+            compositionUrl: tempFilePath,
+            compositionType: that.data.compositionType,
+            compositionAngle: 0
+          });
         } else {    //图片大于5M，弹出一个提示框
           wx.showToast({
             title: '上传图片不能大于5M!',  //标题
@@ -48,11 +49,27 @@ Page({
       },
     })
   },
+  toPreview: function () {
+    var composition = {
+      compositionUrl: this.data.compositionUrl,
+      compositionType: this.data.compositionType,
+      compositionAngle: this.data.compositionAngle
+    };
+    wx.navigateTo({
+      url: '/pages/preview/preview?composition=' + JSON.stringify(composition)
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
 
+    var tempComposition = JSON.parse(options.tempComposition);
+    this.setData({
+      compositionUrl: tempComposition.compositionUrl,
+      compositionType: tempComposition.compositionType,
+      compositionAngle: tempComposition.compositionAngle
+    })
   },
 
   /**

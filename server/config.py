@@ -12,13 +12,17 @@ class Config(object):
     # mini program's
     APP_ID = 'wx107f16d433135388'
     # folder maintains uploaded file
-    UPLOAD_FOLDER = basedir + '/files/upload/'
+    UPLOAD_FOLDER = basedir + '/images/'
     # folder maintains out file
     OUT_FOLDER = basedir + '/files/out/'
     # max size of uploaded file
     MAX_CONTENT_LENGTH = 10 * 1024 * 1024
-    # ...
+    # migrate repository
     SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+    # time.strftime() format
+    STRFTIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+    # picture_allowed_extensions
+    PICTURE_ALLOWED_EXTENSIONS = {'png', 'PNG', 'jpg', 'JPG', 'gif', 'GIF', 'jpeg', 'JPEG'}
 
     @staticmethod
     def init_app(app):
@@ -26,7 +30,7 @@ class Config(object):
 
 
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:security@localhost:3306/zebra?charset=utf8mb4'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:security@localhost:3306/bugaboo?charset=utf8mb4'
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_MAX_OVERFLOW = 100
@@ -36,7 +40,7 @@ class DevelopmentConfig(Config):
 
 class ProductConfig(Config):
     # 数据库URI
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:security@localhost:3306/zebra?charset=utf8mb4'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:security@localhost:3306/bugaboo?charset=utf8mb4'
     # 运行日志
     SQLALCHEMY_ECHO = True
     # 查询日志

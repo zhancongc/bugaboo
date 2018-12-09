@@ -1,0 +1,15 @@
+
+<view class='container'>
+  <view class='container-content'>
+    <image src='{{compositionUrl}}' mode='aspectFit' class='{{objectCompositionAngle[compositionAngle]}}'></image>
+  </view>
+  <view class='container-title'>
+    <button bindtap='rotate'>旋转</button>
+  </view>
+  <view class='bottomBar'>
+    <button bindtap='choosePhotograph'>重新选择</button>
+    <button bindtap='toPreview'>完成</button>
+  </view>
+</view>
+
+
