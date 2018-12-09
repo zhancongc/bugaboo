@@ -12,7 +12,7 @@ class Config(object):
     # mini program's
     APP_ID = 'wx107f16d433135388'
     # folder maintains uploaded file
-    UPLOAD_FOLDER = basedir + '/images/'
+    UPLOAD_FOLDER = basedir + '/app/static/compositions/'
     # folder maintains out file
     OUT_FOLDER = basedir + '/files/out/'
     # max size of uploaded file

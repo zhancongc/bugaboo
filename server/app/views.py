@@ -40,7 +40,7 @@ def login():
 @app.route('/upload', methods=['POST'])
 def upload():
     res = dict()
-    img = request.files.get('image')
+    img = request.files.get('composition')
     if allowed_file(img.filename):
         image = dict()
         image.update({
