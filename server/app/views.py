@@ -41,24 +41,44 @@ def login():
 def upload():
     res = dict()
     img = request.files.get('composition')
-    if allowed_file(img.filename):
-        image = dict()
-        image.update({
-            'name': str(int(time.time()))+'_' + img.filename,
-            'date': time.strftime(configs['development'].STRFTIME_FORMAT, time.localtime())
-        })
-        image.update({'file_path': configs['development'].UPLOAD_FOLDER + image['name']})
-        img.save(image['file_path'])
-        res.update({
-            'state': 1,
-            'msg': 'upload success',
-            'data': image
-        })
-    else:
+    if not img:
         res.update({
             'state': 0,
-            'msg': 'file format is not supported'
+            'msg': 'None file'
         })
+        return jsonify(res)
+    if not allowed_file(img.filename):
+        res.update({
+            'state': 0,
+            'msg': 'Wrong file format'
+        })
+        return jsonify(res)
+    if img.filename == '':
+        res.update({
+            'state': 0,
+            'msg': 'No selected file'
+        })
+        return jsonify(res)
+    image = dict()
+    image.update({
+        'name': str(int(time.time()))+'_' + img.filename,
+        'date': time.strftime(config['development'].STRFTIME_FORMAT, time.localtime())
+    })
+    image.update({'file_path': config['development'].UPLOAD_FOLDER + image['name']})
+    try:
+        img.save(image['file_path'])
+    except Exception as e:
+        res.update({
+            'state': 0,
+            'msg': 'Error occurred while saving file'
+        })
+        print(e)
+        return jsonify(res)
+    res.update({
+        'state': 1,
+        'msg': 'Upload success',
+        'data': image
+    })
     return jsonify(res)
 
 

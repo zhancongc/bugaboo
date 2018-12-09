@@ -19,7 +19,6 @@ Page({
   },
   rotate: function (e) {
     var temp = (this.data.compositionAngle + 90) % 360;
-    console.log(temp);
     this.setData({
       compositionAngle: temp
     })
@@ -50,20 +49,82 @@ Page({
     })
   },
   toPreview: function () {
-    var composition = {
-      compositionUrl: this.data.compositionUrl,
-      compositionType: this.data.compositionType,
-      compositionAngle: this.data.compositionAngle
-    };
-    wx.navigateTo({
-      url: '/pages/preview/preview?composition=' + JSON.stringify(composition)
+    var that = this;
+    wx.showModal({
+      title: '注意',
+      content: '作品一经提交便不能修改，确认提交吗？',
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定');
+          that.uploadComposition()
+        } else if (res.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    })
+  },
+  uploadComposition: function () {
+    var that = this;
+    wx.showToast({
+      title: '正在上传...',
+      icon: 'loading',
+      mask: true,
+      duration: 3000
+    });
+    console
+    wx.uploadFile({
+      url: 'https://wx.bestbwzs.com/upload',
+      filePath: that.data.compositionUrl,
+      name: 'composition',
+      header: {'Content-Type': 'multipart/form-data'},
+      formData: {
+        photographType: that.data.gameGroupIndex
+      },
+      success: function (res) {
+        console.log('成功返回消息！！！')
+        wx.hideToast();
+        console.log(res.data);
+        if (res.data.constructor===Object && res.data.state===1 ) {
+          wx.showToast({
+            title: '上传成功',
+          });
+          that.setData({
+            photographId: res.data['state']
+          })
+        }
+        else {
+          wx.showToast({
+            title: '上传失败',
+          })
+        }
+        /*
+        var composition = {
+        compositionUrl: this.data.compositionUrl,
+        compositionType: this.data.compositionType,
+        compositionAngle: this.data.compositionAngle
+      };
+      wx.navigateTo({
+        url: '/pages/preview/preview?composition=' + JSON.stringify(composition)
+      })
+        wx.navigateTo({
+          url: '/pages/preview/preview?user_id=' + that.data.user_id + '&composition_id=' + this.data.composition_id,
+        })
+        ?*/
+      },
+      fail: function (res) {
+        wx.hideToast();
+        wx.showToast({
+          title: '上传失败',
+          duration: 1000
+        })
+      },
+      complete: function (res) { },
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     var tempComposition = JSON.parse(options.tempComposition);
     this.setData({
       compositionUrl: tempComposition.compositionUrl,
