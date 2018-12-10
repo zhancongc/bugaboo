@@ -1,4 +1,4 @@
-# zebra
+# bugaboo
 
 - Step1 进入小程序并获取授权
 - Step2 用户上传照片（上传Bee5或者Bee3 的照片）
