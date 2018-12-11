@@ -62,9 +62,9 @@ def upload():
     image = dict()
     image.update({
         'name': str(int(time.time()))+'_' + img.filename,
-        'date': time.strftime(config['development'].STRFTIME_FORMAT, time.localtime())
+        'date': time.strftime(configs['development'].STRFTIME_FORMAT, time.localtime())
     })
-    image.update({'file_path': config['development'].UPLOAD_FOLDER + image['name']})
+    image.update({'file_path': configs['development'].UPLOAD_FOLDER + image['name']})
     try:
         img.save(image['file_path'])
     except Exception as e:
