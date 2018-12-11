@@ -73,7 +73,7 @@ Page({
     });
     console
     wx.uploadFile({
-      url: 'https://wx.bestbwzs.com/upload',
+      url: 'https://bugaboo.drivetogreen.com/upload',
       filePath: that.data.compositionUrl,
       name: 'composition',
       header: {'Content-Type': 'multipart/form-data'},

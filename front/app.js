@@ -19,8 +19,8 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if (res.code) {
           wx.request({
-            url: 'https://wx.bestbwzs.com/login',
-            method: 'POST',
+            url: 'https://bugaboo.drivetogreen.com/login',
+            method: 'post',
             data: { code: res.code },
             header: {
               'Content-Type': 'application/x-www-form-urlencoded'

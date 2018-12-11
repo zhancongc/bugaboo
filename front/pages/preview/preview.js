@@ -41,7 +41,7 @@ Page({
       ;
     } else {
       wx.request({
-        url: 'https://wx.bestbwzs.com/',
+        url: 'https://bugaboo.drivetogreen.com/',
         method: 'get',
         header: {
           'Content-Type': 'application/x-www-form-urlencoded'
