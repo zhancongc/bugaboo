@@ -28,32 +28,6 @@ Page({
       mask: true,
       duration: 3000
     });
-    wx.uploadFile({
-      url: 'https://wx.bestbwzs.com/upload/images',
-      filePath: images[0],
-      name: that.imageName,
-      header: 'Content-Type": "multipart/form-data',
-      formData: {
-        photographType: that.data.gameGroupIndex
-      },
-      success: function (res) {
-        wx.hideToast()
-        that.setData({
-          photographId: res.data['photographId']
-        })
-        wx.navigateTo({
-          url: '/pages/preview/preview?photographId=' + that.data.photographId,
-        })
-      },
-      fail: function (res) {
-        wx.hideToast();
-        wx.showToast({
-          title: '上传失败',
-          duration: 1000
-        })
-      },
-      complete: function (res) { },
-    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -62,7 +36,25 @@ Page({
     // 自己生成的用本地储存，看别人的用服务端请求
     var userInfo = wx.getStorageSync('userInfo');
     console.log(userInfo);
-    var composition = JSON.parse(options.composition);
+    /*
+    if (options.hasOwnProperty('composition_id')) {
+      ;
+    } else {
+      wx.request({
+        url: 'https://wx.bestbwzs.com/',
+        method: 'get',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (res) {
+          var composition_id = composition_id;
+        },
+        fail: function(res) {},
+        complete: function (res) {}
+      });
+    }
+    */
+    var composition = wx.getStorageSync('composition');
     console.log(composition);
     this.setData({
       compositionUrl: composition.compositionUrl,

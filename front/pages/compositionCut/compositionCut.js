@@ -81,21 +81,27 @@ Page({
         photographType: that.data.gameGroupIndex
       },
       success: function (res) {
-        console.log('成功返回消息！！！')
         wx.hideToast();
-        console.log(res.data);
-        if (res.data.constructor===Object && res.data.state===1 ) {
-          wx.showToast({
-            title: '上传成功',
-          });
-          that.setData({
-            photographId: res.data['state']
-          })
+        try {
+          var response = JSON.parse(res.data);
+          console.log('成功返回消息！！！');
+          console.log(response);
+          if (response.constructor === Object && response.state === 1) {
+            wx.showToast({
+              title: '上传成功',
+            });
+            that.setData({
+              photographId: response.data.composition_id
+            })
+          }
+          else {
+            wx.showToast({
+              title: '上传失败',
+            })
+          }
         }
-        else {
-          wx.showToast({
-            title: '上传失败',
-          })
+        catch (e) {
+          console.log(e);
         }
         /*
         var composition = {
