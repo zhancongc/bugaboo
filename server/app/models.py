@@ -8,7 +8,7 @@ class Follow(db.Model):
     followed_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), primary_key=True)
     # 被关注者
     follower_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), primary_key=True)
-    follow_time = db.Column(db.DateTime(), default=datetime.utcnow())
+    follow_time = db.Column(db.DateTime(), default=datetime.utcnow)
 
 
 class Photograph(db.Model):
@@ -31,16 +31,19 @@ class AwardRecord(db.Model):
     receiver = db.Column(db.String(64))
     phone = db.Column(db.String(11))
     checked = db.Column(db.Boolean(), default=False)
-    check_time = db.Column(db.DateTime, default=datetime.utcnow())
+    check_time = db.Column(db.DateTime, default=datetime.utcnow)
 
 
-class UserLogin(db.Model):
-    __tablename__ = "userlogin"
+class UserInfo(db.Model):
+    __tablename__ = "userinfo"
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
-    login_time = db.Column(db.DateTime, default=datetime.utcnow())
-    session_key = db.Column(db.String())
-    expire_time = db.Column(db.DateTime, default=datetime.utcnow() + timedelta(minutes=30))
-
+    avatarUrl = db.Column(db.String(128))
+    city = db.Column(db.String(32))
+    country = db.Column(db.String(32))
+    gender = db.Column(db.Boolean())
+    language = db.Column(db.String(8))
+    nickName = db.Column(db.String(32))
+    province = db.Column(db.String(32))
 
 class RankingList(db.Model):
     __tablename__ = "rankinglist"
@@ -54,13 +57,10 @@ class User(db.Model):
     user_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     open_id = db.Column(db.String(28), unique=True, index=True)
     union_id = db.Column(db.String(28), unique=True, index=True)
-    avatarUrl = db.Column(db.String(128))
-    city = db.Column(db.String(32))
-    country = db.Column(db.String(32))
-    gender = db.Column(db.Boolean())
-    language = db.Column(db.String(8))
-    nickName = db.Column(db.String(32))
-    province = db.Column(db.String(32))
+    session_key = db.Column(db.String(24))
+    login_time = db.Column(db.DateTime, default=datetime.utcnow)
+    session_id = db.Column(db.String(40))
+    session_id_expire_time = db.Column(db.DateTime)
     # user关注的人
     followed = db.relationship('Follow', foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),
