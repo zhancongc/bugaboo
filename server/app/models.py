@@ -42,7 +42,6 @@ class UserLogin(db.Model):
     expire_time = db.Column(db.DateTime, default=datetime.utcnow() + timedelta(minutes=30))
 
 
-
 class RankingList(db.Model):
     __tablename__ = "rankinglist"
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
@@ -54,6 +53,7 @@ class User(db.Model):
     # oy08L0Zmm6pSjsfj6H0K9hbTC0zM
     user_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     open_id = db.Column(db.String(28), unique=True, index=True)
+    union_id = db.Column(db.String(28), unique=True, index=True)
     avatarUrl = db.Column(db.String(128))
     city = db.Column(db.String(32))
     country = db.Column(db.String(32))

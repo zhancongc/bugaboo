@@ -4,7 +4,8 @@
     "pages/index/index",
     "pages/composition/composition",
     "pages/compositionCut/compositionCut",
-    "pages/preview/preview"
+    "pages/preview/preview",
+    "pages/rankinglist/rankinglist"
   ],
   "window":{
     "backgroundTextStyle":"light",

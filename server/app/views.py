@@ -18,11 +18,24 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def login():
+    res = dict()
     code = request.values.get('code')
     if code is None:
-        return jsonify({'login': False})
-    wx = wxlogin(code)
-    open_id = wx.get('openid')
+        res.update({
+            'state': 0,
+            'msg': 'None code'
+        })
+        return jsonify(res)
+    try:
+        wx = wxlogin(code)
+        open_id = wx.get('openid')
+        union_id = wx.get('unionid')
+        session_key = wx.get('session_key')
+    except:
+        res.update({
+
+        })
+
     if open_id is None:
         return jsonify({'login': False})
     user = User.query.get_or_404(open_id)
