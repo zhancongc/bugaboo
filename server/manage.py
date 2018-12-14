@@ -2,7 +2,7 @@ from flask_migrate import MigrateCommand
 from flask_script import Manager, Shell
 
 from app import app, db
-from app.models import User, Follow, Photograph, Award, AwardRecord, RankingList
+from app.models import User, Follow, Composition, Award, AwardRecord
 
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)

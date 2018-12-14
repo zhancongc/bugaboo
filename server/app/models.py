@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from app import db
 
 
@@ -11,25 +11,45 @@ class Follow(db.Model):
     follow_time = db.Column(db.DateTime(), default=datetime.utcnow)
 
 
-class Photograph(db.Model):
-    __tablename__ = "photograph"
-    photograph_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+class Composition(db.Model):
+    __tablename__ = "composition"
+    composition_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
-    title = db.Column(db.String(64))
-    description = db.Column(db.String(128))
-    path = db.Column(db.String(128))
+    composition_type = db.Column(db.Boolean(), default=False)
+    composition_name = db.Column(db.String(64))
+    composition_url = db.Column(db.String(512))
 
     def __repr__(self):
         return '<Post %r>' % self.title
 
 
+class Award(db.Model):
+    __tablename__ = "award"
+    # 这是一个静态表，里面配置了奖品信息
+    award_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    award_name = db.Column(db.String(128))
+    award_image = db.Column(db.String(256))
+    award_type = db.Column(db.Integer(1), default=1)
+    description = db.Column(db.Text())
+
+    def __repr__(self):
+        return '<Post %r>' % self.name
+
+
 class AwardRecord(db.Model):
+    """
+    这是领奖表，需要记录领奖记录id，奖品id，用户id，领奖人姓名，领奖人手机，是否领奖，领奖时间
+    如果奖品是实物，走快递，还要收货地址，发货单，是否发货，发货时间；
+        走的是线下取货，需要用户的
+    如果奖品是虚拟的，还要链接
+    """
     __tablename__ = "awardrecord"
     record_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     award_id = db.Column(db.Integer(), db.ForeignKey('award.award_id'))
     user_id = db.Column(db.Integer(), db.ForeignKey("user.user_id"))
-    receiver = db.Column(db.String(64))
+    receiver = db.Column(db.String(16))
     phone = db.Column(db.String(11))
+    city = db.Column(db.String(32))
     checked = db.Column(db.Boolean(), default=False)
     check_time = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -45,15 +65,9 @@ class UserInfo(db.Model):
     nickName = db.Column(db.String(32))
     province = db.Column(db.String(32))
 
-class RankingList(db.Model):
-    __tablename__ = "rankinglist"
-    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
-    follow_number = db.Column(db.Integer)
-
 
 class User(db.Model):
     __tablename__ = "user"
-    # oy08L0Zmm6pSjsfj6H0K9hbTC0zM
     user_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     open_id = db.Column(db.String(28), unique=True, index=True)
     union_id = db.Column(db.String(28), unique=True, index=True)
@@ -61,6 +75,7 @@ class User(db.Model):
     login_time = db.Column(db.DateTime, default=datetime.utcnow)
     session_id = db.Column(db.String(40))
     session_id_expire_time = db.Column(db.DateTime)
+    can_raffle = db.Column(db.Boolean(), default=False)
     # user关注的人
     followed = db.relationship('Follow', foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),
@@ -72,12 +87,14 @@ class User(db.Model):
     awardrecord_user_id = db.relationship('AwardRecord', foreign_keys=[AwardRecord.user_id],
                                           backref=db.backref('sender', lazy='joined'),
                                           lazy='dynamic', cascade='all, delete-orphan')
-    photograph_user_id = db.relationship('Photograph', foreign_keys=[Photograph.user_id],
-                                         backref=db.backref('owner', lazy='joined'),
-                                         lazy='dynamic', cascade='all, delete-orphan')
+    composition_user_id = db.relationship('Composition', foreign_keys=[Composition.user_id],
+                                          backref=db.backref('owner', lazy='joined'),
+                                          lazy='dynamic', cascade='all, delete-orphan')
+    '''
     rankinglist_user_id = db.relationship('RankingList', foreign_keys=[RankingList.user_id],
                                           backref=db.backref('owner', lazy='joined'),
                                           lazy='dynamic', cascade='all, delete-orphan')
+    '''
 
     def follow(self, user):
         if not self.is_following(user):
@@ -93,14 +110,5 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.nickName
 
-
-class Award(db.Model):
-    __tablename__ = "award"
-    award_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    award_name = db.Column(db.String(128))
-    description = db.Column(db.Text())
-
-    def __repr__(self):
-        return '<Post %r>' % self.name
 
 

@@ -15,6 +15,8 @@ class Config(object):
     APPLICATION_SECRET = b'hard to guess'
     # folder maintains uploaded file
     UPLOAD_FOLDER = basedir + '/app/static/compositions/'
+    # image prefix
+    COMPOSITION_PREFIX = 'https://bugaboo.drivetogreen.com/static/images/'
     # folder maintains out file
     OUT_FOLDER = basedir + '/files/out/'
     # max size of uploaded file
