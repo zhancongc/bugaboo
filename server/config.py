@@ -11,6 +11,8 @@ class Config(object):
     CSRF_ENABLED = True
     # mini program's
     APP_ID = 'wxc2de3e2ed4435707'
+    # application secret
+    APPLICATION_SECRET = b'hard to guess'
     # folder maintains uploaded file
     UPLOAD_FOLDER = basedir + '/app/static/compositions/'
     # folder maintains out file
