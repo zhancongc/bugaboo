@@ -8,7 +8,7 @@ class Follow(db.Model):
     followed_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), primary_key=True)
     # 被关注者
     follower_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), primary_key=True)
-    follow_time = db.Column(db.DateTime(), default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
 
 
 class Composition(db.Model):
@@ -16,8 +16,10 @@ class Composition(db.Model):
     composition_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
     composition_type = db.Column(db.Boolean(), default=False)
+    composition_angle = db.Column(db.Integer(), default=0)
     composition_name = db.Column(db.String(64))
     composition_url = db.Column(db.String(512))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<Post %r>' % self.title
@@ -25,12 +27,16 @@ class Composition(db.Model):
 
 class Award(db.Model):
     __tablename__ = "award"
-    # 这是一个静态表，里面配置了奖品信息
+    """
+    静态表，奖品信息
+        实物：笔记本（30）、保温杯（50）、背包（70）。
+        天猫券：2000-200（50)，1000-100（100），500-50（200）
+    """
     award_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     award_name = db.Column(db.String(128))
     award_image = db.Column(db.String(256))
-    award_type = db.Column(db.Integer(1), default=1)
-    description = db.Column(db.Text())
+    award_type = db.Column(db.Integer, default=1)
+    award_description = db.Column(db.Text())
 
     def __repr__(self):
         return '<Post %r>' % self.name
@@ -38,10 +44,10 @@ class Award(db.Model):
 
 class AwardRecord(db.Model):
     """
-    这是领奖表，需要记录领奖记录id，奖品id，用户id，领奖人姓名，领奖人手机，是否领奖，领奖时间
-    如果奖品是实物，走快递，还要收货地址，发货单，是否发货，发货时间；
-        走的是线下取货，需要用户的
-    如果奖品是虚拟的，还要链接
+    动态表，领奖表：领奖记录id，奖品id，用户id，领奖人姓名，领奖人手机，是否领奖，领奖时间
+    如果奖品是实物，走快递，awardrecord_type = 1还要收货地址，发货单，是否发货，发货时间； receiver表
+    如果走的是线下取货，awardrecord_type = 2 需要门店城市，门店名称，门店详细地址；store表
+    如果奖品是天猫优惠券，awardrecord_type = 3；
     """
     __tablename__ = "awardrecord"
     record_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
@@ -49,12 +55,39 @@ class AwardRecord(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey("user.user_id"))
     receiver = db.Column(db.String(16))
     phone = db.Column(db.String(11))
-    city = db.Column(db.String(32))
     checked = db.Column(db.Boolean(), default=False)
     check_time = db.Column(db.DateTime, default=datetime.utcnow)
+    awardrecord_type = db.Column(db.Integer())
+    detail_id = db.Column(db.Integer)
+
+
+class Receiver(db.Model):
+    """
+    动态表，收货人信息，receiver_id连接了detail_id
+    """
+    __tablename__ = 'receiver'
+    receiver_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    receiver_address = db.Column(db.String(64))
+    is_dispatched = db.Column(db.Boolean, default=False)
+    dispatch_bill = db.Column(db.String(18))
+    dispatch_time = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+class Store(db.Model):
+    """
+    静态表，所有门店信息，门店名称，城市，详细地址, store_id连接了store_id
+    """
+    __tablename__ = "store"
+    store_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    store_name = db.Column(db.String(128))
+    store_city = db.Column(db.String(32))
+    store_address = db.Column(db.String(256))
 
 
 class UserInfo(db.Model):
+    """
+    动态表，用户信息表，微信开放信息
+    """
     __tablename__ = "userinfo"
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
     avatarUrl = db.Column(db.String(128))
@@ -67,6 +100,9 @@ class UserInfo(db.Model):
 
 
 class User(db.Model):
+    """
+    动态表，用户表，包含登录信息，助力信息，领奖信息，作品信息
+    """
     __tablename__ = "user"
     user_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     open_id = db.Column(db.String(28), unique=True, index=True)
@@ -90,11 +126,6 @@ class User(db.Model):
     composition_user_id = db.relationship('Composition', foreign_keys=[Composition.user_id],
                                           backref=db.backref('owner', lazy='joined'),
                                           lazy='dynamic', cascade='all, delete-orphan')
-    '''
-    rankinglist_user_id = db.relationship('RankingList', foreign_keys=[RankingList.user_id],
-                                          backref=db.backref('owner', lazy='joined'),
-                                          lazy='dynamic', cascade='all, delete-orphan')
-    '''
 
     def follow(self, user):
         if not self.is_following(user):
@@ -108,7 +139,7 @@ class User(db.Model):
         return self.followers.filter_by(follower_id=user.user_id).first() is not None
 
     def __repr__(self):
-        return '<User %r>' % self.nickName
+        return '<User %r>' % self.user_id
 
 
 
