@@ -147,9 +147,6 @@ Page({
         if (res.confirm) {
           console.log('用户点击确定');
           that.uploadComposition()
-          wx.navigateTo({
-            url: 'pages/preview/preview?composition_id='+that.data.compositionId,
-          })
         } else if (res.cancel) {
           console.log('用户点击取消');
         }
@@ -165,7 +162,7 @@ Page({
       duration: 3000
     });
     var session_id = wx.getStorageSync('session_id');
-    console.log('session_id');
+    console.log(session_id);
     if (session_id) {
       wx.uploadFile({
         url: 'https://bugaboo.drivetogreen.com/user/composition/upload',
@@ -182,19 +179,28 @@ Page({
         success: function (res) {
           wx.hideToast();
           try {
-            var response = JSON.parse(res.data);
+            var response = res.data;
             console.log(response);
             if (response.constructor === Object) {
               if (response.state) {
                 wx.showToast({
                   title: '上传成功',
+                  icon: 'success',
+                  mask: true,
+                  duration: 1500
                 });
                 that.setData({
                   compositionId: response.data.composition_id,
                 })
+                wx.navigateTo({
+                  url: 'pages/preview/preview?composition_id=' + that.data.compositionId,
+                })
               } else {
                 wx.showToast({
                   title: '上传失败',
+                  icon: 'none',
+                  mask: true,
+                  duration: 1500
                 })
               }
             }

@@ -261,8 +261,7 @@ def user_composition_upload(temp_user):
         logging(json.dumps(res))
         return jsonify(res)
     # 保存图片到本地
-    user_info = UserInfo.query.filter_by(user_id=temp_user.user_id).first()
-    filename = str(int(time.mktime(time.gmtime()))) + '_' + user_info.nickName + '.' + img.filename.split('.')[-1]
+    filename = str(int(time.mktime(time.gmtime()))) + '_' + img.filename
     file_path = configs['development'].UPLOAD_FOLDER + filename
     try:
         img.save(file_path)

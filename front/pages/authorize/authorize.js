@@ -17,8 +17,44 @@ Page({
       success: res => {
         // 可以将 res 发送给后台解码出 unionId
         wx.setStorageSync('userInfo', res.userInfo);
-        wx.setStorageSync('encryptedData', res.encryptedData);
-        wx.setStorageSync('iv', res.iv);
+        var session_id = wx.getStorageSync('session_id');
+        wx.request({
+          url: 'https://bugaboo.drivetogreen.com/user/info/upload',
+          method: 'post',
+          data: {
+            avatarUrl: res.userInfo.avatarUrl,
+            city: res.userInfo.city,
+            country: res.userInfo.country,
+            gender: res.userInfo.gender,
+            language: res.userInfo.language,
+            nickName: res.userInfo.nickName,
+            province: res.userInfo.province
+          },
+          header: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Session-Id': session_id
+          },
+          success: function (res) {
+            try {
+              var response = res.data;
+              console.log(response);
+              if (response.constructor === Object) {
+                if (response.state) {
+                  console.log(response.msg);
+                } else {
+                  console.log(response.msg)
+                }
+              }
+            } catch (e) {
+              console.log(e);
+            }
+          },
+          fail: function (res) {
+            wx.showToast({
+              title: '请稍后重新打开小程序再试',
+            })
+          }
+        })
         wx.navigateTo({
           url: '/pages/index/index',
         })

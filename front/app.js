@@ -38,7 +38,10 @@ App({
                     })
                   } else {
                     wx.showToast({
-                      title: response.msg,
+                      title: '微信登陆失败',
+                      duration: 1500,
+                      mask: true,
+                      icon: 'none'
                     })
                   }
                 }

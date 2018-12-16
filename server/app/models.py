@@ -92,7 +92,7 @@ class UserInfo(db.Model):
     """
     __tablename__ = "userinfo"
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True, nullable=True)
-    avatarUrl = db.Column(db.String(128))
+    avatarUrl = db.Column(db.String(512))
     city = db.Column(db.String(32))
     country = db.Column(db.String(32))
     gender = db.Column(db.Boolean())
