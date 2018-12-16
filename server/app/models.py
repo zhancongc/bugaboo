@@ -28,7 +28,7 @@ class Composition(db.Model):
 class Award(db.Model):
     __tablename__ = "award"
     """
-    静态表，奖品信息
+    静态表，奖品信息 award_type: 默认为1（实物)，优惠券是3
         实物：笔记本（30）、保温杯（50）、背包（70）。
         天猫券：2000-200（50)，1000-100（100），500-50（200）
     """
@@ -37,6 +37,7 @@ class Award(db.Model):
     award_image = db.Column(db.String(256))
     award_type = db.Column(db.Integer, default=1)
     award_description = db.Column(db.Text())
+    award_url = db.Column(db.String(512))
 
     def __repr__(self):
         return '<Post %r>' % self.name
@@ -50,24 +51,25 @@ class AwardRecord(db.Model):
     如果奖品是天猫优惠券，awardrecord_type = 3；
     """
     __tablename__ = "awardrecord"
-    record_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    award_id = db.Column(db.Integer(), db.ForeignKey('award.award_id'))
+    awardrecord_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    award_id = db.Column(db.Integer(), db.ForeignKey('award.award_id'), unique=True)
     user_id = db.Column(db.Integer(), db.ForeignKey("user.user_id"))
+    awardrecord_type = db.Column(db.Integer())
+    detail_id = db.Column(db.Integer)
     receiver = db.Column(db.String(16))
     phone = db.Column(db.String(11))
     checked = db.Column(db.Boolean(), default=False)
     check_time = db.Column(db.DateTime, default=datetime.utcnow)
-    awardrecord_type = db.Column(db.Integer())
-    detail_id = db.Column(db.Integer)
 
 
-class Receiver(db.Model):
+class Express(db.Model):
     """
     动态表，收货人信息，receiver_id连接了detail_id
     """
-    __tablename__ = 'receiver'
-    receiver_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    receiver_address = db.Column(db.String(64))
+    __tablename__ = 'express'
+    express_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    awardrecord_id = db.Column(db.Integer, db.ForeignKey('awardrecord.awardrecord_id'))
+    address = db.Column(db.String(64))
     is_dispatched = db.Column(db.Boolean, default=False)
     dispatch_bill = db.Column(db.String(18))
     dispatch_time = db.Column(db.DateTime, default=datetime.utcnow)
