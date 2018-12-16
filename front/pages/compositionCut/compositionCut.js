@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    session_id: '',
     compositionId : 0,
     compositionUrl: '',
     compositionType: 0,
@@ -22,6 +23,19 @@ Page({
  * 生命周期函数--监听页面加载
  */
   onLoad: function (options) {
+    /*
+    var that = this;
+    var session_id = wx.getStorageSync('session_id');
+    wx.getStorage({
+      key: 'session_id',
+      success: function(res) {
+        console.log(res.data);
+        that.setData({
+          'session_id': session_id
+        })
+      },
+    })
+    */
     var tempComposition = JSON.parse(options.tempComposition);
     this.setData({
       compositionUrl: tempComposition.compositionUrl,
@@ -55,7 +69,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
   },
 
   /**
@@ -151,7 +164,8 @@ Page({
       mask: true,
       duration: 3000
     });
-    var sessoin_id = wx.getStorageSync('session_id');
+    var session_id = wx.getStorageSync('session_id');
+    console.log('session_id');
     if (session_id) {
       wx.uploadFile({
         url: 'https://bugaboo.drivetogreen.com/user/composition/upload',

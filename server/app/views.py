@@ -72,7 +72,7 @@ def login_required(func):
             })
             return jsonify(res)
         current = datetime.datetime.utcnow()
-        expire = datetime.datetime.strptime(user.session_id_expire_time, configs['development'].STRFTIME_FORMAT)
+        expire = user.session_id_expire_time
         if current > expire:
             res.update({
                 'state': 0,
@@ -237,6 +237,7 @@ def user_composition_upload(temp_user):
             'state': 0,
             'msg': 'incomplete data'
         })
+        logging(json.dumps(res))
         return jsonify(res)
     # 验证上传的图片
     img = request.files.get('composition')
@@ -257,6 +258,7 @@ def user_composition_upload(temp_user):
             'state': 0,
             'msg': 'No selected file'
         })
+        logging(json.dumps(res))
         return jsonify(res)
     # 保存图片到本地
     user_info = UserInfo.query.filter_by(user_id=temp_user.user_id).first()
@@ -264,12 +266,12 @@ def user_composition_upload(temp_user):
     file_path = configs['development'].UPLOAD_FOLDER + filename
     try:
         img.save(file_path)
-    except Exception as e:
+    except Exception:
         res.update({
             'state': 0,
             'msg': 'Error occurred while saving file'
         })
-        print(e)
+        logging(json.dumps(res))
         return jsonify(res)
     composition_url = configs['development'].COMPOSITION_PREFIX + filename
     # 保存到数据库
@@ -284,6 +286,7 @@ def user_composition_upload(temp_user):
             'state': 0,
             'msg': 'write to database error'
         })
+        logging(json.dumps(res))
         return jsonify(res)
     # 返回图片信息
     image = dict()
@@ -301,6 +304,7 @@ def user_composition_upload(temp_user):
         'msg': 'success',
         'data': image
     })
+    logging(json.dumps(res))
     return jsonify(res)
 
 

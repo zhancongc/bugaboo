@@ -34,7 +34,7 @@ class Config(object):
 
 
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:security@localhost:3306/bugaboo?charset=utf8mb4'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:security@localhost:3306/bugaboo_dev?charset=utf8mb4'
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_MAX_OVERFLOW = 100

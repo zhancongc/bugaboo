@@ -1,4 +1,4 @@
-// pages/.js
+// pages/award/award.js
 Page({
 
   /**

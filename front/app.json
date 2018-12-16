@@ -6,7 +6,9 @@
     "pages/compositionCut/compositionCut",
     "pages/preview/preview",
     "pages/rankinglist/rankinglist",
-    "pages/"
+    "pages/raffle/raffle",
+    "pages/awardlist/awardlist",
+    "pages/award/award"
   ],
   "window":{
     "backgroundTextStyle":"light",
