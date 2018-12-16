@@ -8,6 +8,12 @@ from config import configs
 from functools import wraps
 
 
+def logging(msg):
+    with open('log.txt', 'a') as fp:
+        fp.write(datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S') + msg + '\n')
+    print(msg)
+
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in configs['development'].PICTURE_ALLOWED_EXTENSIONS
 
@@ -98,6 +104,7 @@ def user_login():
             'state': 0,
             'msg': 'None code'
         })
+        logging(jsonify(res))
         return jsonify(res)
     try:
         wx = wxlogin(code)
@@ -106,6 +113,7 @@ def user_login():
             'state': 0,
             'msg': 'weixin login error'
         })
+        logging(jsonify(res))
         return jsonify(res)
     open_id = wx.get('openid')
     union_id = wx.get('unionid')
@@ -115,6 +123,7 @@ def user_login():
             'state': 0,
             'msg': 'open_id, union_id, session_key non existed'
         })
+        logging(jsonify(res))
         return jsonify(res)
     # 计算session_id
     session_id = get_sha1(session_key)
@@ -143,12 +152,14 @@ def user_login():
             'state': 0,
             'msg': 'write to database error'
         })
+        logging(jsonify(res))
         return jsonify(res)
     res.update({
         'state': 1,
         'msg': 'success',
         'data': session_id
     })
+    logging(jsonify(res))
     return jsonify(res)
 
 

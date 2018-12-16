@@ -27,9 +27,9 @@ App({
               'Content-Type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
+              console.log(response);
               try {
                 var response = JSON.parse(res.data);
-                console.log(response);
                 if (response.constructor === Object){
                   if (response.state) {
                     wx.setStorage({
