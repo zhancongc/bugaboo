@@ -231,15 +231,16 @@ def user_composition_upload(temp_user):
     res = dict()
     # 检查作品类型
     composition_type = request.values.get('composition_type')
-    if not composition_type:
+    composition_angle = request.values.get('composition_angle')
+    if composition_type is None or composition_angle is None:
         res.update({
             'state': 0,
-            'msg': 'None composition type'
+            'msg': 'incomplete data'
         })
         return jsonify(res)
     # 验证上传的图片
     img = request.files.get('composition')
-    if not img:
+    if img is None:
         res.update({
             'state': 0,
             'msg': 'None file'
@@ -270,18 +271,12 @@ def user_composition_upload(temp_user):
         })
         print(e)
         return jsonify(res)
-    # 返回图片信息
-    image = dict()
-    image.update({
-        'name': filename,
-        'date': datetime.datetime.utcnow().strftime(configs['development'].STRFTIME_FORMAT),
-        'composition_url': configs['development'].COMPOSITION_PREFIX + filename
-    })
+    composition_url = configs['development'].COMPOSITION_PREFIX + filename
     # 保存到数据库
     try:
         composition = Composition(user_id=temp_user.user_id, composition_type=composition_type,
-                                  composition_angle=composition_type, composition_name=filename,
-                                  composition_url=image['composition_url'])
+                                  composition_angle=composition_angle, composition_name=filename,
+                                  composition_url=composition_url)
         db.session.add(composition)
         db.session.commit()
     except Exception:
@@ -290,6 +285,17 @@ def user_composition_upload(temp_user):
             'msg': 'write to database error'
         })
         return jsonify(res)
+    # 返回图片信息
+    image = dict()
+    composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
+    image.update({
+        'composition_id': composition.composition_id,
+        'composition_name': composition.composition_name,
+        'composition_url': composition.composition_url,
+        'composition_angle': composition.composition_angle,
+        'composition_type': composition.composition_type,
+        'timestamp': composition.timestamp
+    })
     res.update({
         'state': 1,
         'msg': 'success',

@@ -5,7 +5,8 @@
     "pages/composition/composition",
     "pages/compositionCut/compositionCut",
     "pages/preview/preview",
-    "pages/rankinglist/rankinglist"
+    "pages/rankinglist/rankinglist",
+    "pages/"
   ],
   "window":{
     "backgroundTextStyle":"light",
