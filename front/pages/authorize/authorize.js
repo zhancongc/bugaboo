@@ -43,7 +43,8 @@ Page({
           }
         }
       })
-      } else {//如果已经授权过直接登录
+      } else {
+        //如果已经授权过直接登录
         this.saveUserInfo()
       }
     },

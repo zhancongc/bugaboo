@@ -71,61 +71,72 @@ Page({
       mask: true,
       duration: 3000
     });
-    console
-    wx.uploadFile({
-      url: 'https://bugaboo.drivetogreen.com/upload',
-      filePath: that.data.compositionUrl,
-      name: 'composition',
-      header: {'Content-Type': 'multipart/form-data'},
-      formData: {
-        photographType: that.data.gameGroupIndex
-      },
-      success: function (res) {
-        wx.hideToast();
-        try {
-          var response = JSON.parse(res.data);
-          console.log('成功返回消息！！！');
-          console.log(response);
-          if (response.constructor === Object && response.state === 1) {
-            wx.showToast({
-              title: '上传成功',
-            });
-            that.setData({
-              photographId: response.data.composition_id
-            })
+    var sessoin_id = wx.getStorageSync('session_id');
+    if (session_id) {
+      wx.uploadFile({
+        url: 'https://bugaboo.drivetogreen.com/user/composition/upload',
+        filePath: that.data.compositionUrl,
+        name: 'composition',
+        header: {
+          'Content-Type': 'multipart/form-data',
+          'Session-Id': session_id,
+        },
+        formData: {
+          session_id: sessoin_id,
+          photographType: that.data.gameGroupIndex
+        },
+        success: function (res) {
+          wx.hideToast();
+          try {
+            var response = JSON.parse(res.data);
+            console.log(response);
+            if (response.constructor === Object) {
+              if (response.state) {
+                wx.showToast({
+                  title: '上传成功',
+                });
+                that.setData({
+                  photographId: response.data.composition_id
+                })
+              } else {
+                wx.showToast({
+                  title: '上传失败',
+                })
+              }
+            }
           }
-          else {
-            wx.showToast({
-              title: '上传失败',
-            })
+          catch (e) {
+            console.log(e);
           }
-        }
-        catch (e) {
-          console.log(e);
-        }
-        /*
-        var composition = {
-        compositionUrl: this.data.compositionUrl,
-        compositionType: this.data.compositionType,
-        compositionAngle: this.data.compositionAngle
-      };
-      wx.navigateTo({
-        url: '/pages/preview/preview?composition=' + JSON.stringify(composition)
-      })
+          /*
+          var composition = {
+          compositionUrl: this.data.compositionUrl,
+          compositionType: this.data.compositionType,
+          compositionAngle: this.data.compositionAngle
+        };
         wx.navigateTo({
-          url: '/pages/preview/preview?user_id=' + that.data.user_id + '&composition_id=' + this.data.composition_id,
+          url: '/pages/preview/preview?composition=' + JSON.stringify(composition)
         })
-        ?*/
-      },
-      fail: function (res) {
-        wx.hideToast();
-        wx.showToast({
-          title: '上传失败',
-          duration: 1000
-        })
-      },
-      complete: function (res) { },
-    })
+          wx.navigateTo({
+            url: '/pages/preview/preview?user_id=' + that.data.user_id + '&composition_id=' + this.data.composition_id,
+          })
+          ?*/
+        },
+        fail: function (res) {
+          wx.hideToast();
+          wx.showToast({
+            title: '上传失败',
+            duration: 1000
+          })
+        },
+        complete: function (res) { },
+      })
+    } else {
+      wx.showToast({
+        title: '请重新打开小程序再试'
+      })
+    }
+
   },
   /**
    * 生命周期函数--监听页面加载

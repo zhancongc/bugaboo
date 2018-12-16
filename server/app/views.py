@@ -50,7 +50,7 @@ def login_required(func):
     @wraps(func)
     def authenticate(*args, **kwargs):
         res = dict()
-        session_id = request.headers.get('session_id')
+        session_id = request.headers.get('Session-Id')
         if not session_id:
             res.update({
                 'state': 0,
@@ -157,7 +157,7 @@ def user_login():
 def user_info_upload(temp_user):
     """
     :function: 上传用户信息，最关键的是 nickName, avatarUrl 排行榜会用到
-    session_key, avatarUrl, city, country, gender, language, nickName, province
+        avatarUrl, city, country, gender, language, nickName, province
     :return:
     """
     res = dict()
@@ -318,7 +318,7 @@ def rankinglist(temp_user):
 @login_required
 def user_follow(temp_user):
     """
-    :function: 帮人助力，author_id, temp_user.user_id
+    :function: 帮人助力，author_id
     :return: 助力成功
     """
     res = dict()
@@ -340,11 +340,11 @@ def user_follow(temp_user):
     return jsonify(res)
 
 
-@app.route('/raffle', methods=['POST'])
+@app.route('/raffle', methods=['GET'])
 @login_required
 def raffle(temp_user):
     """
-    :function: 抽奖接口 session_id
+    :function: 抽奖接口
     :return: 抽奖信息
     """
     res = dict()
@@ -379,12 +379,12 @@ def raffle(temp_user):
     return jsonify(res)
 
 
-@app.route('/user/award/list', methods=['POST'])
+@app.route('/user/award/list', methods=['GET'])
 @login_required
 def user_award_list(temp_user):
     """
-    :function: 获取我的奖品列表 session_id
-    :return: 返回所有奖品 data = [{awardrecord_id}]
+    :function: 获取我的奖品列表
+    :return: 返回所有奖品
     """
     res = dict()
     # 获取所有奖励
@@ -429,7 +429,7 @@ def user_award_list(temp_user):
 @login_required
 def user_award(temp_user):
     """
-    :function: 获取奖品以及收货信息 session_id
+    :function: 获取奖品以及收货信息 awardrecord_id
     :return:
     """
     res = dict()
@@ -506,7 +506,7 @@ def user_award(temp_user):
 @login_required
 def user_award_express(temp_user):
     """
-    :function: 上传奖品以及收货信息
+    :function: 上传奖品以及收货信息 awardrecord_id, express_type, receiver, phone, address, store_id
     :return:
     """
     res = dict()

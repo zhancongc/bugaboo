@@ -18,7 +18,6 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log(res.code);
-        /*
         if (res.code) {
           wx.request({
             url: 'https://bugaboo.drivetogreen.com/login',
@@ -28,16 +27,34 @@ App({
               'Content-Type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
-              console.log(res.data);
-              var sessionId = wx.getStorageSync('sessionId')
-              sessionId = res.data.sessionId;
-              wx.setStorageSync('sessionId', sessionId);
+              try {
+                var response = JSON.parse(res.data);
+                console.log(response);
+                if (response.constructor === Object){
+                  if (response.state) {
+                    wx.setStorage({
+                      key: 'session_id',
+                      data: response.session_id,
+                    })
+                  } else {
+                    wx.showToast({
+                      title: response.msg,
+                    })
+                  }
+                }
+              } catch (e) {
+                console.log(e);
+              }
+            },
+            fail: function (res) {
+              wx.showToast({
+                title: '请稍后重新打开小程序再试',
+              })
             }
           })
         } else {
           console.log('login failed: ' + res.errMsg)
         }
-        */
       }
     })
   },
