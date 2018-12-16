@@ -14,8 +14,8 @@ class Follow(db.Model):
 class Composition(db.Model):
     __tablename__ = "composition"
     composition_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'))
-    composition_type = db.Column(db.Boolean(), default=False)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), nullable=True)
+    composition_type = db.Column(db.Integer, default=False)
     composition_angle = db.Column(db.Integer(), default=0)
     composition_name = db.Column(db.String(64))
     composition_url = db.Column(db.String(512))
@@ -52,9 +52,9 @@ class AwardRecord(db.Model):
     """
     __tablename__ = "awardrecord"
     awardrecord_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    award_id = db.Column(db.Integer(), db.ForeignKey('award.award_id'), unique=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey("user.user_id"))
-    awardrecord_type = db.Column(db.Integer())
+    award_id = db.Column(db.Integer(), db.ForeignKey('award.award_id'), unique=True, nullable=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.user_id"), nullable=True)
+    awardrecord_type = db.Column(db.Integer(), nullable=True)
     detail_id = db.Column(db.Integer)
     receiver = db.Column(db.String(16))
     phone = db.Column(db.String(11))
@@ -68,7 +68,7 @@ class Express(db.Model):
     """
     __tablename__ = 'express'
     express_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    awardrecord_id = db.Column(db.Integer, db.ForeignKey('awardrecord.awardrecord_id'))
+    awardrecord_id = db.Column(db.Integer, db.ForeignKey('awardrecord.awardrecord_id'), nullable=True)
     address = db.Column(db.String(64))
     is_dispatched = db.Column(db.Boolean, default=False)
     dispatch_bill = db.Column(db.String(18))
@@ -107,12 +107,12 @@ class User(db.Model):
     """
     __tablename__ = "user"
     user_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    open_id = db.Column(db.String(28), unique=True, index=True)
-    union_id = db.Column(db.String(28), unique=True, index=True)
-    session_key = db.Column(db.String(24))
+    open_id = db.Column(db.String(28), unique=True, index=True, nullable=True)
+    union_id = db.Column(db.String(28), unique=True, index=True, nullable=True)
+    session_key = db.Column(db.String(24), nullable=True)
     login_time = db.Column(db.DateTime, default=datetime.utcnow)
-    session_id = db.Column(db.String(40))
-    session_id_expire_time = db.Column(db.DateTime)
+    session_id = db.Column(db.String(40), nullable=True)
+    session_id_expire_time = db.Column(db.DateTime, nullable=True)
     can_raffle = db.Column(db.Boolean(), default=False)
     # user关注的人
     followed = db.relationship('Follow', foreign_keys=[Follow.follower_id],
