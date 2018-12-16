@@ -27,14 +27,15 @@ App({
               'Content-Type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
-              console.log(response);
+              console.log(res.data);
               try {
-                var response = JSON.parse(res.data);
+                var response = res.data;
+                console.log(response);
                 if (response.constructor === Object){
                   if (response.state) {
                     wx.setStorage({
                       key: 'session_id',
-                      data: response.session_id,
+                      data: response.data,
                     })
                   } else {
                     wx.showToast({

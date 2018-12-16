@@ -1,6 +1,7 @@
 import json
 import requests
 import hashlib
+import datetime
 from app import app
 from config import configs
 
@@ -32,6 +33,7 @@ def get_sha1(value):
     """
     sh = hashlib.sha1()
     sh.update(value.encode())
+    sh.update(datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'))
     sh.update(configs['development'].APPLICATION_SECRET)
     return sh.hexdigest()
 
