@@ -1,4 +1,5 @@
 import time
+import json
 import datetime
 from app import app, db
 from flask import jsonify, request, render_template
@@ -104,7 +105,7 @@ def user_login():
             'state': 0,
             'msg': 'None code'
         })
-        logging(jsonify(res))
+        logging(json.dumps(res))
         return jsonify(res)
     try:
         wx = wxlogin(code)
@@ -113,7 +114,7 @@ def user_login():
             'state': 0,
             'msg': 'weixin login error'
         })
-        logging(jsonify(res))
+        logging(json.dumps(res))
         return jsonify(res)
     open_id = wx.get('openid')
     union_id = wx.get('unionid')
@@ -123,7 +124,7 @@ def user_login():
             'state': 0,
             'msg': 'open_id, union_id, session_key non existed'
         })
-        logging(jsonify(res))
+        logging(json.dumps(res))
         return jsonify(res)
     # 计算session_id
     session_id = get_sha1(session_key)
@@ -142,7 +143,7 @@ def user_login():
             db.session.add(temp_user)
         else:
             user = User(open_id=open_id, union_id=union_id, session_key=session_key,
-                        session_id=session_id, session_key_expire_time=session_id_expire_time)
+                        session_id=session_id, session_id_expire_time=session_id_expire_time)
             db.session.add(user)
             user_info = UserInfo(user_id=user.user_id)
             db.session.add(user_info)
@@ -152,14 +153,14 @@ def user_login():
             'state': 0,
             'msg': 'write to database error'
         })
-        logging(jsonify(res))
+        logging(json.dumps(res))
         return jsonify(res)
     res.update({
         'state': 1,
         'msg': 'success',
         'data': session_id
     })
-    logging(jsonify(res))
+    logging(json.dumps(res))
     return jsonify(res)
 
 
