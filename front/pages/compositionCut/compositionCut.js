@@ -82,7 +82,6 @@ Page({
           'Session-Id': session_id,
         },
         formData: {
-          session_id: sessoin_id,
           photographType: that.data.gameGroupIndex
         },
         success: function (res) {

@@ -117,7 +117,7 @@ def user_login():
         })
         return jsonify(res)
     # 计算session_id
-    session_id = get_sha1(session_key.encode())
+    session_id = get_sha1(session_key)
     current_time = datetime.datetime.utcnow()
     login_time = current_time.strftime(configs['development'].STRFTIME_FORMAT)
     session_id_expire_time = (current_time + datetime.timedelta(minutes=30)).strftime(

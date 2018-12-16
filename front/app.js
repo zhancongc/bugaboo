@@ -20,7 +20,7 @@ App({
         console.log(res.code);
         if (res.code) {
           wx.request({
-            url: 'https://bugaboo.drivetogreen.com/login',
+            url: 'https://bugaboo.drivetogreen.com/user/login',
             method: 'post',
             data: { code: res.code },
             header: {
