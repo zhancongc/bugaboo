@@ -91,7 +91,7 @@ class UserInfo(db.Model):
     动态表，用户信息表，微信开放信息
     """
     __tablename__ = "userinfo"
-    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True, nullable=True)
     avatarUrl = db.Column(db.String(128))
     city = db.Column(db.String(32))
     country = db.Column(db.String(32))

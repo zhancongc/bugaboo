@@ -145,8 +145,6 @@ def user_login():
             user = User(open_id=open_id, union_id=union_id, session_key=session_key,
                         session_id=session_id, session_id_expire_time=session_id_expire_time)
             db.session.add(user)
-            user_info = UserInfo(user_id=user.user_id)
-            db.session.add(user_info)
         db.session.commit()
     except Exception:
         res.update({
@@ -173,12 +171,40 @@ def user_info_upload(temp_user):
     :return:
     """
     res = dict()
+    avatarUrl = request.values.get('avatarUrl')
+    city = request.values.get('city')
+    country = request.values.get('country')
+    gender = request.values.get('gender')
+    language = request.values.get('language')
+    nickName = request.values.get('nickName')
+    province = request.values.get('province')
+    if avatarUrl is None or city is None or country is None or gender is None or language is None or nickName is None or province is None:
+        res.update({
+            'state': 0,
+            'msg': 'incomplete data'
+        })
+        return jsonify(res)
     # 将用户信息写入数据库
+    user_info_list = UserInfo.query.filter_by(user_id=temp_user.user_id).all()
     try:
-        user_info = UserInfo(user_id=temp_user.user_id, avatarUrl=request.values.get('avatarUrl'),
-                             city=request.values.get('city'), country=request.values.get('country'),
-                             gender=request.values.get('gender'), language=request.values.get('language'),
-                             nickName=request.values.get('nickName'), province=request.values.get('province'))
+        if len(user_info_list) == 0:
+            user_info = UserInfo(user_id=temp_user.user_id, avatarUrl=avatarUrl, city=city, country=country,
+                                 gender=gender, language=language, nickName=nickName, province=province)
+        elif len(user_info_list) == 1:
+            user_info= user_info_list[0]
+            user_info.avatarUrl = avatarUrl
+            user_info.city = city
+            user_info.country = country
+            user_info.gender = gender
+            user_info.language = language
+            user_info.nickName = nickName
+            user_info.province = province
+        else:
+            res.update({
+                'state': 0,
+                'msg': 'save data to database error'
+            })
+            return jsonify(res)
         db.session.add(user_info)
         db.session.commit()
     except Exception:
@@ -187,6 +213,7 @@ def user_info_upload(temp_user):
             'msg': 'save data to database error'
         })
         return jsonify(res)
+
     res.update({
         'state': 1,
         'msg': 'success'
