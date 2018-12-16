@@ -27,7 +27,6 @@ App({
               'Content-Type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
-              console.log(res.data);
               try {
                 var response = res.data;
                 console.log(response);
