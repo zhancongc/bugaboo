@@ -109,7 +109,8 @@ def user_login():
         return jsonify(res)
     try:
         wx = wxlogin(code)
-    except Exception:
+    except Exception as e:
+        print(e)
         res.update({
             'state': 0,
             'msg': 'weixin login error'
@@ -146,7 +147,8 @@ def user_login():
                         session_id=session_id, session_id_expire_time=session_id_expire_time)
             db.session.add(user)
         db.session.commit()
-    except Exception:
+    except Exception as e:
+        print(e)
         res.update({
             'state': 0,
             'msg': 'write to database error'
@@ -207,7 +209,8 @@ def user_info_upload(temp_user):
             return jsonify(res)
         db.session.add(user_info)
         db.session.commit()
-    except Exception:
+    except Exception as e:
+        print(e)
         res.update({
             'state': 0,
             'msg': 'save data to database error'
@@ -265,7 +268,8 @@ def user_composition_upload(temp_user):
     file_path = configs['development'].UPLOAD_FOLDER + filename
     try:
         img.save(file_path)
-    except Exception:
+    except Exception as e:
+        print(e)
         res.update({
             'state': 0,
             'msg': 'Error occurred while saving file'
@@ -280,7 +284,8 @@ def user_composition_upload(temp_user):
                                   composition_url=composition_url)
         db.session.add(composition)
         db.session.commit()
-    except Exception:
+    except Exception as e:
+        print(e)
         res.update({
             'state': 0,
             'msg': 'write to database error'
@@ -404,7 +409,8 @@ def raffle(temp_user):
         awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id)
         db.session.add(awardrecord)
         db.session.commit()
-    except Exception:
+    except Exception as e:
+        print(e)
         res.update({
             'state': 0,
             'msg': 'write to database error'
@@ -602,7 +608,8 @@ def user_award_express(temp_user):
             awardrecord.detail_id = Store.query.filter_by(store_id=store_id).first()
         db.session.add(awardrecord)
         db.session.commit()
-    except Exception:
+    except Exception as e:
+        print(e)
         res.update({
             'state': 0,
             'msg': 'write to database error'
