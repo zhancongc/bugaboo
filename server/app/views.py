@@ -301,7 +301,7 @@ def user_composition_upload(temp_user):
         'composition_url': composition.composition_url,
         'composition_angle': composition.composition_angle,
         'composition_type': composition.composition_type,
-        'timestamp': composition.timestamp
+        'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
     })
     res.update({
         'state': 1,
@@ -341,7 +341,8 @@ def user_composition(temp_user):
         'composition_type': temp_composition.composition_type,
         'composition_angle': temp_composition.composition_angle,
         'composition_name': temp_composition.composition_name,
-        'composition_url': temp_composition.composition_url
+        'composition_url': temp_composition.composition_url,
+        'timestamp': temp_composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
     })
     res.update({
         'state': 1,
@@ -458,7 +459,7 @@ def user_award_list(temp_user):
             'award_id': temp.award_id,
             'user_id': temp.user_id,
             'checked': temp.checked,
-            'check_time': temp.check_time,
+            'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M:%S'),
             'detail_id': temp.detail_id,
             'awardrecord_type': temp.award_record_type
         })
@@ -517,7 +518,7 @@ def user_award(temp_user):
         'receiver': awardrecord.receiver,
         'phone': awardrecord.phone,
         'checked': awardrecord.checked,
-        'check_time': awardrecord.check_time,
+        'check_time': awardrecord.check_time.strftime('%Y-%m-%d %H:%M:%S'),
         'detail_id': awardrecord.detail_id,
         'awardrecord_type': awardrecord.award_record_type
     })
