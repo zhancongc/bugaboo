@@ -94,7 +94,7 @@ class UserInfo(db.Model):
     avatarUrl = db.Column(db.String(512))
     city = db.Column(db.String(32))
     country = db.Column(db.String(32))
-    gender = db.Column(db.Boolean())
+    gender = db.Column(db.Integer())
     language = db.Column(db.String(8))
     nickName = db.Column(db.String(32))
     province = db.Column(db.String(32))
