@@ -1,3 +1,10 @@
+"""
+Project     : bugaboo
+Filename    : config.py
+Author      : zhancongc
+Description : 配置文件
+"""
+
 import os
 
 # current directory

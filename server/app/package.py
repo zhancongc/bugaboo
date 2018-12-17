@@ -1,3 +1,10 @@
+"""
+Project     : bugaboo
+Filename    : package.py
+Author      : zhancongc
+Description : 支持views路由函数的库函数
+"""
+
 import json
 import requests
 import hashlib

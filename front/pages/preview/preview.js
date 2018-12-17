@@ -7,9 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userId: '',
     nickName: '',
     avatarUrl: '',
-    user_id: '',
     composition_id: 0,
     compositionUrl: '',
     compositionType: 0,
@@ -33,36 +33,52 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 自己生成的用本地储存，看别人的用服务端请求
-    var userInfo = wx.getStorageSync('userInfo');
-    console.log(userInfo);
-    /*
+    // 向服务端请求别人的nickName,avatarUrl,composition_id
     if (options.hasOwnProperty('composition_id')) {
       ;
     } else {
       wx.request({
-        url: 'https://bugaboo.drivetogreen.com/',
-        method: 'get',
+        url: 'https://bugaboo.drivetogreen.com/user/composition',
+        method: 'post',
         header: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
+        data: {
+          composition_id: options.composition_id
+        },
         success: function (res) {
+          try {
+            var response = JSON.parse(res.data);
+            console.log(response);
+            if (response.constructor === Object) {
+              if (response.state) {
+                that.setData({
+                  userId: response.data.user_id,
+                  nickName: response.data.nickName,
+                  avatarUrl: response.data.avatarUrl,
+                  composition_id: response.data.composition_id,
+                  compositionUrl: response.data.composition_url,
+                  compositionType: response.data.composition_type,
+                  compositionAngle: response.data.composition_angle,
+                })
+              } else {
+                wx.showToast({
+                  title: '上传失败',
+                  icon: 'none',
+                  mask: true,
+                  duration: 1500
+                })
+              }
+            }
+          } catch (e) {
+
+          }
           var composition_id = composition_id;
         },
         fail: function(res) {},
         complete: function (res) {}
       });
     }
-    */
-    var composition = wx.getStorageSync('composition');
-    console.log(composition);
-    this.setData({
-      compositionUrl: composition.compositionUrl,
-      compositionType: composition.compositionType,
-      compositionAngle: composition.compositionAngle,
-      nickName: userInfo.nickName,
-      avatarUrl: userInfo.avatarUrl
-    })
   },
 
   /**
@@ -114,7 +130,7 @@ Page({
     // 首先获取user_id和composition_id
     return {
       title: this.data.nickName + '的Bugaboo助力作品',
-      path: 'pages/preview/preview?user_id='+this.data.user_id+'&composition_id='+this.data.composition_id,
+      path: 'pages/preview/preview?'+'&composition_id='+this.data.composition_id,
       success: (res) => { },
       fail: (res) => { }
     }

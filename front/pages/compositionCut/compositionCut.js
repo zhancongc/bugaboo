@@ -82,7 +82,6 @@ Page({
     this.setData({
       compositionAngle: temp
     })
-    this.data.compositionAngle+90
   },
   choosePhotograph: function (e) {
     var that = this;
@@ -97,9 +96,8 @@ Page({
           that.setData({
             compositionUrl: tempFilePath,
             compositionType: that.data.compositionType,
-            compositionAngle: that.data.composition_angle
+            compositionAngle: 0
           });
-          that.drawCanvas();
         } else {    //图片大于5M，弹出一个提示框
           wx.showToast({
             title: '上传图片不能大于5M!',  //标题
@@ -108,21 +106,6 @@ Page({
         }
       },
     })
-  },
-  drawCanvas: function () {
-    var that = this;
-    const ctx = wx.createCanvasContext('attendCanvasId');
-    ctx.drawImage(that.data.compositionUrl, 0, 0, 94, 96);
-    ctx.draw();
-    this.prodImageOpt();
-    wx.canvasToTempFilePath({
-      canvasId: 'attendCanvasId',
-      success: function success(res) {
-        that.setData({
-          compositionUrl: res.tempFilePath
-        });
-      }
-    });
   },
   toPreview: function () {
     var that = this;
@@ -160,7 +143,7 @@ Page({
         },
         formData: {
           'composition_type': that.data.gameGroupIndex,
-          'composition_angle': that.data.composition_angle
+          'composition_angle': that.data.compositionAngle
         },
         success: function (res) {
           wx.hideToast();
@@ -179,7 +162,7 @@ Page({
                   compositionId: response.data.composition_id,
                 })
                 wx.navigateTo({
-                  url: 'pages/preview/preview?composition_id=' + that.data.compositionId,
+                  url: '/pages/preview/preview?composition_id=' + that.data.compositionId,
                 })
               } else {
                 wx.showToast({

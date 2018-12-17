@@ -16,7 +16,6 @@ class Composition(db.Model):
     composition_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), nullable=True)
     composition_type = db.Column(db.Integer, default=False)
-    composition_angle = db.Column(db.Integer(), default=0)
     composition_name = db.Column(db.String(64))
     composition_url = db.Column(db.String(512))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)

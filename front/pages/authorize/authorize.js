@@ -36,7 +36,7 @@ Page({
           },
           success: function (res) {
             try {
-              var response = res.data;
+              var response = JSON.parse(res.data);
               console.log(response);
               if (response.constructor === Object) {
                 if (response.state) {
@@ -91,7 +91,6 @@ Page({
       });
       app.globalData.unionid = null;
       this.saveUserInfo();
-
     },
   /**
    * 生命周期函数--监听页面加载

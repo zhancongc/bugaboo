@@ -1,12 +1,20 @@
+"""
+Project     : bugaboo
+Filename    : views.py
+Author      : zhancongc
+Description : 路由处理
+"""
+
 import time
 import json
 import datetime
+from PIL import Image
+from config import configs
+from functools import wraps
 from app import app, db
 from flask import jsonify, request, render_template
 from .package import wxlogin, get_sha1
 from .models import User, UserInfo, Composition, Follow, AwardRecord, Award, Express, Store
-from config import configs
-from functools import wraps
 
 
 def logging(msg):
@@ -235,7 +243,7 @@ def user_composition_upload(temp_user):
     # 检查作品类型
     composition_type = request.values.get('composition_type')
     composition_angle = request.values.get('composition_angle')
-    if composition_type is None or composition_angle is None:
+    if composition_type is None or composition_angle not in [0, 90, 180, 270]:
         res.update({
             'state': 0,
             'msg': 'incomplete data'
@@ -276,12 +284,52 @@ def user_composition_upload(temp_user):
         })
         logging(json.dumps(res))
         return jsonify(res)
+    # 如果图片需要旋转
+    if composition_angle in [90, 180, 270]:
+        im = Image.open(file_path)
+        if composition_angle == 90:
+            out = im.transpose(Image.ROTATE_270)
+            out.save(file_path)
+        elif composition_angle == 180:
+            out = im.transpose(Image.ROTATE_180)
+            out.save(file_path)
+        else:
+            out = im.transpose(Image.ROTATE_90)
+            out.save(file_path)
+    # 图片压缩
+    im = Image.open(file_path)
+    im_a, im_b = im.size
+    if im_a > im_b:
+        im_long, im_short = im_a, im_b
+        if im_short > 600:
+            coef = 600 / im_short
+            im_long_modify = int(im_long * coef)
+            im_short_modify = 600
+            im.resize((im_long_modify, im_short_modify))
+        if im_long > 1200:
+            coef = 1200 / im_long
+            im_short_modify = int(im_short * coef)
+            im_long_modify = 1200
+            im.resize((im_long_modify, im_short_modify))
+    else:
+        im_long, im_short = im_b, im_a
+        if im_short > 600:
+            coef = 600/im_short
+            im_long_modify = int(im_long*coef)
+            im_short_modify = 600
+            im.resize((im_short_modify, im_long_modify))
+        if im_long > 1200:
+            coef = 1200/im_long
+            im_short_modify = int(im_short*coef)
+            im_long_modify = 1200
+            im.resize((im_short_modify, im_long_modify))
+    im.save(file_path)
+    # 图片处理完成，生成图片的URI
     composition_url = configs['development'].COMPOSITION_PREFIX + filename
     # 保存到数据库
     try:
         composition = Composition(user_id=temp_user.user_id, composition_type=composition_type,
-                                  composition_angle=composition_angle, composition_name=filename,
-                                  composition_url=composition_url)
+                                  composition_name=filename, composition_url=composition_url)
         db.session.add(composition)
         db.session.commit()
         composition_id = composition.composition_id
@@ -300,7 +348,6 @@ def user_composition_upload(temp_user):
         'composition_id': composition.composition_id,
         'composition_name': composition.composition_name,
         'composition_url': composition.composition_url,
-        'composition_angle': composition.composition_angle,
         'composition_type': composition.composition_type,
         'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
     })
@@ -338,9 +385,11 @@ def user_composition(temp_user):
         return jsonify(res)
     data = dict()
     data.update({
+        'user_id': temp_user.user_id,
+        'nickName': temp_user.nickName,
+        'avatarUrl': temp_user.avatarUrl,
         'composition_id': temp_composition.composition_id,
         'composition_type': temp_composition.composition_type,
-        'composition_angle': temp_composition.composition_angle,
         'composition_name': temp_composition.composition_name,
         'composition_url': temp_composition.composition_url,
         'timestamp': temp_composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
