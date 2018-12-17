@@ -16,11 +16,6 @@ Page({
       90: 'angle90',
       180: 'angle180',
       270: 'angle270'
-    },
-    objectAngle: {
-      'angle90': 90,
-      'angle180': 180,
-      'angle270': 270
     }
   },
   /**
@@ -30,9 +25,9 @@ Page({
     var tempComposition = JSON.parse(options.tempComposition);
     this.setData({
       compositionUrl: tempComposition.compositionUrl,
-      compositionType: tempComposition.compositionType,
-      compositionAngle: tempComposition.compositionAngle
-    })
+      compositionType: tempComposition.compositionType
+    });
+    console.log('compositionType', this.data.compositionType);
   },
 
   /**
@@ -86,7 +81,7 @@ Page({
     var temp = (this.data.compositionAngle + 90) % 360;
     this.setData({
       compositionAngle: temp
-    })
+    });
   },
   choosePhotograph: function (e) {
     var that = this;
@@ -133,15 +128,9 @@ Page({
       title: '正在上传...',
       icon: 'loading',
       mask: true,
-      duration: 3000
+      duration: 10000
     });
     var session_id = wx.getStorageSync('session_id');
-    console.log(session_id);
-    if (that.data.compositionAngle == '') {
-      var composition_angle = 0
-    } else {
-     var composition_angle = that.data.objectAngle['that.data.compositionAngle']
-    }
     if (session_id) {
       wx.uploadFile({
         url: 'https://bugaboo.drivetogreen.com/user/composition/upload',
@@ -152,8 +141,8 @@ Page({
           'Session-Id': session_id,
         },
         formData: {
-          'composition_type': that.data.gameGroupIndex,
-          'composition_angle': composition_angle
+          'composition_type': that.data.compositionType,
+          'composition_angle': that.data.compositionAngle
         },
         success: function (res) {
           wx.hideToast();
@@ -171,6 +160,7 @@ Page({
                 that.setData({
                   compositionId: response.data.composition_id,
                 })
+                console.log('composition_id', that.data.compositionId);
                 wx.navigateTo({
                   url: '/pages/preview/preview?composition_id=' + that.data.compositionId,
                 })

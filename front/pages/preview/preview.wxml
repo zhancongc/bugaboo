@@ -10,6 +10,6 @@
     <view class='intro'>我的助力作品:</view>
   </view>
   <view class='container-content'>
-    <image class='{{objectCompositionAngle[compositionAngle]}}' src='{{compositionUrl}}' mode='aspectFit'></image>
+    <image src='{{compositionUrl}}' mode='aspectFit'></image>
   </view>
 </view>

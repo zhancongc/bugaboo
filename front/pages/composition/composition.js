@@ -9,10 +9,10 @@ Page({
   data: {
     imageName: '',
     gameGroupIndex: 0,
-    gameGroup: ['婴儿车组', '非婴儿车组'],
+    gameGroup: ['非婴儿车组', '婴儿车组'],
     objectGameGroup: [{
-      0:'婴儿车组'},{
-      1:'非婴儿车组'
+      0: '非婴儿车组'},{
+      1: '婴儿车组'
     }]
   },
   bindPickerChange: function (e) {
@@ -33,8 +33,7 @@ Page({
           var tempFilePath = res.tempFilePaths[0]; //获取图片
           var tempComposition = {
               compositionUrl: tempFilePath,
-              compositionType: that.data.gameGroupIndex,
-              compositionAngle: 0
+              compositionType: that.data.gameGroupIndex
           };
           wx.navigateTo({
             url: '/pages/compositionCut/compositionCut?tempComposition='+JSON.stringify(tempComposition)

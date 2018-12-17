@@ -62,5 +62,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  toPreview: function() {
+    wx.navigateTo({
+      url: '/pages/preview/preview?composition_id=1'
+    })
   }
 })

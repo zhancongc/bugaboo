@@ -249,7 +249,7 @@ def user_composition_upload(temp_user):
         print(e)
         res.update({
             'state': 0,
-            'msg': 'incomplete data'
+            'msg': 'composition_angle'
         })
         logging(json.dumps(res))
         return jsonify(res)
@@ -379,7 +379,7 @@ def user_composition(temp_user):
     """
     res = dict()
     composition_id = request.values.get('composition_id')
-    if not composition_id:
+    if composition_id is None:
         res.update({
             'state': 0,
             'msg': 'none composition id'
@@ -439,14 +439,23 @@ def user_follow(temp_user):
     # 助力
     author_id = request.values.get('author_id')
     if author_id:
-        follow = Follow(followed_id=temp_user.user_id, follower_id=author_id)
-        db.session.add(follow)
-        db.session.commit()
+        try:
+            follow = Follow(followed_id=temp_user.user_id, follower_id=author_id)
+            db.session.add(follow)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            res.update({
+                'state': 0,
+                'msg': 'write to db error'
+            })
+            return jsonify(res)
     else:
         res.update({
             'state': 0,
             'msg': 'None this author id'
         })
+        return jsonify(res)
     res.update({
         'state': 1,
         'msg': 'success'

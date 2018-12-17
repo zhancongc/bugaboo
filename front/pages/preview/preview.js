@@ -10,16 +10,9 @@ Page({
     userId: '',
     nickName: '',
     avatarUrl: '',
-    composition_id: 0,
+    compositionId: 0,
     compositionUrl: '',
-    compositionType: 0,
-    compositionAngle: 0,
-    objectCompositionAngle: {
-      0: '',
-      90: 'angle90',
-      180: 'angle180',
-      270: 'angle270'
-    }
+    compositionType: 0
   },
   uploadPhotograph: function () {
     wx.showToast({
@@ -33,15 +26,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options);
     // 向服务端请求别人的nickName,avatarUrl,composition_id
     if (options.hasOwnProperty('composition_id')) {
-      ;
-    } else {
+      var session_id = wx.getStorageSync('session_id');
       wx.request({
         url: 'https://bugaboo.drivetogreen.com/user/composition',
         method: 'post',
         header: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Session-Id': session_id
         },
         data: {
           composition_id: options.composition_id
@@ -56,18 +50,18 @@ Page({
                   userId: response.data.user_id,
                   nickName: response.data.nickName,
                   avatarUrl: response.data.avatarUrl,
-                  composition_id: response.data.composition_id,
+                  compositionId: response.data.composition_id,
                   compositionUrl: response.data.composition_url,
-                  compositionType: response.data.composition_type,
-                  compositionAngle: response.data.composition_angle,
+                  compositionType: response.data.composition_type
                 })
               } else {
+                console.log(response);
                 wx.showToast({
-                  title: '上传失败',
+                  title: '获取助力作品失败，请稍后重试',
                   icon: 'none',
                   mask: true,
                   duration: 1500
-                })
+                });
               }
             }
           } catch (e) {
@@ -78,6 +72,16 @@ Page({
         fail: function(res) {},
         complete: function (res) {}
       });
+    } else {
+      wx.showToast({
+        title: '获取不到作品信息',
+        icon: 'none',
+        mask: true,
+        duration: 1000
+      });
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
     }
   },
 
