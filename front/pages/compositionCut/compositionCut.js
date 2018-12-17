@@ -16,6 +16,11 @@ Page({
       90: 'angle90',
       180: 'angle180',
       270: 'angle270'
+    },
+    objectAngle: {
+      'angle90': 90,
+      'angle180': 180,
+      'angle270': 270
     }
   },
   /**
@@ -132,6 +137,11 @@ Page({
     });
     var session_id = wx.getStorageSync('session_id');
     console.log(session_id);
+    if (that.data.compositionAngle == '') {
+      var composition_angle = 0
+    } else {
+     var composition_angle = that.data.objectAngle['that.data.compositionAngle']
+    }
     if (session_id) {
       wx.uploadFile({
         url: 'https://bugaboo.drivetogreen.com/user/composition/upload',
@@ -143,7 +153,7 @@ Page({
         },
         formData: {
           'composition_type': that.data.gameGroupIndex,
-          'composition_angle': that.data.compositionAngle
+          'composition_angle': composition_angle
         },
         success: function (res) {
           wx.hideToast();

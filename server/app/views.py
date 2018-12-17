@@ -243,6 +243,16 @@ def user_composition_upload(temp_user):
     # 检查作品类型
     composition_type = request.values.get('composition_type')
     composition_angle = request.values.get('composition_angle')
+    try:
+        composition_angle = int(composition_angle)
+    except ValueError as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'incomplete data'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
     if composition_type is None or composition_angle not in [0, 90, 180, 270]:
         res.update({
             'state': 0,
