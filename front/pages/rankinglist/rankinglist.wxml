@@ -1,2 +1,3 @@
-<!--pages/rankinglist/rankinglist.wxml-->
-<button bindtap='toPreview'>预览</button>
+<view >
+  <button bindtap='toPreview'>预览</button>
+</view>

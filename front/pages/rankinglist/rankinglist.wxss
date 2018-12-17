@@ -1,1 +1,13 @@
 /* pages/rankinglist/rankinglist.wxss */
+.container-content{
+  height: 800rpx;
+  width: 100%;
+  text-align: center;
+}
+.container-content button {
+  margin-top: 200rpx;
+  width: 50%;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+}

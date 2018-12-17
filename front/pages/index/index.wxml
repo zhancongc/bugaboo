@@ -4,7 +4,7 @@
     <text>Bugaboo爱拍助力</text>
   </view>
   <view class='container-content'>
-    <button class='bottomButton' bindtap='toComposition'>点击助力 </button>
+    <button class='bottomButton' bindtap='toComposition'>参加活动</button>
   </view>
 </view>
 

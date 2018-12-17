@@ -12,4 +12,11 @@
   <view class='container-content'>
     <image src='{{compositionUrl}}' mode='aspectFit'></image>
   </view>
+  <view class='mainButton'>
+    <button open-type='share'>邀请助力</button>
+    <button bindtap='toRankingList'>查看排名</button>
+  </view>
+  <view class='bottomText'>
+    福利奖励，活动文案
+  </view>
 </view>

@@ -30,7 +30,6 @@ Page({
       })
     }
   },
-
   saveUserInfo: function (userInfo) {
     var session_id = wx.getStorageSync('session_id');
     console.log('把用户信息发送到后端存储起来');

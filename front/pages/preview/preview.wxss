@@ -24,7 +24,7 @@
   vertical-align: middle;
 }
 .container-content{
-  margin-top: 100rpx;
+  margin-top: 50rpx;
   width: 100%;
   text-align: center;
 }
@@ -33,4 +33,25 @@
   height: 80rpx;
   border-radius: 10rpx;
   bottom: 40rpx;
+}
+.mainButton {
+  margin-top: 50rpx;
+  width: 100%;
+  text-align: center;
+  height: 80rpx;
+}
+.mainButton button {
+  float: left;
+  width: 45%;
+  left: 5%;
+  right: 5%;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+}
+.bottomText {
+  margin-top: 50rpx;
+  vertical-align: middle;
+  font-size: 28rpx;
 }

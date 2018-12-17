@@ -70,13 +70,6 @@ Page({
   onReachBottom: function () {
 
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
   rotate: function (e) {
     var temp = (this.data.compositionAngle + 90) % 360;
     this.setData({
