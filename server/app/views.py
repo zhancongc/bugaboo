@@ -284,6 +284,7 @@ def user_composition_upload(temp_user):
                                   composition_url=composition_url)
         db.session.add(composition)
         db.session.commit()
+        composition_id = composition.composition_id
     except Exception as e:
         print(e)
         res.update({
@@ -294,7 +295,7 @@ def user_composition_upload(temp_user):
         return jsonify(res)
     # 返回图片信息
     image = dict()
-    composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
+    composition = Composition.query.filter_by(composition_id=composition_id).first()
     image.update({
         'composition_id': composition.composition_id,
         'composition_name': composition.composition_name,
