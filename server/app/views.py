@@ -382,22 +382,35 @@ def user_composition(temp_user):
     if composition_id is None:
         res.update({
             'state': 0,
-            'msg': 'none composition id'
+            'msg': 'incomplete data'
         })
-        return jsonify
+        return jsonify(res)
     # 获取作品信息
     temp_composition = Composition.query.filter_by(composition_id=composition_id).first()
+    if temp_composition is None:
+        res.update({
+            'state': 0,
+            'msg': 'none composition id'
+        })
+        return jsonify(res)
     if temp_composition.user_id != temp_user.user_id:
         res.update({
             'state': 0,
             'msg': 'this is not your composition'
         })
         return jsonify(res)
+    temp_user_info = UserInfo.query.filter_by(user_id=temp_user.user_id).first()
+    if temp_user_info is None:
+        res.update({
+            'state': 0,
+            'msg': 'your data is not intact'
+        })
+        return jsonify(res)
     data = dict()
     data.update({
         'user_id': temp_user.user_id,
-        'nickName': temp_user.nickName,
-        'avatarUrl': temp_user.avatarUrl,
+        'nickName': temp_user_info.nickName,
+        'avatarUrl': temp_user_info.avatarUrl,
         'composition_id': temp_composition.composition_id,
         'composition_type': temp_composition.composition_type,
         'composition_name': temp_composition.composition_name,
