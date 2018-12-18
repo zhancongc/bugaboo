@@ -36,7 +36,6 @@ class Award(db.Model):
     award_image = db.Column(db.String(256))
     award_type = db.Column(db.Integer, default=1)
     award_description = db.Column(db.Text())
-    award_url = db.Column(db.String(512))
 
     def __repr__(self):
         return '<Post %r>' % self.name
@@ -45,9 +44,8 @@ class Award(db.Model):
 class AwardRecord(db.Model):
     """
     动态表，领奖表：领奖记录id，奖品id，用户id，领奖人姓名，领奖人手机，是否领奖，领奖时间
-    如果奖品是实物，走快递，awardrecord_type = 1还要收货地址，发货单，是否发货，发货时间； receiver表
-    如果走的是线下取货，awardrecord_type = 2 需要门店城市，门店名称，门店详细地址；store表
-    如果奖品是天猫优惠券，awardrecord_type = 3；
+    如果走的是线下取货，awardrecord_type = 1 需要门店城市，门店名称，门店详细地址；store表
+    如果奖品是天猫优惠券，awardrecord_type = 2；
     """
     __tablename__ = "awardrecord"
     awardrecord_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
@@ -59,30 +57,19 @@ class AwardRecord(db.Model):
     phone = db.Column(db.String(11))
     checked = db.Column(db.Boolean(), default=False)
     check_time = db.Column(db.DateTime, default=datetime.utcnow)
-
-
-class Express(db.Model):
-    """
-    动态表，收货人信息，receiver_id连接了detail_id
-    """
-    __tablename__ = 'express'
-    express_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    awardrecord_id = db.Column(db.Integer, db.ForeignKey('awardrecord.awardrecord_id'), nullable=True)
-    address = db.Column(db.String(64))
-    is_dispatched = db.Column(db.Boolean, default=False)
-    dispatch_bill = db.Column(db.String(18))
-    dispatch_time = db.Column(db.DateTime, default=datetime.utcnow)
+    awardrecord_token = db.Column(db.String(128))
 
 
 class Store(db.Model):
     """
-    静态表，所有门店信息，门店名称，城市，详细地址, store_id连接了store_id
+    静态表，所有门店信息，门店名称，城市，详细地址, 联系电话, store.store_id 连接了awardrecord.detail_id
     """
     __tablename__ = "store"
     store_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     store_name = db.Column(db.String(128))
     store_city = db.Column(db.String(32))
     store_address = db.Column(db.String(256))
+    store_phone = db.Column(db.String(32))
 
 
 class UserInfo(db.Model):

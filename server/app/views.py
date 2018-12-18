@@ -14,7 +14,7 @@ from functools import wraps
 from app import app, db
 from flask import jsonify, request, render_template
 from .package import wxlogin, get_sha1
-from .models import User, UserInfo, Composition, Follow, AwardRecord, Award, Express, Store
+from .models import User, UserInfo, Composition, Follow, AwardRecord, Award, Store
 
 
 def logging(msg):
@@ -232,6 +232,44 @@ def user_info_upload(temp_user):
     return jsonify(res)
 
 
+@app.route('/user/composition/info', methods=['GET'])
+@login_required
+def user_composition_info(temp_user):
+    """
+    :function: 判断是否有作品
+    :return: composition_id, nickName, avatarUrl
+    """
+    res = dict()
+    # 根据session_id 拉去user_info和composition_id
+    temp_composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
+    if temp_composition is None:
+        res.update({
+            'state': 2,
+            'msg': 'new user'
+        })
+        return jsonify(res)
+    user_info = UserInfo.query.filter_by(user_id=temp_user.user_id).first()
+    if user_info is None:
+        res.update({
+            'state': 0,
+            'msg': 'cannot found user info'
+        })
+        return jsonify(res)
+    data = dict()
+    data.update({
+        'user_id': user_info.user_id,
+        'nickName': user_info.nickName,
+        'avatarUrl': user_info.avatarUrl,
+        'composition_id': temp_composition.composition_id
+    })
+    res.update({
+        'state': 1,
+        'msg': 'get user info and composition',
+        'data': data
+    })
+    return jsonify(res)
+
+
 @app.route('/user/composition/upload', methods=['POST'])
 @login_required
 def user_composition_upload(temp_user):
@@ -445,33 +483,44 @@ def rankinglist(temp_user):
 @login_required
 def user_follow(temp_user):
     """
-    :function: 帮人助力，author_id
+    :function: 帮人助力，composition_id
     :return: 助力成功
     """
     res = dict()
     # 助力
-    author_id = request.values.get('author_id')
-    if author_id:
-        try:
-            follow = Follow(followed_id=temp_user.user_id, follower_id=author_id)
-            db.session.add(follow)
-            db.session.commit()
-        except Exception as e:
-            print(e)
-            res.update({
-                'state': 0,
-                'msg': 'write to db error'
-            })
-            return jsonify(res)
-    else:
+    composition_id = request.values.get('composition_id')
+    if composition_id is None:
         res.update({
             'state': 0,
-            'msg': 'None this author id'
+            'msg': 'incomplete data'
         })
         return jsonify(res)
+    temp_composition = Composition.query.filter_by(composition_id=composition_id).first()
+    if temp_composition is None:
+        res.update({
+            'state': 0,
+            'msg': 'cannot find this composition'
+        })
+        return jsonify(res)
+    try:
+        follow = Follow(followed_id=temp_user.user_id, follower_id=temp_composition.user_id)
+        db.session.add(follow)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'write to db error'
+        })
+        return jsonify(res)
+    data = {
+        'followed_id': follow.followed_id,
+        'follower_id': follow.follower_id
+    }
     res.update({
         'state': 1,
-        'msg': 'success'
+        'msg': 'success',
+        'data': data
     })
     return jsonify(res)
 
@@ -540,6 +589,7 @@ def user_award_list(temp_user):
             'award_record_id': temp.awardrecord_id,
             'award_id': temp.award_id,
             'user_id': temp.user_id,
+            'awardrecord_token': temp.award_record_token,
             'checked': temp.checked,
             'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M:%S'),
             'detail_id': temp.detail_id,
@@ -550,8 +600,7 @@ def user_award_list(temp_user):
             'award_type': award.award_type,
             'award_name': award.award_name,
             'award_image': award.award_image,
-            'award_description': award.award_description,
-            'award_url': award.award_url
+            'award_description': award.award_description
         })
         data.append(awardrecord)
     res.update({
@@ -602,34 +651,25 @@ def user_award(temp_user):
         'checked': awardrecord.checked,
         'check_time': awardrecord.check_time.strftime('%Y-%m-%d %H:%M:%S'),
         'detail_id': awardrecord.detail_id,
-        'awardrecord_type': awardrecord.award_record_type
+        'awardrecord_type': awardrecord.award_record_type,
+        'awardrecord_token': awardrecord.awardrecord_token
     })
     award = Award.query.filter_by(award_id=awardrecord.award_id).first()
     data.update({
         'award_type': award.award_type,
         'award_name': award.award_name,
         'award_image': award.award_image,
-        'award_description': award.award_description,
-        'award_url': award.award_url
+        'award_description': award.award_description
     })
-    if awardrecord.awardrecord_type == 1:
-        express = Express.query.filter_by(express_id=awardrecord.detail_id).first()
-        if express:
-            data.update({
-                'express_id': express.express_id,
-                'address': express.address,
-                'is_dispatched': express.is_dispatched,
-                'dispatch_bill': express.dispatch_bill,
-                'dispatch_time': express.dispatch_time
-            })
-    elif awardrecord.awardrecord_id == 2:
+    if awardrecord.awardrecord_id == 2:
         store = Store.query.filter_by(store_id=awardrecord.detail_id).first()
         if store:
             data.update({
                 'store_id': store.store_id,
                 'store_name': store.store_name,
                 'store_city': store.store_city,
-                'store_address': store.store_address
+                'store_address': store.store_address,
+                'store_phone': store.store_phone
             })
     res.update({
         'state': 1,
@@ -639,11 +679,11 @@ def user_award(temp_user):
     return jsonify(res)
 
 
-@app.route('/user/award/express', methods=['POST'])
+@app.route('/user/award/store', methods=['POST'])
 @login_required
 def user_award_express(temp_user):
     """
-    :function: 上传奖品以及收货信息 awardrecord_id, express_type, receiver, phone, address, store_id
+    :function: 上传奖品以及门店信息 awardrecord_id, express_type, receiver, phone, store_id
     :return:
     """
     res = dict()
@@ -653,10 +693,8 @@ def user_award_express(temp_user):
     phone = request.values.get('phone')
     if awardrecord_type and receiver and phone:
         if awardrecord_type == 1:
-            address = request.values.get('address')
-        elif awardrecord_type == 2:
             store_id = request.values.get('store_id')
-        elif awardrecord_id == 3:
+        elif awardrecord_id == 2:
             pass
         else:
             res.update({
@@ -682,11 +720,6 @@ def user_award_express(temp_user):
             return jsonify(res)
         awardrecord.awardrecord_type, awardrecord.receiver, awardrecord.phone = awardrecord_type, receiver, phone
         if awardrecord_type == 1:
-            # 添加收货信息
-            express = Express(awardrecord_id=awardrecord.awardrecord_id, address=address)
-            awardrecord.detail_id = express.express_id
-            db.session.add(express)
-        if awardrecord_type == 2:
             # 关联门店信息
             awardrecord.detail_id = Store.query.filter_by(store_id=store_id).first()
         db.session.add(awardrecord)

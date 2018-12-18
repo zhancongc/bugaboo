@@ -7,6 +7,43 @@ Page({
   },
   onLoad: function () {
     //如果有作品直接到自己的作品，如果没有就是参加活动
+    var session_id = wx.getStorageSync('session_id');
+    if (session_id) {
+      // 判断是否有作品
+      wx.request({
+        url: 'https://bugaboo.drivetogreen.com/user/composition/info',
+        method: 'get',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Session-Id': session_id
+        },
+        success: function (res) {
+          var response = res.data;
+          console.log(response);
+          if (response.constructor === Object) {
+            if (response.state === 1) {
+              wx.navigateTo({
+                url: '/pages/preview/preview?composition_id=' + response.data.composition_id
+              })
+            } else if (response.state === 0) {
+              console.log(response);
+              wx.showToast({
+                title: '获取用户信息失败，请重试',
+                icon: 'none',
+                mask: true,
+                duration: 1000
+              });
+            }
+          }
+        },
+        fail: function (res) { },
+        complete: function (res) { }
+      })
+    } else {
+      wx.showToast({
+        title: '请重新打开小程序再试'
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
