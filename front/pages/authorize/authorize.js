@@ -13,13 +13,13 @@ Page({
     console.log(e.detail.userInfo)
     if (e.detail.userInfo) {
       //用户按了授权按钮
-      this.saveUserInfo(e.detail.userInfo);
-      var callback = function (e) {
-        wx.navigateTo({
-          url: '/pages/index/index',
-        })
-      };
-      callback();
+      wx.setStorage({
+        key: 'userInfo',
+        data: e.detail.userInfo,
+      });
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
     } else {
       //用户按了拒绝按钮
       wx.showToast({

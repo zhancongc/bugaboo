@@ -19,4 +19,5 @@
   <view class='bottomText'>
     福利奖励，活动文案
   </view>
+  <button bindtap='toRaffle'>去抽奖</button>
 </view>

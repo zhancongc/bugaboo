@@ -100,6 +100,7 @@ class User(db.Model):
     session_id = db.Column(db.String(40), nullable=True)
     session_id_expire_time = db.Column(db.DateTime, nullable=True)
     can_raffle = db.Column(db.Boolean(), default=False)
+    follower_number = db.Column(db.Integer(), default=0)
     # user关注的人
     followed = db.relationship('Follow', foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),

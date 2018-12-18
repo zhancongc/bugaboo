@@ -412,7 +412,7 @@ def user_composition_upload(temp_user):
 @login_required
 def user_composition(temp_user):
     """
-    :function: 获取用户的作品信息 composition_id
+    :function: 根据composition_id查找作品信息 composition_id
     :return:
     """
     res = dict()

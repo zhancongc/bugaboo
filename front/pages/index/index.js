@@ -22,7 +22,7 @@ Page({
           console.log(response);
           if (response.constructor === Object) {
             if (response.state === 1) {
-              wx.navigateTo({
+              wx.redirectTo({
                 url: '/pages/preview/preview?composition_id=' + response.data.composition_id
               })
             } else if (response.state === 0) {

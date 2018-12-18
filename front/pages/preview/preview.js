@@ -2,7 +2,6 @@
 const app = getApp()
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -13,6 +12,11 @@ Page({
     compositionId: 0,
     compositionUrl: '',
     compositionType: 0
+  },
+  toRaffle: function () {
+    wx.navigateTo({
+      url: '/pages/awardlist/awardlist',
+    })
   },
   uploadPhotograph: function () {
     wx.showToast({
@@ -27,7 +31,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    console.log(options);
     if (options.hasOwnProperty('composition_id')) {
       var session_id = wx.getStorageSync('session_id');
       console.log('请求作品信息');
@@ -80,7 +83,6 @@ Page({
       })
     }
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

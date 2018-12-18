@@ -1,2 +1,13 @@
 <!--pages/raffle/raffle.wxml-->
-<text>pages/raffle/raffle.wxml</text>
+<!-- 引用组件↓↓↓ -->
+<zhuanpan id='zhuanpan' 
+   bind:myData='getData' 
+   bind:myAwards="getAwards" 
+   bind:startZhuan="startZhuan" 
+   size='{{size}}' 
+   musicflg='{{musicflg}}' 
+   fastJuedin='{{fastJuedin}}' 
+   repeat='{{repeat}}' 
+   zhuanpanArr='{{xiaojuedingArr}}' 
+   awardsConfig='{{awardsConfig}}'></zhuanpan>
+<!-- 引用组件↑↑↑ -->
