@@ -489,6 +489,7 @@ def user_follow(temp_user):
     res = dict()
     # 助力
 <<<<<<< HEAD
+<<<<<<< HEAD
     author_id = request.values.get('author_id')
     if author_id is None:
         res.update({
@@ -520,6 +521,15 @@ def user_follow(temp_user):
 >>>>>>> 7f068c46082ea60ee90f517fc2c09290b3eeddfe
         })
         return jsonify(res)
+=======
+    composition_id = request.values.get('composition_id')
+    if composition_id is None:
+        res.update({
+            'state': 0,
+            'msg': 'incomplete data'
+        })
+        return jsonify(res)
+>>>>>>> 7f068c46082ea60ee90f517fc2c09290b3eeddfe
     temp_composition = Composition.query.filter_by(composition_id=composition_id).first()
     if temp_composition is None:
         res.update({

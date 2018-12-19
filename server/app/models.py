@@ -102,7 +102,11 @@ class User(db.Model):
     session_id_expire_time = db.Column(db.DateTime, nullable=True)
     can_raffle = db.Column(db.Boolean(), default=False)
 <<<<<<< HEAD
+<<<<<<< HEAD
     follow_times = db.Column(db.Integer(), default=0)
+=======
+    follower_number = db.Column(db.Integer(), default=0)
+>>>>>>> 7f068c46082ea60ee90f517fc2c09290b3eeddfe
 =======
     follower_number = db.Column(db.Integer(), default=0)
 >>>>>>> 7f068c46082ea60ee90f517fc2c09290b3eeddfe
