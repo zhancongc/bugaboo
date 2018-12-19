@@ -8,7 +8,8 @@
     "pages/rankinglist/rankinglist",
     "pages/raffle/raffle",
     "pages/awardlist/awardlist",
-    "pages/award/award"
+    "pages/award/award",
+    "components/zhuanpan/zhuanpan"
   ],
   "window":{
     "backgroundTextStyle":"light",

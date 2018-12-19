@@ -2,7 +2,6 @@
 App({
   onLaunch: function () {
     var userInfo = wx.getStorageSync('userInfo');
-    
     if (userInfo) {
       wx.reLaunch({
         url: '/pages/index/index',
