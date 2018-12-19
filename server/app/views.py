@@ -66,14 +66,14 @@ def login_required(func):
     def authenticate(*args, **kwargs):
         res = dict()
         session_id = request.headers.get('Session-Id')
-        if not session_id:
+        if session_id is None:
             res.update({
                 'state': 0,
                 'msg': 'none session_id'
             })
             return jsonify(res)
         user = User.query.filter_by(session_id=session_id).first()
-        if not user:
+        if user is None:
             res.update({
                 'state': 0,
                 'msg': 'cannot found session_id'
@@ -181,38 +181,49 @@ def user_info_upload(temp_user):
     :return:
     """
     res = dict()
-    avatarUrl = request.values.get('avatarUrl')
+    avatar_url = request.values.get('avatarUrl')
     city = request.values.get('city')
     country = request.values.get('country')
     gender = request.values.get('gender')
     language = request.values.get('language')
-    nickName = request.values.get('nickName')
+    nick_name = request.values.get('nickName')
     province = request.values.get('province')
-    if avatarUrl is None or city is None or country is None or gender is None or language is None or nickName is None or province is None:
+    if avatar_url is None or city is None or country is None or gender is None or language is None or nick_name is None or province is None:
         res.update({
             'state': 0,
             'msg': 'incomplete data'
         })
         return jsonify(res)
+    # 类型转换
+    try:
+        gender = int(gender)
+    except ValueError as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'type error: gender'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
     # 将用户信息写入数据库
     user_info_list = UserInfo.query.filter_by(user_id=temp_user.user_id).all()
     try:
         if len(user_info_list) == 0:
-            user_info = UserInfo(user_id=temp_user.user_id, avatarUrl=avatarUrl, city=city, country=country,
-                                 gender=gender, language=language, nickName=nickName, province=province)
+            user_info = UserInfo(user_id=temp_user.user_id, avatarUrl=avatar_url, city=city, country=country,
+                                 gender=gender, language=language, nickName=nick_name, province=province)
         elif len(user_info_list) == 1:
-            user_info= user_info_list[0]
-            user_info.avatarUrl = avatarUrl
+            user_info = user_info_list[0]
+            user_info.avatarUrl = avatar_url
             user_info.city = city
             user_info.country = country
             user_info.gender = gender
             user_info.language = language
-            user_info.nickName = nickName
+            user_info.nickName = nick_name
             user_info.province = province
         else:
             res.update({
                 'state': 0,
-                'msg': 'save data to database error'
+                'msg': 'cannot upload user info'
             })
             return jsonify(res)
         db.session.add(user_info)
@@ -224,7 +235,6 @@ def user_info_upload(temp_user):
             'msg': 'save data to database error'
         })
         return jsonify(res)
-
     res.update({
         'state': 1,
         'msg': 'success'
@@ -281,20 +291,29 @@ def user_composition_upload(temp_user):
     # 检查作品类型
     composition_type = request.values.get('composition_type')
     composition_angle = request.values.get('composition_angle')
+    if composition_type is None or composition_angle is None:
+        res.update({
+            'state': 0,
+            'msg': 'incomplete data'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
+    # 类型转换
     try:
+        composition_type = int(composition_type)
         composition_angle = int(composition_angle)
     except ValueError as e:
         print(e)
         res.update({
             'state': 0,
-            'msg': 'composition_angle'
+            'msg': 'type error: composition angle or type'
         })
         logging(json.dumps(res))
         return jsonify(res)
-    if composition_type is None or composition_angle not in [0, 90, 180, 270]:
+    if composition_angle not in [0, 90, 180, 270]:
         res.update({
             'state': 0,
-            'msg': 'incomplete data'
+            'msg': 'value error: composition angle'
         })
         logging(json.dumps(res))
         return jsonify(res)
@@ -379,6 +398,7 @@ def user_composition_upload(temp_user):
         composition = Composition(user_id=temp_user.user_id, composition_type=composition_type,
                                   composition_name=filename, composition_url=composition_url)
         db.session.add(composition)
+        composition.sync_user_type()
         db.session.commit()
         composition_id = composition.composition_id
     except Exception as e:
@@ -422,6 +442,17 @@ def user_composition(temp_user):
             'state': 0,
             'msg': 'incomplete data'
         })
+        return jsonify(res)
+    # 类型转换
+    try:
+        composition_id = int(composition_id)
+    except ValueError as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'type error: composition id'
+        })
+        logging(json.dumps(res))
         return jsonify(res)
     # 获取作品信息
     temp_composition = Composition.query.filter_by(composition_id=composition_id).first()
@@ -467,14 +498,53 @@ def user_composition(temp_user):
 @login_required
 def rankinglist(temp_user):
     """
-    :function: 获取排行榜，分为婴儿车用户榜和非婴儿车用户榜，session_id, ranking_list_type
+    :function: 获取排行榜，分为婴儿车用户榜和非婴儿车用户榜, ranking_list_type
     :return: 根据用户类型，返回不同的排行榜，该榜单是即时生成的
     """
+    print(temp_user)
     res = dict()
-    temp_user
+    ranking_list_type = request.values.get('ranking_list_type')
+    if ranking_list_type is None:
+        res.update({
+            'state': 0,
+            'msg': 'incomplete data'
+        })
+        return jsonify(res)
+    # 类型转换
+    try:
+        ranking_list_type = int(ranking_list_type)
+    except ValueError as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'type error: ranking list type'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
+    # 获取排行榜用户信息
+    data = list()
+    if ranking_list_type in [0, 1]:
+        user_list = User.query.filter_by(user_type=ranking_list_type).order_by(User.follow_times).limit(50).desc()
+        for index in range(len(user_list)):
+            user_info = UserInfo.query.filter_by(user_id=user_list['index'].user_id).first()
+            temp = {
+                'index': index,
+                'nickName': user_info.nickName,
+                'avatarUrl': user_info.avatarUrl,
+                'follow_times': user_list['index'].follow_times
+            }
+            list.append(temp)
+    else:
+        res.update({
+            'state': 0,
+            'msg': 'invalid ranking list type'
+        })
+        return jsonify(res)
     res.update({
         'state': 1,
-        'msg': 'success'
+        'msg': 'success',
+        'ranking_list_type': ranking_list_type,
+        'data': data
     })
     return jsonify(res)
 
@@ -488,8 +558,6 @@ def user_follow(temp_user):
     """
     res = dict()
     # 助力
-<<<<<<< HEAD
-<<<<<<< HEAD
     author_id = request.values.get('author_id')
     if author_id is None:
         res.update({
@@ -497,6 +565,18 @@ def user_follow(temp_user):
             'msg': 'incomplete data'
         })
         return jsonify(res)
+    # 类型转换
+    try:
+        author_id = int(author_id)
+    except ValueError as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'type error: ranking list type'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
+    # 助力的用户必须存在还不能是自己
     user = User.query.filter_by(user_id=author_id).first()
     if user is None or temp_user.user_id == user.user_id:
         res.update({
@@ -504,42 +584,9 @@ def user_follow(temp_user):
             'msg': 'invalid user'
         })
         return jsonify(res)
+    # 尝试助力，把数据写入数据库
     try:
         temp_user.follow(user)
-        db.session.commit()
-    except Exception as e:
-        print(e)
-        res.update({
-            'state': 0,
-            'msg': 'write to db error'
-=======
-    composition_id = request.values.get('composition_id')
-    if composition_id is None:
-        res.update({
-            'state': 0,
-            'msg': 'incomplete data'
->>>>>>> 7f068c46082ea60ee90f517fc2c09290b3eeddfe
-        })
-        return jsonify(res)
-=======
-    composition_id = request.values.get('composition_id')
-    if composition_id is None:
-        res.update({
-            'state': 0,
-            'msg': 'incomplete data'
-        })
-        return jsonify(res)
->>>>>>> 7f068c46082ea60ee90f517fc2c09290b3eeddfe
-    temp_composition = Composition.query.filter_by(composition_id=composition_id).first()
-    if temp_composition is None:
-        res.update({
-            'state': 0,
-            'msg': 'cannot find this composition'
-        })
-        return jsonify(res)
-    try:
-        follow = Follow(followed_id=temp_user.user_id, follower_id=temp_composition.user_id)
-        db.session.add(follow)
         db.session.commit()
     except Exception as e:
         print(e)
@@ -549,8 +596,8 @@ def user_follow(temp_user):
         })
         return jsonify(res)
     data = {
-        'followed_id': follow.followed_id,
-        'follower_id': follow.follower_id
+        'followed_id': temp_user.user_id,
+        'follower_id': user.user_id
     }
     res.update({
         'state': 1,
@@ -610,9 +657,9 @@ def user_award_list(temp_user):
     res = dict()
     # 获取所有奖励
     temp_award_record_list = AwardRecord.query.filter_by(user_id=temp_user.user_id).all()
-    if not temp_award_record_list:
+    if temp_award_record_list is None:
         res.update({
-            'state': 0,
+            'state': 2,
             'msg': 'none award'
         })
         return jsonify(res)
@@ -627,7 +674,7 @@ def user_award_list(temp_user):
             'awardrecord_token': temp.award_record_token,
             'checked': temp.checked,
             'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M:%S'),
-            'detail_id': temp.detail_id,
+            'store_id': temp.store_id,
             'awardrecord_type': temp.award_record_type
         })
         award = Award.query.filter_by(award_id=temp.award_id).first()
@@ -656,14 +703,26 @@ def user_award(temp_user):
     res = dict()
     # 获取特定奖励
     awardrecord_id = request.values.get('awardrecord_id')
-    if not awardrecord_id:
+    if awardrecord_id is None:
         res.update({
             'state': 0,
-            'msg': 'none award record'
+            'msg': 'incomplete data'
         })
         return jsonify(res)
+    # 类型转换
+    try:
+        awardrecord_id = int(awardrecord_id)
+    except ValueError as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'type error: award record id'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
+    # 查找这条奖品记录
     awardrecord = AwardRecord.query.filter_by(awardrecord_id=awardrecord_id).first()
-    if not awardrecord:
+    if awardrecord is None:
         res.update({
             'state': 0,
             'msg': 'none award'
@@ -685,7 +744,7 @@ def user_award(temp_user):
         'phone': awardrecord.phone,
         'checked': awardrecord.checked,
         'check_time': awardrecord.check_time.strftime('%Y-%m-%d %H:%M:%S'),
-        'detail_id': awardrecord.detail_id,
+        'store_id': awardrecord.store_id,
         'awardrecord_type': awardrecord.award_record_type,
         'awardrecord_token': awardrecord.awardrecord_token
     })
@@ -697,7 +756,7 @@ def user_award(temp_user):
         'award_description': award.award_description
     })
     if awardrecord.awardrecord_id == 2:
-        store = Store.query.filter_by(store_id=awardrecord.detail_id).first()
+        store = Store.query.filter_by(store_id=awardrecord.store_id).first()
         if store:
             data.update({
                 'store_id': store.store_id,
@@ -718,45 +777,53 @@ def user_award(temp_user):
 @login_required
 def user_award_express(temp_user):
     """
-    :function: 上传奖品以及门店信息 awardrecord_id, express_type, receiver, phone, store_id
+    :function: 上传奖品以及门店信息 awardrecord_id, receiver, phone, store_id
     :return:
     """
     res = dict()
     awardrecord_id = request.values.get('awardrecord_id')
-    awardrecord_type = request.values.get('express_type')
     receiver = request.values.get('receiver')
     phone = request.values.get('phone')
-    if awardrecord_type and receiver and phone:
-        if awardrecord_type == 1:
-            store_id = request.values.get('store_id')
-        elif awardrecord_id == 2:
-            pass
-        else:
-            res.update({
-                'state': 0,
-                'msg': 'wrong awardrecord id'
-            })
-            return jsonify(res)
-    else:
+    store_id = request.values.get('store_id')
+    # 检查空值
+    if awardrecord_id is None or receiver is None or phone is None or store_id is None:
         res.update({
             'state': 0,
-            'msg': 'lack for necessary data'
+            'msg': 'incomplete data'
         })
         return jsonify(res)
-
+    # 类型转换
     try:
-        # 补全奖品记录
-        awardrecord = AwardRecord.query.filter_by(awardrecord_id=awardrecord_id).first()
-        if awardrecord.user_id != temp_user.user_id:
-            res.update({
-                'state': 0,
-                'msg': 'award and user does not match'
-            })
-            return jsonify(res)
-        awardrecord.awardrecord_type, awardrecord.receiver, awardrecord.phone = awardrecord_type, receiver, phone
-        if awardrecord_type == 1:
-            # 关联门店信息
-            awardrecord.detail_id = Store.query.filter_by(store_id=store_id).first()
+        awardrecord_id = int(awardrecord_id)
+        store_id = int(store_id)
+        receiver = int(receiver)
+    except ValueError as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'type error'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
+    # 检查奖品和用户是否对应
+    awardrecord = AwardRecord.query.filter_by(awardrecord_id=awardrecord_id).first()
+    if awardrecord.user_id != temp_user.user_id:
+        res.update({
+            'state': 0,
+            'msg': 'award and user does not match'
+        })
+        return jsonify(res)
+    # 检查门店是否存在
+    store_id = Store.query.filter_by(store_id=store_id).first()
+    if store_id is None:
+        res.update({
+            'state': 0,
+            'msg': 'invalid store'
+        })
+        return jsonify(res)
+    # 添加收货记录
+    try:
+        awardrecord.receiver, awardrecord.phone, awardrecord.store_id = receiver, phone, store_id
         db.session.add(awardrecord)
         db.session.commit()
     except Exception as e:
