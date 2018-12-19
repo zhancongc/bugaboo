@@ -451,22 +451,27 @@ def user_follow(temp_user):
     res = dict()
     # 助力
     author_id = request.values.get('author_id')
-    if author_id:
-        try:
-            follow = Follow(followed_id=temp_user.user_id, follower_id=author_id)
-            db.session.add(follow)
-            db.session.commit()
-        except Exception as e:
-            print(e)
-            res.update({
-                'state': 0,
-                'msg': 'write to db error'
-            })
-            return jsonify(res)
-    else:
+    if author_id is None:
         res.update({
             'state': 0,
-            'msg': 'None this author id'
+            'msg': 'incomplete data'
+        })
+        return jsonify(res)
+    user = User.query.filter_by(user_id=author_id).first()
+    if user is None or temp_user.user_id == user.user_id:
+        res.update({
+            'state': 0,
+            'msg': 'invalid user'
+        })
+        return jsonify(res)
+    try:
+        temp_user.follow(user)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'write to db error'
         })
         return jsonify(res)
     res.update({

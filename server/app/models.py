@@ -4,6 +4,7 @@ from app import db
 
 class Follow(db.Model):
     __tablename__ = "follow"
+    follow_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     # 关注者
     followed_id = db.Column(db.Integer(), db.ForeignKey('user.user_id'), primary_key=True)
     # 被关注者
@@ -113,6 +114,7 @@ class User(db.Model):
     session_id = db.Column(db.String(40), nullable=True)
     session_id_expire_time = db.Column(db.DateTime, nullable=True)
     can_raffle = db.Column(db.Boolean(), default=False)
+    follow_times = db.Column(db.Integer(), default=0)
     # user关注的人
     followed = db.relationship('Follow', foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),
@@ -130,8 +132,10 @@ class User(db.Model):
 
     def follow(self, user):
         if not self.is_following(user):
-            f = Follow(foll_id=None, follower=self, followed=user)
-            db.session.add(f)
+            foll = Follow(follow_id=None, follower=self, followed=user)
+            self.follow_times += 1
+            db.session.add(foll)
+            db.session.add(self)
 
     def is_following(self, user):
         return self.followed.filter_by(followed_id=user.user_id).first() is not None
