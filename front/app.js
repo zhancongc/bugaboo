@@ -1,17 +1,6 @@
 //app.js
 App({
   onLaunch: function () {
-    var userInfo = wx.getStorageSync('userInfo');
-    if (userInfo) {
-      wx.reLaunch({
-        url: '/pages/index/index',
-      })
-    } else {
-      // 未授权，跳转到授权页面
-      wx.reLaunch({
-        url: '/pages/authorize/authorize',
-      })
-    }
     // 登录
     wx.login({
       success: res => {
@@ -29,12 +18,23 @@ App({
               try {
                 var response = res.data;
                 console.log(response);
-                if (response.constructor === Object){
+                if (response.constructor === Object) {
                   if (response.state) {
                     wx.setStorage({
                       key: 'session_id',
                       data: response.data,
                     })
+                    var userInfo = wx.getStorageSync('userInfo');
+                    if (userInfo) {
+                      wx.reLaunch({
+                        url: '/pages/index/index',
+                      })
+                    } else {
+                      // 未授权，跳转到授权页面
+                      wx.reLaunch({
+                        url: '/pages/authorize/authorize',
+                      })
+                    }
                   } else {
                     wx.showToast({
                       title: '微信登陆失败',
@@ -58,7 +58,7 @@ App({
           console.log('login failed: ' + res.errMsg)
         }
       }
-    })
+    });
   },
   globalData: {
     userInfo: null

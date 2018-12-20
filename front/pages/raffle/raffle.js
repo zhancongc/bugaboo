@@ -1,263 +1,96 @@
-// pages/raffle/raffle.js
+// pages/awardlist/awardlist.js
+var util = require("../../utils/util.js");
+var app = getApp();
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
+  //奖品配置
+  awardsConfig: {
+    chance: true,
+    awards: [
+      { 'index': 0, 'name': '谢谢参与' },
+      { 'index': 1, 'name': '优惠券1' },
+      { 'index': 2, 'name': '笔记本' },
+      { 'index': 3, 'name': '优惠券2' },
+      { 'index': 4, 'name': '保温杯' },
+      { 'index': 5, 'name': '优惠券3' }
+    ]
+  },
+
   data: {
-    size: 600,//转盘大小,
-    musicflg: false, //声音
-    fastJuedin: false,//快速决定
-    repeat: false,//不重复抽取
-    probability: false,// 概率
-    s_awards: '',//结果
-    option: '标题',
-    //转盘的总数据，想添加多个可以往这数组里添加一条格式一样的数据
-    zhuanpanArr: [
-      {
-        id: 0,
-        option: '我帅吗？',//转盘的标题名称
-        awards: [
-          {
-            id: 0,                // id递增
-            name: "帅",           // 选项名 超过9个字时字体会变小点 大于13个数时会隐藏掉超出的
-            color: '#FFA827',    // 选项的背景颜色
-            probability: 0       // 概率 0代表永远也转不到这个选项，数字越大概率也就越大,data中的probability属性设置为true时是才生效, 这属性也必须填写，不填写会出错
-          },
-          {
-            id: 1,
-            name: "很帅",
-            color: '#AA47BC',
-            probability: 10
-          },
-          {
-            id: 2,
-            name: "贼帅",
-            color: '#42A5F6',
-            probability: 10
-          },
-          {
-            id: 3,
-            name: "非常帅",
-            color: '#66BB6A',
-            probability: 10
-          },
-          {
-            id: 4,
-            name: "超级帅",
-            color: '#FFA500',
-            probability: 100
-          },
-          {
-            id: 4,
-            name: "宇宙无敌第一帅",
-            color: '#FF4500',
-            probability: 300
-          }
-        ]
-      }
-    ],
-    //更改数据可以更改这属性，格式要像下面这样写才行
-    awardsConfig: {
-      option: '我帅吗？',//转盘的标题名称
-      awards: [
-        {
-          id: 0,                // id递增
-          name: "帅",           // 选项名 超过9个字时字体会变小点 大于13个数时会隐藏掉超出的
-          color: '#FFA827',         // 选项的背景颜色
-          probability: 0       // 概率 0代表永远也转不到这个选项，数字越大概率也就越大,data中的probability属性设置为true时是才生效, 这属性也必须填写，不填写会出错
-        },
-        {
-          id: 1,
-          name: "很帅",
-          color: '#AA47BC',
-          probability: 10
-        },
-        {
-          id: 2,
-          name: "贼帅",
-          color: '#42A5F6',
-          probability: 10
-        },
-        {
-          id: 3,
-          name: "非常帅",
-          color: '#66BB6A',
-          probability: 10
-        },
-        {
-          id: 4,
-          name: "超级帅",
-          color: '#FFA500',
-          probability: 100
-        },
-        {
-          id: 4,
-          name: "宇宙无敌第一帅",
-          color: '#FF4500',
-          probability: 300
-        }
-      ]
-    }
+    awardsList: {},
+    animationData: {},
+    btnDisabled: '',
   },
-  //接收当前转盘初始化时传来的参数
-  getData(e) {
+
+  onReady: function (e) {
+    this.drawAwardRoundel();
+
+    //分享
+    wx.showShareMenu({
+      withShareTicket: true
+    });
+  },
+
+  //画抽奖圆盘
+  drawAwardRoundel: function () {
+    var awards = this.awardsConfig.awards;
+    var awardsList = [];
+    var turnNum = 1 / awards.length;  // 文字旋转 turn 值
+
+    // 奖项列表
+    for (var i = 0; i < awards.length; i++) {
+      awardsList.push({ turn: i * turnNum + 'turn', lineTurn: i * turnNum + turnNum / 2 + 'turn', award: awards[i].name });
+    }
+
     this.setData({
-      option: e.detail.option
-    })
+      btnDisabled: this.awardsConfig.chance ? '' : 'disabled',
+      awardsList: awardsList
+    });
   },
 
-  //接收当前转盘结束后的答案选项
-  getAwards(e) {
-    wx.showToast({
-      title: e.detail,
-      icon: 'none'
+  //发起抽奖
+  playReward: function () {
+    //中奖index
+    var awardIndex = 4;
+    var runNum = 8;//旋转8周
+    var duration = 4000;//时长
+
+    // 旋转角度
+    this.runDeg = this.runDeg || 0;
+    this.runDeg = this.runDeg + (360 - this.runDeg % 360) + (360 * runNum - awardIndex * (360 / 6))
+    //创建动画
+    var animationRun = wx.createAnimation({
+      duration: duration,
+      timingFunction: 'ease'
     })
+    animationRun.rotate(this.runDeg).step();
     this.setData({
-      s_awards: e.detail,
+      animationData: animationRun.export(),
+      btnDisabled: 'disabled'
+    });
+
+    // 中奖提示
+    var awardsConfig = this.awardsConfig;
+    setTimeout(function () {
+      wx.showModal({
+        title: '恭喜',
+        content: '获得' + (awardsConfig.awards[awardIndex].name),
+        showCancel: false
+      });
+      this.setData({
+        btnDisabled: ''
+      });
+    }.bind(this), duration);
+  },
+  toIndex: function() {
+    wx.navigateTo({
+      url: '/pages/index/index',
     })
   },
-
-  //开始转动或者结束转动
-  startZhuan(e) {
-    this.setData({
-      zhuanflg: e.detail ? true : false
+  toAwardList: function(){
+    wx.navigateTo({
+      url: '/pages/awardlist/awardlist',
     })
-  },
-
-  //切换转盘选项
-  switchZhuanpan(e) {
-    //当转盘停止时才执行切换转盘
-    if (!this.data.zhuanflg) {
-      var idx = e.currentTarget.dataset.idx, zhuanpanArr = this.data.zhuanpanArr, obj = {};
-      for (let i in zhuanpanArr) {
-        if (this.data.option != zhuanpanArr[i].option && zhuanpanArr[i].id == idx) {
-          obj.option = zhuanpanArr[i].option;
-          obj.awards = zhuanpanArr[i].awards;
-          this.setData({
-            awardsConfig: obj //其实默认要更改当前转盘的数据要传个这个对象，才有效果
-          })
-          break;
-        }
-      }
-    }
-  },
-  //转盘声音
-  switch1Change1(e) {
-    var value = e.detail.value;
-    if (this.data.zhuanflg) {
-      wx.showToast({
-        title: '当转盘停止转动后才有效',
-        icon: 'none'
-      })
-      return;
-    } else {
-      this.setData({
-        musicflg: value
-      })
-    }
-  },
-
-  //不重复抽取
-  switch1Change2(e) {
-    var value = e.detail.value;
-    if (this.data.zhuanflg) {
-      wx.showToast({
-        title: '当转盘停止转动后才有效',
-        icon: 'none'
-      })
-      return;
-    } else {
-      this.setData({
-        repeat: value
-      })
-    }
-  },
-
-  //快速决定
-  switch1Change3(e) {
-    var value = e.detail.value;
-    if (this.data.zhuanflg) {
-      wx.showToast({
-        title: '当转盘停止转动后才有效',
-        icon: 'none'
-      })
-      return;
-    } else {
-      this.setData({
-        fastJuedin: value
-      })
-    }
-  },
-
-  //概率 == 如果不重复抽取开启的话 概率是无效的
-  switch1Change4(e) {
-    var value = e.detail.value;
-    if (this.data.zhuanflg) {
-      wx.showToast({
-        title: '当转盘停止转动后才有效',
-        icon: 'none'
-      })
-      return;
-    } else {
-      this.setData({
-        probability: value
-      })
-    }
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.zhuanpan = this.selectComponent("#zhuanpan");
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })

@@ -14,7 +14,7 @@ from functools import wraps
 from app import app, db
 from flask import jsonify, request, render_template
 from .package import wxlogin, get_sha1
-from .models import User, UserInfo, Composition, Follow, AwardRecord, Award, Store
+from .models import User, UserInfo, Composition, AwardRecord, Award, Store
 
 
 def logging(msg):
@@ -188,7 +188,8 @@ def user_info_upload(temp_user):
     language = request.values.get('language')
     nick_name = request.values.get('nickName')
     province = request.values.get('province')
-    if avatar_url is None or city is None or country is None or gender is None or language is None or nick_name is None or province is None:
+    if avatar_url is None or city is None or country is None or gender is None or language is None \
+            or nick_name is None or province is None:
         res.update({
             'state': 0,
             'msg': 'incomplete data'
@@ -288,6 +289,15 @@ def user_composition_upload(temp_user):
     :return:
     """
     res = dict()
+    # 检查用户是否有作品，有作品直接免谈
+    temp_composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
+    if temp_composition:
+        res.update({
+            'state': 0,
+            'msg': 'you have uploaded composition'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
     # 检查作品类型
     composition_type = request.values.get('composition_type')
     composition_angle = request.values.get('composition_angle')

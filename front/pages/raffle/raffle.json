@@ -1,5 +1,6 @@
 {
-  "usingComponents": {
-    "zhuanpan": "/components/zhuanpan/zhuanpan"
-  }
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTitleText": "抽奖",
+  "navigationBarTextStyle": "black"
 }

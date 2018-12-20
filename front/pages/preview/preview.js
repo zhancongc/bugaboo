@@ -15,7 +15,7 @@ Page({
   },
   toRaffle: function () {
     wx.navigateTo({
-      url: '/pages/awardlist/awardlist',
+      url: '/pages/raffle/raffle',
     })
   },
   uploadPhotograph: function () {
@@ -58,7 +58,6 @@ Page({
                 compositionType: response.data.composition_type
               })
             } else {
-              console.log(response);
               wx.showToast({
                 title: '获取助力作品失败，请稍后重试',
                 icon: 'none',

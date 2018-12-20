@@ -26,7 +26,6 @@ Page({
                 url: '/pages/preview/preview?composition_id=' + response.data.composition_id
               })
             } else if (response.state === 0) {
-              console.log(response);
               wx.showToast({
                 title: '获取用户信息失败，请重试',
                 icon: 'none',

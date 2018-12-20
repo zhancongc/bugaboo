@@ -13,6 +13,7 @@ Page({
     console.log(e.detail.userInfo)
     if (e.detail.userInfo) {
       //用户按了授权按钮
+      this.saveUserInfo(e.detail.userInfo);
       wx.setStorage({
         key: 'userInfo',
         data: e.detail.userInfo,
@@ -95,7 +96,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userInfo']) {
+          console.log(res.authSetting['scope.userInfo']);
+          wx.navigateTo({
+            url: '/pages/index/index',
+          })
+        }
+      }
+    })
   },
 
   /**
