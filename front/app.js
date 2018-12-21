@@ -22,13 +22,19 @@ App({
                   if (response.state) {
                     wx.setStorage({
                       key: 'session_id',
-                      data: response.data,
+                      data: response.data.session_id,
                     })
                     var userInfo = wx.getStorageSync('userInfo');
                     if (userInfo) {
-                      wx.reLaunch({
-                        url: '/pages/index/index',
-                      })
+                      if (res.data.hasOwnProperty('composition_id')){
+                        wx.reLaunch({
+                          url: '/pages/preview/preview?composition_id='+response.data.composition_id,
+                        })
+                      } else {
+                        wx.reLaunch({
+                          url: '/pages/index/index',
+                        })
+                      }
                     } else {
                       // 未授权，跳转到授权页面
                       wx.reLaunch({

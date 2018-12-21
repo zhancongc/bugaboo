@@ -6,6 +6,19 @@ Page({
   data: {
   },
   onLoad: function () {
+
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     //如果有作品直接到自己的作品，如果没有就是参加活动
     var session_id = wx.getStorageSync('session_id');
     if (session_id) {
@@ -43,19 +56,6 @@ Page({
         title: '请重新打开小程序再试'
       })
     }
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
   },
 
   /**

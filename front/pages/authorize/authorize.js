@@ -100,7 +100,7 @@ Page({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
           console.log(res.authSetting['scope.userInfo']);
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/index/index',
           })
         }

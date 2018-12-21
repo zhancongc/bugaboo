@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/loading/loading",
     "pages/authorize/authorize",
     "pages/index/index",
     "pages/composition/composition",

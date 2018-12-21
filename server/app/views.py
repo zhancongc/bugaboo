@@ -475,42 +475,50 @@ def user_composition(temp_user):
         logging(json.dumps(res))
         return jsonify(res)
     # 获取作品信息
-    temp_composition = Composition.query.filter_by(composition_id=composition_id).first()
-    if temp_composition is None:
+    composition = Composition.query.filter_by(composition_id=composition_id).first()
+    if composition is None:
         res.update({
             'state': 0,
             'msg': 'none composition id'
         })
         return jsonify(res)
-    if temp_composition.user_id != temp_user.user_id:
+    user_info = UserInfo.query.filter_by(user_id=composition.user_id).first()
+    if user_info is None:
         res.update({
             'state': 0,
-            'msg': 'this is not your composition'
-        })
-        return jsonify(res)
-    temp_user_info = UserInfo.query.filter_by(user_id=temp_user.user_id).first()
-    if temp_user_info is None:
-        res.update({
-            'state': 0,
-            'msg': 'your data is not intact'
+            'msg': 'his or her user info is not intact'
         })
         return jsonify(res)
     data = dict()
     data.update({
         'user_id': temp_user.user_id,
-        'nickName': temp_user_info.nickName,
-        'avatarUrl': temp_user_info.avatarUrl,
-        'composition_id': temp_composition.composition_id,
-        'composition_type': temp_composition.composition_type,
-        'composition_name': temp_composition.composition_name,
-        'composition_url': temp_composition.composition_url,
-        'timestamp': temp_composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+        'nickName': user_info.nickName,
+        'avatarUrl': user_info.avatarUrl,
+        'composition_id': composition.composition_id,
+        'composition_type': composition.composition_type,
+        'composition_name': composition.composition_name,
+        'composition_url': composition.composition_url,
+        'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
     })
-    res.update({
-        'state': 1,
-        'msg': 'success',
-        'data': data
-    })
+    if composition.user_id != temp_user.user_id:
+        user = User.query.filter_by(user_id=composition.user_id).first()
+        followers = list()
+        followers.append()
+        data.update({
+            'follow_times': user.follow_times,
+            'followers': followers
+        })
+        res.update({
+            'state': 2,
+            'msg': 'others composition',
+            'data': data
+        })
+    else:
+        res.update({
+            'state': 1,
+            'msg': 'my composition',
+            'data': data
+        })
     return jsonify(res)
 
 

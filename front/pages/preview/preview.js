@@ -131,6 +131,7 @@ Page({
     // 首先获取user_id和composition_id
     return {
       title: this.data.nickName + '的Bugaboo助力作品',
+      imageUrl: this.data.compositionUrl,
       path: 'pages/preview/preview?composition_id='+this.data.compositionId,
       success: (res) => { },
       fail: (res) => { }
