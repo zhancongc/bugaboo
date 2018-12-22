@@ -32,7 +32,7 @@ def get_access_token():
 
 
 def logging(msg):
-    with open('log.txt', 'a') as fp:
+    with open('response_log.txt', 'a') as fp:
         fp.write(datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S') + msg + '\n')
     print(msg)
 
@@ -899,7 +899,6 @@ def online_service():
     nonce = request.values.get("nonce")
     print('signature, timestamp, nonce', signature, timestamp, nonce)
     if signature is None or timestamp is None or nonce is None:
-        print('有空值')
         return 'bad guys'
     token = configs['development'].ONLINE_SERVICE_TOKEN
     params = list()
@@ -912,12 +911,10 @@ def online_service():
         out += i
     sign = hashlib.sha1(out.encode()).hexdigest()
     if sign != signature:
-        print('不等于')
         return 'bad guys'
     if request.method == 'GET':
         echostr = request.values.get("echostr")
-        if echostr is None:
-            print('get验证通过')
+        if echostr:
             return echostr
         else:
             return 'bad guys'
