@@ -19,7 +19,7 @@ from .package import wxlogin, get_sha1
 from .models import User, UserInfo, Composition, AwardRecord, Award, Store
 
 
-with open('../appsecret.txt', 'r') as f:
+with open('appsecret.txt', 'r') as f:
     app_secret = f.readline().strip()
 
 
