@@ -8,6 +8,8 @@ Description : 路由处理
 import time
 import json
 import datetime
+import requests
+import hashlib
 from PIL import Image
 from config import configs
 from functools import wraps
@@ -15,6 +17,18 @@ from app import app, db
 from flask import jsonify, request, render_template
 from .package import wxlogin, get_sha1
 from .models import User, UserInfo, Composition, AwardRecord, Award, Store
+
+
+with open('../appsecret.txt', 'r') as f:
+    app_secret = f.readline().strip()
+
+
+def get_access_token():
+    url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}'
+    res = requests.get(url.format(configs['development'].APP_ID, app_secret))
+    access_token = json.loads(res.text).get('access_token')
+    print(access_token)
+    return access_token if access_token else None
 
 
 def logging(msg):
@@ -878,3 +892,57 @@ def user_coupon(award_token):
     return render_template('receive_award.html')
 
 
+@app.route('/online/service', methods=['GET', 'POST'])
+def online_service():
+    signature = request.values.get("signature")
+    timestamp = request.values.get("timestamp")
+    nonce = request.values.get("nonce")
+    print(request.values)
+    if signature is None or timestamp is None or nonce is None:
+        return 'bad guys'
+    token = configs['development'].ONLINE_SERVICE_TOKEN
+    params = list()
+    params.append(token)
+    params.append(timestamp)
+    params.append(nonce)
+    params.sort()
+    out = ''
+    for i in params:
+        out += i
+    sign = hashlib.sha1(out.encode()).hexdigest()
+    if sign != signature:
+        return 'bad guys'
+    if request.method == 'GET':
+        echostr = request.values.get("echostr")
+        if echostr is None:
+            return echostr
+        else:
+            return 'bad guys'
+    if request.method == 'POST':
+        message = json.loads(request.get_data(as_text=True))
+        print("message", message)
+        open_id = message['FromUserName']
+        response_data = dict()
+        if message['MsgType'] == 'text' and message['Content'] == '1':
+            response_data.update({
+                "touser": open_id,
+                "msgtype": "image",
+                "image": {"media_id": "itNhfYwkT4gRvLGW9KQKOZCOi2fUx5k4wy4Sge4-wyaaxrRWMAYeNNuFkhvAGRvg"}
+            })
+        else:
+            response_data.update({
+                "touser": open_id,
+                "msgtype": "text",
+                "text": {
+                    "content": "回复1，关注bugaboo官方公众号之后，可以到小程序【bugaboo助力】中抽奖"
+                }
+            })
+        print(response_data)
+        access_token = get_access_token()
+        if access_token:
+            response_url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' + access_token
+            res = requests.post(url=response_url, data=json.dumps(response_data, ensure_ascii=False))
+            print(res.text)
+            return 'good luck'
+        else:
+            return 'bad news'

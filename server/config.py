@@ -18,8 +18,6 @@ class Config(object):
     CSRF_ENABLED = True
     # mini program's
     APP_ID = 'wxc2de3e2ed4435707'
-    # application secret
-    APPLICATION_SECRET = b'hard to guess'
     # folder maintains uploaded file
     UPLOAD_FOLDER = basedir + '/app/static/compositions/'
     # image prefix
@@ -47,21 +45,30 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_MAX_OVERFLOW = 100
     SQLALCHEMY_POOL_RECYCLE = 600
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    # online service's token
+    ONLINE_SERVICE_TOKEN = 'bugaboo'
+    # application secret
+    APPLICATION_SECRET = b'hard to guess'
 
 
 class ProductConfig(Config):
-    # 数据库URI
+    # database URI
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:security@localhost:3306/bugaboo?charset=utf8mb4'
-    # 运行日志
+    # run log
     SQLALCHEMY_ECHO = True
-    # 查询日志
+    # log query
     SQLALCHEMY_RECORD_QUERIES = True
-    # 最大连接数
+    # max connections
     SQLALCHEMY_MAX_OVERFLOW = 1000
-    # 连接超时（秒）
+    # connection timeout(second)
     SQLALCHEMY_POOL_RECYCLE = 600
-    # 修改记录追踪
+    # modification track
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    # online service's token
+    ONLINE_SERVICE_TOKEN = ''
+    # application secret
+    APPLICATION_SECRET = b'hard to guess'
+
 
 
 configs = {
