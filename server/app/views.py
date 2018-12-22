@@ -897,8 +897,9 @@ def online_service():
     signature = request.values.get("signature")
     timestamp = request.values.get("timestamp")
     nonce = request.values.get("nonce")
-    print(request.values)
+    print('signature, timestamp, nonce', signature, timestamp, nonce)
     if signature is None or timestamp is None or nonce is None:
+        print('有空值')
         return 'bad guys'
     token = configs['development'].ONLINE_SERVICE_TOKEN
     params = list()
