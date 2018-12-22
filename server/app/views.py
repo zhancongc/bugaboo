@@ -897,8 +897,9 @@ def online_service():
     signature = request.values.get("signature")
     timestamp = request.values.get("timestamp")
     nonce = request.values.get("nonce")
-    print(request.values)
+    print('signature, timestamp, nonce', signature, timestamp, nonce)
     if signature is None or timestamp is None or nonce is None:
+        print('有空值')
         return 'bad guys'
     token = configs['development'].ONLINE_SERVICE_TOKEN
     params = list()
@@ -911,10 +912,12 @@ def online_service():
         out += i
     sign = hashlib.sha1(out.encode()).hexdigest()
     if sign != signature:
+        print('不等于')
         return 'bad guys'
     if request.method == 'GET':
         echostr = request.values.get("echostr")
         if echostr is None:
+            print('get验证通过')
             return echostr
         else:
             return 'bad guys'
@@ -937,6 +940,7 @@ def online_service():
                     "content": "回复1，关注bugaboo官方公众号之后，可以到小程序【bugaboo助力】中抽奖"
                 }
             })
+        print('打印返回消息')
         print(response_data)
         access_token = get_access_token()
         if access_token:
