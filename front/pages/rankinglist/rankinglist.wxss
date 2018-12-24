@@ -1,13 +1,35 @@
 /* pages/rankinglist/rankinglist.wxss */
-.container-content{
-  height: 800rpx;
+Page {
+  background-color: #f1f1f1;
+}
+
+.swiper-tab {
+  background-color: #fff;
   width: 100%;
   text-align: center;
-}
-.container-content button {
-  margin-top: 200rpx;
-  width: 50%;
-  text-align: center;
   line-height: 80rpx;
-  font-size: 32rpx;
+}
+
+.swiper-tab-list {
+  font-size: 30rpx;
+  display: inline-block;
+  width: 33.33%;
+  color: #797979;
+}
+
+.on {
+  color: #ca0c16;
+  border-bottom: 5rpx solid #ca0c16;
+}
+
+.swiper-box {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: 540rpx;
 }

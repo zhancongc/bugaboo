@@ -1,5 +1,4 @@
 // pages/compositionCut/compositionCut.js
-const qiniuUploader = require("../../utils/qiniuUploader");
 
 Page({
 

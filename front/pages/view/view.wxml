@@ -1,0 +1,24 @@
+<!--pages/preview/pewview.wxml-->
+<view class='container'>
+  <view class='container-title'>
+    <view class='title'>您的好友</view>
+    <view class='title-image'>
+      <image class='user-avatar' src='{{avatarUrl}}'>
+      </image></view>
+    <view class='title'>{{nickName}}</view>
+    <view class='intro'>帮TA赢得Bugaboo爱拍助力活动大奖，需要你的助力</view>
+    <view class='intro'>TA的助力作品:</view>
+  </view>
+  <view class='container-content'>
+    <image src='{{compositionUrl}}' mode='aspectFit'></image>
+  </view>
+  <view class='mainButton'>
+    <button bindtap='toIndex'>我也要玩</button>
+    <button bindtap='toRankingList'>我来助力</button>
+  </view>
+  <view class='bottomText'>
+    福利奖励，活动文案
+  </view>
+  <button bindtap='toRaffle'>去抽奖</button>
+  <button open-type='contact'>关注公众号</button>
+</view>

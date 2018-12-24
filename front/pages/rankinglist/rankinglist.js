@@ -1,66 +1,54 @@
 // pages/rankinglist/rankinglist.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    winWidth: 0,
+    winHeight: 0,
+    currentTab: 0,
+    image: "",
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
   onReady: function () {
-
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          winWidth: res.windowWidth,
+          winHeight: res.windowHeight
+        });
+      }
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
+  // 滑动切换tab
+  bindChange: function (e) {
+    var that = this;
+    that.setData({
+      currentTab: e.detail.current
+    });
+    var title = that.data.currentTab == 0 ? 'TOP50助力排行榜' : '获得好友的助力';
+    wx.setNavigationBarTitle({
+      title: title
+    })
+  },
+  // 点击tab切换
+  swichNav: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
+  },
   onShow: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
   onHide: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
 
   },
   toPreview: function() {

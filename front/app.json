@@ -9,7 +9,8 @@
     "pages/rankinglist/rankinglist",
     "pages/raffle/raffle",
     "pages/awardlist/awardlist",
-    "pages/award/award"
+    "pages/award/award",
+    "pages/view/view"
   ],
   "window":{
     "backgroundTextStyle":"light",
