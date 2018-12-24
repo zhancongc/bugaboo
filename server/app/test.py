@@ -1,34 +1,36 @@
-from app.models import db, User
-from app.package import get_sha1
-user = User(open_id='oyab15UR9j5BbTtj_sKKMHNEtSSw', union_id='oy9ft0RKmgFXI_K8NFZYSY6CjnIA',
-    session_key='sdkBgQyQyFjUFpf2zjjrCQ==', session_id='9d332e5f6f0eb60deb4a05b1968b071a1bac0da4')
-db.session.add(user)
-db.session.commit()
-
-User.query.filter_by(session_id='9d332e5f6f0eb60deb4a05b1968b071a1bac0da4').first()
-
-from functools import wraps
-def login_required(func):
-    @wraps(func)
-    def authenticate(*args, **kwargs):
-        res = dict()
-        host = request.headers.get('Host')
-        if not host:
-            res.update({
-                'state': 0,
-                'msg': 'cannot found session_id or session_id expired'
-            })
-            return jsonify(res)
-        return func(host, *args, **kwargs)
-    return authenticate
+import unittest
+from flask import url_for
+from app.views import index
+from app import create_app, db
+from app.models import User
 
 
-from flask import request, jsonify
-@login_required
-def foo(host):
-    print(host)
-    res = dict()
-    res.update({'state': 1, 'msg': 'success'})
-    return jsonify(res)
+class ViewTest(unittest.TestCase):
+    def setUp(self):
+        self.app = create_app('development')
+        self.app_context = self.app.app_context()
+        self.app_context.push()
+        db.create_all()
+        self.client = self.app.test_client(use_cookies=True)
 
-a=foo()
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+        self.app_context.pop()
+
+    @classmethod
+    def setUpClass(self):
+        pass
+
+    @classmethod
+    def tearDownClass(self):
+        pass
+
+    def test_index(self):
+        res = self.client.get(url_for('app.index'))
+        self.assertEqual("Hello, World!", res.get_data(as_text=True), msg="index failed")
+        print("check index")
+
+
+if __name__ == "__main__":
+    unittest.main()

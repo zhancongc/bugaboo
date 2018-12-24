@@ -11,6 +11,7 @@ import hashlib
 import datetime
 from app import app
 from config import configs
+import configparser
 
 
 def wxlogin(code):
@@ -23,12 +24,13 @@ def wxlogin(code):
         "unionid":"oy9ft0RKmgFXI_K8NFZYSY6CjnIA"
     }
     """
-    appid = app.config.get('APP_ID')
-    with open('appsecret.txt', 'r') as f:
-        app_secret = f.readline().strip()
+    conf = configparser.ConfigParser()
+    conf.read(filenames='config.ini', encoding='utf8')
+    app_id = conf.get('app', 'app_id')
+    app_secret = conf.get('app', 'app_secret')
     url = 'https://api.weixin.qq.com/sns/jscode2session'
     data = {'js_code': code, 'secret': app_secret, 'grant_type': 'authorization_code',
-            'appid': appid}
+            'appid': app_id}
     r = requests.post(url, data=data)
     return json.loads(r.text)
 

@@ -10,6 +10,7 @@ import json
 import datetime
 import requests
 import hashlib
+import configparser
 from PIL import Image
 from config import configs
 from functools import wraps
@@ -19,12 +20,11 @@ from .package import wxlogin, get_sha1
 from .models import User, UserInfo, Composition, AwardRecord, Award, Store
 
 
-with open('appsecret.txt', 'r') as f:
-    app_secret = f.readline().strip()
-
-
 def get_access_token():
     url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}'
+    conf = configparser.ConfigParser()
+    conf.read('config.ini')
+    app_secret = conf.get('app', 'app_secret')
     res = requests.get(url.format(configs['development'].APP_ID, app_secret))
     access_token = json.loads(res.text).get('access_token')
     print(access_token)
@@ -924,10 +924,12 @@ def online_service():
         open_id = message['FromUserName']
         response_data = dict()
         if message['MsgType'] == 'text' and message['Content'] == '1':
+            conf = configparser.ConfigParser().read('config.ini')
+            media_id = conf.get('weixin', 'media_id')
             response_data.update({
                 "touser": open_id,
                 "msgtype": "image",
-                "image": {"media_id": "itNhfYwkT4gRvLGW9KQKOZCOi2fUx5k4wy4Sge4-wyaaxrRWMAYeNNuFkhvAGRvg"}
+                "image": {"media_id": media_id}
             })
         else:
             response_data.update({
@@ -947,3 +949,5 @@ def online_service():
             return 'good luck'
         else:
             return 'bad news'
+
+
