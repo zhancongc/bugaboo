@@ -1,3 +1,16 @@
-<view >
-  <button bindtap='toPreview'>预览</button>
+<view class="swiper-tab">
+  <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">留言</view>
+  <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">活动</view>
 </view>
+<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
+  <swiper-item>
+    <view>
+      <image src='{{image}}' class='img'></image>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <view>
+      <image src='{{image}}' class='img'></image>
+    </view>
+  </swiper-item>
+</swiper>

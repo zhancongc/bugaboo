@@ -13,11 +13,7 @@ Page({
     compositionUrl: '',
     compositionType: 0
   },
-  toRaffle: function () {
-    wx.navigateTo({
-      url: '/pages/raffle/raffle',
-    })
-  },
+
   uploadPhotograph: function () {
     wx.showToast({
       title: '正在上传...',
@@ -48,7 +44,9 @@ Page({
           var response = res.data;
           console.log(response);
           if (response.constructor === Object) {
+            var viewer;
             if (response.state) {
+              var viewer = response.state === 1 ? false: true;
               that.setData({
                 userId: response.data.user_id,
                 nickName: response.data.nickName,
@@ -132,7 +130,7 @@ Page({
     return {
       title: this.data.nickName + '的Bugaboo助力作品',
       imageUrl: this.data.compositionUrl,
-      path: 'pages/preview/preview?composition_id='+this.data.compositionId,
+      path: 'pages/view/view?composition_id='+this.data.compositionId,
       success: (res) => { },
       fail: (res) => { }
     }
