@@ -63,7 +63,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-    toRaffle: function () {
+  toRaffle: function () {
     wx.navigateTo({
       url: '/pages/raffle/raffle',
     })

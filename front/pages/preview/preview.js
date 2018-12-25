@@ -139,5 +139,10 @@ Page({
     wx.navigateTo({
       url: '/pages/rankinglist/rankinglist',
     })
-  }
+  },
+  toRaffle: function () {
+    wx.navigateTo({
+      url: '/pages/raffle/raffle',
+    })
+  },
 })
