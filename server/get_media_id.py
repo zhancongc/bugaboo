@@ -34,6 +34,7 @@ if __name__ == '__main__':
     app_secret = conf.get('app', 'app_secret')
     picture = conf.get('weixin', 'picture')
     md = Media(app_id=app_id, secret=app_secret, picture_path=picture)
+    print(md.access_token)
     media_id = md.get_media_id()
     conf.set('weixin', 'media_id', media_id)
     with open('config.ini', 'w') as fp:
