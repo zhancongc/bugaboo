@@ -40,10 +40,13 @@ def get_sha1(value):
     :param value: unicode string
     :return: encrypt unicode string
     """
+    conf = configparser.ConfigParser()
+    conf.read(filenames='config.ini', encoding='utf8')
+    application_secret = conf.get('app', 'application_secret')
     sh = hashlib.sha1()
     sh.update(value.encode())
     sh.update(datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S').encode())
-    sh.update(configs['development'].APPLICATION_SECRET)
+    sh.update(application_secret.encode())
     return sh.hexdigest()
 
 

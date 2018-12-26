@@ -16,14 +16,18 @@ class Config(object):
     DEBUG = True
     # enable csrf
     CSRF_ENABLED = True
+    # csrf token
+    SECRET_KEY = 'you will never guess'
     # mini program's
     APP_ID = 'wxc2de3e2ed4435707'
+    # activity open
+    APP_STATUS_ON = True
     # folder maintains uploaded file
     UPLOAD_FOLDER = basedir + '/app/static/compositions/'
-    # image prefix
-    COMPOSITION_PREFIX = 'https://bugaboo.drivetogreen.com/static/compositions/'
     # folder maintains out file
     OUT_FOLDER = basedir + '/files/out/'
+    # image prefix
+    COMPOSITION_PREFIX = 'https://bugaboo.drivetogreen.com/static/compositions/'
     # max size of uploaded file
     MAX_CONTENT_LENGTH = 10 * 1024 * 1024
     # migrate repository
@@ -45,10 +49,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_MAX_OVERFLOW = 100
     SQLALCHEMY_POOL_RECYCLE = 600
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    # online service's token
-    ONLINE_SERVICE_TOKEN = 'bugaboo'
-    # application secret
-    APPLICATION_SECRET = b'hard to guess'
+
 
 
 class ProductConfig(Config):
@@ -64,10 +65,6 @@ class ProductConfig(Config):
     SQLALCHEMY_POOL_RECYCLE = 600
     # modification track
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    # online service's token
-    ONLINE_SERVICE_TOKEN = ''
-    # application secret
-    APPLICATION_SECRET = b'hard to guess'
 
 
 

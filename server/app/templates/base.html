@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--Import Google Icon Font-->
+    <link href="{{ url_for('static', filename='css/Material+icons.css') }}" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}"
+          media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style type="text/css">
+        .fixed-bottom {position: fixed;bottom: 0;width:100%;}
+    </style>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% block navbar %}
+    <nav>
+        <div class="nav-wrapper #0d47a1 blue darken-4">
+            <div class="col s12">
+                <a href="{{ url_for('god_index') }}" class="brand-logo">&nbsp;&nbsp;Bugaboo助力活动后台</a>
+            </div>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a class="active" href="{{ url_for('god_index') }}">首页</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a class="active" href="{{ url_for('god_index') }}">首页</a></li>
+            </ul>
+        </div>
+    </nav>
+    {% endblock %}
+    {% block content %}{% endblock %}
+    <footer class="page-footer #1565c0 blue darken-3">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2019 Copyright ZHANCC
+            </div>
+        </div>
+    </footer>
+    {% block footer %}{% endblock %}
+    <!--Import jQuery before materialize.js-->
+    <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+    <script type="application/javascript">
+        $(".button-collapse").sideNav();
+        $(function(){
+            function footerPosition(){
+                $("footer").removeClass("fixed-bottom");
+                var contentHeight = document.body.scrollHeight, winHeight = window.innerHeight;
+                if(contentHeight < winHeight){
+                    $("footer").addClass("fixed-bottom");
+                }
+            }
+            footerPosition();
+            $(window).resize(footerPosition);
+        });
+    </script>
+    <!-- script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script -->
+    <!-- script type="text/javascript" src="js/materialize.min.js"></script -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -15,9 +15,10 @@ from PIL import Image
 from config import configs
 from functools import wraps
 from app import app, db
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, redirect
 from .package import wxlogin, get_sha1
 from .models import User, UserInfo, Composition, AwardRecord, Award, Store
+from .forms import GodLoginForm
 
 
 def get_access_token():
@@ -105,7 +106,7 @@ def login_required(func):
 
 
 @app.route('/test')
-def index():
+def test():
     """
     :function: 测试页面
     :return: 测试页面
@@ -900,7 +901,9 @@ def online_service():
     print('signature, timestamp, nonce', signature, timestamp, nonce)
     if signature is None or timestamp is None or nonce is None:
         return 'bad guys'
-    token = configs['development'].ONLINE_SERVICE_TOKEN
+    conf = configparser.ConfigParser()
+    conf.read('config.ini')
+    token = conf.get('app', 'online_service_token')
     params = list()
     params.append(token)
     params.append(timestamp)
@@ -924,8 +927,6 @@ def online_service():
         open_id = message['FromUserName']
         response_data = dict()
         if message['MsgType'] == 'text' and message['Content'] == '1':
-            conf = configparser.ConfigParser()
-            conf.read('config.ini')
             media_id = conf.get('weixin', 'media_id')
             response_data.update({
                 "touser": open_id,
@@ -950,5 +951,32 @@ def online_service():
             return 'good luck'
         else:
             return 'bad news'
+
+
+@app.route('/god/login', methods=['GET', 'POST'])
+def god_login():
+    """
+    :function: 管理员登陆
+    :return:
+    """
+    form = GodLoginForm()
+    if form.validate_on_submit():
+        conf = configparser.ConfigParser()
+        conf.read('config.ini')
+        if conf.get('weixin', 'god_name') == form.username.data and \
+            conf.get('weixin', 'god_password') == form.password.data:
+            return redirect('god_index')
+    return render_template("god_login.html", form=form)
+
+
+@app.route('/god/index', methods=['GET'])
+def god_index():
+    """
+    :function: 后台首页， 搜索用户信息， 查看排行榜， 活动开启和关闭
+    :return:
+    """
+    return render_template("god_index.html")
+
+
 
 

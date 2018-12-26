@@ -6,14 +6,16 @@ Description : 表单管理
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField, TextAreaField, SelectField, FileField, IntegerField
+from wtforms import StringField, BooleanField, TextAreaField, SelectField, FileField, IntegerField, PasswordField
+from wtforms.validators import DataRequired
 
 
-class LoginForm(FlaskForm):
+class GodLoginForm(FlaskForm):
     """
     登陆表单
     """
-    pass
+    username = StringField('username', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
 
 
 
