@@ -924,7 +924,8 @@ def online_service():
         open_id = message['FromUserName']
         response_data = dict()
         if message['MsgType'] == 'text' and message['Content'] == '1':
-            conf = configparser.ConfigParser().read('config.ini')
+            conf = configparser.ConfigParser()
+            conf.read('config.ini')
             media_id = conf.get('weixin', 'media_id')
             response_data.update({
                 "touser": open_id,
