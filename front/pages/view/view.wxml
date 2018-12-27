@@ -1,22 +1,32 @@
 <!--pages/preview/pewview.wxml-->
-<view class='container'>
-  <view class='container-title'>
-    <view class='title'>您的好友</view>
-    <view class='title-image'>
-      <image class='user-avatar' src='{{avatarUrl}}'>
-      </image></view>
-    <view class='title'>{{nickName}}</view>
-    <view class='intro'>帮TA赢得Bugaboo爱拍助力活动大奖，需要你的助力</view>
-    <view class='intro'>TA的助力作品:</view>
-  </view>
-  <view class='container-content'>
-    <image src='{{compositionUrl}}' mode='aspectFit'></image>
-  </view>
-  <view class='mainButton'>
-    <button bindtap='toComposition'>我也要玩</button>
-    <button bindtap='follow'>我来助力</button>
-  </view>
-  <view class='bottomText'>
-    福利奖励，活动文案
-  </view>
-</view>
+<i-row>
+    <i-col span="5" offset="4" i-class="col-class">您的好友</i-col>
+    <i-col span="2" i-class="col-class"><i-avatar src="{{avatarUrl}}" size="default" shape="square"></i-avatar></i-col>
+    <i-col span="13" i-class="col-class">{{nickName}}的作品</i-col>
+</i-row>
+
+<i-row style="vertical-align: middle; text-align:center;">
+  <i-col span="24" i-class="col-class">
+    <image src="{{compositionUrl}}" mode="aspectFit"></image>
+  </i-col>
+</i-row>
+
+<i-row>
+  <i-col span="22" offset="1" i-class="col-class">
+  <view style="margin-bottom: 50rpx">点击【送祝福】，给TA送上新年的祝福</view></i-col>
+</i-row>
+
+<i-row>
+  <i-col span="8" offset="3" i-class="col-class" style="margin-top: 50rpx;">
+    <button bindtap='toIndex'>我也要参加</button>
+  </i-col>
+  <i-col span="8" offset="2" i-class="col-class">
+    <button bindtap='follow'>送祝福</button>
+  </i-col>
+</i-row>
+
+<i-row>
+  <i-col span="4" offset="10">
+    <view class='bottomText'>活动说明</view>
+  </i-col>
+</i-row>

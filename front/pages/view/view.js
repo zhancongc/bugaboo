@@ -1,4 +1,5 @@
 // pages/preview/pewview.js
+import Dialog from '../../dist/dialog/dialog';
 const app = getApp()
 
 Page({
@@ -6,6 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show: false,
+    username: '',
+    password: '',
+    visible: false,
     userId: '',
     nickName: '',
     avatarUrl: '',
@@ -13,14 +18,19 @@ Page({
     compositionUrl: '',
     compositionType: 0
   },
-
-  uploadPhotograph: function () {
-    wx.showToast({
-      title: '正在上传...',
-      icon: 'loading',
-      mask: true,
-      duration: 3000
-    });
+  onClose(event) {
+    if (event.detail === 'confirm') {
+      // 异步关闭弹窗
+      setTimeout(() => {
+        this.setData({
+          show: false
+        });
+      }, 1000);
+    } else {
+      this.setData({
+        show: false
+      });
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -134,9 +144,24 @@ Page({
       fail: (res) => { }
     }
   },
-  toComposition: function () {
+  toIndex: function () {
     wx.navigateTo({
-      url: '/pages/composition/composition',
+      url: '/pages/index/index',
     })
+  },
+  handleOpen() {
+    this.setData({
+      visible: true
+    });
+  },
+  handleClose() {
+    this.setData({
+      visible: false
+    });
+  },
+  follow: function () {
+    this.handleClose();
   }
-})
+});
+
+

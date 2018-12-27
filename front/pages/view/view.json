@@ -2,5 +2,16 @@
   "backgroundTextStyle": "light",
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTitleText": "助力作品",
-  "navigationBarTextStyle": "black"
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "i-row": "/iViewUI/row/index",
+    "i-col": "/iViewUI/col/index",
+    "i-avatar": "/iViewUI/avatar/index",
+    "i-modal": "/iViewUI/modal/index",
+    "van-row": "/dist/row/index",
+    "van-col": "/dist/col/index",
+    "van-button": "/dist/button/index",
+    "van-dialog": "/dist/dialog/index",
+    "van-icon": "/dist/icon/index"
+  }
 }
