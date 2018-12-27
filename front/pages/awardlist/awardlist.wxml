@@ -1,2 +1,7 @@
 <!--pages/awardlist/awardlist.wxml-->
-<text>pages/awardlist/awardlist.wxml</text>
+<view class='page'>
+<view class='page__hd'>
+<view class='page__title'>article</view>
+<view class='page_desc'>desc</view>
+</view>
+</view>

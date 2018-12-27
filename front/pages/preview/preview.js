@@ -46,7 +46,6 @@ Page({
           if (response.constructor === Object) {
             var viewer;
             if (response.state) {
-              var viewer = response.state === 1 ? false: true;
               that.setData({
                 userId: response.data.user_id,
                 nickName: response.data.nickName,
@@ -135,14 +134,44 @@ Page({
       fail: (res) => { }
     }
   },
-  toRankingList: function() {
-    wx.navigateTo({
-      url: '/pages/rankinglist/rankinglist',
-    })
-  },
   toRaffle: function () {
     wx.navigateTo({
       url: '/pages/raffle/raffle',
     })
   },
+  toAuthorize: function () {
+    wx.navigateTo({
+      url: '/pages/authorize/authorize',
+    })
+  },
+  toAward: function () {
+    wx.navigateTo({
+      url: '/pages/award/award',
+    })
+  },
+  toAwardList: function () {
+    wx.navigateTo({
+      url: '/pages/awardlist/awardlist',
+    })
+  },
+  toComposition: function () {
+    wx.navigateTo({
+      url: '/pages/composition/composition',
+    })
+  },
+  toLoading: function () {
+    wx.navigateTo({
+      url: '/pages/loading/loading',
+    })
+  },
+  toRankingList: function () {
+    wx.navigateTo({
+      url: '/pages/rankinglist/rankinglist',
+    })
+  },
+  toView:function () {
+    wx.navigateTo({
+      url: '/pages/view/view?composition_id=1',
+    })
+  }
 })

@@ -1,1 +1,57 @@
 /* pages/view/view.wxss */
+.container {
+  width: 96%;
+  margin: 0 auto;
+  padding: 100rpx 0;
+}
+.container title {
+  display: inline-block;
+  flex-wrap: wrap;
+}
+.intro {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.title {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  width: 120rpx;
+  display: inline-block;
+}
+.title-image {
+  width: 120rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+.container-content{
+  margin-top: 50rpx;
+  width: 100%;
+  text-align: center;
+}
+.user-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 10rpx;
+  bottom: 40rpx;
+}
+.mainButton {
+  margin-top: 50rpx;
+  width: 100%;
+  text-align: center;
+  height: 80rpx;
+}
+.mainButton button {
+  float: left;
+  width: 45%;
+  left: 5%;
+  right: 5%;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+}
+.bottomText {
+  margin-top: 50rpx;
+  vertical-align: middle;
+  font-size: 28rpx;
+}
