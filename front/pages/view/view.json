@@ -4,14 +4,10 @@
   "navigationBarTitleText": "助力作品",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "i-row": "/iViewUI/row/index",
-    "i-col": "/iViewUI/col/index",
-    "i-avatar": "/iViewUI/avatar/index",
-    "i-modal": "/iViewUI/modal/index",
-    "van-row": "/dist/row/index",
-    "van-col": "/dist/col/index",
-    "van-button": "/dist/button/index",
-    "van-dialog": "/dist/dialog/index",
-    "van-icon": "/dist/icon/index"
+    "i-row": "../../dist/row/index",
+    "i-col": "../../dist/col/index",
+    "i-avatar": "../../dist/avatar/index",
+    "i-modal": "../../dist/modal/index",
+    "i-button": "../../dist/button/index"
   }
 }

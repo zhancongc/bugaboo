@@ -1,5 +1,4 @@
 // pages/preview/pewview.js
-import Dialog from '../../dist/dialog/dialog';
 const app = getApp()
 
 Page({
@@ -7,10 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show: false,
-    username: '',
-    password: '',
-    visible: false,
+    visible1: false,
     userId: '',
     nickName: '',
     avatarUrl: '',
@@ -149,18 +145,19 @@ Page({
       url: '/pages/index/index',
     })
   },
-  handleOpen() {
+  handleOpen1() {
     this.setData({
-      visible: true
+      visible1: true
     });
   },
-  handleClose() {
+
+  handleClose1() {
     this.setData({
-      visible: false
+      visible1: false
     });
   },
   follow: function () {
-    this.handleClose();
+    this.handleClose1();
   }
 });
 

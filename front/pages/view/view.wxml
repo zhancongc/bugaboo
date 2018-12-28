@@ -18,10 +18,14 @@
 
 <i-row>
   <i-col span="8" offset="3" i-class="col-class" style="margin-top: 50rpx;">
-    <button bindtap='toIndex'>我也要参加</button>
+    <view>
+      <i-button bind:click="toIndex">我也要参加</i-button>
+    </view>
   </i-col>
   <i-col span="8" offset="2" i-class="col-class">
-    <button bindtap='follow'>送祝福</button>
+    <view>
+      <i-button bind:click="handleOpen1">送祝福</i-button>
+    </view>
   </i-col>
 </i-row>
 
@@ -30,3 +34,13 @@
     <view class='bottomText'>活动说明</view>
   </i-col>
 </i-row>
+
+<i-modal title="祝福成功" visible="{{ visible1 }}" bind:ok="follow" bind:cancel="handleClose1">
+    <view>
+    <i-row>
+      <i-col span="22" offset="1">
+        <view>恭喜您获得了一次抽奖的机会，关注微信公众号【bugaboo官方账号】即可参与抽奖</view>
+      </i-col>
+    </i-row>
+    </view>
+</i-modal>

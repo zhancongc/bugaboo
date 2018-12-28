@@ -5,9 +5,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    percent: 45,
+    status: 'active'
   },
-
+  handleAdd() {
+    if (this.data.percent === 100) return;
+    this.setData({
+      percent: this.data.percent + 10
+    });
+    if (this.data.percent === 100) {
+      this.setData({
+        status: 'success'
+      });
+    }
+  },
+  handleReduce() {
+    if (this.data.percent === 0) return;
+    this.setData({
+      percent: this.data.percent - 10,
+      status: 'normal'
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */

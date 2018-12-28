@@ -1,10 +1,10 @@
 <!--pages/authorize/authorize.wxml-->
-<view class='container'>
-  <view class='container-title'>
-    <text>微信授权</text>
-  </view>
-  <view class='container-content'>
-    <text class='container-explanation'>你好!首次登录，请点击下方按钮授权。</text>
-    <button class='user-info' open-type='getUserInfo' bindgetuserinfo="getUserInfo" style='color: #096064'>授权</button>
-  </view>
-</view>
+<i-row>
+  <i-col span="20" offset="2" i-class="col-class" style="margin-top: 50rpx;">
+  <view style="margin-top: 500rpx">你好!首次登录，请点击下方按钮授权。</view></i-col>
+  <i-col span="8" offset="8" i-class="col-class">
+    <view>
+      <i-button open-type='getUserInfo'>授权</i-button>
+    </view>
+  </i-col>
+</i-row>
