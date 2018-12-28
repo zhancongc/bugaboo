@@ -2,5 +2,10 @@
   "backgroundTextStyle": "light",
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTitleText": "Bugaboo",
-  "navigationBarTextStyle": "black"
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "i-row": "../../dist/row/index",
+    "i-col": "../../dist/col/index",
+    "i-button": "../../dist/button/index"
+  }
 }

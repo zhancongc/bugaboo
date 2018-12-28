@@ -1,19 +1,23 @@
 <!--pages/preview/pewview.wxml-->
 <i-row>
-    <i-col span="5" offset="4" i-class="col-class">您的好友</i-col>
-    <i-col span="2" i-class="col-class"><i-avatar src="{{avatarUrl}}" size="default" shape="square"></i-avatar></i-col>
-    <i-col span="13" i-class="col-class">{{nickName}}的作品</i-col>
+    <i-col span="22" offset="2" i-class="col-class">
+    <view style="margin-bottom: 30rpx;">您的好友</view>
+    </i-col>
+    <i-col span="2" offset="2" i-class="col-class"><i-avatar src="{{avatarUrl}}" size="small" shape="square"></i-avatar></i-col>
+    <i-col span="20" i-class="col-class">{{nickName}}的作品</i-col>
 </i-row>
 
-<i-row style="vertical-align: middle; text-align:center;">
+<i-row>
   <i-col span="24" i-class="col-class">
-    <image src="{{compositionUrl}}" mode="aspectFit"></image>
+    <view style="vertical-align: middle; text-align:center;">
+      <image src="{{compositionUrl}}" mode="aspectFit"></image>
+    </view>
   </i-col>
 </i-row>
 
 <i-row>
   <i-col span="22" offset="1" i-class="col-class">
-  <view style="margin-bottom: 50rpx">点击【送祝福】，给TA送上新年的祝福</view></i-col>
+  <view style="margin-bottom: 30rpx; text-align:center;">点击【送祝福】，给TA送上新年的祝福</view></i-col>
 </i-row>
 
 <i-row>

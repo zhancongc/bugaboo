@@ -1,47 +1,27 @@
-<view class="swiper-tab">
-  <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">排行榜</view>
-  <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">帮我助力的人</view>
-</view>
-<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px" bindchange="bindChange">
-  <swiper-item>
-    <view class='banner'>
-      <view class='numberTwo'>
-        <image src='{{numberTwo.avatarUrl}}'></image>
-        <text>{{numberTwo.nickName}}</text>
-        <text>{{numberTwo.follow_times}}</text>
-      </view>
-      <view class='numberOne'>
-        <image src='{{numberOne.avatarUrl}}'></image>
-        <text>{{numberOne.nickName}}</text>
-        <text>{{numberOne.follow_times}}</text>
-      </view>
-      <view class='numberThree'>
-        <image src='{{numberThree.avatarUrl}}'></image>
-        <text>{{numberThree.nickName}}</text>
-        <text>{{numberThree.follow_times}}</text>
-      </view>
-    </view>
-    <view class='list'>
-      <view class='list-item' wx:for='{{topFifty}}'>
-        <view class='item-left'>
-          <text>{{item.number}}</text>
-          <image src='{{item.avatarUrl}}'></image>
-          <text>{{item.nickName}}</text>
-        </view>
-        <view class='item-right'>{{item.follow_times}}</view>
-      </view>
-    </view>
-  </swiper-item>
-  <swiper-item>
-    <view class='list'>
-      <view class='list-item' wx:for='{{followMe}}'>
-        <view class='item-left'>
-          <text>{{item.number}}</text>
-          <image src='{{item.avatarUrl}}'></image>
-          <text>{{item.nickName}}</text>
-        </view>
-        <view class='item-right'><text>助力1次</text></view>
-      </view>
-    </view>
-  </swiper-item>
-</swiper>
+<i-tabs current="{{ current }}" bindchange="handleChange">
+    <i-tab key="tab1" title="排行榜"></i-tab>
+    <i-tab key="tab2" title="给我祝福的人"></i-tab>
+</i-tabs>
+
+<i-cell-group wx:if="{{ current == 'tab1' }}">
+    <i-cell wx:for="{{topFifty}}" wx:key="item.number">
+      <i-row>
+          <i-col span="1" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.number}}</i-col>
+          <i-col span="2" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
+          <i-col span="12" i-class="col-class" style="line-height: 48rpx;">{{item.nickName}}</i-col>
+          <i-col span="8" i-class="col-class" style="line-height: 48rpx;">收到祝福{{item.follow_times}}次</i-col>
+      </i-row>
+    </i-cell>
+</i-cell-group>
+
+<i-cell-group wx:if="{{ current == 'tab2' }}">
+    <i-cell wx:for="{{followMe}}" wx:key="item.number">
+      <i-row>
+          <i-col span="1" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.number}}</i-col>
+          <i-col span="3" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
+          <i-col span="15" i-class="col-class" style="line-height: 48rpx;">{{item.nickName}}</i-col>
+          <i-col span="5" i-class="col-class" style="line-height: 48rpx;">助力1次</i-col>
+      </i-row>
+    </i-cell>
+</i-cell-group>
+
