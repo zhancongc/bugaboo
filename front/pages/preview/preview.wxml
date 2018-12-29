@@ -43,11 +43,10 @@
     <i-button bind:click="toView">到分享页面</i-button>
     <i-button open-type='contact'>到客服页面</i-button>
     <i-button bind:click="toRaffle">到抽奖页面</i-button>
+    <i-button bind:click="toAwardList">到奖品列表页面</i-button>
     <i-button bind:click="toAuthorize">到授权页面</i-button>
     <i-button bind:click="toComposition">到作品上传页面</i-button>
-    <i-button bind:click="toRankingList">到排行榜页面</i-button>
     <i-button bind:click="toLoading">到加载页面</i-button>
-    <i-button bind:click="toAward">查看奖品</i-button>
   </i-col>
 </i-row>
 

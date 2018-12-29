@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    percent: 45,
+    percent: 100,
     status: 'active'
   },
   handleAdd() {

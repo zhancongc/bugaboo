@@ -5,7 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    awards: [
+      { "awardrecord_id": 1, "award_name": "奖品一", "award_image": "../../images/bugaboo.jpg", "award_time": "2019/01/12 12:00" },
+      { "awardrecord_id": 2, "award_name": "奖品二", "award_image": "../../images/bugaboo.jpg", "award_time": "2019/01/12 12:00" },
+      { "awardrecord_id": 3, "award_name": "奖品三", "award_image": "../../images/bugaboo.jpg", "award_time": "2019/01/12 12:00" }
+    ]
   },
 
   /**
@@ -62,5 +66,11 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  toAward: function (e) {
+    console.log(e.target.dataset);
+    wx.navigateTo({
+      url: '/pages/award/award?awardrecord_id=' + e.target.dataset.awardrecord_id,
+    })
   }
 })
