@@ -15,7 +15,7 @@ from PIL import Image
 from config import configs
 from functools import wraps
 from app import app, db
-from flask import jsonify, request, render_template, redirect
+from flask import jsonify, request, render_template, redirect, url_for
 from .package import wxlogin, get_sha1
 from .models import User, UserInfo, Composition, AwardRecord, Award, Store
 from .forms import GodLoginForm
@@ -965,7 +965,7 @@ def god_login():
         conf.read('config.ini')
         if conf.get('weixin', 'god_name') == form.username.data and \
             conf.get('weixin', 'god_password') == form.password.data:
-            return redirect('god_index')
+            return redirect(url_for('god_index'))
     return render_template("god_login.html", form=form)
 
 
