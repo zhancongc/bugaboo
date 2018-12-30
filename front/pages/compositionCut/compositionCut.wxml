@@ -1,15 +1,17 @@
+<import src="../we-cropper/we-cropper.wxml"/>
 
-<view class='container'>
-  <view class='container-content'>
-    <image src='{{compositionUrl}}' mode='aspectFit' class='{{objectCompositionAngle[compositionAngle]}}'></image>
+<view class="cropper-wrapper">
+  <template is="we-cropper" data="{{...cropperOpt}}"/>
+</view>
+<view class="cropper-buttons" style="color: {{cropperOpt.boundStyle.color}}">
+  <view
+    class="upload"
+    bindtap="uploadTap">
+    上传图片
   </view>
-  <view class='container-title'>
-    <button bindtap='rotate'>旋转</button>
-  </view>
-  <view class='bottomBar'>
-    <button bindtap='choosePhotograph'>重新选择</button>
-    <button bindtap='toPreview'>完成</button>
+  <view
+    class="getCropperImage"
+    bindtap="btnHandle">
+    生成图片
   </view>
 </view>
-
-

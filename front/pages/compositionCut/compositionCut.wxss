@@ -1,41 +1,39 @@
+.cropper-wrapper{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between;*/
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #e5e5e5;
+}
 
-.container {
-  width: 96%;
-  margin: 0 auto;
-  padding: 200rpx 0;
+.cropper-buttons{
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between;*/
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
 }
-.container-content image {
-  vertical-align: center;
+
+.cropper-buttons .upload, .cropper-buttons .getCropperImage{
+    width: 50%;
+    text-align: center;
 }
-.angle90 {
-  transform:rotate(90deg);
+
+.cropper{
+    position: absolute;
+    top: 0;
+    left: 0;
 }
-.angle180 {
-  transform:rotate(180deg);
-}
-.angle270{
-  transform:rotate(270deg);
-}
-.bottomBar {
-  width: 100%;
-  height: 80rpx;
-  position: fixed;
-  left: 0rpx;
-  bottom: 0rpx;
-  display: flex;
-  flex-wrap: wrap;
-  border: 1rpx solid #cccccc;
-  border-bottom:none;
-  border-left:none;
-  border-right:none;
-  background-color: #ffffff;
-}
-.bottomBar button {
-  width: 50%;
-  height: 80rpx;
-}
-.container-title button{
-  position: fixed;
-  left: 0rpx;
-  bottom: 80rpx;
+
+.cropper-buttons{
+    background-color: rgba(0, 0, 0, 0.95);
 }
