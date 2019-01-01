@@ -10,6 +10,7 @@ import json
 import datetime
 import requests
 import hashlib
+import random
 import configparser
 from PIL import Image
 from config import configs
@@ -17,7 +18,7 @@ from functools import wraps
 from app import app, db
 from flask import jsonify, request, render_template, redirect, url_for
 from .package import wxlogin, get_sha1
-from .models import User, UserInfo, Composition, AwardRecord, Award, Store
+from .models import User, UserInfo, Composition, AwardRecord, Award, Store, God
 from .forms import GodLoginForm
 
 
@@ -103,6 +104,29 @@ def login_required(func):
             })
         return func(user, *args, **kwargs)
     return authenticate
+
+
+def login_required2(func):
+    """
+    :function: 判断后台是否登录
+    :param func: 路由处理函数
+    :return: 原样返回
+    """
+    @wraps(func)
+    def whether_login(*args, **kwargs):
+        ip_addr = request.remote_addr
+        access_token = request.headers.get('Access-Token')
+        if access_token is None:
+            return redirect(url_for('god_login'))
+        god = God.query.filter_by(access_token=access_token).first()
+        if god is None:
+            return redirect(url_for('god_login'))
+        current = datetime.datetime.utcnow()
+        expire = god.access_token_expire_time
+        if current > expire:
+            return redirect(url_for('god_login'))
+        return func(*args, **kwargs)
+    return whether_login
 
 
 @app.route('/test')
@@ -964,12 +988,26 @@ def god_login():
         conf = configparser.ConfigParser()
         conf.read('config.ini')
         if conf.get('weixin', 'god_name') == form.username.data and \
-            conf.get('weixin', 'god_password') == form.password.data:
+                        conf.get('weixin', 'god_password') == form.password.data:
+            ip_addr = request.remote_addr
+            value = random.random()
+            value = hash(value)
+            value = str(value).encode()
+            access_token = get_sha1(value)
+            current_time = datetime.datetime.utcnow()
+            login_time = current_time.strftime(configs['development'].STRFTIME_FORMAT)
+            access_token_expire_time = (current_time + datetime.timedelta(minutes=30)).strftime(
+                configs['development'].STRFTIME_FORMAT)
+            god = God(access_token=access_token, login_time=login_time, ip_addr=ip_addr,
+                      access_token_expire_time=access_token_expire_time)
+            db.session.add(god)
+            db.session.commit()
             return redirect(url_for('god_index'))
     return render_template("god_login.html", form=form)
 
 
 @app.route('/god/index', methods=['GET'])
+@login_required2
 def god_index():
     """
     :function: 后台首页， 搜索用户信息， 查看排行榜， 活动开启和关闭

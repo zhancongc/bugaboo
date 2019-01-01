@@ -50,7 +50,6 @@ def get_sha1(value):
     return sh.hexdigest()
 
 
-
 '''
 获取随机数
 openssl rand -base64 8

@@ -146,4 +146,12 @@ class User(db.Model):
         return '<User %r>' % self.user_id
 
 
-
+class God(db.Model):
+    """
+    后台登陆表，登陆成功后，记录用户的ip地址
+    """
+    god_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    access_token = db.Column(db.String(40), nullable=True)
+    ip_addr = db.Column(db.String(15))
+    login_time = db.Column(db.DateTime, default=datetime.utcnow)
+    access_token_expire_time = db.Column(db.DateTime, nullable=False)
