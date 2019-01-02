@@ -202,16 +202,23 @@ def user_login():
         })
         logging(json.dumps(res))
         return jsonify(res)
-    data = dict()
+    data = {
+        'session_id': session_id
+    }
     if temp_user:
         composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
         if composition:
             data.update({
                 'composition_id': composition.composition_id
             })
-    data.update({
-        'session_id': session_id
-    })
+    else:
+        res.update({
+            'state': 2,
+            'msg': 'new user',
+            'data': data
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
     res.update({
         'state': 1,
         'msg': 'success',
