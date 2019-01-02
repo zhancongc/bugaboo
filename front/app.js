@@ -25,7 +25,17 @@ App({
                       key: 'session_id',
                       data: response.data.session_id,
                     })
-                    var userInfo = wx.getStorageSync('userInfo');
+                    if (response.state == 1) {
+                      var compositionId = response.data.composition_id;
+                      wx.reLaunch({
+                        url: '/pages/preview/preview?composition_id=' + compositionId,
+                      })
+                    } else {
+                      wx.reLaunch({
+                        url: '/pages/index/index',
+                      })
+                    }
+                    /*var userInfo = wx.getStorageSync('userInfo');
                     if (userInfo) {
                       if (res.data.hasOwnProperty('composition_id')){
                         wx.reLaunch({
@@ -48,7 +58,7 @@ App({
                       duration: 1500,
                       mask: true,
                       icon: 'none'
-                    })
+                    })*/
                   }
                 }
               } catch (e) {
