@@ -1,3 +1,30 @@
+.container {
+  width: 96%;
+  margin: 0 auto;
+  padding: 200rpx 0;
+}
+.container-content{
+  height: 800rpx;
+  width: 100%;
+  text-align: center;
+}
+.section-title {
+  font-size: 40rpx;
+  color: black;
+}
+.picker {
+  font-size: 32rpx;
+  color: #898989;
+  border: 1rpx solid #aeaeae;
+}
+.container-content button {
+  margin-top: 200rpx;
+  width: 50%;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+}
+
 .cropper-wrapper{
     position: relative;
     display: flex;
@@ -35,5 +62,5 @@
 }
 
 .cropper-buttons{
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: #ffffff;
 }

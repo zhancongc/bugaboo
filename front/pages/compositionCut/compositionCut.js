@@ -12,7 +12,9 @@ Page({
       width: device.windowWidth,
       height: device.windowWidth,
       scale: 2.5,
-      zoom: 8
+      zoom: 8,
+      compositionSrc: '',
+      compositionType: 0
     }
   },
   touchStart(e) {
@@ -25,9 +27,13 @@ Page({
     this.wecropper.touchEnd(e)
   },
   getCropperImage() {
+    var thar = this;
     this.wecropper.getCropperImage((src) => {
       if (src) {
         console.log(src);
+        that.setData({
+          compositionSrc: src
+        })
         wx.previewImage({
           current: '', // 当前显示图片的http链接
           urls: [src] // 需要预览的图片http链接列表
@@ -51,11 +57,9 @@ Page({
       }
     })
   },
-  onLoad(option) {
+  onLoad(options) {
     var tempComposition = JSON.parse(options.tempComposition);
     this.setData({
-      ["cropperOpt.height"]: height,
-      ["cropperOpt.cut.y"]: (height - 300) / 2,
       compositionUrl: tempComposition.compositionUrl,
       compositionType: tempComposition.compositionType
     });
