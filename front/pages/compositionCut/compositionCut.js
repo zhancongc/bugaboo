@@ -7,14 +7,15 @@ const device = wx.getSystemInfoSync()
 
 Page({
   data: {
+    wrapper: false,
+    compositionSrc: '',
+    compositionType: 0,
     cropperOpt: {
       id: 'cropper',
       width: device.windowWidth,
       height: device.windowWidth,
       scale: 2.5,
-      zoom: 8,
-      compositionSrc: '',
-      compositionType: 0
+      zoom: 8
     }
   },
   touchStart(e) {
@@ -63,7 +64,7 @@ Page({
       compositionUrl: tempComposition.compositionUrl,
       compositionType: tempComposition.compositionType
     });
-    const { cropperOpt } = this.data;
+    const { cropperOpt } = this.data.cropperOpt;
     new WeCropper(cropperOpt)
       .on('ready', function (ctx) {
         console.log(`wecropper is ready for work!`)

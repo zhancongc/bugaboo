@@ -34,14 +34,14 @@ Page({
   onLoad: function (options) {
     var that = this;
     if (options.hasOwnProperty('composition_id')) {
-      var session_id = wx.getStorageSync('session_id');
+      var sessionId = wx.getStorageSync('sessionId');
       console.log('请求作品信息');
       wx.request({
         url: 'https://bugaboo.drivetogreen.com/user/composition',
         method: 'post',
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Session-Id': session_id
+          'Session-Id': sessionId
         },
         data: {
           composition_id: options.composition_id

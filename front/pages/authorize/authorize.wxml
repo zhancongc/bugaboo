@@ -4,7 +4,7 @@
   <view style="margin-top: 500rpx; text-align: center;">你好!首次登录，请点击下方按钮授权。</view></i-col>
   <i-col span="8" offset="8" i-class="col-class">
     <view>
-      <i-button open-type='getUserInfo' bindtap='getUserInfo'>授权</i-button>
+      <i-button open-type='getUserInfo' bindgetuserinfo='getUserInfo'>授权</i-button>
     </view>
   </i-col>
 </i-row>

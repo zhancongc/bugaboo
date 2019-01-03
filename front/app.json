@@ -1,6 +1,5 @@
 {
   "pages":[
-    "pages/loading/loading",
     "pages/authorize/authorize",
     "pages/index/index",
     "pages/composition/composition",
@@ -10,7 +9,8 @@
     "pages/raffle/raffle",
     "pages/awardlist/awardlist",
     "pages/award/award",
-    "pages/view/view"
+    "pages/view/view",
+    "pages/loading/loading"
   ],
   "window":{
     "backgroundTextStyle":"light",

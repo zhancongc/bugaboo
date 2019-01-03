@@ -32,6 +32,7 @@ def wxlogin(code):
     data = {'js_code': code, 'secret': app_secret, 'grant_type': 'authorization_code',
             'appid': app_id}
     r = requests.post(url, data=data)
+    print(json.loads(r.text))
     return json.loads(r.text)
 
 

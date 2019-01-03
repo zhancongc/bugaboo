@@ -1,6 +1,6 @@
 <import src="../we-cropper/we-cropper.wxml"/>
 
-<view class='container' wx:if="{{wrapper}}">
+<view class='container' wx:if="{{!wrapper}}">
   <view class='container-content'>
     <view class="section">
       <view class="section-title">参赛组别选择：</view>

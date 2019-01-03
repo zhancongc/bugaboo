@@ -32,7 +32,7 @@ Page({
     }
   },
   saveUserInfo: function (userInfo) {
-    var session_id = wx.getStorageSync('session_id');
+    var sessionId = wx.getStorageSync('sessionId');
     console.log('把用户信息发送到后端存储起来');
     wx.request({
       url: 'https://bugaboo.drivetogreen.com/user/info/upload',
@@ -48,7 +48,7 @@ Page({
       },
       header: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Session-Id': session_id
+        'Session-Id': sessionId
       },
       success: function (res) {
         try {
@@ -72,7 +72,6 @@ Page({
    */
   onLoad: function (options) {
     // 查看是否授权
-    /*
     wx.getSetting({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
@@ -83,7 +82,6 @@ Page({
         }
       }
     })
-    */
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

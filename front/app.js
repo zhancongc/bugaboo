@@ -2,7 +2,6 @@
 App({
   onLaunch: function () {
     // 登录
-    
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -22,43 +21,16 @@ App({
                 if (response.constructor === Object) {
                   if (response.state) {
                     wx.setStorage({
-                      key: 'session_id',
+                      key: 'sessionId',
                       data: response.data.session_id,
                     })
                     if (response.state == 1) {
                       var compositionId = response.data.composition_id;
-                      wx.reLaunch({
-                        url: '/pages/preview/preview?composition_id=' + compositionId,
-                      })
-                    } else {
-                      wx.reLaunch({
-                        url: '/pages/index/index',
+                      wx.setStorage({
+                        key: 'compositionId',
+                        data: compositionId,
                       })
                     }
-                    /*var userInfo = wx.getStorageSync('userInfo');
-                    if (userInfo) {
-                      if (res.data.hasOwnProperty('composition_id')){
-                        wx.reLaunch({
-                          url: '/pages/preview/preview?composition_id='+response.data.composition_id,
-                        })
-                      } else {
-                        wx.reLaunch({
-                          url: '/pages/index/index',
-                        })
-                      }
-                    } else {
-                      // 未授权，跳转到授权页面
-                      wx.reLaunch({
-                        url: '/pages/authorize/authorize',
-                      })
-                    }
-                  } else {
-                    wx.showToast({
-                      title: '微信登陆失败',
-                      duration: 1500,
-                      mask: true,
-                      icon: 'none'
-                    })*/
                   }
                 }
               } catch (e) {

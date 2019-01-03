@@ -109,6 +109,7 @@ class User(db.Model):
     session_id = db.Column(db.String(40), nullable=False)
     session_id_expire_time = db.Column(db.DateTime, nullable=False)
     can_raffle = db.Column(db.Boolean, default=False)
+    can_follow = db.Column(db.Boolean, default=True)
     user_type = db.Column(db.Integer, default=0)
     follow_times = db.Column(db.Integer, default=0)
     # user关注的人
@@ -132,6 +133,7 @@ class User(db.Model):
             self.follow_times += 1
             db.session.add(foll)
             db.session.add(self)
+            self.can_follow = False
 
     def raffle(self):
         self.can_raffle = not self.can_raffle
