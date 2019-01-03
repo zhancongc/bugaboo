@@ -10,7 +10,7 @@
         </view>
       </picker>
     </view>
-    <button class='bottomButton' bindtap='choosePhotograph'>上传照片/拍照</button>
+    <button class='bottomButton' bindtap='uploadTap'>上传照片/拍照</button>
   </view>
 </view>
 
@@ -18,7 +18,7 @@
 <view class="cropper-wrapper" wx:if="{{wrapper}}">
     <template is="we-cropper" data="{{...cropperOpt}}"/>
 </view>
-<view class="cropper-buttons" style="color: {{cropperOpt.boundStyle.color}}" wx:if="{{warpper}}">
+<view class="cropper-buttons" style="color: {{cropperOpt.boundStyle.color}}" wx:if="{{wrapper}}">
     <view class="upload" bindtap="uploadTap">
         生成作品
     </view>

@@ -1,6 +1,6 @@
 {
-  "backgroundTextStyle": "dark",
-  "navigationBarBackgroundColor": "#000",
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#fff",
   "navigationBarTitleText": "照片预览",
-  "navigationBarTextStyle": "#fff"
+  "navigationBarTextStyle": "black"
 }

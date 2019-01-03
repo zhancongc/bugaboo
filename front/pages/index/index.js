@@ -69,7 +69,7 @@ Page({
   //事件处理函数
   toComposition: function (e) {
     wx.navigateTo({
-      url: '/pages/composition/composition',
+      url: '/pages/compositionCut/compositionCut',
     })
   },
 })
