@@ -3,11 +3,11 @@
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTitleText": "助力作品",
   "navigationBarTextStyle": "black",
-    "usingComponents": {
-      "i-row": "../../dist/row/index",
-      "i-col": "../../dist/col/index",
-      "i-avatar": "../../dist/avatar/index",
-      "i-modal": "../../dist/modal/index",
-      "i-button": "../../dist/button/index"
-    }
+  "usingComponents": {
+    "i-row": "../../dist/row/index",
+    "i-col": "../../dist/col/index",
+    "i-avatar": "../../dist/avatar/index",
+    "i-modal": "../../dist/modal/index",
+    "i-button": "../../dist/button/index"
+  }
 }

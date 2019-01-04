@@ -20,9 +20,9 @@
 </view>
 <view class="cropper-buttons" style="color: {{cropperOpt.boundStyle.color}}" wx:if="{{wrapper}}">
     <view class="upload" bindtap="uploadTap">
-        生成作品
+        重选
     </view>
-    <view class="getCropperImage" bindtap="getCropperImage">
-        上传作品
+    <view class="upload" bindtap="getCropperImage">
+        预览
     </view>
 </view>

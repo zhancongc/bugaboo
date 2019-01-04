@@ -34,6 +34,7 @@
     justify-content: center;
     height: 100%;
     background-color: #e5e5e5;
+    margin-top: 100rpx;
 }
 
 .cropper-buttons{

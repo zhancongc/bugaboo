@@ -8,6 +8,7 @@ const device = wx.getSystemInfoSync()
 Page({
   data: {
     wrapper: false,
+    rotateI: 0,
     compositionSrc: '',
     compositionType: 0,
     gameGroupIndex: 0,
@@ -19,6 +20,7 @@ Page({
     }],
     cropperOpt: {
       id: 'cropper',
+      rotateI: 0,
       width: device.windowWidth,
       height: device.windowWidth,
       scale: 2.5,
@@ -74,14 +76,93 @@ Page({
         that.setData({
           compositionSrc: src
         })
+        /*
         wx.previewImage({
           current: '', // 当前显示图片的http链接
           urls: [src] // 需要预览的图片http链接列表
+        })*/
+        var tempComposition = JSON.stringify({
+          compositionSrc: this.data.compositionSrc,
+          compositionType: this.data.compositionType
+        });
+        wx.navigateTo({
+          url: '/pages/composition/composition?tempComposition=' + tempComposition,
         })
       } else {
         console.log('获取图片地址失败，请稍后重试')
       }
     })
+  },
+  uploadComposition: function () {
+    var that = this;
+    wx.showToast({
+      title: '正在上传...',
+      icon: 'loading',
+      mask: true,
+      duration: 10000
+    });
+    var sessionId = wx.getStorageSync('sessionId');
+    if (sessionId) {
+      wx.uploadFile({
+        url: 'https://bugaboo.drivetogreen.com/user/composition/upload',
+        filePath: that.data.compositionUrl,
+        name: 'composition',
+        header: {
+          'Content-Type': 'multipart/form-data',
+          'Session-Id': sessionId,
+        },
+        formData: {
+          'composition_type': that.data.compositionType,
+          'composition_angle': that.data.rotateI
+        },
+        success: function (res) {
+          wx.hideToast();
+          try {
+            var response = JSON.parse(res.data);
+            console.log(response);
+            if (response.constructor === Object) {
+              if (response.state) {
+                wx.showToast({
+                  title: '上传成功',
+                  icon: 'success',
+                  mask: true,
+                  duration: 1500
+                });
+                that.setData({
+                  compositionId: response.data.compositionId,
+                })
+                console.log('composition_id', that.data.compositionId);
+                wx.navigateTo({
+                  url: '/pages/preview/preview?composition_id=' + that.data.compositionId,
+                })
+              } else {
+                wx.showToast({
+                  title: '上传失败',
+                  icon: 'none',
+                  mask: true,
+                  duration: 1500
+                })
+              }
+            }
+          }
+          catch (e) {
+            console.log(e);
+          }
+        },
+        fail: function (res) {
+          wx.hideToast();
+          wx.showToast({
+            title: '上传失败',
+            duration: 1000
+          })
+        },
+        complete: function (res) { },
+      })
+    } else {
+      wx.showToast({
+        title: '请重新打开小程序再试'
+      })
+    }
   },
   uploadTap() {
     const self = this;
@@ -98,15 +179,18 @@ Page({
       }
     })
   },
-  onLoad(options) {
-    /*
-    var tempComposition = JSON.parse(options.tempComposition);
+  // 图片旋转
+  rotateImg() {
+    const self = this;
+    let rotateI = this.data.rotateI + 1;
     this.setData({
-      compositionUrl: tempComposition.compositionUrl,
-      compositionType: tempComposition.compositionType
-    });
-    */
-    const { cropperOpt } = this.data.cropperOpt;
+      rotateI: rotateI
+    })
+    // 将旋转的角度传递给插件
+    self.wecropper.updateCanvas(rotateI)
+  },
+  onLoad(options) {
+    const { cropperOpt } = this.data;
     new WeCropper(cropperOpt)
       .on('ready', function (ctx) {
         console.log(`wecropper is ready for work!`)

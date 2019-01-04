@@ -11,7 +11,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.0",
+	"libVersion": "2.4.3",
 	"appid": "wxc2de3e2ed4435707",
 	"projectname": "bugaboo",
 	"debugOptions": {

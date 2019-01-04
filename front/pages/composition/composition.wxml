@@ -1,15 +1,27 @@
 <!--pages/composition/composition.wxml-->
+
 <view class='container'>
   <view class='container-content'>
-    <view class="section">
-      <view class="section-title">参赛组别选择：</view>
-      <picker bindchange="bindPickerChange" value="{{gameGroupIndex}}" range="{{gameGroup}}">
-        <view class="picker">
-          当前选择：{{gameGroup[gameGroupIndex]}}
-        </view>
-      </picker>
-    </view>
-    <button class='bottomButton' bindtap='choosePhotograph'>上传照片/拍照</button>
+    <image src='{{compositionUrl}}' mode='aspectFit' class='{{objectCompositionAngle[compositionAngle]}}'></image>
+  </view>
+  <view class='container-title'>
+    <button bindtap='rotate'>旋转</button>
+  </view>
+  <view class='bottomBar'>
+    <button bindtap='choosePhotograph'>重新选择</button>
+    <button bindtap='toPreview'>完成</button>
   </view>
 </view>
 
+<i-row>
+  <i-col span="24" i-class="col-class">
+    <image class="{{ objectCompositionAngle[compositionAngle] }}" src="{{compositionSrc}}" mode="aspectFit"></image>
+  </i-col>
+</i-row>
+
+<i-row style="position: fixed; left: 0rpx; bottom: 0rpx;">
+  <i-col span="24" i-class="col-class">
+    <i-button bind:click="rotate" style='width: 50%'>旋转</i-button>
+    <i-button bind:click="" style='width: 50%'>上传</i-button>
+  </i-col>
+</i-row>
