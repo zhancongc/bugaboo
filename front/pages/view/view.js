@@ -1,6 +1,6 @@
 // pages/preview/pewview.js
+const { $Message } = require('../../dist/base/index');
 const { $Toast } = require('../../dist/base/index');
-
 const app = getApp()
 
 Page({
@@ -14,7 +14,13 @@ Page({
     avatarUrl: '',
     compositionId: 0,
     compositionUrl: '',
-    compositionType: 0
+    compositionType: 0,
+    actions: [
+      {
+        name: '现金支付',
+        color: '#2d8cf0',
+      }
+    ],
   },
   onClose(event) {
     if (event.detail === 'confirm') {
@@ -199,10 +205,15 @@ Page({
       });
     }
   },
+  handleClick({ detail }) {
+    this.setData({
+      visible3: false
+    });
+  },
   toContact: function () {
     this.setData({
       visible1: false,
-      visible2: true
+      visible3: true
     })
   },
   handleClose1: function() {

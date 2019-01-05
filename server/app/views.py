@@ -671,14 +671,12 @@ def user_follow(temp_user):
             'msg': 'cannot find owner'
         })
         return jsonify(res)
-    '''不能是自己
     if temp_user.user_id == user.user_id:
         res.update({
             'state': 2,
             'msg': 'not myself'
         })
         return jsonify(res)
-    '''
     # 尝试助力，把数据写入数据库
     try:
         temp_user.follow(user)
@@ -984,6 +982,14 @@ def online_service():
                 "touser": open_id,
                 "msgtype": "image",
                 "image": {"media_id": media_id}
+            })
+        elif message['MsgType'] == 'event' and message['Event'] == 'user_enter_tempsession':
+            response_data.update({
+                "touser": open_id,
+                "msgtype": "text",
+                "text": {
+                    "content": "回复1，关注bugaboo官方公众号之后，可以到小程序【bugaboo助力】中抽奖"
+                }
             })
         else:
             response_data.update({

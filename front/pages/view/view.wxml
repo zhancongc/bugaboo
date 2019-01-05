@@ -37,6 +37,13 @@
   </i-col>
 </i-row>
 
+<contact-button 
+  type="default-light" 
+  size="20"
+  session-from="bugaboo"
+>
+</contact-button>
+
 <i-modal title="祝福成功" visible="{{ visible1 }}" bind:ok="toContact" bind:cancel="handleClose1">
     <view>
     <i-row>
@@ -45,17 +52,17 @@
       </i-col>
     </i-row>
     </view>
-</i-modal>
+</i-modal>	
 
-<i-modal title="去抽奖" visible="{{ visible2 }}" bind:ok="handleClose2" bind:cancel="handleClose2">
-    <view>
+<i-modal title="去抽奖" visible="{{ visible3 }}" actions="{{ actions }}" bind:click="handleClick">
+  <view>
     <i-row>
       <i-col span="22" offset="1">
-        <view>点击【客服】按钮，回复1，关注微信公众号【bugaboo官方账号】，按照提示参与抽奖</view>
-        <view><i-button open-type='contact'>客服</i-button></view>
+        <view>点击【客服】按钮，回复1，参与抽奖</view>
+        <view><i-button open-type='contact'>参与</i-button></view>
       </i-col>
     </i-row>
-    </view>
+  </view>
 </i-modal>
 
 <i-toast id="toast" />
