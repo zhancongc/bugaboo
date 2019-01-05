@@ -46,3 +46,5 @@
     </i-row>
     </view>
 </i-modal>
+
+<i-toast id="toast" />

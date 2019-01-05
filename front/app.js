@@ -23,7 +23,15 @@ App({
                     wx.setStorage({
                       key: 'sessionId',
                       data: response.data.session_id,
-                    })
+                    });
+                    wx.setStorage({
+                      key: 'canRaffle',
+                      data: response.data.can_raffle,
+                    });
+                    wx.setStorage({
+                      key: 'canFollow',
+                      data: response.data.can_follow,
+                    });
                     if (response.state == 1) {
                       var compositionId = response.data.composition_id;
                       wx.setStorage({

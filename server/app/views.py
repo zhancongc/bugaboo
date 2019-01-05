@@ -189,9 +189,9 @@ def user_login():
             temp_user.session_id = session_id
             db.session.add(temp_user)
         else:
-            user = User(open_id=open_id, session_key=session_key,
+            temp_user = User(open_id=open_id, session_key=session_key,
                         session_id=session_id, session_id_expire_time=session_id_expire_time)
-            db.session.add(user)
+            db.session.add(temp_user)
         db.session.commit()
     except Exception as e:
         print(e)
@@ -202,7 +202,9 @@ def user_login():
         logging(json.dumps(res))
         return jsonify(res)
     data = {
-        'session_id': session_id
+        'session_id': session_id,
+        'can_raffle': temp_user.can_raffle,
+        'can_follow': temp_user.can_follow,
     }
     if temp_user:
         composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
@@ -653,10 +655,16 @@ def user_follow(temp_user):
         return jsonify(res)
     # 助力的用户必须存在还不能是自己
     user = User.query.filter_by(user_id=author_id).first()
-    if user is None or temp_user.user_id == user.user_id:
+    if user is None:
         res.update({
             'state': 0,
             'msg': 'invalid user'
+        })
+        return jsonify(res)
+    if temp_user.user_id == user.user_id:
+        res.update({
+            'state': 2,
+            'msg': 'not myself'
         })
         return jsonify(res)
     # 尝试助力，把数据写入数据库

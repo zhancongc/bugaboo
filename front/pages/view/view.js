@@ -1,4 +1,6 @@
 // pages/preview/pewview.js
+const { $Toast } = require('../../dist/base/index');
+
 const app = getApp()
 
 Page({
@@ -146,11 +148,25 @@ Page({
     })
   },
   handleOpen1() {
-    this.setData({
-      visible1: true
-    });
+    var canRaffle = wx.getStorageSync('canRaffle');
+    if (canRaffle){
+      wx.setStorage({
+        key: 'canRaffle',
+        data: false,
+      })
+      wx.request({
+        url: '',
+      })
+      this.setData({
+        visible1: true
+      });
+    }else {
+      $Toast({
+        content: '每个用户只能送一次祝福',
+        type: 'warning'
+      });
+    }
   },
-
   handleClose1() {
     this.setData({
       visible1: false
