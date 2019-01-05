@@ -37,11 +37,22 @@
   </i-col>
 </i-row>
 
-<i-modal title="祝福成功" visible="{{ visible1 }}" bind:ok="follow" bind:cancel="handleClose1">
+<i-modal title="祝福成功" visible="{{ visible1 }}" bind:ok="toContact" bind:cancel="handleClose1">
     <view>
     <i-row>
       <i-col span="22" offset="1">
-        <view>恭喜您获得了一次抽奖的机会，关注微信公众号【bugaboo官方账号】即可参与抽奖</view>
+        <view>恭喜您获得了一次抽奖的机会，点击确定继续</view>
+      </i-col>
+    </i-row>
+    </view>
+</i-modal>
+
+<i-modal title="去抽奖" visible="{{ visible2 }}" bind:ok="handleClose2" bind:cancel="handleClose2">
+    <view>
+    <i-row>
+      <i-col span="22" offset="1">
+        <view>点击【客服】按钮，回复1，关注微信公众号【bugaboo官方账号】，按照提示参与抽奖</view>
+        <view><i-button open-type='contact'>客服</i-button></view>
       </i-col>
     </i-row>
     </view>

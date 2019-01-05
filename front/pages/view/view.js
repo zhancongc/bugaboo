@@ -155,7 +155,7 @@ Page({
       wx.request({
         url: 'https://bugaboo.drivetogreen.com/user/follow',
         method: 'post',
-        data: { compositionId: this.data.compositionId },
+        data: { composition_id: this.data.compositionId },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Session-Id': sessionId
@@ -169,7 +169,7 @@ Page({
                 key: 'canRaffle',
                 data: false,
               });
-              this.setData({
+              that.setData({
                 visible1: true
               });
             } else if (response.state == 2) {
@@ -199,10 +199,21 @@ Page({
       });
     }
   },
-  handleClose1() {
+  toContact: function () {
+    this.setData({
+      visible1: false,
+      visible2: true
+    })
+  },
+  handleClose1: function() {
     this.setData({
       visible1: false
     });
+  },
+  handleClose2: function() {
+    this.setData({
+      visible2: false
+    })
   },
   follow: function () {
     this.handleClose1();

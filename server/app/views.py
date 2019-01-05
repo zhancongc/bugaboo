@@ -663,7 +663,7 @@ def user_follow(temp_user):
         logging(json.dumps(res))
         return jsonify(res)
     author_id = composition.user_id
-    # 助力的用户必须存在还不能是自己
+    # 助力的用户必须存在
     user = User.query.filter_by(user_id=author_id).first()
     if user is None:
         res.update({
@@ -671,12 +671,14 @@ def user_follow(temp_user):
             'msg': 'cannot find owner'
         })
         return jsonify(res)
+    '''不能是自己
     if temp_user.user_id == user.user_id:
         res.update({
             'state': 2,
             'msg': 'not myself'
         })
         return jsonify(res)
+    '''
     # 尝试助力，把数据写入数据库
     try:
         temp_user.follow(user)
