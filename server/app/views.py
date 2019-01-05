@@ -181,7 +181,7 @@ def user_login():
     session_id_expire_time = (current_time + datetime.timedelta(minutes=30)).strftime(
         configs['development'].STRFTIME_FORMAT)
     # 更新session信息，如果找不到这个用户，那么创建一个新的用户再更新信息
-    temp_user = User.query.filter_by(openid=open_id).first()
+    temp_user = User.query.filter_by(open_id=open_id).first()
     try:
         if temp_user:
             temp_user.login_time = login_time

@@ -35,7 +35,7 @@ Page({
     var that = this;
     if (options.hasOwnProperty('composition_id')) {
       var sessionId = wx.getStorageSync('sessionId');
-      console.log('请求作品信息');
+      console.log('请求作品信息', sessionId);
       wx.request({
         url: 'https://bugaboo.drivetogreen.com/user/composition',
         method: 'post',
