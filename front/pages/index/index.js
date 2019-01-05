@@ -6,10 +6,24 @@ Page({
   data: {
   },
   onLoad: function () {
-    var compositionId = wx.getStorageSync('compositionId');
+    // 给app.js 定义一个方法。
+    app.userInfoReadyCallback = res => {
+      var response = res.data;
+      console.log(response);
+      if (response.constructor === Object) {
+        if (response.state) {
+          app.globalData.sessionId = response.data.sessionId;
+          if (response.state == 1) {
+            var compositionId = response.data.composition_id;
+            app.globalData.compositionId = response.data.composition_id;
+          }
+        }
+      }
+    };
+    var compositionId = app.globalData.compositionId;
     if (compositionId) {
       wx.redirectTo({
-        url: '/pages/preview/preview?composition_id='+compositionId,
+        url: '/pages/preview/preview?composition_id=' + compositionId,
       })
     }
   },

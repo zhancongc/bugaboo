@@ -28,45 +28,9 @@ Page({
   onLoad: function (options) {
     var that = this;
     if (options.hasOwnProperty('composition_id')) {
-      var sessionId = wx.getStorageSync('sessionId');
-      console.log('请求作品信息');
-      wx.request({
-        url: 'https://bugaboo.drivetogreen.com/user/composition',
-        method: 'post',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Session-Id': sessionId
-        },
-        data: {
-          composition_id: options.composition_id
-        },
-        success: function (res) {
-          var response = res.data;
-          console.log(response);
-          if (response.constructor === Object) {
-            var viewer;
-            if (response.state) {
-              that.setData({
-                userId: response.data.user_id,
-                nickName: response.data.nickName,
-                avatarUrl: response.data.avatarUrl,
-                compositionId: response.data.composition_id,
-                compositionUrl: response.data.composition_url,
-                compositionType: response.data.composition_type
-              })
-            } else {
-              wx.showToast({
-                title: '获取助力作品失败，请稍后重试',
-                icon: 'none',
-                mask: true,
-                duration: 1000
-              });
-            }
-          }
-        },
-        fail: function(res) {},
-        complete: function (res) {}
-      });
+      that.setData({
+        compositionId: options.composition_id
+      })
     } else {
       wx.showToast({
         title: '获取不到作品信息',
@@ -90,7 +54,56 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.showToast({
+      title: '加载中'
+    });
+    var that = this;
+    if (that.data.compositionId != 0) {
+      var sessionId = app.globalData.sessionId;
+      console.log('请求作品信息');
+      wx.request({
+        url: 'https://bugaboo.drivetogreen.com/user/composition',
+        method: 'post',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Session-Id': sessionId
+        },
+        data: {
+          composition_id: this.data.compositionId
+        },
+        success: function (res) {
+          wx.hideToast();
+          var response = res.data;
+          console.log(response);
+          if (response.constructor === Object) {
+            var viewer;
+            if (response.state) {
+              that.setData({
+                userId: response.data.user_id,
+                nickName: response.data.nickName,
+                avatarUrl: response.data.avatarUrl,
+                compositionId: response.data.composition_id,
+                compositionUrl: response.data.composition_url,
+                compositionType: response.data.composition_type
+              })
+            } else {
+              wx.showToast({
+                title: '获取助力作品失败，请稍后重试',
+                icon: 'none',
+                mask: true,
+                duration: 1000
+              });
+            }
+          }
+        },
+        fail: function (res) { },
+        complete: function (res) { }
+      });
+    } else {
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    }
   },
 
   /**
@@ -126,10 +139,15 @@ Page({
    */
   onShareAppMessage: function () {
     // 首先获取user_id和composition_id
+    var data = JSON.stringify({
+      parameter_name: 'composition_id',
+      parameter_value: this.data.compositionId,
+      next_page: '/pages/view/view'
+    });
     return {
       title: this.data.nickName + '的Bugaboo助力作品',
       imageUrl: this.data.compositionUrl,
-      path: 'pages/view/view?composition_id='+this.data.compositionId,
+      path: '/pages/authorize/authorize?share_data=' + data,
       success: (res) => { },
       fail: (res) => { }
     }
@@ -154,9 +172,9 @@ Page({
       url: '/pages/awardlist/awardlist',
     })
   },
-  toComposition: function () {
+  toCompositionCut: function () {
     wx.navigateTo({
-      url: '/pages/composition/composition',
+      url: '/pages/compositionCut/compositionCut',
     })
   },
   toLoading: function () {
@@ -169,7 +187,7 @@ Page({
       url: '/pages/rankinglist/rankinglist',
     })
   },
-  toView:function () {
+  toView: function () {
     wx.navigateTo({
       url: '/pages/view/view?composition_id=1',
     })

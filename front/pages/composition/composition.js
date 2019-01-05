@@ -45,7 +45,7 @@ Page({
       mask: true,
       duration: 10000
     });
-    var sessionId = wx.getStorageSync('sessionId');
+    var sessionId = app.globalData.sessionId;
     if (sessionId) {
       wx.uploadFile({
         url: 'https://bugaboo.drivetogreen.com/user/composition/upload',

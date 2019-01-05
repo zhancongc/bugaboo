@@ -17,8 +17,8 @@ Page({
     compositionType: 0,
     actions: [
       {
-        name: '现金支付',
-        color: '#2d8cf0',
+        name: '关闭',
+        color: '#000',
       }
     ],
   },
@@ -42,7 +42,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     if (options.hasOwnProperty('composition_id')) {
-      var sessionId = wx.getStorageSync('sessionId');
+      var sessionId = app.globalData.sessionId;
       console.log('请求作品信息', sessionId);
       wx.request({
         url: 'https://bugaboo.drivetogreen.com/user/composition',
@@ -157,7 +157,7 @@ Page({
     var that = this;
     var canFollow = wx.getStorageSync('canFollow');
     if (canFollow){
-      var sessionId = wx.getStorageSync('sessionId');
+      var sessionId = app.globalData.sessionId;
       wx.request({
         url: 'https://bugaboo.drivetogreen.com/user/follow',
         method: 'post',
@@ -172,7 +172,7 @@ Page({
           if (response.constructor === Object) {
             if (response.state == 1){
               wx.setStorage({
-                key: 'canRaffle',
+                key: 'canFollow',
                 data: false,
               });
               that.setData({
@@ -220,11 +220,6 @@ Page({
     this.setData({
       visible1: false
     });
-  },
-  handleClose2: function() {
-    this.setData({
-      visible2: false
-    })
   },
   follow: function () {
     this.handleClose1();
