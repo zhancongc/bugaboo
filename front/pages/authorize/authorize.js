@@ -72,7 +72,7 @@ Page({
    */
   onLoad: function (options) {
     // 查看是否授权
-    wx.getSetting({
+    /*wx.getSetting({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
           console.log(res.authSetting['scope.userInfo']);
@@ -81,7 +81,7 @@ Page({
           })
         }
       }
-    })
+    })*/
   },
   /**
    * 生命周期函数--监听页面显示

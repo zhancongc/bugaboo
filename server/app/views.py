@@ -546,6 +546,7 @@ def user_composition(temp_user):
         'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
     })
     if composition.user_id != temp_user.user_id:
+        '''
         user = User.query.filter_by(user_id=composition.user_id).first()
         followers = list()
         followers.append()
@@ -553,6 +554,7 @@ def user_composition(temp_user):
             'follow_times': user.follow_times,
             'followers': followers
         })
+        '''
         res.update({
             'state': 2,
             'msg': 'others composition',
