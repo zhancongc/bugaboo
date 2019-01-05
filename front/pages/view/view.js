@@ -148,18 +148,50 @@ Page({
     })
   },
   handleOpen1() {
-    var canRaffle = wx.getStorageSync('canRaffle');
-    if (canRaffle){
-      wx.setStorage({
-        key: 'canRaffle',
-        data: false,
-      })
+    var that = this;
+    var canFollow = wx.getStorageSync('canFollow');
+    if (canFollow){
+      var sessionId = wx.getStorageSync('sessionId');
       wx.request({
-        url: '',
+        url: 'https://bugaboo.drivetogreen.com/user/follow',
+        method: 'post',
+        data: { compositionId: this.data.compositionId },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Session-Id': sessionId
+        },
+        success: function (res) {
+          var response = res.data;
+          console.log(response);
+          if (response.constructor === Object) {
+            if (response.state == 1){
+              wx.setStorage({
+                key: 'canRaffle',
+                data: false,
+              });
+              this.setData({
+                visible1: true
+              });
+            } else if (response.state == 2) {
+              $Toast({
+                content: '不能给自己送祝福',
+                type: 'warning'
+              });
+            } else {
+              $Toast({
+                content: response.msg,
+                type: 'error'
+              });
+            }
+          }
+        },
+        fail: function(res) {
+          $Toast({
+            content: '请稍后重新打开小程序再试',
+            type: 'error'
+          });
+        }
       })
-      this.setData({
-        visible1: true
-      });
     }else {
       $Toast({
         content: '每个用户只能送一次祝福',

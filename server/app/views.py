@@ -635,8 +635,8 @@ def user_follow(temp_user):
     """
     res = dict()
     # 助力
-    author_id = request.values.get('author_id')
-    if author_id is None:
+    composition_id = request.values.get('composition_id')
+    if composition_id is None:
         res.update({
             'state': 0,
             'msg': 'incomplete data'
@@ -644,7 +644,7 @@ def user_follow(temp_user):
         return jsonify(res)
     # 类型转换
     try:
-        author_id = int(author_id)
+        composition_id = int(composition_id)
     except ValueError as e:
         print(e)
         res.update({
@@ -653,12 +653,22 @@ def user_follow(temp_user):
         })
         logging(json.dumps(res))
         return jsonify(res)
+    # 找到作品对应的用户
+    composition = Composition.query.filter_by(composition_id=composition_id).first()
+    if composition is None:
+        res.update({
+            'state': 0,
+            'msg': 'invalid composition_id'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
+    author_id = composition.user_id
     # 助力的用户必须存在还不能是自己
     user = User.query.filter_by(user_id=author_id).first()
     if user is None:
         res.update({
             'state': 0,
-            'msg': 'invalid user'
+            'msg': 'cannot find owner'
         })
         return jsonify(res)
     if temp_user.user_id == user.user_id:
