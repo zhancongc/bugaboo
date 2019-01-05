@@ -103,7 +103,6 @@ class User(db.Model):
     __tablename__ = "user"
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     open_id = db.Column(db.String(28), unique=True, index=True, nullable=False)
-    union_id = db.Column(db.String(28), unique=True, index=True, nullable=False)
     session_key = db.Column(db.String(24), nullable=False)
     login_time = db.Column(db.DateTime, default=datetime.utcnow)
     session_id = db.Column(db.String(40), nullable=False)

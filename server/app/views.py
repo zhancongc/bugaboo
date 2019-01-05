@@ -165,12 +165,11 @@ def user_login():
         logging(json.dumps(res))
         return jsonify(res)
     open_id = wx.get('openid')
-    union_id = wx.get('unionid')
     session_key = wx.get('session_key')
     if open_id is None or session_key is None:
         res.update({
             'state': 0,
-            'msg': 'open_id, union_id, session_key non existed'
+            'msg': 'open_id, session_key non existed'
         })
         logging(json.dumps(res))
         return jsonify(res)
@@ -190,7 +189,7 @@ def user_login():
             temp_user.session_id = session_id
             db.session.add(temp_user)
         else:
-            user = User(open_id=open_id, union_id=union_id, session_key=session_key,
+            user = User(open_id=open_id, session_key=session_key,
                         session_id=session_id, session_id_expire_time=session_id_expire_time)
             db.session.add(user)
         db.session.commit()
