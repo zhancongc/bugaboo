@@ -9,14 +9,14 @@
 
 <i-row>
   <i-col span="20" offset="2" i-class="col-class">
-  <view style="margin-top: 30rpx">成功参与Bugaboo新年祝福活动</view></i-col>
+  <view style="margin-top: 30rpx;">成功参与Bugaboo新年祝福活动</view></i-col>
   <i-col span="20" offset="2" i-class="col-class">
-  <view style="margin-top: 30rpx">我的作品：</view></i-col>
+  <view style="margin-top: 30rpx; margin-bottom: 30rpx;">我的作品：</view></i-col>
 </i-row>
 
 <i-row style="vertical-align: middle; text-align:center;">
   <i-col span="24" i-class="col-class">
-    <image src="{{compositionUrl}}" mode="aspectFit"></image>
+    <image style='width: 640rpx; height: 640rpx;'  src="{{ compositionUrl }}"></image>
   </i-col>
 </i-row>
 

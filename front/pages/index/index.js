@@ -9,7 +9,7 @@ Page({
     var compositionId = wx.getStorageSync('compositionId');
     if (compositionId) {
       wx.redirectTo({
-        url: '/pages/view/view?composition_id='+compositionId,
+        url: '/pages/preview/preview?composition_id='+compositionId,
       })
     }
   },

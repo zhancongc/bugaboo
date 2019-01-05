@@ -18,11 +18,14 @@
 <view class="cropper-wrapper" wx:if="{{wrapper}}">
     <template is="we-cropper" data="{{...cropperOpt}}"/>
 </view>
-<view class="cropper-buttons" style="color: {{cropperOpt.boundStyle.color}}" wx:if="{{wrapper}}">
-    <view class="upload" bindtap="uploadTap">
-        重选
-    </view>
-    <view class="upload" bindtap="getCropperImage">
-        预览
-    </view>
+
+<view wx:if="{{wrapper}}">
+<i-row style="position: fixed; left: 0rpx; bottom: 0rpx; width: 100%">
+  <i-col span="12" i-class="col-class">
+    <i-button bind:click="uploadTap">重选</i-button>
+  </i-col>
+    <i-col span="12" i-class="col-class">
+    <i-button bind:click="getCropperImage">预览</i-button>
+  </i-col>
+</i-row>
 </view>

@@ -7,11 +7,9 @@
     <i-col span="20" i-class="col-class">{{nickName}}的作品</i-col>
 </i-row>
 
-<i-row>
+<i-row style="vertical-align: middle; text-align:center;">
   <i-col span="24" i-class="col-class">
-    <view style="vertical-align: middle; text-align:center;">
-      <image src="{{compositionUrl}}" mode="aspectFit"></image>
-    </view>
+    <view style='margin-top: 30rpx; margin-bottom: 30rpx;'><image style='width: 640rpx; height: 640rpx;'  src="{{ compositionUrl }}"></image></view>
   </i-col>
 </i-row>
 

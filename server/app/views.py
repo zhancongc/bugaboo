@@ -167,7 +167,7 @@ def user_login():
     open_id = wx.get('openid')
     union_id = wx.get('unionid')
     session_key = wx.get('session_key')
-    if open_id is None or union_id is None or session_key is None:
+    if open_id is None or session_key is None:
         res.update({
             'state': 0,
             'msg': 'open_id, union_id, session_key non existed'
@@ -181,7 +181,7 @@ def user_login():
     session_id_expire_time = (current_time + datetime.timedelta(minutes=30)).strftime(
         configs['development'].STRFTIME_FORMAT)
     # 更新session信息，如果找不到这个用户，那么创建一个新的用户再更新信息
-    temp_user = User.query.filter_by(union_id=union_id).first()
+    temp_user = User.query.filter_by(openid=open_id).first()
     try:
         if temp_user:
             temp_user.login_time = login_time

@@ -7,6 +7,7 @@ Page({
    */
   data: {
     compositionSrc: '',
+    compositionType: 0,
     compositionAngle: 0,
     objectCompositionAngle: {
       0: '',
@@ -44,15 +45,15 @@ Page({
       mask: true,
       duration: 10000
     });
-    var session_id = wx.getStorageSync('session_id');
-    if (session_id) {
+    var sessionId = wx.getStorageSync('sessionId');
+    if (sessionId) {
       wx.uploadFile({
         url: 'https://bugaboo.drivetogreen.com/user/composition/upload',
-        filePath: that.data.compositionUrl,
+        filePath: that.data.compositionSrc,
         name: 'composition',
         header: {
           'Content-Type': 'multipart/form-data',
-          'Session-Id': session_id,
+          'Session-Id': sessionId,
         },
         formData: {
           'composition_type': that.data.compositionType,

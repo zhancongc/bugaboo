@@ -6,7 +6,6 @@
   "usingComponents": {
     "i-row": "../../dist/row/index",
     "i-col": "../../dist/col/index",
-    "i-avatar": "../../dist/avatar/index",
     "i-modal": "../../dist/modal/index",
     "i-button": "../../dist/button/index"
   }
