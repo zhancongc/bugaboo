@@ -60,7 +60,7 @@ Page({
     var that = this;
     if (that.data.compositionId != 0) {
       var sessionId = app.globalData.sessionId;
-      console.log('请求作品信息');
+      console.log('请求作品信息', sessionId);
       wx.request({
         url: 'https://bugaboo.drivetogreen.com/user/composition',
         method: 'post',

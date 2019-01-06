@@ -17,8 +17,7 @@
 <i-cell-group wx:if="{{ current == 'tab2' }}">
     <i-cell wx:for="{{followMe}}" wx:key="item.number">
       <i-row>
-          <i-col span="1" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.number}}</i-col>
-          <i-col span="3" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
+          <i-col span="3" offset="1" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
           <i-col span="15" i-class="col-class" style="line-height: 48rpx;">{{item.nickName}}</i-col>
           <i-col span="5" i-class="col-class" style="line-height: 48rpx;">助力1次</i-col>
       </i-row>

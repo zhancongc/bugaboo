@@ -7,25 +7,21 @@ Page({
   },
   onLoad: function () {
     // 给app.js 定义一个方法。
-    app.userInfoReadyCallback = res => {
+    app.userLogin().then(function(res){
       var response = res.data;
-      console.log(response);
       if (response.constructor === Object) {
         if (response.state) {
-          app.globalData.sessionId = response.data.sessionId;
+          app.globalData.sessionId = response.data.session_id;
           if (response.state == 1) {
             var compositionId = response.data.composition_id;
             app.globalData.compositionId = response.data.composition_id;
+            wx.redirectTo({
+              url: '/pages/preview/preview?composition_id=' + compositionId,
+            })
           }
         }
       }
-    };
-    var compositionId = app.globalData.compositionId;
-    if (compositionId) {
-      wx.redirectTo({
-        url: '/pages/preview/preview?composition_id=' + compositionId,
-      })
-    }
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
