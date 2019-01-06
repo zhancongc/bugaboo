@@ -1026,7 +1026,7 @@ def god_login():
             ip_addr = request.remote_addr
             value = random.random()
             value = hash(value)
-            value = str(value).encode()
+            value = str(value)
             access_token = get_sha1(value)
             current_time = datetime.datetime.utcnow()
             login_time = current_time.strftime(configs['development'].STRFTIME_FORMAT)
