@@ -16,7 +16,8 @@ from PIL import Image
 from config import configs
 from functools import wraps
 from app import app, db
-from flask import jsonify, request, render_template, redirect, url_for
+from flask import jsonify, request, render_template, redirect, url_for, flash
+from flask_login import login_required
 from .package import wxlogin, get_sha1
 from .models import User, UserInfo, Composition, AwardRecord, Award, Store, God
 from .forms import GodLoginForm
@@ -72,7 +73,7 @@ def token_handler(award_token):
     return None
 
 
-def login_required(func):
+def login_required1(func):
     """
     :function: 判断session_id是否有效
     :param func: 路由处理函数
@@ -114,16 +115,18 @@ def login_required2(func):
     """
     @wraps(func)
     def whether_login(*args, **kwargs):
-        ip_addr = request.remote_addr
         access_token = request.headers.get('Access-Token')
         if access_token is None:
+            flash(message="请登陆", category="error")
             return redirect(url_for('god_login'))
         god = God.query.filter_by(access_token=access_token).first()
         if god is None:
+            flash(message="不存在的用户", category="error")
             return redirect(url_for('god_login'))
         current = datetime.datetime.utcnow()
         expire = god.access_token_expire_time
         if current > expire:
+            flash(message="请重新登陆", category="error")
             return redirect(url_for('god_login'))
         return func(*args, **kwargs)
     return whether_login
@@ -230,7 +233,7 @@ def user_login():
 
 
 @app.route('/user/info/upload', methods=['POST'])
-@login_required
+@login_required1
 def user_info_upload(temp_user):
     """
     :function: 上传用户信息，最关键的是 nickName, avatarUrl 排行榜会用到
@@ -301,7 +304,7 @@ def user_info_upload(temp_user):
 
 
 @app.route('/user/composition/info', methods=['GET'])
-@login_required
+@login_required1
 def user_composition_info(temp_user):
     """
     :function: 判断是否有作品
@@ -339,7 +342,7 @@ def user_composition_info(temp_user):
 
 
 @app.route('/user/composition/upload', methods=['POST'])
-@login_required
+@login_required1
 def user_composition_upload(temp_user):
     """
     :function: 上传作品 composition_type, composition
@@ -496,7 +499,7 @@ def user_composition_upload(temp_user):
 
 
 @app.route('/user/composition', methods=['POST'])
-@login_required
+@login_required1
 def user_composition(temp_user):
     """
     :function: 根据composition_id查找作品信息 composition_id
@@ -572,7 +575,7 @@ def user_composition(temp_user):
 
 
 @app.route('/rankinglist', methods=['POST'])
-@login_required
+@login_required1
 def rankinglist(temp_user):
     """
     :function: 获取排行榜，分为婴儿车用户榜和非婴儿车用户榜, ranking_list_type
@@ -627,7 +630,7 @@ def rankinglist(temp_user):
 
 
 @app.route('/user/follow', methods=['POST'])
-@login_required
+@login_required1
 def user_follow(temp_user):
     """
     :function: 帮人助力，composition_id
@@ -701,7 +704,7 @@ def user_follow(temp_user):
 
 
 @app.route('/raffle', methods=['GET'])
-@login_required
+@login_required1
 def raffle(temp_user):
     """
     :function: 抽奖接口
@@ -741,7 +744,7 @@ def raffle(temp_user):
 
 
 @app.route('/user/award/list', methods=['GET'])
-@login_required
+@login_required1
 def user_award_list(temp_user):
     """
     :function: 获取我的奖品列表
@@ -787,7 +790,7 @@ def user_award_list(temp_user):
 
 
 @app.route('/user/award', methods=['POST'])
-@login_required
+@login_required1
 def user_award(temp_user):
     """
     :function: 获取奖品以及收货信息 awardrecord_id
@@ -867,7 +870,7 @@ def user_award(temp_user):
 
 
 @app.route('/user/award/store', methods=['POST'])
-@login_required
+@login_required1
 def user_award_express(temp_user):
     """
     :function: 上传奖品以及门店信息 awardrecord_id, receiver, phone, store_id
@@ -1041,7 +1044,7 @@ def god_login():
 
 
 @app.route('/god/index', methods=['GET'])
-@login_required2
+@login_required
 def god_index():
     """
     :function: 后台首页， 搜索用户信息， 查看排行榜， 活动开启和关闭
