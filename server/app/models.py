@@ -1,6 +1,6 @@
 from datetime import datetime
 from app import db
-
+from app import login_manager
 
 class Follow(db.Model):
     __tablename__ = "follow"
@@ -156,3 +156,23 @@ class God(db.Model):
     ip_addr = db.Column(db.String(15))
     login_time = db.Column(db.DateTime, default=datetime.utcnow)
     access_token_expire_time = db.Column(db.DateTime, nullable=False)
+
+    @staticmethod
+    def is_authenticated():
+        return True
+
+    @staticmethod
+    def is_active():
+        return True
+
+    @staticmethod
+    def is_anonymous():
+        return False
+
+    def get_id(self):
+        return self.god_id
+
+
+@login_manager.user_loader
+def load_user(god_id):
+    return God.query.get(int(god_id))

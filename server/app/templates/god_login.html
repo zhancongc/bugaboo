@@ -10,9 +10,6 @@
 {% endblock %}
 
 {% block content %}
-    {% for msg in get_flashed_messages() %}
-        <p>{{ msg }}</p>
-    {% endfor %}
     <div class="row" style="margin-top: 5%">
         <div class="col s12 m4 offset-m4">
             <div class="card">
@@ -36,7 +33,7 @@
                                     <label for="password">密码</label>
                                 </div>
                             </div>
-                            <a class="waves-effect waves-light btn" type="submit" onclick="user_login.submit();">
+                            <a class="waves-effect waves-light btn" id="submit" type="submit" onclick="user_login.submit();">
                                 登陆<i class="material-icons right">send</i></a>
                         </form>
                     </div>
@@ -45,7 +42,9 @@
         </div>
     </div>
 <script>
-
+    $("submit").click(function () {
+        $.post()
+    })
 </script>
 {% endblock %}
 

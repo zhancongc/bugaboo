@@ -25,13 +25,20 @@
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a class="active" href="{{ url_for('god_index') }}">首页</a></li>
+                <li><a class="active" href="{{ url_for('god_logout') }}">注销</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
                 <li><a class="active" href="{{ url_for('god_index') }}">首页</a></li>
+                <li><a class="active" href="{{ url_for('god_logout') }}">注销</a></li>
             </ul>
         </div>
     </nav>
     {% endblock %}
+        {% for msg in get_flashed_messages() %}
+            <div class="row valign-wrapper">
+                <div class="card-panel hoverable" style="width: 100%; text-align: center">{{ msg }}</div>
+            </div>
+        {% endfor %}
     {% block content %}{% endblock %}
     <footer class="page-footer #1565c0 blue darken-3">
         <div class="footer-copyright">

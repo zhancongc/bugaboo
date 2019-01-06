@@ -15,9 +15,9 @@ import configparser
 from PIL import Image
 from config import configs
 from functools import wraps
-from app import app, db
+from app import app, db, login_manager
+from flask_login import login_required, login_user, logout_user
 from flask import jsonify, request, render_template, redirect, url_for, flash
-from flask_login import login_required
 from .package import wxlogin, get_sha1
 from .models import User, UserInfo, Composition, AwardRecord, Award, Store, God
 from .forms import GodLoginForm
@@ -1039,8 +1039,17 @@ def god_login():
                       access_token_expire_time=access_token_expire_time)
             db.session.add(god)
             db.session.commit()
+            login_user(god)
             return redirect(url_for('god_index'))
     return render_template("god_login.html", form=form)
+
+
+@app.route('/logout')
+@login_required
+def god_logout():
+    logout_user()
+    flash(message='您已注销')
+    return redirect(url_for('god_login'))
 
 
 @app.route('/god/index', methods=['GET'])
