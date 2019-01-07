@@ -3,7 +3,7 @@ var util = require("../../utils/util.js");
 var app = getApp();
 
 Page({
-
+  awardIndex: 0,
   //奖品配置
   awardsConfig: {
     chance: true,
@@ -13,7 +13,8 @@ Page({
       { 'index': 2, 'name': '笔记本' },
       { 'index': 3, 'name': '优惠券2' },
       { 'index': 4, 'name': '保温杯' },
-      { 'index': 5, 'name': '优惠券3' }
+      { 'index': 5, 'name': '优惠券3' },
+      { 'index': 6, 'name': '谢谢参与' }
     ]
   },
 
@@ -51,14 +52,42 @@ Page({
 
   //发起抽奖
   playReward: function () {
+    var that = this;
+    wx.request({
+      url: 'https://bugaboo.drivetogreen.com/raffle',
+      method: 'get',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Session-Id': app.globalData.sessionId
+      },
+      success: function (res) {
+        try {
+          var response = res.data;
+          console.log(response);
+          if (response.constructor === Object) {
+            if (response.state === 1) {
+              this.setData({
+                awardIndex: response.data.award_id
+              })
+            }
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '请稍后重新再试',
+        })
+      }
+    })
     //中奖index
-    var awardIndex = 4;
     var runNum = 8;//旋转8周
     var duration = 4000;//时长
-
     // 旋转角度
     this.runDeg = this.runDeg || 0;
-    this.runDeg = this.runDeg + (360 - this.runDeg % 360) + (360 * runNum - awardIndex * (360 / 6))
+    this.runDeg = this.runDeg + (360 - this.runDeg % 360) + (360 * runNum - that.data.awardIndex * (360 / 7))
+    var sessionId = wx.getStorageSync('sessionId');
     //创建动画
     var animationRun = wx.createAnimation({
       duration: duration,
@@ -75,7 +104,7 @@ Page({
     setTimeout(function () {
       wx.showModal({
         title: '恭喜',
-        content: '获得' + (awardsConfig.awards[awardIndex].name),
+        content: '获得' + (awardsConfig.awards[that.data.awardIndex].name),
         showCancel: false
       });
       this.setData({

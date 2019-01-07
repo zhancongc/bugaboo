@@ -15,7 +15,7 @@ import configparser
 from PIL import Image
 from config import configs
 from functools import wraps
-from app import app, db, login_manager
+from app import app, db
 from flask_login import login_required, login_user, logout_user
 from flask import jsonify, request, render_template, redirect, url_for, flash
 from .package import wxlogin, get_sha1
@@ -712,11 +712,14 @@ def raffle(temp_user):
     """
     res = dict()
     # 抽奖逻辑
-    pass
+    conf = configparser.ConfigParser()
+    conf.read('config.ini')
+    if conf.get('weixin', 'god_name') and conf.get('weixin', 'god_password'):
+        pass
     award_id = 1
     try:
         # 发奖
-        awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id)
+        awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id, awardrecord_type=2)
         db.session.add(awardrecord)
         db.session.commit()
     except Exception as e:
