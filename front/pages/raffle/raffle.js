@@ -66,9 +66,39 @@ Page({
           console.log(response);
           if (response.constructor === Object) {
             if (response.state === 1) {
-              this.setData({
+              that.setData({
                 awardIndex: response.data.award_id
               })
+              //中奖index
+              var runNum = 8;//旋转8周
+              var duration = 4000;//时长
+              // 旋转角度
+              that.runDeg = that.runDeg || 0;
+              that.runDeg = that.runDeg + (360 - that.runDeg % 360) + (360 * runNum - that.data.awardIndex * (360 / 7))
+              var sessionId = wx.getStorageSync('sessionId');
+              //创建动画
+              var animationRun = wx.createAnimation({
+                duration: duration,
+                timingFunction: 'ease'
+              })
+              animationRun.rotate(that.runDeg).step();
+              that.setData({
+                animationData: animationRun.export(),
+                btnDisabled: 'disabled'
+              });
+
+              // 中奖提示
+              var awardsConfig = that.awardsConfig;
+              setTimeout(function () {
+                wx.showModal({
+                  title: '恭喜',
+                  content: '获得' + (awardsConfig.awards[that.data.awardIndex].name),
+                  showCancel: false
+                });
+                that.setData({
+                  btnDisabled: ''
+                });
+              }.bind(that), duration);
             }
           }
         } catch (e) {
@@ -81,36 +111,6 @@ Page({
         })
       }
     })
-    //中奖index
-    var runNum = 8;//旋转8周
-    var duration = 4000;//时长
-    // 旋转角度
-    this.runDeg = this.runDeg || 0;
-    this.runDeg = this.runDeg + (360 - this.runDeg % 360) + (360 * runNum - that.data.awardIndex * (360 / 7))
-    var sessionId = wx.getStorageSync('sessionId');
-    //创建动画
-    var animationRun = wx.createAnimation({
-      duration: duration,
-      timingFunction: 'ease'
-    })
-    animationRun.rotate(this.runDeg).step();
-    this.setData({
-      animationData: animationRun.export(),
-      btnDisabled: 'disabled'
-    });
-
-    // 中奖提示
-    var awardsConfig = this.awardsConfig;
-    setTimeout(function () {
-      wx.showModal({
-        title: '恭喜',
-        content: '获得' + (awardsConfig.awards[that.data.awardIndex].name),
-        showCancel: false
-      });
-      this.setData({
-        btnDisabled: ''
-      });
-    }.bind(this), duration);
   },
   toIndex: function() {
     wx.navigateTo({

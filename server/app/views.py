@@ -716,7 +716,17 @@ def raffle(temp_user):
     conf.read('config.ini')
     if conf.get('weixin', 'god_name') and conf.get('weixin', 'god_password'):
         pass
-    award_id = 1
+    award_list = [0, 1, 2, 3, 4, 5, 6]
+    award_id = random.choice(award_list)
+    if award_id == 0:
+        res.update({
+            'state': 1,
+            'msg': 'Thanks for participate',
+            'data': {
+                'award_id': 0
+            }
+        })
+        return jsonify(res)
     try:
         # 发奖
         awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id, awardrecord_type=2)
