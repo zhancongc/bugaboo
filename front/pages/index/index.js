@@ -13,11 +13,13 @@ Page({
         if (response.state) {
           app.globalData.sessionId = response.data.session_id;
           if (response.state == 1) {
-            var compositionId = response.data.composition_id;
-            app.globalData.compositionId = response.data.composition_id;
-            wx.redirectTo({
-              url: '/pages/preview/preview?composition_id=' + compositionId,
-            })
+            if (response.data.composition_id) {
+              var compositionId = response.data.composition_id;
+              app.globalData.compositionId = response.data.composition_id;
+              wx.redirectTo({
+                url: '/pages/preview/preview?composition_id=' + compositionId,
+              })
+            }
           }
         }
       }
