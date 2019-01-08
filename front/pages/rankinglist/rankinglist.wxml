@@ -1,3 +1,5 @@
+<view class="pages">
+
 <i-tabs current="{{ current }}" bindchange="handleChange">
     <i-tab key="tab1" title="排行榜"></i-tab>
     <i-tab key="tab2" title="给我祝福的人"></i-tab>
@@ -24,3 +26,4 @@
     </i-cell>
 </i-cell-group>
 
+</view>

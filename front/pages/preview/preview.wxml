@@ -1,4 +1,5 @@
 <!--pages/preview/pewview.wxml-->
+<view class="pages">
 <i-row>
     <i-col span="3" offset="2" i-class="col-class">
     <view style="text-align:center;">恭喜</view></i-col>
@@ -49,4 +50,4 @@
     <i-button bind:click="toLoading">到加载页面</i-button>
   </i-col>
 </i-row>
-
+</view>

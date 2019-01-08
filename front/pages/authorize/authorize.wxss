@@ -1,1 +1,17 @@
 /* pages/authorize/authorize.wxss */
+
+.authorize {
+  margin-top: -96rpx;
+  height:80rpx;
+  width: 100%;
+  text-align: center;
+  color: #a64c30;
+}
+.user-info {
+  width: 260rpx;
+  height:80rpx;
+  border: none;
+  margin-top: 5rpx;
+  background: none;
+  border-radius: 20rpx;
+}

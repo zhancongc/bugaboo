@@ -1,9 +1,39 @@
 /**app.wxss**/
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-} 
+.pages {
+  background-image: url("https://bugaboo.drivetogreen.com/static/images/bg.jpg");
+  width: 100%;
+  height: 1600rpx;
+}
+.large-button {
+  height:120rpx;
+  width: 100%;
+}
+.large-button-text {
+  margin-top: -116rpx;
+  height:120rpx;
+  width: 100%;
+  text-align: center;
+  color: #a64c30;
+}
+.middle-button {
+  height:100rpx;
+  width: 100%;
+}
+.middle-button-text {
+  margin-top: -96rpx;
+  height:100rpx;
+  width: 100%;
+  text-align: center;
+  color: #a64c30;
+}
+.small-button {
+  height:80rpx;
+  width: 100%;
+}
+.small-button-text {
+  margin-top: -76rpx;
+  height:80rpx;
+  width: 100%;
+  text-align: center;
+  color: #a64c30;
+}

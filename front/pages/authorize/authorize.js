@@ -14,11 +14,7 @@ Page({
     console.log(e.detail.userInfo)
     if (e.detail.userInfo) {
       //用户按了授权按钮
-      this.saveUserInfo(e.detail.userInfo);
-      wx.setStorage({
-        key: 'userInfo',
-        data: e.detail.userInfo,
-      });
+      wx.setStorageSync('userInfo', e.detail.userInfo);
       wx.navigateTo({
         url: that.data.nextPage,
       })
@@ -31,42 +27,6 @@ Page({
         duration: 1000
       })
     }
-  },
-  saveUserInfo: function (userInfo) {
-    var sessionId = wx.getStorageSync('sessionId');
-    console.log('把用户信息发送到后端存储起来');
-    wx.request({
-      url: 'https://bugaboo.drivetogreen.com/user/info/upload',
-      method: 'post',
-      data: {
-        avatarUrl: userInfo.avatarUrl,
-        city: userInfo.city,
-        country: userInfo.country,
-        gender: userInfo.gender,
-        language: userInfo.language,
-        nickName: userInfo.nickName,
-        province: userInfo.province
-      },
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Session-Id': sessionId
-      },
-      success: function (res) {
-        try {
-          var response = res.data;
-          console.log(response);
-          if (response.constructor === Object) {
-            if (response.state) {
-              console.log(response.msg);
-            } else {
-              console.log(response.msg)
-            }
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
-    })
   },
   /**
    * 生命周期函数--监听页面加载

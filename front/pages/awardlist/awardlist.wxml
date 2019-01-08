@@ -1,5 +1,5 @@
 <!--pages/awardlist/awardlist.wxml-->
-
+<view class="pages">
 <!--i-row>
     <i-col span="8" offset="13" i-class="col-class">
     <view style="font: 28rpx;">添加收货信息</view></i-col>
@@ -14,4 +14,4 @@
 </view>
 </i-card>
 </view>
-
+</view>

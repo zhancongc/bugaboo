@@ -59,7 +59,6 @@ App({
     })
   },
   globalData: {
-    userInfo: null,
     sessionId: '',
     compositionId: 0
   }

@@ -6,12 +6,14 @@ Page({
   data: {
   },
   onLoad: function () {
+    var that = this;
     // 给app.js 定义一个方法。
     app.userLogin().then(function(res){
       var response = res.data;
       if (response.constructor === Object) {
         if (response.state) {
           app.globalData.sessionId = response.data.session_id;
+          that.saveUserInfo(wx.getStorageSync('userInfo'));
           if (response.state == 1) {
             if (response.data.composition_id) {
               var compositionId = response.data.composition_id;
@@ -77,6 +79,42 @@ Page({
       success: (res) => { },
       fail: (res) => { }
     }
+  },
+  saveUserInfo: function (userInfo) {
+    var sessionId = app.globalData.sessionId;
+    console.log('把用户信息发送到后端存储起来');
+    wx.request({
+      url: 'https://bugaboo.drivetogreen.com/user/info/upload',
+      method: 'post',
+      data: {
+        avatarUrl: userInfo.avatarUrl,
+        city: userInfo.city,
+        country: userInfo.country,
+        gender: userInfo.gender,
+        language: userInfo.language,
+        nickName: userInfo.nickName,
+        province: userInfo.province
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Session-Id': sessionId
+      },
+      success: function (res) {
+        try {
+          var response = res.data;
+          console.log(response);
+          if (response.constructor === Object) {
+            if (response.state) {
+              console.log(response.msg);
+            } else {
+              console.log(response.msg)
+            }
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    })
   },
   //事件处理函数
   toComposition: function (e) {

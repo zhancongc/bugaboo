@@ -1,5 +1,6 @@
-<import src="../we-cropper/we-cropper.wxml"/>
 
+<import src="../we-cropper/we-cropper.wxml"/>
+<view class="pages">
 <view class='container' wx:if="{{!wrapper}}">
   <view class='container-content'>
     <view class="section">
@@ -28,4 +29,5 @@
     <i-button bind:click="getCropperImage">预览</i-button>
   </i-col>
 </i-row>
+</view>
 </view>
