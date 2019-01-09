@@ -10,9 +10,6 @@
 {% endblock %}
 
 {% block content %}
-    {% for msg in get_flashed_messages() %}
-        <p>{{ msg }}</p>
-    {% endfor %}
     <div class="parallax-container">
         <div class="parallax"><img src="{{ url_for('static', filename='img/starry.jpg') }}"></div>
     </div>

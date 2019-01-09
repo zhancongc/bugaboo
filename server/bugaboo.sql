@@ -136,7 +136,7 @@ CREATE TABLE `award` (
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (1, '保温杯', 'https://bestbwzs.com/image/bugaboo.gif', 1, '大叔范');
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (2, '笔记本', 'https://bestbwzs.com/image/bugaboo.gif', 1, '文艺范');
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (3, '背包', 'https://bestbwzs.com/image/bugaboo.gif', 1, '旅行范');
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (4, '天猫优惠券1', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满2000减200');
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (4, '天猫优惠券3', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满500减50');
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (5, '天猫优惠券2', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满1000减100');
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (6, '天猫优惠券3', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满500减50');
+-- INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (6, '天猫优惠券1', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满2000减200');
 

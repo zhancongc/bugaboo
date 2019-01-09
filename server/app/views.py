@@ -11,6 +11,7 @@ import datetime
 import requests
 import hashlib
 import random
+import html
 import configparser
 from PIL import Image
 from config import configs
@@ -714,8 +715,7 @@ def raffle(temp_user):
     # 抽奖逻辑
     conf = configparser.ConfigParser()
     conf.read('config.ini')
-    if conf.get('weixin', 'god_name') and conf.get('weixin', 'god_password'):
-        pass
+
     award_list = [0, 1, 2, 3, 4, 5, 6]
     award_id = random.choice(award_list)
     if award_id == 0:
@@ -727,9 +727,16 @@ def raffle(temp_user):
             }
         })
         return jsonify(res)
+    app_secret = conf.get('app', 'app_secret')
+    sh = hashlib.sha1()
+    sh.update(str(temp_user.user_id).encode())
+    sh.update(str(award_id).encode())
+    sh.update(app_secret.encode())
+    award_token = sh.hexdigest()
     try:
         # 发奖
-        awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id, awardrecord_type=2)
+        awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id,
+                                  awardrecord_type=2, award_token=award_token)
         db.session.add(awardrecord)
         db.session.commit()
     except Exception as e:
@@ -955,8 +962,21 @@ def user_coupon(award_token):
     :function: 领奖专用链接 session_id, award_token解密为用户的user_id, award_id和application_secret
     :return: 返回领奖成功的页面
     """
-    token_handler(award_token)
-    return render_template('receive_award.html')
+    award_token = html.escape(award_token)
+    awardrecord = AwardRecord.query.filter_by(award_token=award_token).first()
+    if awardrecord is None:
+        return render_template('receive_award.html')
+    award = Award.query.filter_by(award_id=awardrecord.award_id).first()
+    data = dict()
+    data.update({
+        'award_id': award.award_id,
+        'award_name': award.award_name,
+        'award_image': award.award_image,
+        'award_description': award.award_description,
+        'checked': awardrecord.checked,
+        'check_time': awardrecord.check_time
+    })
+    return render_template('receive_award.html', data=data)
 
 
 @app.route('/online/service', methods=['GET', 'POST'])
