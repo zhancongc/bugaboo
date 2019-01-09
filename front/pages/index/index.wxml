@@ -1,5 +1,4 @@
 <!--index.wxml-->
-<view class="pages">
 <i-row>
   <i-col span="16" offset="4" i-class="col-class">
     <image src='/images/logo.png' class='logo'></image>
@@ -19,7 +18,6 @@
     <view class='small-button-text' bindtap='participate'>参加活动</view>
   </i-col>
 </i-row>
-</view>
 
 <view class="{{ visible1 ? 'mask': '' }}">
   <view class="i-modal {{ visible1 ? 'i-modal-show' : '' }}">
@@ -39,32 +37,21 @@
             <view class='modal-text'>· 在规定的时间内，邀请送祝福的好友越多，排名越高。</view></i-col>
             <i-col class="modal-text" span="20" offset="2">
             <view class='modal-text'>· 活动结束后，祝福排行榜上Top50参与者，可以分别获得一、二、三等奖。</view></i-col>
-            <i-col class="modal-text" span="8" offset="8" i-class="col-class">
-              <view class='modal-text'>
-                <image src='/images/small_btn.png' class='small-button'></image>
-              </view>
-            </i-col>
-            <i-col span="8" offset="8" i-class="col-class">
-              <view class='modal-button-text' bindtap='toComposition'>我知道了</view>
-            </i-col>
+            <view class='modal-button'>
+              <i-col class="modal-text" span="8" offset="8" i-class="col-class">
+                <view class='modal-text'>
+                  <image src='/images/small_btn.png' class='small-button'></image>
+                </view>
+              </i-col>
+              <i-col span="8" offset="8" i-class="col-class">
+                <view class='modal-button-text' bindtap='toComposition'>我知道了</view>
+              </i-col>
+            </view>
           </i-row>
         </view>
       </view>
     </view>
   </view>
 </view>
-<!--view class="i-mask {{ visible1 ? 'i-mask-show' : '' }}">
-
-</view-->
-
-
-
-
-
-
-
-
-
-
 
    

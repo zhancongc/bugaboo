@@ -12,6 +12,7 @@ import requests
 import hashlib
 import random
 import html
+import qrcode
 import configparser
 from PIL import Image
 from config import configs
@@ -732,11 +733,18 @@ def raffle(temp_user):
     sh.update(str(temp_user.user_id).encode())
     sh.update(str(award_id).encode())
     sh.update(app_secret.encode())
-    award_token = sh.hexdigest()
+    awardrecord_token = sh.hexdigest()
+    qrcode_url = configs['development'].DOMAIN + configs['development'].QRCODE_URL_PREFIX + awardrecord_token
+    # 保存图片到本地
+    qrcode_name = str(int(time.mktime(time.gmtime()))) + '_' + awardrecord_token + '.png'
+    qrcode_image_path = configs['development'].QRCODE_FOLDER
+    image = qrcode.make(data=qrcode_url)
+    image.save(qrcode_image_path + qrcode_name)
+    qrcode_image_url = configs['development'].DOMAIN + qrcode_image_path+ qrcode_name
     try:
         # 发奖
-        awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id,
-                                  awardrecord_type=2, award_token=award_token)
+        awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id, awardrecord_type=2,
+                                  awardrecord_token=awardrecord_token, qrcode_image_url=qrcode_image_url)
         db.session.add(awardrecord)
         db.session.commit()
     except Exception as e:
@@ -862,7 +870,8 @@ def user_award(temp_user):
         'check_time': awardrecord.check_time.strftime('%Y-%m-%d %H:%M:%S'),
         'store_id': awardrecord.store_id,
         'awardrecord_type': awardrecord.award_record_type,
-        'awardrecord_token': awardrecord.awardrecord_token
+        'awardrecord_token': awardrecord.awardrecord_token,
+        'qrcode_image_url': awardrecord.qrcode_image_url
     })
     award = Award.query.filter_by(award_id=awardrecord.award_id).first()
     data.update({

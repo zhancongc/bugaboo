@@ -1,5 +1,4 @@
 <!--pages/preview/pewview.wxml-->
-<view class="pages">
 <i-row>
     <i-col span="22" offset="2" i-class="col-class">
     <view style="margin-bottom: 30rpx;">您的好友</view>
@@ -67,4 +66,3 @@
 </i-modal>
 
 <i-toast id="toast" />
-</view>

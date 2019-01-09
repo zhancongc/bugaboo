@@ -8,13 +8,13 @@ const device = wx.getSystemInfoSync()
 Page({
   data: {
     wrapper: false,
+    visible1: false,
+    modalTitle: '上传规则',
     rotateI: 0,
     compositionSrc: '',
     compositionType: 0,
     gameGroupIndex: 0,
     selected: 1, // 1 bugaboo用户， 0不是
-    selected_png: '/images/selected.png',
-    select_png: '/images/select.png',
     cropperOpt: {
       id: 'cropper',
       rotateI: 0,
@@ -24,16 +24,23 @@ Page({
       zoom: 8
     }
   },
-  bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+  handleOpen1: function() {
     this.setData({
-      gameGroupIndex: e.detail.value
+      visible1: true
+    })
+  },
+  handleClose1: function() {
+    this.setData({
+      visible1: false
     })
   },
   select: function (e) {
-    this.setData({
-      selected: e.currentTarget.dataset.selected
-    })
+    var temp = e.currentTarget.dataset.selected;
+    if (this.data.selected !== parseInt(temp)) {
+      this.setData({
+        selected: parseInt(e.currentTarget.dataset.selected)
+      })
+    }
   },
   choosePhotograph: function (e) {
     var that = this;
@@ -173,12 +180,13 @@ Page({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success(res) {
+        self.handleClose1();
         const src = res.tempFilePaths[0];
         self.wecropper.pushOrign(src);
         self.setData({
           wrapper: true
         })
-      }
+      },
     })
   },
   // 图片旋转

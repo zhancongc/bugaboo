@@ -1,5 +1,4 @@
 <!--pages/awardlist/awardlist.wxml-->
-<view class="pages">
 <!--i-row>
     <i-col span="8" offset="13" i-class="col-class">
     <view style="font: 28rpx;">添加收货信息</view></i-col>
@@ -8,10 +7,10 @@
 </i-row-->
 
 <view style="margin-top: 20rpx; margin-bottom: 20rpx;" wx:for="{{awards}}" wx:key="{{item.awardrecord_id}}">
-<i-card title="{{item.award_name}}" extra="{{item.award_time}}" thumb="{{item.award_image}}">
-<view slot="content">
-<i-button bind:click="toAward" data-awardrecird_id="{{item.awardrecord_id}}">立即领取</i-button>
+  <i-card title="{{item.award_name}}" extra="{{item.award_time}}" thumb="{{item.award_image}}">
+  <view slot="content">
+  <i-button bind:click="toAward" data-awardrecird_id="{{item.awardrecord_id}}">立即领取</i-button>
+  </view>
+  </i-card>
 </view>
-</i-card>
-</view>
-</view>
+

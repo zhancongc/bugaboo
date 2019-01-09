@@ -1,6 +1,5 @@
 <!--pages/awardlist/awardlist.wxml-->
 
-<view class="pages">
 <view class="container" style='margin-top: 100rpx; margin-bottom: 100rpx;'>
 	<view class="main">
 		<view class="canvas-container">
@@ -32,4 +31,3 @@
   </i-col>
 </i-row>
 
-</view>

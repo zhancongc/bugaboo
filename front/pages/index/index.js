@@ -131,11 +131,9 @@ Page({
   },
   //事件处理函数
   toComposition: function (e) {
-    this.setData({
-      visible1: false
-    });
     wx.navigateTo({
       url: '/pages/compositionCut/compositionCut',
     })
+    this.handleClose1();
   },
 })

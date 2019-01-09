@@ -25,9 +25,13 @@ class Config(object):
     # folder maintains uploaded file
     UPLOAD_FOLDER = basedir + '/app/static/compositions/'
     # folder maintains out file
-    OUT_FOLDER = basedir + '/files/out/'
+    QRCODE_FOLDER = basedir + '/app/static/qrcode/'
+    #
+    DOMAIN = 'https://bugaboo.drivetogreen.com'
     # image prefix
-    COMPOSITION_PREFIX = 'https://bugaboo.drivetogreen.com/static/compositions/'
+    COMPOSITION_PREFIX = DOMAIN + '/static/compositions/'
+    # qrcode url prefix
+    QRCODE_URL_PREFIX = '/receive/award/'
     # max size of uploaded file
     MAX_CONTENT_LENGTH = 10 * 1024 * 1024
     # migrate repository

@@ -1,4 +1,3 @@
-<view class="pages">
 
 <i-tabs current="{{ current }}" bindchange="handleChange">
     <i-tab key="tab1" title="排行榜"></i-tab>
@@ -25,5 +24,3 @@
       </i-row>
     </i-cell>
 </i-cell-group>
-
-</view>

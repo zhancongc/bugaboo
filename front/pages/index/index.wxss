@@ -2,16 +2,3 @@
 .logo { margin-top: 50rpx; height: 100rpx; width: 100%; }
 .slogan { margin-top: 20rpx; height: 800rpx; width: 100%; }
 .authorize { margin-top: -96rpx; height:80rpx; width: 100%; text-align: center; }
-.close-button{ width: 40rpx; height: 40rpx; }
-.title-text { color: #973d21 }
-.button-text { color: #fff }
-.modal-text { margin: 40rpx 0rpx 20rpx 0rpx; font-size: 34rpx; }
-.mask { position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:999;transition:all 0.2s ease-in-out; }
-.i-modal{ position:fixed;/*overflow:auto;*/top:0;right:0;bottom:0;left:0;height:100%;z-index:1000;display:flex;outline:0;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;transform:translateZ(1px);opacity:0;visibility:hidden }
-.i-modal-show{ visibility:visible;opacity:1 }
-.i-modal-main{ width:90%; height: 800rpx;position:relative; }
-.i-modal-content{ border-radius:7px;padding-top:15px;position:relative; border:0;background-clip:padding-box;text-align:left;height:100%;overflow:hidden; background-color: #fff; }
-.i-modal-body{ max-height:720rpx;margin-bottom:15px;font-size:14px;color:#fff;height:100%;line-height:1.5;overflow:auto; background-color: #c9353a; }
-.i-modal-title{ padding:6px 15px 15px;margin:0;font-size:18px;line-height:1;color:#1c2438;text-align:left; }
-.modal-button { height:80rpx; width: 100%; }
-.modal-button-text{ margin-top: -90rpx; height:80rpx; width: 100%; text-align: center; color: #a64c30; font-size: 30rpx; }

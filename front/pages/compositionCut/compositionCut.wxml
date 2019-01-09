@@ -1,7 +1,8 @@
 <import src="../we-cropper/we-cropper.wxml"/>
-<view class='pages'>
+
+<view wx:if="{{ !wrapper }}">
   <i-row>
-    <i-col span="2" offset="10">
+    <i-col span="2" offset="11">
       <image class="flower" src='/images/flower.png'></image>
     </i-col>
     <i-col span="16" offset="4">
@@ -10,60 +11,98 @@
     </i-col>
     <view bindtap='select' data-selected='1'>
     <i-col span="18" offset="3">
-      <image class="button-image" src='{{ selected==1 ? selected_png : select_png }}'></image>
+      <view class="button-image {{ selected ? 'selected-png' : 'select-png' }}"></view>
     </i-col>
-    <i-col span="10" offset="6">
+    <i-col span="10" offset="7">
       <view class="button-text">Bugaboo用户</view>
     </i-col>
     </view>
     <view bindtap='select' data-selected='0'>
       <i-col span="18" offset="3">
-        <image class="button-image" src='{{ selected==0 ? select_png : selected_png }}'></image>
+        <view class="button-image {{ selected ? 'select-png' : 'selected-png' }}"></view>
       </i-col>
-      <i-col span="10" offset="6">
+      <i-col span="10" offset="7">
         <view class="button-text"> 非Bugaboo用户</view>
       </i-col>
     </view>
-    <i-col class="modal-text" span="8" offset="8" i-class="col-class">
-      <view class='modal-text'>
-        <image src='/images/medium_btn.png' class='small-button'></image>
-      </view>
-    </i-col>
-    <i-col span="8" offset="8" i-class="col-class">
-      <view class='middle-button-text' bindtap='toComposition'>我知道了</view>
-    </i-col>
-  </i-row>
-
-
-<!--view class="pages">
-<view class='container' wx:if="{{!wrapper}}">
-  <view class='container-content'>
-    <view class="section">
-      <view class="section-title">参赛组别选择：</view>
-      <picker bindchange="bindPickerChange" value="{{gameGroupIndex}}" range="{{gameGroup}}">
-        <view class="picker">
-          当前选择：{{gameGroup[gameGroupIndex]}}
+    <view class='middle-button'>
+      <i-col class="modal-text" span="12" offset="6" i-class="col-class">
+        <view class='modal-text'>
+          <image src='/images/medium_btn.png' class='middle-button'></image>
         </view>
-      </picker>
+      </i-col>
+      <i-col span="12" offset="6" i-class="col-class">
+        <view class='middle-button-text' bindtap='handleOpen1'>上传照片</view>
+      </i-col>
     </view>
-    <button class='bottomButton' bindtap='uploadTap'>上传照片/拍照</button>
-  </view>
-</view-->
-
-
-  <view class="cropper-wrapper" wx:if="{{wrapper}}">
-      <template is="we-cropper" data="{{...cropperOpt}}"/>
-  </view>
-
-  <view wx:if="{{wrapper}}">
-  <i-row style="position: fixed; left: 0rpx; bottom: 0rpx; width: 100%">
-    <i-col span="12" i-class="col-class">
-      <i-button bind:click="uploadTap">重选</i-button>
-    </i-col>
-      <i-col span="12" i-class="col-class">
-      <i-button bind:click="getCropperImage">预览</i-button>
-    </i-col>
   </i-row>
-  </view>
+</view>
 
+<view class="{{ visible1 ? 'mask': '' }}">
+  <view class="i-modal {{ visible1 ? 'i-modal-show' : '' }}">
+    <view class="i-modal-main">
+      <view class="i-modal-content">
+        <view class="i-modal-title" wx:if="{{ modalTitle }}">
+          <i-row>
+            <i-col span="21" offset="1" class="title-text">{{ modalTitle }}</i-col>
+            <i-col span="2"><image class='close-button' src="/images/X_close.png" bindtap='handleClose1'></image></i-col>
+          </i-row>
+        </view>
+        <view class="i-modal-body" wx:if="{{ selected === 1 }}">
+          <i-row>
+            <i-col span="20" offset="2">
+            <view class='modal-text'>上传一张用bugaboo推着宝宝出行的生活照</view></i-col>
+            <i-col class="modal-text" span="20" offset="2">
+            <view class='modal-text'>新的一年，bugaboo继续助您和宝宝自由出行！</view></i-col>
+            <view class='modal-button'>
+              <i-col class="modal-text" span="8" offset="8" i-class="col-class">
+                <view class='modal-text'>
+                  <image src='/images/small_btn.png' class='small-button'></image>
+                </view>
+              </i-col>
+              <i-col span="8" offset="8" i-class="col-class">
+                <view class='modal-button-text' bindtap='uploadTap'>我知道了</view>
+              </i-col>
+            </view>
+          </i-row>
+        </view>
+        <view class="i-modal-body" wx:if="{{ selected === 0 }}">
+          <i-row>
+            <i-col span="20" offset="2">
+            <view class='modal-text'>上传一张全家出行的美好时光记录照，新的一年，带着宝宝去探索更广阔的世界吧！</view></i-col>
+            <view class='modal-button'>
+              <i-col class="modal-text" span="8" offset="8" i-class="col-class">
+                <view class='modal-text'>
+                  <image src='/images/small_btn.png' class='small-button'></image>
+                </view>
+              </i-col>
+              <i-col span="8" offset="8" i-class="col-class">
+                <view class='modal-button-text' bindtap='uploadTap'>我知道了</view>
+              </i-col>
+            </view>
+          </i-row>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{wrapper}}">
+<view class="cropper-wrapper">
+  <template is="we-cropper" data="{{...cropperOpt}}"/>
+</view>
+
+<i-row>
+  <i-col span="24" offset="2" class="tips">
+  挪动照片选择最佳的位置</i-col>
+</i-row>
+
+<i-row class="bottom-button">
+  <i-col span="12" i-class="col-class">
+    <i-button bind:click="uploadTap">重选</i-button>
+  </i-col>
+    <i-col span="12" i-class="col-class">
+    <i-button bind:click="getCropperImage">预览</i-button>
+  </i-col>
+</i-row>
 </view>

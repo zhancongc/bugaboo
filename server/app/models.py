@@ -55,18 +55,20 @@ class AwardRecord(db.Model):
     动态表，领奖表：领奖记录id，奖品id，用户id，领奖人姓名，领奖人手机，是否领奖，领奖时间
     如果走的是线下取货，awardrecord_type = 1 需要门店城市，门店名称，门店详细地址；store表
     如果奖品是天猫优惠券，awardrecord_type = 2；
+    如果是快递，需要详细地址
     """
     __tablename__ = "awardrecord"
     awardrecord_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    award_id = db.Column(db.Integer(), db.ForeignKey('award.award_id'), nullable=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey("user.user_id"), nullable=True)
-    awardrecord_type = db.Column(db.Integer(), nullable=True)
+    award_id = db.Column(db.Integer(), db.ForeignKey('award.award_id'), nullable=False)
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.user_id"), nullable=False)
+    awardrecord_type = db.Column(db.Integer(), nullable=False)
     store_id = db.Column(db.Integer())
     receiver = db.Column(db.String(16))
     phone = db.Column(db.String(11))
     checked = db.Column(db.Boolean(), default=False)
     check_time = db.Column(db.DateTime(), default=datetime.utcnow)
-    awardrecord_token = db.Column(db.String(128))
+    awardrecord_token = db.Column(db.String(128), nullable=False)
+    qrcode_image_url = db.Column(db.String(128), nullable=False)
 
 
 class Store(db.Model):
