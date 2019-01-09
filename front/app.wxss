@@ -31,7 +31,7 @@
   width: 100%;
 }
 .small-button-text {
-  margin-top: -76rpx;
+  margin-top: -70rpx;
   height:80rpx;
   width: 100%;
   text-align: center;

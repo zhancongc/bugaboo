@@ -4,6 +4,8 @@ const app = getApp()
 
 Page({
   data: {
+    visiable1: false,
+    modalTitle: '活动规则'
   },
   onLoad: function () {
     var that = this;
@@ -116,8 +118,22 @@ Page({
       }
     })
   },
+  handleClose1: function(e) {
+    this.setData({
+      visible1: false
+    })
+  },
+  //参加活动
+  participate: function (e) {
+    this.setData({
+      visible1: true
+    });
+  },
   //事件处理函数
   toComposition: function (e) {
+    this.setData({
+      visible1: false
+    });
     wx.navigateTo({
       url: '/pages/compositionCut/compositionCut',
     })

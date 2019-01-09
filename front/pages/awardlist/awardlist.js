@@ -44,7 +44,31 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.request({
+      url: 'https://bugaboo.drivetogreen.com/raffle',
+      method: 'get',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Session-Id': app.globalData.sessionId
+      },
+      success: function (res) {
+        try {
+          var response = res.data;
+          console.log(response);
+          if (response.constructor === Object) {
+            if (response.state == 1) {
+            }
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '请稍后重新再试',
+        })
+      }
+    })
   },
 
   /**

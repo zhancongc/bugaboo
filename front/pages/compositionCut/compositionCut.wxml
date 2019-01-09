@@ -1,6 +1,41 @@
-
 <import src="../we-cropper/we-cropper.wxml"/>
-<view class="pages">
+<view class='pages'>
+  <i-row>
+    <i-col span="2" offset="10">
+      <image class="flower" src='/images/flower.png'></image>
+    </i-col>
+    <i-col span="16" offset="4">
+      <view class="title">请选择您的参赛组别
+      </view>
+    </i-col>
+    <view bindtap='select' data-selected='1'>
+    <i-col span="18" offset="3">
+      <image class="button-image" src='{{ selected==1 ? selected_png : select_png }}'></image>
+    </i-col>
+    <i-col span="10" offset="6">
+      <view class="button-text">Bugaboo用户</view>
+    </i-col>
+    </view>
+    <view bindtap='select' data-selected='0'>
+      <i-col span="18" offset="3">
+        <image class="button-image" src='{{ selected==0 ? select_png : selected_png }}'></image>
+      </i-col>
+      <i-col span="10" offset="6">
+        <view class="button-text"> 非Bugaboo用户</view>
+      </i-col>
+    </view>
+    <i-col class="modal-text" span="8" offset="8" i-class="col-class">
+      <view class='modal-text'>
+        <image src='/images/medium_btn.png' class='small-button'></image>
+      </view>
+    </i-col>
+    <i-col span="8" offset="8" i-class="col-class">
+      <view class='middle-button-text' bindtap='toComposition'>我知道了</view>
+    </i-col>
+  </i-row>
+
+
+<!--view class="pages">
 <view class='container' wx:if="{{!wrapper}}">
   <view class='container-content'>
     <view class="section">
@@ -13,21 +48,22 @@
     </view>
     <button class='bottomButton' bindtap='uploadTap'>上传照片/拍照</button>
   </view>
-</view>
+</view-->
 
 
-<view class="cropper-wrapper" wx:if="{{wrapper}}">
-    <template is="we-cropper" data="{{...cropperOpt}}"/>
-</view>
+  <view class="cropper-wrapper" wx:if="{{wrapper}}">
+      <template is="we-cropper" data="{{...cropperOpt}}"/>
+  </view>
 
-<view wx:if="{{wrapper}}">
-<i-row style="position: fixed; left: 0rpx; bottom: 0rpx; width: 100%">
-  <i-col span="12" i-class="col-class">
-    <i-button bind:click="uploadTap">重选</i-button>
-  </i-col>
+  <view wx:if="{{wrapper}}">
+  <i-row style="position: fixed; left: 0rpx; bottom: 0rpx; width: 100%">
     <i-col span="12" i-class="col-class">
-    <i-button bind:click="getCropperImage">预览</i-button>
-  </i-col>
-</i-row>
-</view>
+      <i-button bind:click="uploadTap">重选</i-button>
+    </i-col>
+      <i-col span="12" i-class="col-class">
+      <i-button bind:click="getCropperImage">预览</i-button>
+    </i-col>
+  </i-row>
+  </view>
+
 </view>

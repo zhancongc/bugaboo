@@ -12,12 +12,9 @@ Page({
     compositionSrc: '',
     compositionType: 0,
     gameGroupIndex: 0,
-    gameGroup: ['非婴儿车组', '婴儿车组'],
-    objectGameGroup: [{
-      0: '非婴儿车组'
-    }, {
-      1: '婴儿车组'
-    }],
+    selected: 1, // 1 bugaboo用户， 0不是
+    selected_png: '/images/selected.png',
+    select_png: '/images/select.png',
     cropperOpt: {
       id: 'cropper',
       rotateI: 0,
@@ -31,6 +28,11 @@ Page({
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       gameGroupIndex: e.detail.value
+    })
+  },
+  select: function (e) {
+    this.setData({
+      selected: e.currentTarget.dataset.selected
     })
   },
   choosePhotograph: function (e) {

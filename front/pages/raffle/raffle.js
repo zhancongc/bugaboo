@@ -9,12 +9,12 @@ Page({
     chance: true,
     awards: [
       { 'index': 0, 'name': '谢谢参与' },
-      { 'index': 1, 'name': '优惠券1' },
+      { 'index': 1, 'name': '保温杯' },
       { 'index': 2, 'name': '笔记本' },
-      { 'index': 3, 'name': '优惠券2' },
-      { 'index': 4, 'name': '保温杯' },
-      { 'index': 5, 'name': '优惠券3' },
-      { 'index': 6, 'name': '谢谢参与' }
+      { 'index': 3, 'name': '背包' },
+      { 'index': 4, 'name': '优惠券1' },
+      { 'index': 5, 'name': '优惠券2' },
+      { 'index': 6, 'name': '优惠券3' }
     ]
   },
 
@@ -75,7 +75,6 @@ Page({
               // 旋转角度
               that.runDeg = that.runDeg || 0;
               that.runDeg = that.runDeg + (360 - that.runDeg % 360) + (360 * runNum - that.data.awardIndex * (360 / 7))
-              var sessionId = wx.getStorageSync('sessionId');
               //创建动画
               var animationRun = wx.createAnimation({
                 duration: duration,
