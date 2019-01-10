@@ -728,6 +728,15 @@ def raffle(temp_user):
             }
         })
         return jsonify(res)
+    award = Award.query.filter_by(award_id=award_id).first()
+    data = dict()
+    data.update({
+        'award_id': award.award_id,
+        'award_name': award.award_name,
+        'award_image': award.award_image,
+        'award_type': award.award_type,
+        'award_description': award.award_description
+    })
     app_secret = conf.get('app', 'app_secret')
     sh = hashlib.sha1()
     sh.update(str(temp_user.user_id).encode())
@@ -740,10 +749,10 @@ def raffle(temp_user):
     qrcode_image_path = configs['development'].QRCODE_FOLDER
     image = qrcode.make(data=qrcode_url)
     image.save(qrcode_image_path + qrcode_name)
-    qrcode_image_url = configs['development'].DOMAIN + qrcode_image_path+ qrcode_name
+    qrcode_image_url = configs['development'].DOMAIN + qrcode_image_path + qrcode_name
     try:
         # 发奖
-        awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id, awardrecord_type=2,
+        awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id, awardrecord_type=award.award_type,
                                   awardrecord_token=awardrecord_token, qrcode_image_url=qrcode_image_url)
         db.session.add(awardrecord)
         db.session.commit()
@@ -754,15 +763,6 @@ def raffle(temp_user):
             'msg': 'write to database error'
         })
         return jsonify(res)
-    award = Award.query.filter_by(award_id=award_id).first()
-    data = dict()
-    data.update({
-        'award_id': award.award_id,
-        'award_name': award.award_name,
-        'award_image': award.award_image,
-        'award_type': award.award_type,
-        'award_description': award.award_description
-    })
     res.update({
         'state': 1,
         'msg': 'success',
@@ -900,9 +900,9 @@ def user_award(temp_user):
 
 @app.route('/user/award/store', methods=['POST'])
 @login_required1
-def user_award_express(temp_user):
+def user_award_store(temp_user):
     """
-    :function: 上传奖品以及门店信息 awardrecord_id, receiver, phone, store_id
+    :function: 上传门店信息 awardrecord_id, receiver, phone, store_id
     :return:
     """
     res = dict()
@@ -965,27 +965,98 @@ def user_award_express(temp_user):
     return jsonify(res)
 
 
-@app.route('/receive/award/<string:award_token>', methods=['GET'])
-def user_coupon(award_token):
+@app.route('/user/award/express', methods=['POST'])
+@login_required1
+def user_award_express(temp_user):
     """
-    :function: 领奖专用链接 session_id, award_token解密为用户的user_id, award_id和application_secret
+    :functino: 上传用户地址，用于快递
+    :return:
+    """
+    res = dict()
+    awardrecord_id = request.values.get('awardrecord_id')
+    receiver = request.values.get('receiver')
+    phone = request.values.get('phone')
+    address = request.values.get('address')
+    # 检查空值
+    if awardrecord_id is None or receiver is None or phone is None or address is None:
+        res.update({
+            'state': 0,
+            'msg': 'incomplete data'
+        })
+        return jsonify(res)
+    # 类型转换
+    try:
+        awardrecord_id = int(awardrecord_id)
+        receiver = int(receiver)
+    except ValueError as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'type error'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
+    # 检查奖品和用户是否对应
+    awardrecord = AwardRecord.query.filter_by(awardrecord_id=awardrecord_id).first()
+    if awardrecord.user_id != temp_user.user_id:
+        res.update({
+            'state': 0,
+            'msg': 'award and user does not match'
+        })
+        return jsonify(res)
+    # 添加收货记录
+    try:
+        awardrecord.receiver, awardrecord.phone, awardrecord.address = receiver, phone, address
+        db.session.add(awardrecord)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'write to database error'
+        })
+        return jsonify(res)
+    res.update({
+        'state': 1,
+        'msg': 'success'
+    })
+    return jsonify(res)
+
+
+@app.route('/receive/award/<string:awardrecord_token>', methods=['GET'])
+def receive_award(awardrecord_token):
+    """
+    :function: 领奖专用链接 session_id, awardrecord_token解密为用户的user_id, award_id和application_secret
     :return: 返回领奖成功的页面
     """
-    award_token = html.escape(award_token)
-    awardrecord = AwardRecord.query.filter_by(award_token=award_token).first()
+    awardrecord_token = html.escape(awardrecord_token)
+    awardrecord = AwardRecord.query.filter_by(awardrecord_token=awardrecord_token).first()
     if awardrecord is None:
         return render_template('receive_award.html')
     award = Award.query.filter_by(award_id=awardrecord.award_id).first()
-    data = dict()
-    data.update({
-        'award_id': award.award_id,
-        'award_name': award.award_name,
-        'award_image': award.award_image,
-        'award_description': award.award_description,
-        'checked': awardrecord.checked,
-        'check_time': awardrecord.check_time
-    })
-    return render_template('receive_award.html', data=data)
+    if award:
+        return render_template('receive_award.html',
+                               award_name=award.award_name, award_description=award.award_description,
+                               checked=awardrecord.checked, awardrecord_token=awardrecord.awardrecord_token)
+    return render_template('none_award.html')
+
+
+@app.route('/acquire/award', methods=['POST'])
+def acquire_award():
+    """
+    :functino: 兑奖
+    :return:
+    """
+    awardrecord_token = request.values.get('awardrecord_token')
+    exchange_token = request.values.get('exchange_token')
+    if awardrecord_token and exchange_token:
+        awardrecord = AwardRecord.query.filter_by(awardrecord_token=awardrecord_token).first()
+        awardrecord.checked = True
+        awardrecord.check_time = datetime.datetime.utcnow()
+        db.session.add(awardrecord)
+        db.session.commit()
+        return render_template('exchange_result.html', is_exchange=True)
+    return render_template('exchange_result.html', is_exchange=False)
 
 
 @app.route('/online/service', methods=['GET', 'POST'])
@@ -1083,6 +1154,8 @@ def god_login():
             db.session.commit()
             login_user(god)
             return redirect(url_for('god_index'))
+        else:
+            flash(message='用户名或者密码错误', category='warning')
     return render_template("god_login.html", form=form)
 
 
