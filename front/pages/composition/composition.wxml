@@ -1,15 +1,28 @@
 <!--pages/composition/composition.wxml-->
-<i-row style="width: 100%; vertical-align: middle; text-align:center;">
+<i-row>
   <i-col span="24" i-class="col-class">
-    <view style='margin-top: 150rpx;'><image style='width: 640rpx; height: 640rpx;' class="{{ objectCompositionAngle[compositionAngle] }}" src="{{compositionSrc}}"></image></view>
+    <view class="preview">
+    <image class="{{ objectCompositionAngle[compositionAngle] }}" src="{{compositionSrc}}"></image>
+    </view>
   </i-col>
+
+  <view class='bottom-button-left'>
+    <i-col span="16" offset="4" i-class="col-class">
+      <view class='bottom-button-image'>
+        <image src='/images/small_btn.png' class='small-button'></image>
+      </view>
+      <view class='bottom-button-text' bindtap='rotate'>旋转</view>
+    </i-col>
+  </view>
+
+  <view class='bottom-button-right'>
+    <i-col span="16" offset="4" i-class="col-class">
+      <view class='bottom-button-image'>
+        <image src='/images/small_btn.png' class='small-button'></image>
+      </view>
+      <view class='bottom-button-text' bindtap='toPreview'>上传</view>
+    </i-col>
+  </view>
+
 </i-row>
 
-<i-row style="position: fixed; left: 0rpx; bottom: 0rpx; width: 100%">
-  <i-col span="12" i-class="col-class">
-    <i-button bind:click="rotate">旋转</i-button>
-  </i-col>
-    <i-col span="12" i-class="col-class">
-    <i-button bind:click="toPreview">上传</i-button>
-  </i-col>
-</i-row>

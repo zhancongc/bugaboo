@@ -9,8 +9,7 @@
     background-color: #e5e5e5;
     margin-top: 0rpx;
 }
-.tips { position: fixed; left: 0rpx; bottom: 140rpx; color: #fff; font-size: 30rpx; margin-top: 0rpx; }
-.bottom-button {position: fixed; left: 0rpx; bottom: 0rpx; width: 100%;}
+
 .cropper-buttons{
     display: flex;
     flex-direction: row;
@@ -24,6 +23,11 @@
     height: 50px;
     line-height: 50px;
 }
+.tips { position: fixed; left: 0rpx; bottom: 200rpx; color: #fff; font-size: 30rpx; margin-top: 0rpx; }
+.bottom-button-left {position: fixed; left: 0rpx; bottom: 50rpx; width: 50%;}
+.bottom-button-right {position: fixed; right: 0rpx; bottom: 50rpx; width: 50%;}
+.bottom-button-image { height:80rpx; width: 100%; text-align: center; color: #a64c30; }
+.bottom-button-text { margin-top: -60rpx; height:80rpx; width: 100%; text-align: center; color: #a64c30; }
 
 .cropper-buttons .upload, .cropper-buttons .getCropperImage{ width: 50%;text-align: center; }
 .cropper{ position: absolute; top: 0; left: 0;}
