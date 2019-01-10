@@ -29,7 +29,7 @@ class Media(object):
 if __name__ == '__main__':
 
     conf = configparser.ConfigParser()
-    conf.read('config.ini')
+    conf.read('/home/admin/bugaboo/server/config.ini')
     app_id = conf.get('app', 'app_id')
     app_secret = conf.get('app', 'app_secret')
     picture = conf.get('weixin', 'picture')
