@@ -30,8 +30,6 @@
         <view class='modal-text'>
           <image src='/images/medium_btn.png' class='middle-button'></image>
         </view>
-      </i-col>
-      <i-col span="12" offset="6" i-class="col-class">
         <view class='middle-button-text' bindtap='handleOpen1'>上传照片</view>
       </i-col>
     </view>
@@ -75,8 +73,6 @@
                 <view class='modal-text'>
                   <image src='/images/small_btn.png' class='small-button'></image>
                 </view>
-              </i-col>
-              <i-col span="8" offset="8" i-class="col-class">
                 <view class='modal-button-text' bindtap='uploadTap'>我知道了</view>
               </i-col>
             </view>
@@ -98,11 +94,24 @@
 </i-row>
 
 <i-row class="bottom-button">
-  <i-col span="12" i-class="col-class">
-    <i-button bind:click="uploadTap">重选</i-button>
-  </i-col>
-    <i-col span="12" i-class="col-class">
-    <i-button bind:click="getCropperImage">预览</i-button>
-  </i-col>
+
+  <view class='bottom-button-left'>
+    <i-col span="16" offset="4" i-class="col-class">
+      <view class='bottom-button-image'>
+        <image src='/images/small_btn.png' class='small-button'></image>
+      </view>
+      <view class='bottom-button-text' bindtap='uploadTap'>重选</view>
+    </i-col>
+  </view>
+
+  <view class='bottom-button-right'>
+    <i-col span="16" offset="4" i-class="col-class">
+      <view class='bottom-button-image'>
+        <image src='/images/small_btn.png' class='small-button'></image>
+      </view>
+      <view class='bottom-button-text' bindtap='getCropperImage'>预览</view>
+    </i-col>
+  </view>
+
 </i-row>
 </view>

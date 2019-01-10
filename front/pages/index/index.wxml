@@ -9,13 +9,11 @@
 </i-row>
 
 <i-row>
-  <i-col span="8" offset="8" i-class="col-class">
+  <i-col span="12" offset="6" i-class="col-class">
     <view>
-      <image src='/images/small_btn.png' class='small-button'></image>
+      <image src='/images/medium_btn.png' class='middle-button'></image>
     </view>
-  </i-col>
-  <i-col span="8" offset="8" i-class="col-class">
-    <view class='small-button-text' bindtap='participate'>参加活动</view>
+    <view class='middle-button-text' bindtap='participate'>参加活动</view>
   </i-col>
 </i-row>
 
@@ -42,8 +40,6 @@
                 <view class='modal-text'>
                   <image src='/images/small_btn.png' class='small-button'></image>
                 </view>
-              </i-col>
-              <i-col span="8" offset="8" i-class="col-class">
                 <view class='modal-button-text' bindtap='toComposition'>我知道了</view>
               </i-col>
             </view>

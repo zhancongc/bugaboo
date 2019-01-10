@@ -3,28 +3,14 @@ page {
   background-image: url("https://bugaboo.drivetogreen.com/static/images/bg.jpg");
   width: 100%;
 }
-.large-button {
-  height:120rpx;
-  width: 100%;
-}
-.large-button-text {
-  margin-top: -116rpx;
-  height:120rpx;
-  width: 100%;
-  text-align: center;
-  color: #a64c30;
-}
-.middle-button {
-  height:100rpx;
-  width: 100%;
-}
-.middle-button-text {
-  margin-top: -80rpx;
-  height:100rpx;
-  width: 100%;
-  text-align: center;
-  color: #a64c30;
-}
+.bottom-button-left {position: fixed; left: 0rpx; bottom: 50rpx; width: 50%;}
+.bottom-button-right {position: fixed; right: 0rpx; bottom: 50rpx; width: 50%;}
+.bottom-button-image { height:80rpx; width: 100%; text-align: center; color: #a64c30; }
+.bottom-button-text { margin-top: -60rpx; height:80rpx; width: 100%; text-align: center; color: #a64c30; }
+.large-button { height:120rpx; width: 100%; }
+.large-button-text { margin-top: -116rpx; height:120rpx; width: 100%; text-align: center; color: #a64c30; }
+.middle-button { height:100rpx; width: 100%; }
+.middle-button-text { margin-top: -90rpx; height:100rpx; width: 100%; text-align: center; color: #a64c30; font-size: 45rpx; }
 .small-button { height:80rpx; width: 100%; }
 .small-button-text { margin-top: -70rpx; height:80rpx; width: 100%; text-align: center; color: #a64c30; }
 

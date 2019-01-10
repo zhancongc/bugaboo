@@ -55,7 +55,6 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
-
 class ProductConfig(Config):
     # database URI
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:security@localhost:3306/bugaboo?charset=utf8mb4'
@@ -69,7 +68,6 @@ class ProductConfig(Config):
     SQLALCHEMY_POOL_RECYCLE = 600
     # modification track
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-
 
 
 configs = {
