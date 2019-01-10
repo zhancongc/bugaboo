@@ -133,10 +133,10 @@ CREATE TABLE `award` (
 	`award_type` TINYINT(1) DEFAULT 1 COMMENT '奖品类型',
 	`award_description` VARCHAR(1024) COMMENT '奖品描述'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (1, '保温杯', 'https://bestbwzs.com/image/bugaboo.gif', 1, '大叔范');
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (2, '笔记本', 'https://bestbwzs.com/image/bugaboo.gif', 1, '文艺范');
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (3, '背包', 'https://bestbwzs.com/image/bugaboo.gif', 1, '旅行范');
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (4, '天猫优惠券3', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满500减50');
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (5, '天猫优惠券2', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满1000减100');
--- INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`) VALUES (6, '天猫优惠券1', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满2000减200');
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (1, '保温杯', 'https://bestbwzs.com/image/bugaboo.gif', 1, '大叔范', 'Mercury', 20);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (2, '笔记本', 'https://bestbwzs.com/image/bugaboo.gif', 1, '文艺范', 'Venus', 20);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (3, '背包', 'https://bestbwzs.com/image/bugaboo.gif', 1, '旅行范', 'Mars', 20);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (4, '天猫优惠券3', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满500减50', 'Jupiter', 20);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (5, '天猫优惠券2', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满1000减100', 'Saturn', 20);
+
 

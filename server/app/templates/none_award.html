@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Bugaboo</title>
+    <script>
+        $(document).ready(function(){
+            $('.parallax').parallax();
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card blue darken-4">
+                <div class="card-content white-text">
+                    <span class="card-title">提示</span>
+                    <p>该奖品不存在</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{%  block footer %}
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
