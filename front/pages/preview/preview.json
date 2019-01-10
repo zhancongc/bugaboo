@@ -1,7 +1,7 @@
 {
   "backgroundTextStyle": "light",
   "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTitleText": "助力作品",
+  "navigationBarTitleText": "Bugaboo",
   "navigationBarTextStyle": "black",
   "usingComponents": {
     "i-row": "../../dist/row/index",

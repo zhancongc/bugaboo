@@ -2,7 +2,7 @@
 
 <view wx:if="{{ !wrapper }}">
   <i-row>
-    <i-col span="2" offset="11">
+    <i-col span="4" offset="10">
       <image class="flower" src='/images/flower.png'></image>
     </i-col>
     <i-col span="16" offset="4">
@@ -49,7 +49,7 @@
         <view class="i-modal-body" wx:if="{{ selected === 1 }}">
           <i-row>
             <i-col span="20" offset="2">
-            <view class='modal-text'>上传一张用bugaboo推着宝宝出行的生活照</view></i-col>
+            <view class='modal-text'>上传一张用bugaboo推着宝宝出行的生活照。</view></i-col>
             <i-col class="modal-text" span="20" offset="2">
             <view class='modal-text'>新的一年，bugaboo继续助您和宝宝自由出行！</view></i-col>
             <view class='modal-button'>

@@ -1,7 +1,7 @@
 {
   "backgroundTextStyle": "light",
   "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTitleText": "抽奖",
+  "navigationBarTitleText": "Bugaboo",
   "navigationBarTextStyle": "black",
   "usingComponents": {
     "i-row": "../../dist/row/index",

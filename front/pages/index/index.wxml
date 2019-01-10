@@ -4,7 +4,7 @@
     <image src='/images/logo.png' class='logo'></image>
   </i-col>
   <i-col span="24" i-class="col-class">
-    <image src='/images/slogan.png' class='slogan'></image>
+    <image src='https://bugaboo.drivetogreen.com/static/images/slogan.png' class='slogan'></image>
   </i-col>
 </i-row>
 

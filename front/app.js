@@ -26,6 +26,7 @@ App({
                   if (response.constructor === Object) {
                     if (response.state) {
                       that.globalData.sessionId = response.data.session_id;
+                      that.globalData.activityOn = response.data.activity_on;
                       wx.setStorage({
                         key: 'canRaffle',
                         data: response.data.can_raffle,

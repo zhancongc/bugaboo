@@ -1,8 +1,29 @@
 <!--pages/composition/composition.wxml-->
 <i-row>
+
+  <i-col span="4" offset="10">
+    <image class="flower" src='/images/flower.png'></image>
+  </i-col>
+
+  <i-col span="16" offset="4">
+    <view class="title">上传成功
+    </view>
+  </i-col>
+
   <i-col span="24" i-class="col-class">
     <view class="preview">
     <image class="{{ objectCompositionAngle[compositionAngle] }}" src="{{compositionSrc}}"></image>
+    </view>
+  </i-col>
+
+  <i-col span="16" offset="4">
+    <view class="title">Bugaboo用心说爱你：
+    </view>
+  </i-col>
+
+    <i-col span="24" i-class="col-class">
+    <view class="textarea">
+      <image src="/pages/images/input_textarea.png"></image>
     </view>
   </i-col>
 
@@ -20,7 +41,7 @@
       <view class='bottom-button-image'>
         <image src='/images/small_btn.png' class='small-button'></image>
       </view>
-      <view class='bottom-button-text' bindtap='toPreview'>上传</view>
+      <view class='bottom-button-text' bindtap='uploadComposition'>上传</view>
     </i-col>
   </view>
 
