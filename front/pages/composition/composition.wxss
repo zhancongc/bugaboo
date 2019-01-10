@@ -1,13 +1,7 @@
 /* pages/composition/composition.wxss */
-.preview { margin-top: 200rpx; vertical-align: middle; text-align:center; }
-.preview image { width: 480rpx; height: 480rpx; }
-
-.angle90 {
-  transform:rotate(90deg);
-}
-.angle180 {
-  transform:rotate(180deg);
-}
-.angle270{
-  transform:rotate(270deg);
-}
+.preview { width: 640rpx; height: 640rpx; margin: 0 auto; background-repeat:no-repeat; background-size:100% 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/pic_wrap.png'); }
+.preview image { width: 590rpx; height: 590rpx; margin-top: 26rpx; margin-left: 26rpx; }
+.textarea {width: 640rpx; height: 320rpx; margin: 0 auto; background-repeat:no-repeat; background-size:100% 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/input_textarea.png');}
+.angle90 {transform:rotate(90deg);}
+.angle180 {transform:rotate(180deg);}
+.angle270{transform:rotate(270deg);}

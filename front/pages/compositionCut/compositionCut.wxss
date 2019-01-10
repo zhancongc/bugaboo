@@ -32,8 +32,7 @@
 .cropper-buttons .upload, .cropper-buttons .getCropperImage{ width: 50%;text-align: center; }
 .cropper{ position: absolute; top: 0; left: 0;}
 .cropper-buttons{ background-color: #ffffff; }
-.title { color: #fff; text-align: center; }
-.flower { margin: 200rpx 0rpx 20rpx 0rpx; width: 100%; height: 40rpx; text-align: center; }
+
 .button-image { width: 100%; height: 100rpx; text-align: center; margin: 20rpx 0rpx 20rpx 0rpx; }
 .button-text { width: 100%; height: 100rpx; text-align: center; margin-top: -90rpx; }
 .middle-button { margin-top: 60rpx; }

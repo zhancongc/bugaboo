@@ -208,6 +208,7 @@ def user_login():
         return jsonify(res)
     data = {
         'session_id': session_id,
+        'activity_on': configs['product'].ACTIVITY_ON,
         'can_raffle': temp_user.can_raffle,
         'can_follow': temp_user.can_follow,
     }

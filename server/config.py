@@ -26,7 +26,7 @@ class Config(object):
     UPLOAD_FOLDER = basedir + '/app/static/compositions/'
     # folder maintains out file
     QRCODE_FOLDER = basedir + '/app/static/qrcode/'
-    #
+    # domain url
     DOMAIN = 'https://bugaboo.drivetogreen.com'
     # image prefix
     COMPOSITION_PREFIX = DOMAIN + '/static/compositions/'
@@ -40,6 +40,8 @@ class Config(object):
     STRFTIME_FORMAT = '%Y-%m-%d %H:%M:%S'
     # picture_allowed_extensions
     PICTURE_ALLOWED_EXTENSIONS = {'png', 'PNG', 'jpg', 'JPG', 'gif', 'GIF', 'jpeg', 'JPEG'}
+    # activity on
+    ACTIVITY_ON = True
 
     @staticmethod
     def init_app(app):

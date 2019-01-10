@@ -1,7 +1,7 @@
 {
   "backgroundTextStyle": "light",
   "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTitleText": "我的奖品",
+  "navigationBarTitleText": "Bugaboo",
   "navigationBarTextStyle": "black",
   "usingComponents": {
     "i-card": "../../dist/card/index",
