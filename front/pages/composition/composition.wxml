@@ -1,7 +1,7 @@
 <!--pages/composition/composition.wxml-->
 <i-row>
 
-  <i-col span="4" offset="10">
+  <i-col span="2" offset="11">
     <image class="flower" src='/images/flower.png'></image>
   </i-col>
 
@@ -11,7 +11,7 @@
   </i-col>
 
   <i-col span="24" i-class="col-class">
-    <view class="preview">
+    <view class="back-image preview">
     <image class="{{ objectCompositionAngle[compositionAngle] }}" src="{{compositionSrc}}"></image>
     </view>
   </i-col>
@@ -22,8 +22,8 @@
   </i-col>
 
     <i-col span="24" i-class="col-class">
-    <view class="textarea">
-      <image src="/pages/images/input_textarea.png"></image>
+    <view class="back-image textarea">
+      <textarea  maxlength='128' bindblur='setDescription'></textarea>
     </view>
   </i-col>
 

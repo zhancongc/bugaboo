@@ -9,6 +9,7 @@ Page({
     compositionSrc: '',
     compositionType: 0,
     compositionAngle: 0,
+    compositionDescription: '',
     objectCompositionAngle: {
       0: '',
       90: 'angle90',
@@ -21,6 +22,12 @@ Page({
     this.setData({
       compositionAngle: temp
     });
+  },
+  setDescription: function (e) {
+    console.log(e.detail.value);
+    this.setData({
+      compositionDescription: e.detail.value
+    })
   },
   toPreview: function () {
     var that = this;
@@ -57,7 +64,8 @@ Page({
         },
         formData: {
           'composition_type': that.data.compositionType,
-          'composition_angle': that.data.compositionAngle
+          'composition_angle': that.data.compositionAngle,
+          'composition_description': that.data.compositionDescription
         },
         success: function (res) {
           wx.hideToast();

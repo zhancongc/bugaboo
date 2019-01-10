@@ -2,7 +2,7 @@
 
 <view wx:if="{{ !wrapper }}">
   <i-row>
-    <i-col span="4" offset="10">
+    <i-col span="2" offset="11">
       <image class="flower" src='/images/flower.png'></image>
     </i-col>
     <i-col span="16" offset="4">
@@ -19,7 +19,7 @@
     </view>
     <view bindtap='select' data-selected='0'>
       <i-col span="18" offset="3">
-        <view class="button-image {{ selected ? 'select-png' : 'selected-png' }}"></view>
+        <view class="back-image button-image {{ selected ? 'select-png' : 'selected-png' }}"></view>
       </i-col>
       <i-col span="10" offset="7">
         <view class="button-text"> 非Bugaboo用户</view>

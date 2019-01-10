@@ -4,8 +4,8 @@ const app = getApp()
 
 Page({
   data: {
-    visiable1: false,
-    modalTitle: '活动规则'
+    visible1: false,
+    visible2: false
   },
   onLoad: function () {
     var that = this;
@@ -17,11 +17,17 @@ Page({
           app.globalData.sessionId = response.data.session_id;
           that.saveUserInfo(wx.getStorageSync('userInfo'));
           if (response.state == 1) {
-            if (response.data.composition_id) {
-              var compositionId = response.data.composition_id;
-              app.globalData.compositionId = response.data.composition_id;
-              wx.redirectTo({
-                url: '/pages/preview/preview?composition_id=' + compositionId,
+            if (response.data.activity_on){
+              if (response.data.composition_id) {
+                var compositionId = response.data.composition_id;
+                app.globalData.compositionId = response.data.composition_id;
+                wx.redirectTo({
+                  url: '/pages/preview/preview?composition_id=' + compositionId,
+                })
+              }
+            } else {
+              that.setData({
+                visible2: true
               })
             }
           }
