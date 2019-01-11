@@ -143,10 +143,10 @@ class User(db.Model):
     composition_user_id = db.relationship('Composition', foreign_keys=[Composition.user_id],
                                           backref=db.backref('owner', lazy='joined'),
                                           lazy='dynamic', cascade='all, delete-orphan')
-    avatarUrl = db.relationship('Composition', foreign_keys=[UserInfo.avatarUrl],
+    avatarUrl = db.relationship('UserInfo', foreign_keys=[UserInfo.avatarUrl],
                                           backref=db.backref('owner', lazy='joined'),
                                           lazy='dynamic', cascade='all, delete-orphan')
-    nickName = db.relationship('Composition', foreign_keys=[UserInfo.nickName],
+    nickName = db.relationship('UserInfo', foreign_keys=[UserInfo.nickName],
                                           backref=db.backref('owner', lazy='joined'),
                                           lazy='dynamic', cascade='all, delete-orphan')
 
