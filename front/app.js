@@ -61,6 +61,7 @@ App({
   },
   globalData: {
     sessionId: '',
-    compositionId: 0
+    compositionId: 0,
+    canUploadUserInfo: false
   }
 })

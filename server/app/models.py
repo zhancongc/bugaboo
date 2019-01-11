@@ -105,12 +105,10 @@ class UserInfo(db.Model):
     """
     __tablename__ = "userinfo"
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True, nullable=True)
-    avatarUrl = db.Column(db.String(512), db.ForeignKey('user.avatarUrl'))
     city = db.Column(db.String(32))
     country = db.Column(db.String(32))
     gender = db.Column(db.Integer)
     language = db.Column(db.String(8))
-    nickName = db.Column(db.String(32), db.ForeignKey('user.nickName'))
     province = db.Column(db.String(32))
 
 
@@ -129,6 +127,8 @@ class User(db.Model):
     can_follow = db.Column(db.Boolean, default=True)
     user_type = db.Column(db.Integer, default=0)
     follow_times = db.Column(db.Integer, default=0)
+    nickName = db.Column(db.String(32))
+    avatarUrl = db.Column(db.String(512))
     # user关注的人
     followed = db.relationship('Follow', foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),
@@ -141,12 +141,6 @@ class User(db.Model):
                                           backref=db.backref('sender', lazy='joined'),
                                           lazy='dynamic', cascade='all, delete-orphan')
     composition_user_id = db.relationship('Composition', foreign_keys=[Composition.user_id],
-                                          backref=db.backref('owner', lazy='joined'),
-                                          lazy='dynamic', cascade='all, delete-orphan')
-    avatarUrl = db.relationship('UserInfo', foreign_keys=[UserInfo.avatarUrl],
-                                          backref=db.backref('owner', lazy='joined'),
-                                          lazy='dynamic', cascade='all, delete-orphan')
-    nickName = db.relationship('UserInfo', foreign_keys=[UserInfo.nickName],
                                           backref=db.backref('owner', lazy='joined'),
                                           lazy='dynamic', cascade='all, delete-orphan')
 

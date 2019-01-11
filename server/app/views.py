@@ -289,6 +289,8 @@ def user_info_upload(temp_user):
         if len(user_info_list) == 0:
             user_info = UserInfo(user_id=temp_user.user_id, avatarUrl=avatar_url, city=city, country=country,
                                  gender=gender, language=language, nickName=nick_name, province=province)
+            temp_user.avatarUrl = avatar_url
+            temp_user.nickName = nick_name
         elif len(user_info_list) == 1:
             user_info = user_info_list[0]
             user_info.avatarUrl = avatar_url
@@ -298,6 +300,8 @@ def user_info_upload(temp_user):
             user_info.language = language
             user_info.nickName = nick_name
             user_info.province = province
+            temp_user.avatarUrl = avatar_url
+            temp_user.nickName = nick_name
         else:
             res.update({
                 'state': 0,
@@ -305,6 +309,7 @@ def user_info_upload(temp_user):
             })
             return jsonify(res)
         db.session.add(user_info)
+        db.session.add(temp_user)
         db.session.commit()
     except Exception as e:
         print(e)
@@ -556,14 +561,6 @@ def user_composition(temp_user):
             'msg': 'none composition id'
         })
         return jsonify(res)
-    # user添加了avatarUrl和nickName两个外键，不用再去查找user info
-    # user_info = UserInfo.query.filter_by(user_id=composition.user_id).first()
-    # if user_info is None:
-    #    res.update({
-    #       'state': 0,
-    #        'msg': 'his or her user info is not intact'
-    #   })
-    #   return jsonify(res)
     data = dict()
     data.update({
         'user_id': temp_user.user_id,

@@ -15,6 +15,7 @@ Page({
     if (e.detail.userInfo) {
       //用户按了授权按钮
       wx.setStorageSync('userInfo', e.detail.userInfo);
+      app.globalData.canUploadUserInfo = true;
       wx.navigateTo({
         url: that.data.nextPage,
       })
