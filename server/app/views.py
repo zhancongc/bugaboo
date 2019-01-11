@@ -287,18 +287,16 @@ def user_info_upload(temp_user):
     user_info_list = UserInfo.query.filter_by(user_id=temp_user.user_id).all()
     try:
         if len(user_info_list) == 0:
-            user_info = UserInfo(user_id=temp_user.user_id, avatarUrl=avatar_url, city=city, country=country,
-                                 gender=gender, language=language, nickName=nick_name, province=province)
+            user_info = UserInfo(user_id=temp_user.user_id, city=city, country=country,
+                                 gender=gender, language=language, province=province)
             temp_user.avatarUrl = avatar_url
             temp_user.nickName = nick_name
         elif len(user_info_list) == 1:
             user_info = user_info_list[0]
-            user_info.avatarUrl = avatar_url
             user_info.city = city
             user_info.country = country
             user_info.gender = gender
             user_info.language = language
-            user_info.nickName = nick_name
             user_info.province = province
             temp_user.avatarUrl = avatar_url
             temp_user.nickName = nick_name
@@ -341,13 +339,6 @@ def user_composition_info(temp_user):
             'msg': 'new user'
         })
         return jsonify(res)
-    user_info = UserInfo.query.filter_by(user_id=temp_user.user_id).first()
-    if user_info is None:
-        res.update({
-            'state': 0,
-            'msg': 'cannot found user info'
-        })
-        return jsonify(res)
     followers_avatarUrls = list()
     if temp_user.followers:
         for user in temp_user.followers:
@@ -356,9 +347,9 @@ def user_composition_info(temp_user):
             followers_avatarUrls.append({'avatarUrl': user.avatarUrl})
     data = dict()
     data.update({
-        'user_id': user_info.user_id,
-        'nickName': user_info.nickName,
-        'avatarUrl': user_info.avatarUrl,
+        'user_id': temp_user.user_id,
+        'nickName': temp_user.nickName,
+        'avatarUrl': temp_user.avatarUrl,
         'composition_id': temp_composition.composition_id,
         'followers': followers_avatarUrls
     })
