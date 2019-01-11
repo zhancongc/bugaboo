@@ -13,7 +13,7 @@
     <view>
       <image src='/images/medium_btn.png' class='middle-button'></image>
     </view>
-    <view class='middle-button-text' bindtap='participate'>参加活动</view>
+    <view class='middle-button-text' bindtap='handleOpen1'>参加活动</view>
   </i-col>
 </i-row>
 
@@ -23,8 +23,9 @@
       <view class="i-modal-content">
         <view class="i-modal-title">
           <i-row>
-            <i-col span="21" offset="1" class="title-text">活动规则</i-col>
-            <i-col span="2"><image class='close-button' src="/images/X_close.png" bindtap='handleClose1'></image></i-col>
+            <i-col span="20" offset="1" class="title-text">活动规则</i-col>
+            <i-col span="2" offset="1">
+            <view class='back-image close-image' bindtap='handleClose1'></view></i-col>
           </i-row>
         </view>
         <view class="i-modal-body">
@@ -36,11 +37,8 @@
             <i-col class="modal-text" span="20" offset="2">
             <view class='modal-text'>· 活动结束后，祝福排行榜上Top50参与者，可以分别获得一、二、三等奖。</view></i-col>
             <view class='modal-button'>
-              <i-col class="modal-text" span="8" offset="8" i-class="col-class">
-                <view class='modal-text'>
-                  <image src='/images/small_btn.png' class='small-button'></image>
-                </view>
-                <view class='modal-button-text' bindtap='toComposition'>我知道了</view>
+              <i-col span="8" offset="8" i-class="col-class">
+                <view class='back-image modal-button-text' bindtap='toComposition'>我知道了</view>
               </i-col>
             </view>
           </i-row>
@@ -51,31 +49,36 @@
 </view>
 
 
-<!--view class="{{ visible2 ? 'mask': '' }}">
+<view class="{{ visible2 ? 'mask': '' }}">
   <view class="i-modal {{ visible2 ? 'i-modal-show' : '' }}">
     <view class="i-modal-main">
       <view class="i-modal-content">
         <view class="i-modal-title">
           <i-row>
-            <i-col span="21" offset="1" class="title-text">
+            <i-col span="20" offset="1" class="title-text">
             <view class="back-image title-image"></view></i-col>
-            <i-col span="2" offset=""><image class='close-button' src="/images/X_close.png" bindtap='handleClose1'></image></i-col>
+            <i-col span="2" offset="1">
+              <view class='back-image close-image' bindtap='handleClose2'></view></i-col>
           </i-row>
         </view>
         <view class="i-modal-body">
           <i-row>
             <i-col span="20" offset="2">
-            <view class='modal-text'>· 按照规则上传照片参与活动，并邀请好友送祝福，进入辅助排行榜。</view></i-col>
-            <i-col class="modal-text" span="20" offset="2">
-            <view class='modal-text'>· 在规定的时间内，邀请送祝福的好友越多，排名越高。</view></i-col>
-            <i-col class="modal-text" span="20" offset="2">
-            <view class='modal-text'>· 活动结束后，祝福排行榜上Top50参与者，可以分别获得一、二、三等奖。</view></i-col>
+              <view class='rank-text1'>恭喜您！获得祝福榜</view>
+            </i-col>
+            <i-col span="2" offset="9">
+              <view class='rank-text2'>第</view>
+            </i-col>
+            <i-col span="2" offset="0">
+              <view class='rank-text3'>{{ rankNumber }}</view>
+            </i-col>
+            <i-col span="2">
+              <view class='rank-text2'>名</view>
+            </i-col>
+
             <view class='modal-button'>
-              <i-col class="modal-text" span="8" offset="8" i-class="col-class">
-                <view class='modal-text'>
-                  <image src='/images/small_btn.png' class='small-button'></image>
-                </view>
-                <view class='modal-button-text' bindtap='toComposition'>我知道了</view>
+              <i-col span="8" offset="8" i-class="col-class">
+                <view class='back-image modal-button-text' bindtap='toAwardList'>领取奖励</view>
               </i-col>
             </view>
           </i-row>
@@ -83,5 +86,5 @@
       </view>
     </view>
   </view>
-</view-->
+</view>
    

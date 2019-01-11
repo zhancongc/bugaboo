@@ -381,6 +381,7 @@ def user_composition_upload(temp_user):
     # 检查作品类型
     composition_type = request.values.get('composition_type')
     composition_angle = request.values.get('composition_angle')
+    composition_msg = request.values.get('composition_msg')
     if composition_type is None or composition_angle is None:
         res.update({
             'state': 0,
@@ -486,7 +487,7 @@ def user_composition_upload(temp_user):
     # 保存到数据库
     try:
         composition = Composition(user_id=temp_user.user_id, composition_type=composition_type,
-                                  composition_name=filename, composition_url=composition_url)
+                                  composition_msg=composition_msg, composition_url=composition_url)
         db.session.add(composition)
         composition.sync_user_type()
         db.session.commit()

@@ -2,10 +2,6 @@
 
 .cropper-buttons{ display: flex; flex-direction: row; /*justify-content: space-between;*/ align-items: center;justify-content: center; position: absolute; bottom: 0; left: 0; width: 100%; height: 50px; line-height: 50px;}
 .tips { position: fixed; left: 0rpx; bottom: 200rpx; color: #fff; font-size: 30rpx; margin-top: 0rpx; }
-.bottom-button-left {position: fixed; left: 0rpx; bottom: 50rpx; width: 50%;}
-.bottom-button-right {position: fixed; right: 0rpx; bottom: 50rpx; width: 50%;}
-.bottom-button-image { height:80rpx; width: 100%; text-align: center; color: #a64c30; }
-.bottom-button-text { margin-top: -60rpx; height:80rpx; width: 100%; text-align: center; color: #a64c30; }
 
 .cropper-buttons .upload, .cropper-buttons .getCropperImage{ width: 50%;text-align: center; }
 .cropper{ position: absolute; top: 0; left: 0;}
@@ -17,3 +13,6 @@
 .select-png { background-image: url('https://bugaboo.drivetogreen.com/static/images/select.png')}
 
 .selected-png { background-image: url('https://bugaboo.drivetogreen.com/static/images/selected.png')}
+
+
+

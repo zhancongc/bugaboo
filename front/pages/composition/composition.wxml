@@ -16,34 +16,21 @@
     </view>
   </i-col>
 
-  <i-col span="16" offset="4">
-    <view class="title">Bugaboo用心说爱你：
+  <i-col span="16" offset="3">
+    <view class="sub-title">Bugaboo用心说爱你：
     </view>
   </i-col>
 
-    <i-col span="24" i-class="col-class">
-    <view class="back-image textarea">
+  <i-col span="20" offset="2" i-class="col-class">
+    <view class="back-image textarea-image"></view>
+    <view class='textarea'>
       <textarea  maxlength='128' bindblur='setDescription' placeholder='写下您的新年期许'></textarea>
     </view>
   </i-col>
 
-  <view class='bottom-button-left'>
-    <i-col span="16" offset="4" i-class="col-class">
-      <view class='bottom-button-image'>
-        <image src='/images/small_btn.png' class='small-button'></image>
-      </view>
-      <view class='bottom-button-text' bindtap='rotate'>旋转</view>
-    </i-col>
-  </view>
+  <view class='back-image bottom-button-left' bindtap='rotate'>旋转</view>
 
-  <view class='bottom-button-right'>
-    <i-col span="16" offset="4" i-class="col-class">
-      <view class='bottom-button-image'>
-        <image src='/images/small_btn.png' class='small-button'></image>
-      </view>
-      <view class='bottom-button-text' bindtap='uploadComposition'>上传</view>
-    </i-col>
-  </view>
+  <view class='back-image bottom-button-right' bindtap='uploadComposition'>上传</view>
 
 </i-row>
 

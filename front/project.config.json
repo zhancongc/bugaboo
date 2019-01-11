@@ -39,9 +39,10 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "修图",
-					"pathName": "pages/compositionCut/compositionCut"
+					"pathName": "pages/compositionCut/compositionCut",
+					"query": ""
 				}
 			]
 		}

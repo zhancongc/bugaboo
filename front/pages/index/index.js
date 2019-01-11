@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    rankNumber: 3,
     visible1: false,
     visible2: false
   },
@@ -134,10 +135,21 @@ Page({
       visible1: false
     })
   },
+  handleClose2: function (e) {
+    this.setData({
+      visible2: false
+    })
+  },
   //参加活动
-  participate: function (e) {
+  handleOpen1: function (e) {
     this.setData({
       visible1: true
+    });
+  },
+  //参加活动
+  handleOpen2: function (e) {
+    this.setData({
+      visible2: true
     });
   },
   //事件处理函数
@@ -146,5 +158,11 @@ Page({
       url: '/pages/compositionCut/compositionCut',
     })
     this.handleClose1();
+  },
+  toAwardList: function(e) {
+    wx.navigateTo({
+      url: '/pages/awardlist/awardlist',
+    })
+    this.handleClose2();
   },
 })

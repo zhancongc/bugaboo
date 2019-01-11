@@ -2,4 +2,7 @@
 .logo { margin-top: 50rpx; height: 100rpx; width: 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/logo.png') }
 .slogan { margin-top: 20rpx; height: 800rpx; width: 100%; }
 .authorize { margin-top: -96rpx; height:80rpx; width: 100%; text-align: center; }
-.title-image { width: 100%; height: 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/red_logo.png')}
+.title-image { width: 250rpx; height: 50rpx; background-image: url('https://bugaboo.drivetogreen.com/static/images/red_logo.png')}
+.rank-text1 { margin-top: 150rpx; text-align: center; font-size: 40rpx; }
+.rank-text2 { margin: 20rpx 0rpx 20rpx 0rpx; font-size: 40rpx; text-align: center; }
+.rank-text3 { margin: 5rpx 0rpx 20rpx 0rpx; font-size: 60rpx; text-align: center; color:#ecc77c }

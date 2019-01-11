@@ -18,6 +18,7 @@ Page({
     }
   },
   rotate: function (e) {
+    console.log('旋转了90度');
     var temp = (this.data.compositionAngle + 90) % 360;
     this.setData({
       compositionAngle: temp
@@ -65,7 +66,7 @@ Page({
         formData: {
           'composition_type': that.data.compositionType,
           'composition_angle': that.data.compositionAngle,
-          'composition_description': that.data.compositionDescription
+          'composition_msg': that.data.compositionDescription
         },
         success: function (res) {
           wx.hideToast();

@@ -1,4 +1,5 @@
 // pages/awardlist/awardlist.js
+const app = getApp()
 Page({
 
   /**
