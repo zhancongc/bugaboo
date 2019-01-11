@@ -1,57 +1,19 @@
 /* pages/preview/pewview.wxss */
-.container {
-  width: 96%;
-  margin: 0 auto;
-  padding: 100rpx 0;
-}
-.container title {
-  display: inline-block;
-  flex-wrap: wrap;
-}
-.intro {
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-}
-.title {
-  margin-top: 20rpx;
-  margin-bottom: 20rpx;
-  width: 120rpx;
-  display: inline-block;
-}
-.title-image {
-  width: 120rpx;
-  display: inline-block;
-  vertical-align: middle;
-}
-.container-content{
-  margin-top: 50rpx;
-  width: 100%;
-  text-align: center;
-}
-.user-avatar {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 10rpx;
-  bottom: 40rpx;
-}
-.mainButton {
-  margin-top: 50rpx;
-  width: 100%;
-  text-align: center;
-  height: 80rpx;
-}
-.mainButton button {
-  float: left;
-  width: 45%;
-  left: 5%;
-  right: 5%;
-  height: 80rpx;
-  text-align: center;
-  line-height: 80rpx;
-  font-size: 32rpx;
-}
-.bottomText {
-  margin-top: 50rpx;
-  vertical-align: middle;
-  font-size: 28rpx;
-}
+.preview { width: 580rpx; height: 580rpx; margin: 0 auto;  background-image: url('https://bugaboo.drivetogreen.com/static/images/pic_wrap.png'); }
+.preview image { width: 535rpx; height: 535rpx; margin-top: 24rpx; margin-left: 24rpx; }
+.text1{ margin: 20rpx 0rpx 40rpx 0rpx; font-size: 30rpx; line-height: 30rpx; color: #fff; }
+.text2{ margin: 20rpx 0rpx 20rpx 0rpx; font-size: 40rpx; line-height: 40rpx; color: #fff; }
+.text3{ margin: 20rpx 0rpx 20rpx 0rpx; font-size: 40rpx; line-height: 50rpx; color: #fff; }
+.text4{ margin: 20rpx 0rpx 20rpx 0rpx; font-size: 50rpx; line-height: 50rpx; color: #ecc77c; }
+.button-left { left: 10%; height:80rpx; width: 240rpx; margin-top: 30rpx; text-align: center; color: #a64c30; font-size: 35rpx; line-height:80rpx; background-image: url('https://bugaboo.drivetogreen.com/static//images/small_btn.png')  }
+.button-right { right: 10%; height:80rpx; width: 240rpx; margin-top: 30rpx; text-align: center; color: #a64c30; font-size: 35rpx; line-height:80rpx; background-image: url('https://bugaboo.drivetogreen.com/static//images/small_btn.png') }
+
+.share {width: 240rpx; height:80rpx; border: none; margin-top: -80rpx; background: none; border-radius: 20rpx; color: #a64c30; font-size: 35rpx; }
+
+.bottom{background-color: #a20000; margin-top: 100rpx;margin: 50rpx 0rpx 50rpx 0rpx;}
+.divLine{ background: #fff;width: 100%;height: 4rpx;}
+.bottom-title {color: #fff; font-size: 40rpx;margin: 20rpx 0rpx 20rpx 0rpx;}
+.bottom-sub-title {color: #fff; font-size: 28rpx; margin: 10rpx 0rpx 10rpx 0rpx;}
+.bottom-text {color: #fff; font-size: 28rpx; text-align: center; margin: 5rpx 0rpx 0rpx 0rpx;}
+.section{ margin: 20rpx 0rpx 20rpx 0rpx;}
+

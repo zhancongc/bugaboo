@@ -1,16 +1,4 @@
 /* pages/authorize/authorize.wxss */
-
-.authorize {
-  margin-top: -96rpx;
-  height:80rpx;
-  width: 100%;
-  text-align: center;
-}
-.user-info {
-  width: 260rpx;
-  height:80rpx;
-  border: none;
-  margin-top: 5rpx;
-  background: none;
-  border-radius: 20rpx;
-}
+.text1 { margin-top: 400rpx; margin-bottom: 100rpx; text-align: center; color:#fff; }
+.authorize {margin-top: -96rpx;height:80rpx;width: 100%;text-align: center;}
+.user-info {width: 260rpx;height:80rpx;border: none;margin-top: 5rpx;background: none;border-radius: 20rpx;}

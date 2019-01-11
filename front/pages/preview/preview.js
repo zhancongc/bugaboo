@@ -55,7 +55,9 @@ Page({
    */
   onShow: function () {
     wx.showToast({
-      title: '加载中'
+      icon: 'loading',
+      title: '加载中',
+      mask: true
     });
     var that = this;
     if (that.data.compositionId != 0) {
@@ -175,11 +177,6 @@ Page({
   toCompositionCut: function () {
     wx.navigateTo({
       url: '/pages/compositionCut/compositionCut',
-    })
-  },
-  toLoading: function () {
-    wx.navigateTo({
-      url: '/pages/loading/loading',
     })
   },
   toRankingList: function () {

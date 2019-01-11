@@ -48,10 +48,10 @@ Page({
   uploadComposition: function () {
     var that = this;
     wx.showToast({
-      title: '正在上传...',
+      title: '上传中，请耐心等待',
       icon: 'loading',
       mask: true,
-      duration: 10000
+      duration: 20000
     });
     var sessionId = app.globalData.sessionId;
     if (sessionId) {

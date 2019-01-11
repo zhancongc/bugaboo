@@ -1,41 +1,108 @@
 <!--pages/preview/pewview.wxml-->
-<i-row style='margin-top: 50rpx;'>
-    <i-col span="8" offset="2" i-class="col-class">
-      <view class='rank-text3'>恭喜你！</view></i-col>
-    <i-col span="14" i-class="col-class">{{nickName}}</i-col>
-</i-row>
+<view style='margin-top: 50rpx;'>
+  <i-row>
+      <i-col span="7" offset="2" i-class="col-class">
+        <view class="text4">恭喜你！</view></i-col>
+      <i-col span="15" i-class="col-class">
+      <view class="text3">{{nickName}}</view></i-col>
+  </i-row>
+</view>
 
 <i-row>
-  <i-col span="20" offset="2" i-class="col-class">
-  <view style="margin-top: 30rpx;">成功参与Bugaboo新年祝福活动</view></i-col>
-  <i-col span="20" offset="2" i-class="col-class">
-  <view style="margin-top: 30rpx; margin-bottom: 30rpx;">我的作品：</view></i-col>
+  <i-col span="19" offset="2" i-class="col-class">
+  <view class="text2">成功参与Bugaboo新年祝福活动</view></i-col>
+  <i-col span="5" offset="2" i-class="col-class">
+  <view class="text1">我的作品：</view></i-col>
 </i-row>
 
-<i-row style="vertical-align: middle; text-align:center;">
   <i-col span="24" i-class="col-class">
-    <image style='width: 640rpx; height: 640rpx;'  src="{{ compositionUrl }}"></image>
+    <view class="back-image preview">
+      <image src="{{ compositionUrl }}"></image>
+    </view>
   </i-col>
-</i-row>
+
+  <!--view class='back-image button-left' bindtap='rotate'>旋转</view>
+
+  <view class='back-image button-right' bindtap='uploadComposition'>上传</view-->
 
 <i-row>
   <i-col span="8" offset="3" i-class="col-class" style="margin-top: 50rpx;">
-    <view>
+    <!--view>
       <i-button open-type='share'>邀请送祝福</i-button>
-    </view>
+    </view-->
+    <view class='back-image button-right'></view>
+    <button class="share" open-type="share">邀请送祝福</button>
   </i-col>
   <i-col span="8" offset="2" i-class="col-class">
-    <view>
-      <i-button bind:click="toRankingList">查看排名</i-button>
+    <view class='back-image button-right' bindtap="toRankingList">
+      查看排名
     </view>
   </i-col>
 </i-row>
 
-<i-row>
-  <i-col span="4" offset="10">
-    <view class='bottomText'>福利奖励</view>
-  </i-col>
-</i-row>
+<view class='bottom'>
+  <i-row>
+    <i-col span="2" offset="11">
+      <image class="flower" src='/images/flower.png'></image>
+    </i-col>
+    <i-col span="20" offset="2"><view class="divLine"></view></i-col>
+    <i-col span="20" offset="2">
+      <view class="bottom-title">活动规则：</view>
+    </i-col>
+    <i-col span="20" offset="2" class="bottom-sub-title">
+      <view class="bottom-sub-title">祝福排行榜上 Top50 参与者可分别获得一二三等奖。</view>
+    </i-col>
+  </i-row>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">一等奖（ Top1 ）价值约1000元</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">携程礼品卡+bugaboo神秘礼物</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">二等奖（ Top2-Top10 ）价值约500元</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">星巴克星礼卡+bugaboo神秘礼物</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">三等奖（Top11-Top50）价值约300元</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">bugaboo神秘礼物</view>
+      </i-col>
+      </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">活动时间：2019年1月18日至2019年2月10日</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">活动截止日期：2019年2月10日24点</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">活动最终解释权归bugaboo所有</view>
+      </i-col>
+    </i-row>
+  </view>
+
+</view>
+
 <i-row>
   <i-col span="24" offset="0">
     <i-button bind:click="toView">到分享页面</i-button>
@@ -44,7 +111,6 @@
     <i-button bind:click="toAwardList">到奖品列表页面</i-button>
     <i-button bind:click="toAuthorize">到授权页面</i-button>
     <i-button bind:click="toCompositionCut">到作品上传页面</i-button>
-    <i-button bind:click="toLoading">到加载页面</i-button>
   </i-col>
 </i-row>
 
