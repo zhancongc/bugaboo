@@ -15,9 +15,10 @@ Page({
       if (response.constructor === Object) {
         if (response.state) {
           app.globalData.sessionId = response.data.session_id;
-          userInfo = wx.getStorageSync('userInfo')
+          var userInfo = wx.getStorageSync('userInfo')
           if (app.globalData.canUploadUserInfo && userInfo) {
             that.saveUserInfo(userInfo);
+            app.globalData.canUploadUserInfo = false;
           }
           if (response.state == 1) {
             if (response.data.activity_on){
