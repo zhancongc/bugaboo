@@ -31,3 +31,7 @@ page { background-image: url("https://bugaboo.drivetogreen.com/static/images/bg.
 .bottom-button-left { position: absolute; bottom: 50rpx; left: 10%; height:80rpx; width: 240rpx; margin-top: 30rpx; text-align: center; color: #a64c30; font-size: 35rpx; line-height:80rpx; background-image: url('https://bugaboo.drivetogreen.com/static//images/small_btn.png') }
 
 .bottom-button-right { position: absolute; bottom: 50rpx; right: 10%; height:80rpx; width: 240rpx; margin-top: 30rpx; text-align: center; color: #a64c30; font-size: 35rpx; line-height:80rpx; background-image: url('https://bugaboo.drivetogreen.com/static//images/small_btn.png') }
+
+.rank-text1 { margin-top: 150rpx; text-align: center; font-size: 40rpx; }
+.rank-text2 { margin: 20rpx 0rpx 20rpx 0rpx; font-size: 40rpx; text-align: center; }
+.rank-text3 { margin: 5rpx 0rpx 20rpx 0rpx; font-size: 60rpx; text-align: center; color:#ecc77c }

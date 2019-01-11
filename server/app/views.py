@@ -505,7 +505,7 @@ def user_composition_upload(temp_user):
     composition = Composition.query.filter_by(composition_id=composition_id).first()
     image.update({
         'composition_id': composition.composition_id,
-        'composition_name': composition.composition_name,
+        'composition_msg': composition.composition_msg,
         'composition_url': composition.composition_url,
         'composition_type': composition.composition_type,
         'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
@@ -560,7 +560,7 @@ def user_composition(temp_user):
         'avatarUrl': temp_user.avatarUrl,
         'composition_id': composition.composition_id,
         'composition_type': composition.composition_type,
-        'composition_name': composition.composition_name,
+        'composition_msg': composition.composition_msg,
         'composition_url': composition.composition_url,
         'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
     })

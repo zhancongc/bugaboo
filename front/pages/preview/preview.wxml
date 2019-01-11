@@ -1,10 +1,8 @@
 <!--pages/preview/pewview.wxml-->
-<i-row>
-    <i-col span="3" offset="2" i-class="col-class">
-    <view style="text-align:center;">恭喜</view></i-col>
-    <i-col span="2" i-class="col-class">
-    <i-avatar src="{{avatarUrl}}" size="small" shape="square"></i-avatar></i-col>
-    <i-col span="17" i-class="col-class">{{nickName}}</i-col>
+<i-row style='margin-top: 50rpx;'>
+    <i-col span="8" offset="2" i-class="col-class">
+      <view class='rank-text3'>恭喜你！</view></i-col>
+    <i-col span="14" i-class="col-class">{{nickName}}</i-col>
 </i-row>
 
 <i-row>
