@@ -136,7 +136,12 @@ CREATE TABLE `award` (
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (1, '保温杯', 'https://bestbwzs.com/image/bugaboo.gif', 1, '大叔范', 'Mercury', 20);
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (2, '笔记本', 'https://bestbwzs.com/image/bugaboo.gif', 1, '文艺范', 'Venus', 20);
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (3, '背包', 'https://bestbwzs.com/image/bugaboo.gif', 1, '旅行范', 'Mars', 20);
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (4, '天猫优惠券3', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满500减50', 'Jupiter', 20);
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (5, '天猫优惠券2', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满1000减100', 'Saturn', 20);
-
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (4, '天猫优惠券1', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满500减50', 'Jupiter', 100);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (5, '天猫优惠券2', 'https://bestbwzs.com/image/bugaboo.gif', 2, '满1000减100', 'Saturn', 100);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (6, '一等奖', 'https://bestbwzs.com/image/bugaboo.gif', 3, '一等奖', 'Uranus', 1);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (7, '二等奖', 'https://bestbwzs.com/image/bugaboo.gif', 3, '二等奖', 'Neptune', 9);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (8, '三等奖', 'https://bestbwzs.com/image/bugaboo.gif', 3, '三等奖', 'Pluto', 40);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (9, '一等奖', 'https://bestbwzs.com/image/bugaboo.gif', 4, '一等奖', 'Ceres', 1);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (10, '二等奖', 'https://bestbwzs.com/image/bugaboo.gif', 4, '二等奖', 'Vesta', 9);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (11, '三等奖', 'https://bestbwzs.com/image/bugaboo.gif', 4, '三等奖', 'Juno', 40);
 

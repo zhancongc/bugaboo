@@ -51,7 +51,7 @@
 </view>
 
 
-<view class="{{ visible2 ? 'mask': '' }}">
+<!--view class="{{ visible2 ? 'mask': '' }}">
   <view class="i-modal {{ visible2 ? 'i-modal-show' : '' }}">
     <view class="i-modal-main">
       <view class="i-modal-content">
@@ -83,5 +83,5 @@
       </view>
     </view>
   </view>
-</view>
+</view-->
    

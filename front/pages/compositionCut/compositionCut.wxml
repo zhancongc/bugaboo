@@ -11,7 +11,7 @@
     </i-col>
     <view bindtap='select' data-selected='1'>
     <i-col span="18" offset="3">
-      <view class="button-image {{ selected ? 'selected-png' : 'select-png' }}"></view>
+      <view class="back-image button-image {{ selected ? 'selected-png' : 'select-png' }}"></view>
     </i-col>
     <i-col span="10" offset="7">
       <view class="button-text">Bugaboo用户</view>

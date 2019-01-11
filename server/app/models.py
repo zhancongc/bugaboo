@@ -73,6 +73,19 @@ class AwardRecord(db.Model):
     awardrecord_token = db.Column(db.String(128), nullable=False)
     qrcode_image_url = db.Column(db.String(128), nullable=False)
 
+    def check(self):
+        self.checked = True
+        self.check_time = datetime.utcnow()
+
+    def set_address(self, address, receiver, phone):
+        self.address = address
+        self.receiver = receiver
+        self.phone = phone
+
+    def set_store(self, store_id, receiver, phone):
+        self.store_id = store_id
+        self.receiver = receiver
+        self.phone = phone
 
 class Store(db.Model):
     """
@@ -92,12 +105,12 @@ class UserInfo(db.Model):
     """
     __tablename__ = "userinfo"
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), primary_key=True, nullable=True)
-    avatarUrl = db.Column(db.String(512))
+    avatarUrl = db.Column(db.String(512), db.ForeignKey('user.avatarUrl'))
     city = db.Column(db.String(32))
     country = db.Column(db.String(32))
     gender = db.Column(db.Integer)
     language = db.Column(db.String(8))
-    nickName = db.Column(db.String(32))
+    nickName = db.Column(db.String(32), db.ForeignKey('user.nickName'))
     province = db.Column(db.String(32))
 
 
@@ -130,10 +143,16 @@ class User(db.Model):
     composition_user_id = db.relationship('Composition', foreign_keys=[Composition.user_id],
                                           backref=db.backref('owner', lazy='joined'),
                                           lazy='dynamic', cascade='all, delete-orphan')
+    avatarUrl = db.relationship('Composition', foreign_keys=[UserInfo.avatarUrl],
+                                          backref=db.backref('owner', lazy='joined'),
+                                          lazy='dynamic', cascade='all, delete-orphan')
+    nickName = db.relationship('Composition', foreign_keys=[UserInfo.nickName],
+                                          backref=db.backref('owner', lazy='joined'),
+                                          lazy='dynamic', cascade='all, delete-orphan')
 
     def follow(self, user):
         if not self.is_following(user):
-            foll = Follow(follow_id=None, follower=self, followed=user)
+            foll = Follow(follower=self, followed=user)
             self.follow_times += 1
             db.session.add(foll)
             db.session.add(self)

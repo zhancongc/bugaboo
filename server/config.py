@@ -40,8 +40,6 @@ class Config(object):
     STRFTIME_FORMAT = '%Y-%m-%d %H:%M:%S'
     # picture_allowed_extensions
     PICTURE_ALLOWED_EXTENSIONS = {'png', 'PNG', 'jpg', 'JPG', 'gif', 'GIF', 'jpeg', 'JPEG'}
-    # activity on
-    ACTIVITY_ON = True
 
     @staticmethod
     def init_app(app):

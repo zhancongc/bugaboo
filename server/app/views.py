@@ -21,7 +21,7 @@ from app import app, db
 from flask_login import login_required, login_user, logout_user
 from flask import jsonify, request, render_template, redirect, url_for, flash
 from .package import wxlogin, get_sha1
-from .models import User, UserInfo, Composition, AwardRecord, Award, Store, God
+from .models import User, UserInfo, Composition, AwardRecord, Award, Store, God, Follow
 from .forms import GodLoginForm
 
 
@@ -57,22 +57,33 @@ def get_user_info(session_id):
     return user_info
 
 
-def generate_token():
-    """
-    :function: 加密密token user_id+award_id+application_secret sha1算法
-    :param:
-    :return:
-    """
-    return None
+def raffle_award():
+    if random.randint(1, 10) < 5:
+        return 0
+    conf = configparser.ConfigParser()
+    conf.read('config.ini')
+    award_string = conf.get('raffle', 'daily_award')
+    if award_string == '0000000000000':
+        return 0
+    award_array = list(award_string)
+    temp = list()
+    for index in range(len(award_string)):
+        if award_string[index] == '1':
+            temp.append(index)
+    if temp:
+        award_choice = random.choice(temp)
+        del temp[temp.index(award_choice)]
+        award_array[award_choice] = '0'
+        award_string = ''.join(award_array)
 
-
-def token_handler(award_token):
-    """
-    :function: 解密token
-    :param award_token:
-    :return:
-    """
-    return None
+    else:
+        award_string = '0000000000000'
+        award_choice = -1
+    conf.set('raffle', 'daily_award', award_string)
+    with open('config.ini', 'w') as fp:
+        conf.write(fp)
+    award_id = award_choice + 1
+    return award_id
 
 
 def login_required1(func):
@@ -206,9 +217,12 @@ def user_login():
         })
         logging(json.dumps(res))
         return jsonify(res)
+    conf = configparser.ConfigParser()
+    conf.read('config.ini')
+    activity_on = conf.getboolean('app', 'activity_on')
     data = {
         'session_id': session_id,
-        'activity_on': configs['product'].ACTIVITY_ON,
+        'activity_on': activity_on,
         'can_raffle': temp_user.can_raffle,
         'can_follow': temp_user.can_follow,
     }
@@ -329,12 +343,19 @@ def user_composition_info(temp_user):
             'msg': 'cannot found user info'
         })
         return jsonify(res)
+    followers_avatarUrls = list()
+    if temp_user.followers:
+        for user in temp_user.followers:
+            if len(temp_user.followers) <= 8:
+                break
+            followers_avatarUrls.append({'avatarUrl': user.avatarUrl})
     data = dict()
     data.update({
         'user_id': user_info.user_id,
         'nickName': user_info.nickName,
         'avatarUrl': user_info.avatarUrl,
-        'composition_id': temp_composition.composition_id
+        'composition_id': temp_composition.composition_id,
+        'followers': followers_avatarUrls
     })
     res.update({
         'state': 1,
@@ -535,18 +556,19 @@ def user_composition(temp_user):
             'msg': 'none composition id'
         })
         return jsonify(res)
-    user_info = UserInfo.query.filter_by(user_id=composition.user_id).first()
-    if user_info is None:
-        res.update({
-            'state': 0,
-            'msg': 'his or her user info is not intact'
-        })
-        return jsonify(res)
+    # user添加了avatarUrl和nickName两个外键，不用再去查找user info
+    # user_info = UserInfo.query.filter_by(user_id=composition.user_id).first()
+    # if user_info is None:
+    #    res.update({
+    #       'state': 0,
+    #        'msg': 'his or her user info is not intact'
+    #   })
+    #   return jsonify(res)
     data = dict()
     data.update({
         'user_id': temp_user.user_id,
-        'nickName': user_info.nickName,
-        'avatarUrl': user_info.avatarUrl,
+        'nickName': temp_user.nickName,
+        'avatarUrl': temp_user.avatarUrl,
         'composition_id': composition.composition_id,
         'composition_type': composition.composition_type,
         'composition_name': composition.composition_name,
@@ -609,11 +631,10 @@ def rankinglist(temp_user):
     if ranking_list_type in [0, 1]:
         user_list = User.query.filter_by(user_type=ranking_list_type).order_by(User.follow_times).limit(50).desc()
         for index in range(len(user_list)):
-            user_info = UserInfo.query.filter_by(user_id=user_list['index'].user_id).first()
             temp = {
                 'index': index,
-                'nickName': user_info.nickName,
-                'avatarUrl': user_info.avatarUrl,
+                'nickName': user_list['index'].nickName,
+                'avatarUrl': user_list['index'].avatarUrl,
                 'follow_times': user_list['index'].follow_times
             }
             list.append(temp)
@@ -706,6 +727,35 @@ def user_follow(temp_user):
     return jsonify(res)
 
 
+@app.route('/user/follow/info', methods=['GET'])
+@login_required1
+def user_follow_info(temp_user):
+    """
+    :function: 判断是否有作品
+    :return: None
+    """
+    res = dict()
+    # 找关注者，获取他们的头像和昵称
+    if temp_user.followers is None:
+        res.update({
+            'state': 0,
+            'msg': 'none follower'
+        })
+        return jsonify(res)
+    follower_info = list()
+    for user in temp_user.followers:
+        follower_info.append({
+            'avatarUrl': user.avatarUrl,
+            'nickName': user.nickName
+        })
+    res.update({
+        'state': 1,
+        'msg': 'get follower info',
+        'data': follower_info
+    })
+    return jsonify(res)
+
+
 @app.route('/raffle', methods=['GET'])
 @login_required1
 def raffle(temp_user):
@@ -716,10 +766,13 @@ def raffle(temp_user):
     res = dict()
     # 抽奖逻辑
     conf = configparser.ConfigParser()
-    conf.read('config.ini')
-
-    award_list = [0, 1, 2, 3, 4, 5, 6]
-    award_id = random.choice(award_list)
+    temp_award_id = raffle_award()
+    if int(temp_award_id) < 4:
+        award_id = temp_award_id
+    elif int(temp_award_id) < 9:
+        award_id = 4
+    else:
+        award_id = 5
     if award_id == 0:
         res.update({
             'state': 1,
@@ -949,7 +1002,7 @@ def user_award_store(temp_user):
         return jsonify(res)
     # 添加收货记录
     try:
-        awardrecord.receiver, awardrecord.phone, awardrecord.store_id = receiver, phone, store_id
+        awardrecord.set_address(store_id, receiver, phone)
         db.session.add(awardrecord)
         db.session.commit()
     except Exception as e:
@@ -1007,7 +1060,7 @@ def user_award_express(temp_user):
         return jsonify(res)
     # 添加收货记录
     try:
-        awardrecord.receiver, awardrecord.phone, awardrecord.address = receiver, phone, address
+        awardrecord.set_address(address, receiver, phone)
         db.session.add(awardrecord)
         db.session.commit()
     except Exception as e:
@@ -1052,8 +1105,7 @@ def acquire_award():
     exchange_token = request.values.get('exchange_token')
     if awardrecord_token and exchange_token:
         awardrecord = AwardRecord.query.filter_by(awardrecord_token=awardrecord_token).first()
-        awardrecord.checked = True
-        awardrecord.check_time = datetime.datetime.utcnow()
+        awardrecord.check()
         db.session.add(awardrecord)
         db.session.commit()
         return render_template('exchange_result.html', is_exchange=True)

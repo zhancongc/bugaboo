@@ -38,6 +38,15 @@ if __name__ == '__main__':
     media_id = md.get_media_id()
     print("media_id", media_id)
     conf.set('weixin', 'media_id', media_id)
+    data = {
+        'award_1': 1,
+        'award_2': 1,
+        'award_3': 1,
+        'award_4': 5,
+        'award_5': 5,
+    }
+    for key in data:
+        conf.set('raffle', key, data[key])
     with open('config.ini', 'w') as fp:
         conf.write(fp)
 

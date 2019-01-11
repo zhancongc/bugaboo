@@ -23,7 +23,7 @@
 
     <i-col span="24" i-class="col-class">
     <view class="back-image textarea">
-      <textarea  maxlength='128' bindblur='setDescription'></textarea>
+      <textarea  maxlength='128' bindblur='setDescription' placeholder='写下您的新年期许'></textarea>
     </view>
   </i-col>
 
