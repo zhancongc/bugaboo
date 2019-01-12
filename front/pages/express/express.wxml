@@ -1,10 +1,10 @@
 <!--pages/express/express.wxml-->
 <i-row>
-  <i-col span="16" offset="4" i-class="col-class">
+  <i-col span="10" offset="7" i-class="col-class">
     <view class='back-image logo'></view>
   </i-col>
   <i-col span="16" offset="4" i-class="col-class">
-    <view class='text1'>提交成功，请联系客服留下快递信息</view>
+    <view class='text1' style='margin-top: 20rpx;'>提交成功，请联系客服留下快递信息</view>
   </i-col>
   <i-col span="16" offset="4" i-class="col-class">
     <image class='back-image person'></image>
@@ -12,7 +12,7 @@
 
   <i-col span="20" offset="2"><view class='text2' style='margin-top: 60rpx;'>客服联系电话：4006-1535-16</view></i-col>
   <i-col span="20" offset="2"><view class='text2'>温馨提示：请在活动结束一周内联系客服</view></i-col>
-  <i-col span="20" offset="2"><view class='text2' style='margin-bottom: 40rpx;'>即2月11日至2月17日（超出领取时间则视为放弃</view></i-col>
+  <i-col span="20" offset="2"><view class='text2' style='margin-bottom: 40rpx;'>即2月11日至2月17日（超出领取时间则视为放弃）</view></i-col>
 </i-row>
 
 <i-row>

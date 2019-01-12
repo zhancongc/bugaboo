@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <i-row>
-  <i-col span="16" offset="4" i-class="col-class">
+  <i-col span="10" offset="7" i-class="col-class">
     <view class='back-image logo'></view>
   </i-col>
   <i-col span="24" i-class="col-class">

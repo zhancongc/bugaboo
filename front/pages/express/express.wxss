@@ -1,3 +1,4 @@
-.text1{ width: 100%; margin: 20rpx 0rpx 20rpx 0rpx; font-size: 40rpx; line-height: 40rpx; color: #fff; }
-.text2{ margin: 10rpx 0rpx 10rpx 0rpx; font-size: 40rpx; line-height: 50rpx; color: #fff; }
-.person { margin-top: 20rpx; height: 400rpx; width: 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/person.png')}
+.text1{ width: 100%; margin: 40rpx 0rpx 40rpx 0rpx; font-size: 30rpx; line-height: 30rpx; color: #fff; }
+.text2{ margin: 10rpx 0rpx 10rpx 0rpx; font-size: 28rpx; line-height: 34rpx; color: #fff; text-align: center; }
+.logo { margin-top: 50rpx; height: 63rpx; width: 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/logo.png') }
+.person { margin-top: 20rpx; height: 450rpx; width: 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/person.png')}
