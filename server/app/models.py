@@ -36,7 +36,7 @@ class Composition(db.Model):
 class Award(db.Model):
     __tablename__ = "award"
     """
-    静态表，奖品信息 award_type: 默认为1（实物)，优惠券是2
+    静态表，奖品信息 award_type: 默认为1（实物)，优惠券是2,
         实物：笔记本（30）、保温杯（50）、背包（70）。
         天猫券：2000-200（50)，1000-100（100），500-50（200）
     """
@@ -62,12 +62,14 @@ class AwardRecord(db.Model):
     __tablename__ = "awardrecord"
     awardrecord_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     award_id = db.Column(db.Integer, db.ForeignKey('award.award_id'), nullable=False)
+    award_time = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), nullable=False)
     awardrecord_type = db.Column(db.Integer, nullable=False)
     store_id = db.Column(db.Integer)
     receiver = db.Column(db.String(16))
     phone = db.Column(db.String(11))
     address = db.Column(db.String(256))
+    informed = db.Column(db.Boolean, default=False)
     checked = db.Column(db.Boolean, default=False)
     check_time = db.Column(db.DateTime, default=datetime.utcnow)
     awardrecord_token = db.Column(db.String(128), nullable=False)
@@ -81,11 +83,14 @@ class AwardRecord(db.Model):
         self.address = address
         self.receiver = receiver
         self.phone = phone
+        self.informed = True
 
     def set_store(self, store_id, receiver, phone):
         self.store_id = store_id
         self.receiver = receiver
         self.phone = phone
+        self.informed = True
+
 
 class Store(db.Model):
     """

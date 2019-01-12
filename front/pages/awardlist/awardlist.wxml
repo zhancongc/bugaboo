@@ -8,22 +8,22 @@
   </i-card>
 </view-->
 <i-row>
-  <i-col span="10" offset="2">
+  <i-col span="10" offset="1">
     <view class="text1">我的奖品</view>
   </i-col>
 </i-row>
 <view class="section" wx:for="{{awards}}" wx:key="{{item.awardrecord_id}}">
   <i-row>
-    <i-col span="4" offset="2">
+    <i-col span="4" offset="1">
       <view class="back-image award-image" 
       style='background-image: url({{item.award_image}});'></view>
     </i-col>
-    <i-col span="7" offset="2">
+    <i-col span="9" offset="1">
       <view class="text2">{{item.award_name}}</view>
-      <view class="text3">中奖时间： {{item.award_name}}</view>
+      <view class="text3">中奖时间： {{item.award_time}}</view>
     </i-col>
     <i-col span="6" offset="1">
-      <view class='back-image list-button-text' bindtap='toAward' data-awardrecird_id="{{item.awardrecord_id}}">我知道了</view>
+      <view class='back-image list-button {{item.informed ? uninformed ： informed }}' bindtap='toAward' data-awardrecird_id="{{item.awardrecord_id}}">{{item.informed ? '立即领取': '已领取'}}</view>
     </i-col>
     <i-col span="20" offset="2"><view class="divLine"></view></i-col>
   </i-row>

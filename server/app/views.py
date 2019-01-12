@@ -366,7 +366,7 @@ def user_composition_info(temp_user):
 @login_required1
 def user_composition_upload(temp_user):
     """
-    :function: 上传作品 composition_type, composition
+    :function: 上传作品 composition_type(1是bugaboo用户，0是非bugaboo用户), composition
     :return:
     """
     res = dict()
@@ -839,9 +839,11 @@ def user_award_list(temp_user):
             'award_record_id': temp.awardrecord_id,
             'award_id': temp.award_id,
             'user_id': temp.user_id,
+            'award_time': temp.award_time.strftime('%Y-%m-%d %H:%M'),  # 中奖时间， 需要转成北京时间
             'awardrecord_token': temp.award_record_token,
+            'informed': temp.informed,
             'checked': temp.checked,
-            'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M:%S'),
+            'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M'),  # 兑换奖品时间，需要转成北京时间
             'store_id': temp.store_id,
             'awardrecord_type': temp.award_record_type
         })
@@ -907,6 +909,7 @@ def user_award(temp_user):
     data.update({
         'award_record_id': awardrecord.awardrecord_id,
         'award_id': awardrecord.award_id,
+        'award_time': awardrecord.award_time,
         'user_id': awardrecord.user_id,
         'receiver': awardrecord.receiver,
         'phone': awardrecord.phone,
