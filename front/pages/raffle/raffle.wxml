@@ -1,6 +1,6 @@
 <!--pages/awardlist/awardlist.wxml-->
-
-<view class="container" style='margin-top: 100rpx; margin-bottom: 100rpx;'>
+<view class="back-image raffle-title-image"></view>
+<view class="container" style='margin-top: 20rpx; margin-bottom: 100rpx;'>
 	<view class="main">
 		<view class="canvas-container">
 			<view  animation="{{animationData}}" class="canvas-content" >
@@ -13,21 +13,20 @@
 					</view>
 				</view>
 			</view>
-			<view bindtap="playReward" class="canvas-btn {{btnDisabled}}">抽奖</view>	
+			<view bindtap="raffle" class="back-image canvas-btn"></view>	
 		</view>
 	</view>
 </view>
+<view class="back-image raffle-panel"></view>
 
-<i-row style="margin-top: 50rpx;">
+<i-row>
   <i-col span="8" offset="3" i-class="col-class">
-    <view>
-      <i-button bind:click="toIndex">我也要参加</i-button>
+    <view class='back-image button-left' bindtap="toIndex">
+      我要参加
     </view>
   </i-col>
-  <i-col span="8" offset="2" i-class="col-class">
-    <view>
-      <i-button bind:click="toAwardList">我的奖品</i-button>
-    </view>
+    <i-col span="8" offset="2" i-class="col-class">
+    <view class='back-image button-right' bindtap="toAwardList">我的奖品</view>
   </i-col>
 </i-row>
 

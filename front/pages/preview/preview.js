@@ -141,17 +141,20 @@ Page({
    */
   onShareAppMessage: function () {
     // 首先获取user_id和composition_id
-    var data = JSON.stringify({
-      parameter_name: 'composition_id',
-      parameter_value: this.data.compositionId,
-      next_page: '/pages/view/view'
-    });
     return {
-      title: this.data.nickName + '的Bugaboo助力作品',
+      title: '来自'+ this.data.nickName + '的新年祝福',
       imageUrl: this.data.compositionUrl,
-      path: '/pages/authorize/authorize?share_data=' + data,
-      success: (res) => { },
-      fail: (res) => { }
+      path: '/pages/view/view?composition='+this.data.compositionId,
+      success: (res) => { 
+        wx.showToast({
+          title: '分享成功',
+        }) 
+      },
+      fail: (res) => { 
+        wx.showToast({
+          title: '分享失败',
+        }) 
+      }
     }
   },
   toRaffle: function () {

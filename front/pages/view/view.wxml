@@ -1,58 +1,85 @@
 <!--pages/preview/pewview.wxml-->
-<i-row>
-    <i-col span="22" offset="2" i-class="col-class">
-    <view style="margin-bottom: 30rpx;">您的好友</view>
+<view style='margin-top: 50rpx;'>
+  <i-row>
+    <i-col span="2" offset="11" i-class="col-class">
+      <i-avatar src="{{avatarUrl}}" size="large" shape="square"></i-avatar></i-col>
+    <i-col span="11">
+      <view class="back-image top-icon" bindtap="toRankingList"></view>
     </i-col>
-    <i-col span="2" offset="2" i-class="col-class"><i-avatar src="{{avatarUrl}}" size="small" shape="square"></i-avatar></i-col>
-    <i-col span="20" i-class="col-class">{{nickName}}的作品</i-col>
-</i-row>
+    <i-col span="20" offset="2" i-class="col-class">
+      <view class="text3 center">您的好友{{nickName}}</view></i-col>
+  </i-row>
+</view>
 
-<i-row style="vertical-align: middle; text-align:center;">
-  <i-col span="24" i-class="col-class">
-    <view style='margin-top: 30rpx; margin-bottom: 30rpx;'><image style='width: 640rpx; height: 640rpx;'  src="{{ compositionUrl }}"></image></view>
-  </i-col>
+<i-row>
+  <i-col span="19" offset="2" i-class="col-class">
+  <view class="text1 center">帮他赢Bugaboos神秘新年礼物,需要你的祝福</view></i-col>
+  <i-col span="5" offset="2" i-class="col-class">
+  <view class="text1">Ta的作品：</view></i-col>
 </i-row>
 
 <i-row>
-  <i-col span="22" offset="1" i-class="col-class">
-  <view style="margin-bottom: 30rpx; text-align:center;">点击【送祝福】，给TA送上新年的祝福</view></i-col>
+  <i-col span="24" i-class="col-class">
+    <view class="back-image preview">
+      <image src="{{ compositionUrl }}"></image>
+    </view>
+  </i-col>
+    <i-col span="20" offset="2" i-class="col-class">
+      <view class="text1 center">共获得{{ followTimes }}个祝福</view></i-col>
+</i-row>
+
+<i-row>
+  <i-col span="20" offset="2" i-class="col-class">
+  <view class="text1">帮他成功送祝福的同时，您将获得Bugaboo提供的一次抽奖机会！</view></i-col>
 </i-row>
 
 <i-row>
   <i-col span="8" offset="3" i-class="col-class" style="margin-top: 50rpx;">
-    <view>
-      <i-button bind:click="toIndex">我也要参加</i-button>
-    </view>
+    <view class='back-image button-right'></view>
+    <button class="share" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>送祝福</button>
   </i-col>
   <i-col span="8" offset="2" i-class="col-class">
-    <view>
-      <i-button bind:click="handleOpen1">送祝福</i-button>
+    <view class='back-image button-right' bindtap="toAuthorize">
+      我要参加
     </view>
   </i-col>
 </i-row>
 
-<i-row>
-  <i-col span="4" offset="10">
-    <view class='bottomText'>活动说明</view>
-  </i-col>
-</i-row>
-
-<contact-button 
-  type="default-light" 
-  size="20"
-  session-from="bugaboo"
->
-</contact-button>
-
-<i-modal title="祝福成功" visible="{{ visible1 }}" bind:ok="toContact" bind:cancel="handleClose1">
-    <view>
-    <i-row>
-      <i-col span="22" offset="1">
-        <view>恭喜您获得了一次抽奖的机会，点击确定继续</view>
-      </i-col>
-    </i-row>
+<view class="{{ visible1 ? 'mask': '' }}">
+  <view class="i-modal {{ visible1 ? 'i-modal-show' : '' }}">
+    <view class="i-modal-main">
+      <view class="i-modal-content">
+        <view class="i-modal-title">
+          <i-row>
+            <i-col span="20" offset="1" class="title-text">
+            祝福成功</i-col>
+            <i-col span="2" offset="1">
+              <view class='back-image close-image' bindtap='handleClose1'></view></i-col>
+          </i-row>
+        </view>
+        <view class="i-modal-body">
+          <i-row>
+            <i-col span="20" offset="2">
+              <view class='back-image modal-image'></view>
+            </i-col>
+            <i-col span="20" offset="2">
+              <view class='text1 center'>恭喜您！祝福成功</view>
+            </i-col>
+            <i-col span="20" offset="2">
+              <view class='text1 center'>获得一次抽奖机会</view>
+            </i-col>
+            <view class='modal-button'>
+              <i-col span="8" offset="8" i-class="col-class">
+                <view class='back-image modal-button-text'></view>
+                <button class="share" open-type="contact">点击抽奖</button>
+              </i-col>
+            </view>
+          </i-row>
+        </view>
+      </view>
     </view>
-</i-modal>	
+  </view>
+</view>
 
 <i-modal title="去抽奖" visible="{{ visible3 }}" actions="{{ actions }}" bind:click="handleClick">
   <view>
@@ -66,3 +93,82 @@
 </i-modal>
 
 <i-toast id="toast" />
+
+<view class='bottom'>
+  <view class='section'>
+    <i-row>
+      <i-col span="2" offset="11">
+        <image class="flower" src='/images/flower.png'></image>
+      </i-col>
+      <i-col span="20" offset="2"><view class="divLine"></view></i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-title">活动规则：</view>
+      </i-col>
+      <i-col span="20" offset="2" class="bottom-sub-title">
+        <view class="bottom-sub-title">祝福排行榜上 Top50 参与者可分别获得一二三等奖。</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">一等奖（ Top1 ）价值约1000元</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">携程礼品卡+bugaboo神秘礼物</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">二等奖（ Top2-Top10 ）价值约500元</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">星巴克星礼卡+bugaboo神秘礼物</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">三等奖（Top11-Top50）价值约300元</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">bugaboo神秘礼物</view>
+      </i-col>
+      </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">活动时间：2019年1月18日至2019年2月10日</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">活动截止日期：2019年2月10日24点</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">活动最终解释权归bugaboo所有</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+    <i-col span="20" offset="2"><view class="divLine"></view></i-col>
+      <i-col span="2" offset="11">
+        <image class="flower" style="transform:rotate(180deg);" src='/images/flower.png'></image>
+      </i-col>
+    </i-row>
+  </view>
+
+</view>

@@ -221,6 +221,7 @@ def user_login():
     conf.read('config.ini')
     activity_on = conf.getboolean('app', 'activity_on')
     data = {
+        'user_id': temp_user.user_id,
         'session_id': session_id,
         'activity_on': activity_on,
         'can_raffle': temp_user.can_raffle,

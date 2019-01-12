@@ -3,22 +3,22 @@ var util = require("../../utils/util.js");
 var app = getApp();
 
 Page({
-  awardIndex: 0,
   //奖品配置
   awardsConfig: {
     chance: true,
     awards: [
-      { 'index': 0, 'name': '谢谢参与' },
-      { 'index': 1, 'name': '保温杯' },
-      { 'index': 2, 'name': '笔记本' },
-      { 'index': 3, 'name': '背包' },
-      { 'index': 4, 'name': '优惠券1' },
-      { 'index': 5, 'name': '优惠券2' },
-      { 'index': 6, 'name': '优惠券3' }
+      { 'index': 0, 'name': '谢谢参与', 'image': 'https://bugaboo.drivetogreen.com/static/images/bg_prize.png' },
+      { 'index': 1, 'name': '保温杯', 'image': '' },
+      { 'index': 2, 'name': '笔记本', 'image': '' },
+      { 'index': 3, 'name': '背包', 'image': '' },
+      { 'index': 4, 'name': '优惠券1', 'image': '' },
+      { 'index': 5, 'name': '优惠券2', 'image': '' },
+      { 'index': 6, 'name': '优惠券3', 'image': '' }
     ]
   },
 
   data: {
+    awardIndex: 0,
     awardsList: {},
     animationData: {},
     btnDisabled: '',
@@ -49,67 +49,78 @@ Page({
       awardsList: awardsList
     });
   },
+  raffle: function() {
+    var that = this;
+    //中奖index
+    var runNum = 8;//旋转8周
+    var duration = 4000;//时长
+    // 旋转角度
+    that.runDeg = that.runDeg || 0;
+    that.runDeg = that.runDeg + (360 - that.runDeg % 360) + (360 * runNum - that.data.awardIndex * (360 / 7))
+    //创建动画
+    var animationRun = wx.createAnimation({
+      duration: duration,
+      timingFunction: 'ease'
+    })
+    animationRun.rotate(that.runDeg).step();
+    that.setData({
+      animationData: animationRun.export(),
+      btnDisabled: 'disabled'
+    });
 
+    // 中奖提示
+    var awardsConfig = that.awardsConfig;
+    setTimeout(function () {
+      wx.showModal({
+        title: '恭喜',
+        content: '获得' + (awardsConfig.awards[that.data.awardIndex].name),
+        showCancel: false
+      });
+      that.setData({
+        btnDisabled: ''
+      });
+    }.bind(that), duration);
+  },
   //发起抽奖
   playReward: function () {
     var that = this;
-    wx.request({
-      url: 'https://bugaboo.drivetogreen.com/raffle',
-      method: 'get',
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Session-Id': app.globalData.sessionId
-      },
-      success: function (res) {
-        try {
-          var response = res.data;
-          console.log(response);
-          if (response.constructor === Object) {
-            if (response.state === 1) {
-              that.setData({
-                awardIndex: response.data.award_id
-              })
-              //中奖index
-              var runNum = 8;//旋转8周
-              var duration = 4000;//时长
-              // 旋转角度
-              that.runDeg = that.runDeg || 0;
-              that.runDeg = that.runDeg + (360 - that.runDeg % 360) + (360 * runNum - that.data.awardIndex * (360 / 7))
-              //创建动画
-              var animationRun = wx.createAnimation({
-                duration: duration,
-                timingFunction: 'ease'
-              })
-              animationRun.rotate(that.runDeg).step();
-              that.setData({
-                animationData: animationRun.export(),
-                btnDisabled: 'disabled'
-              });
-
-              // 中奖提示
-              var awardsConfig = that.awardsConfig;
-              setTimeout(function () {
-                wx.showModal({
-                  title: '恭喜',
-                  content: '获得' + (awardsConfig.awards[that.data.awardIndex].name),
-                  showCancel: false
-                });
+    if (app.globalData.canRaffle) {
+      app.globalData.canRaffle = false;
+      wx.request({
+        url: 'https://bugaboo.drivetogreen.com/raffle',
+        method: 'get',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Session-Id': app.globalData.sessionId
+        },
+        success: function (res) {
+          try {
+            var response = res.data;
+            console.log(response);
+            if (response.constructor === Object) {
+              if (response.state === 1) {
                 that.setData({
-                  btnDisabled: ''
-                });
-              }.bind(that), duration);
+                  awardIndex: response.data.award_id
+                })
+                that.raffle();
+              }
             }
+          } catch (e) {
+            console.log(e);
           }
-        } catch (e) {
-          console.log(e);
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: '请稍后重新再试',
+          })
         }
-      },
-      fail: function (res) {
-        wx.showToast({
-          title: '请稍后重新再试',
-        })
-      }
-    })
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '您没有抽奖次数',
+      })
+    }
   },
   toIndex: function() {
     wx.navigateTo({

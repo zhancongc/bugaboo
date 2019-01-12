@@ -9,32 +9,13 @@ Page({
    */
   data: {
     visible1: false,
-    userId: '',
+    authorId: 0,
     nickName: '',
     avatarUrl: '',
     compositionId: 0,
     compositionUrl: '',
     compositionType: 0,
-    actions: [
-      {
-        name: '关闭',
-        color: '#000',
-      }
-    ],
-  },
-  onClose(event) {
-    if (event.detail === 'confirm') {
-      // 异步关闭弹窗
-      setTimeout(() => {
-        this.setData({
-          show: false
-        });
-      }, 1000);
-    } else {
-      this.setData({
-        show: false
-      });
-    }
+    followTimes: 0
   },
   /**
    * 生命周期函数--监听页面加载
@@ -61,7 +42,7 @@ Page({
             var viewer;
             if (response.state) {
               that.setData({
-                userId: response.data.user_id,
+                authorId: response.data.user_id,
                 nickName: response.data.nickName,
                 avatarUrl: response.data.avatarUrl,
                 compositionId: response.data.composition_id,
@@ -148,11 +129,6 @@ Page({
       fail: (res) => { }
     }
   },
-  toIndex: function () {
-    wx.navigateTo({
-      url: '/pages/index/index',
-    })
-  },
   handleOpen1() {
     var that = this;
     var canFollow = wx.getStorageSync('canFollow');
@@ -173,7 +149,7 @@ Page({
             if (response.state == 1){
               wx.setStorage({
                 key: 'canFollow',
-                data: false,
+                data: true,
               });
               that.setData({
                 visible1: true
@@ -210,19 +186,106 @@ Page({
       visible3: false
     });
   },
-  toContact: function () {
-    this.setData({
-      visible1: false,
-      visible3: true
-    })
+  handleOpen1: function () {
+    var that = this;
+    var canFollow = wx.getStorageSync('canFollow');
+    if (canFollow) {
+      if (app.globalData.userId === that.data.authorId) {
+        wx.showModal({
+          title: '提示',
+          content: '不能给自己祝福',
+        })
+      } else {
+        that.setData({
+          visible1: true
+        });
+      }
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '您没有抽奖次数',
+      })
+    }
   },
   handleClose1: function() {
     this.setData({
       visible1: false
     });
   },
-  follow: function () {
-    this.handleClose1();
+  toIndex: function () {
+    wx.navigateTo({
+      url: '/pages/index/index',
+    })
+  },
+  toAuthorize: function () {
+    wx.navigateTo({
+      url: '/pages/authorize/authorize',
+    })
+  },
+  toRankingList: function() {
+    wx.navigateTo({
+      url: '/pages/rankinglist/rankinglist',
+    })
+  },
+  getUserInfo: function (e) {
+    var that = this;
+    if (app.globalData.userInfo) {
+      that.handleOpen1();
+    } else {
+      console.log(e.detail.userInfo)
+      if (e.detail.userInfo) {
+        //用户按了授权按钮
+        wx.setStorageSync('userInfo', e.detail.userInfo);
+        app.globalData.canUploadUserInfo = true;
+        that.saveUserInfo(e.detail.userInfo);
+        that.handleOpen1();
+      } else {
+        //用户按了拒绝按钮
+        wx.showToast({
+          icon: 'none',
+          title: '请点击授权',
+          mask: true,
+          duration: 1000
+        })
+      }
+    }
+  },
+  saveUserInfo: function (userInfo) {
+    var sessionId = app.globalData.sessionId;
+    console.log('把用户信息发送到后端存储起来');
+    wx.request({
+      url: 'https://bugaboo.drivetogreen.com/user/info/upload',
+      method: 'post',
+      data: {
+        avatarUrl: userInfo.avatarUrl,
+        city: userInfo.city,
+        country: userInfo.country,
+        gender: userInfo.gender,
+        language: userInfo.language,
+        nickName: userInfo.nickName,
+        province: userInfo.province
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Session-Id': sessionId
+      },
+      success: function (res) {
+        try {
+          var response = res.data;
+          console.log(response);
+          if (response.constructor === Object) {
+            if (response.state) {
+              console.log(response.msg);
+            } else {
+              console.log(response.msg)
+            }
+          }
+          app.globalData.canUploadUserInfo = false;
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    })
   }
 });
 

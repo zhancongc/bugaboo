@@ -27,14 +27,8 @@ App({
                     if (response.state) {
                       that.globalData.sessionId = response.data.session_id;
                       that.globalData.activityOn = response.data.activity_on;
-                      wx.setStorage({
-                        key: 'canRaffle',
-                        data: response.data.can_raffle,
-                      });
-                      wx.setStorage({
-                        key: 'canFollow',
-                        data: response.data.can_follow,
-                      });
+                      that.globalData.canRaffle = response.data.can_raffle;
+                      that.globalData.canFollow = response.data.can_follow;
                       if (response.state == 1) {
                         var compositionId = response.data.composition_id;
                         that.globalData.compositionId = response.data.composition_id;
@@ -60,8 +54,14 @@ App({
     })
   },
   globalData: {
+    // wxlogin
+    userId: 0,
     sessionId: '',
-    compositionId: 0,
-    canUploadUserInfo: false
+    actvityOn: false,
+    canUploadUserInfo: false,
+    canRaffle: false,
+    canFollow: false,
+    // preview & view
+    compositionId: 0
   }
 })

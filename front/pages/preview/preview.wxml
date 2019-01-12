@@ -21,15 +21,8 @@
     </view>
   </i-col>
 
-  <!--view class='back-image button-left' bindtap='rotate'>旋转</view>
-
-  <view class='back-image button-right' bindtap='uploadComposition'>上传</view-->
-
 <i-row>
   <i-col span="8" offset="3" i-class="col-class" style="margin-top: 50rpx;">
-    <!--view>
-      <i-button open-type='share'>邀请送祝福</i-button>
-    </view-->
     <view class='back-image button-right'></view>
     <button class="share" open-type="share">邀请送祝福</button>
   </i-col>
@@ -41,18 +34,25 @@
 </i-row>
 
 <view class='bottom'>
-  <i-row>
-    <i-col span="2" offset="11">
-      <image class="flower" src='/images/flower.png'></image>
-    </i-col>
-    <i-col span="20" offset="2"><view class="divLine"></view></i-col>
-    <i-col span="20" offset="2">
-      <view class="bottom-title">活动规则：</view>
-    </i-col>
-    <i-col span="20" offset="2" class="bottom-sub-title">
-      <view class="bottom-sub-title">祝福排行榜上 Top50 参与者可分别获得一二三等奖。</view>
-    </i-col>
-  </i-row>
+  <view class='section'>
+    <i-row>
+      <i-col span="2" offset="11">
+        <image class="flower" src='/images/flower.png'></image>
+      </i-col>
+      <i-col span="20" offset="2"><view class="divLine"></view></i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-title">活动规则：</view>
+      </i-col>
+      <i-col span="20" offset="2" class="bottom-sub-title">
+        <view class="bottom-sub-title">祝福排行榜上 Top50 参与者可分别获得一二三等奖。</view>
+      </i-col>
+    </i-row>
+  </view>
 
   <view class='section'>
     <i-row>
@@ -97,6 +97,15 @@
       </i-col>
       <i-col span="20" offset="2">
         <view class="bottom-text">活动最终解释权归bugaboo所有</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+    <i-col span="20" offset="2"><view class="divLine"></view></i-col>
+      <i-col span="2" offset="11">
+        <image class="flower" style="transform:rotate(180deg);" src='/images/flower.png'></image>
       </i-col>
     </i-row>
   </view>
