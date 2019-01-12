@@ -7,9 +7,11 @@ Page({
    */
   data: {
     awards: [
-      { "awardrecord_id": 1, "award_name": "奖品一", "award_image": "../../images/bugaboo.jpg", "award_time": "2019/01/12 12:00" },
-      { "awardrecord_id": 2, "award_name": "奖品二", "award_image": "../../images/bugaboo.jpg", "award_time": "2019/01/12 12:00" },
-      { "awardrecord_id": 3, "award_name": "奖品三", "award_image": "../../images/bugaboo.jpg", "award_time": "2019/01/12 12:00" }
+      { "awardrecord_id": 1, "award_name": "bugaboo限量笔记本", "award_image": "https://bugaboo.drivetogreen.com/static//images/bugaboo_bottle.png", "award_time": "2019/01/12 12:00" },
+      { "awardrecord_id": 2, "award_name": "bugaboo定制保温杯", "award_image": "https://bugaboo.drivetogreen.com/static//images/bugaboo_bag.png", "award_time": "2019/01/12 12:00" },
+      { "awardrecord_id": 3, "award_name": "bugaboo限量定制健身包", "award_image": "https://bugaboo.drivetogreen.com/static//images/bugaboo_notebook.png", "award_time": "2019/01/12 12:00" },
+      { "awardrecord_id": 3, "award_name": "50元天猫商城代金券", "award_image": "https://bugaboo.drivetogreen.com/static//images/coupon_50.png", "award_time": "2019/01/12 12:00" },
+      { "awardrecord_id": 3, "award_name": "100元天猫商城代金券", "award_image": "https://bugaboo.drivetogreen.com/static//images/coupon_100.png", "award_time": "2019/01/12 12:00" }
     ]
   },
 

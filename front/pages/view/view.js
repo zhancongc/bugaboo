@@ -129,9 +129,9 @@ Page({
       fail: (res) => { }
     }
   },
-  handleOpen1() {
+  follow:function () {
     var that = this;
-    var canFollow = wx.getStorageSync('canFollow');
+    var canFollow = app.globalData.canFollow;
     if (canFollow){
       var sessionId = app.globalData.sessionId;
       wx.request({
@@ -147,10 +147,7 @@ Page({
           console.log(response);
           if (response.constructor === Object) {
             if (response.state == 1){
-              wx.setStorage({
-                key: 'canFollow',
-                data: true,
-              });
+              app.globalData.canFollow = true;
               that.setData({
                 visible1: true
               });
@@ -188,7 +185,7 @@ Page({
   },
   handleOpen1: function () {
     var that = this;
-    var canFollow = wx.getStorageSync('canFollow');
+    var canFollow = app.globalData.canFollow;
     if (canFollow) {
       if (app.globalData.userId === that.data.authorId) {
         wx.showModal({
@@ -229,15 +226,16 @@ Page({
   },
   getUserInfo: function (e) {
     var that = this;
-    if (app.globalData.userInfo) {
+    var userInfo = wx.getStorageSync('userInfo');
+    if (userInfo) {
       that.handleOpen1();
     } else {
       console.log(e.detail.userInfo)
       if (e.detail.userInfo) {
         //用户按了授权按钮
-        wx.setStorageSync('userInfo', e.detail.userInfo);
+        console.log('用户按了授权按钮');
         app.globalData.canUploadUserInfo = true;
-        that.saveUserInfo(e.detail.userInfo);
+        that.saveUserInfo(userInfo);
         that.handleOpen1();
       } else {
         //用户按了拒绝按钮
@@ -274,13 +272,13 @@ Page({
           var response = res.data;
           console.log(response);
           if (response.constructor === Object) {
-            if (response.state) {
-              console.log(response.msg);
-            } else {
-              console.log(response.msg)
-            }
+            console.log(response.msg)
           }
           app.globalData.canUploadUserInfo = false;
+          wx.setStorage({
+            key: 'userInfo',
+            data: userInfo,
+          });
         } catch (e) {
           console.log(e);
         }
