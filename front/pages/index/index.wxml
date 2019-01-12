@@ -4,18 +4,15 @@
     <view class='back-image logo'></view>
   </i-col>
   <i-col span="24" i-class="col-class">
-    <image src='https://bugaboo.drivetogreen.com/static/images/slogan.png' class='slogan'></image>
+    <image class='back-image slogan'></image>
   </i-col>
 </i-row>
 
-<i-row>
-  <i-col span="12" offset="6" i-class="col-class">
-    <view>
-      <image src='/images/medium_btn.png' class='middle-button'></image>
-    </view>
-    <view class='middle-button-text' bindtap='handleOpen1'>参加活动</view>
+<view class='page-button'>
+  <i-col span="10" offset="7" i-class="col-class">
+    <view class='back-image page-button-text' bindtap='handleOpen1'>参加活动</view>
   </i-col>
-</i-row>
+</view>
 
 <view class="{{ visible1 ? 'mask': '' }}">
   <view class="i-modal {{ visible1 ? 'i-modal-show' : '' }}">

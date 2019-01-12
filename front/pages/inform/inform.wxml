@@ -1,0 +1,41 @@
+<view class="back-image express-title"></view>
+
+<view style='margin-top:20rpx; margin-bottom: 20rpx;'>
+<i-row>
+  <i-col span="4" offset="2"><view class="text1">姓名：</view></i-col>
+  <i-col span="12">
+  <view class="text-input"><input bindblur='setName' maxlength='20'></input></view>
+  </i-col>
+  <i-col span="6"><view class="text1">*不能为空</view></i-col>
+</i-row>
+</view>
+
+<view style='margin-top: 20rpx; margin-bottom: 20rpx;'>
+<i-row>
+  <i-col span="4" offset="2"><view class="text1" confirm-type="done">手机：</view></i-col>
+  <i-col span="12"><view class="text-input"><input bindblur="setPhone" placeholder-class="text3" type='number' maxlength='11'></input></view></i-col>
+  <i-col span="6"><view class="text1">*不能为空</view></i-col>
+</i-row>
+</view>
+
+<view style='margin-top: 20rpx; margin-bottom: 20rpx;'>
+<i-row>
+  <i-col span="4" offset="2"><view class="text1" confirm-type="done">详细地址：</view></i-col>
+  <i-col span="12"><textarea bindblur='setAddress' placeholder-class="text3" class="text-area" type="text" maxlength='100'></textarea></i-col>
+  <i-col span="6"><view class="text1">*不能为空</view></i-col>
+</i-row>
+</view>
+
+<view style='width: 100%; height: 20rpx; margin-bottom: 20rpx;'></view>
+<view class='page-button'>
+  <i-col span="10" offset="7" i-class="col-class">
+    <view class='back-image page-button-text' bindtap='commit'>提交</view>
+  </i-col>
+</view>
+
+<i-row>
+  <i-col span="20" offset="2"><view class='text2' style='margin-top: 60rpx;'>温馨提示：</view></i-col>
+  <i-col span="20" offset="2"><view class='text2'>1.请务必正确填写收货人信息</view></i-col>
+  <i-col span="20" offset="2"><view class='text2'>2.门店领取奖品流程：   请按照所填门店前往收银台，出示二维码给店员。</view></i-col>
+  <i-col span="20" offset="2"><view class='text2'>3.快递方式：到付，需支付20元快递费</view></i-col>
+</i-row>

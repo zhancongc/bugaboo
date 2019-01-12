@@ -27,7 +27,8 @@ page { background-image: url("https://bugaboo.drivetogreen.com/static/images/bg.
 .i-modal-title{ padding:6px 15px 15px;margin:0;font-size:18px;line-height:1;color:#1c2438;text-align:left; }
 .modal-button { height:80rpx; width: 100%; position: absolute; bottom: 100rpx; }
 .modal-button-text{ height:80rpx; width: 100%; margin-top: 30rpx; text-align: center; color: #a64c30; font-size: 35rpx; line-height:80rpx; background-image: url('https://bugaboo.drivetogreen.com/static//images/small_btn.png') }
-
+.page-button { height:90rpx; width: 100%; position: relative; margin: 0 auto; }
+.page-button-text{ height:90rpx; width: 100%; margin-top: 30rpx; text-align: center; color: #a64c30; font-size: 40rpx; line-height:90rpx; background-image: url('https://bugaboo.drivetogreen.com/static/images/medium_btn.png') }
 .bottom-button-left { position: absolute; bottom: 50rpx; left: 10%; height:80rpx; width: 240rpx; margin-top: 30rpx; text-align: center; color: #a64c30; font-size: 35rpx; line-height:80rpx; background-image: url('https://bugaboo.drivetogreen.com/static//images/small_btn.png') }
 
 .bottom-button-right { position: absolute; bottom: 50rpx; right: 10%; height:80rpx; width: 240rpx; margin-top: 30rpx; text-align: center; color: #a64c30; font-size: 35rpx; line-height:80rpx; background-image: url('https://bugaboo.drivetogreen.com/static//images/small_btn.png') }

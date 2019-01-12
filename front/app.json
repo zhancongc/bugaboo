@@ -10,7 +10,9 @@
     "pages/awardlist/awardlist",
     "pages/award/award",
     "pages/view/view",
-    "pages/loading/loading"
+    "pages/loading/loading",
+    "pages/inform/inform",
+    "pages/express/express"
   ],
   "window":{
     "backgroundTextStyle":"light",
