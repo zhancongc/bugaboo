@@ -88,8 +88,9 @@ Page({
   onShareAppMessage: function () {
     // 首先获取user_id和composition_id
     return {
-      title: 'Bugaboo助力活动',
+      title: 'Bugaboo新年说爱你',
       path: 'pages/index/index',
+      imageUrl: 'https://bugaboo.drivetogreen.com/static/images/bugaboo.jpeg',
       success: (res) => { },
       fail: (res) => { }
     }

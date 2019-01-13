@@ -15,7 +15,10 @@ Page({
     compositionId: 0,
     compositionUrl: '',
     compositionType: 0,
-    followTimes: 0
+    followTimes: 1,
+    avatarList: {
+      url: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132'
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -51,7 +54,7 @@ Page({
               })
             } else {
               wx.showToast({
-                title: '获取助力作品失败，请稍后重试',
+                title: '获取作品失败，请稍后重试',
                 icon: 'none',
                 mask: true,
                 duration: 1000
@@ -122,7 +125,7 @@ Page({
   onShareAppMessage: function () {
     // 首先获取user_id和composition_id
     return {
-      title: this.data.nickName + '的Bugaboo助力作品',
+      title: this.data.nickName + '的Bugaboo新年祝福',
       imageUrl: this.data.compositionUrl,
       path: 'pages/view/view?composition_id=' + this.data.compositionId,
       success: (res) => { },
@@ -219,9 +222,10 @@ Page({
       url: '/pages/authorize/authorize',
     })
   },
-  toRankingList: function() {
+  toRankingList: function() { 
+    var that = this;
     wx.navigateTo({
-      url: '/pages/rankinglist/rankinglist',
+      url: '/pages/rankinglist/rankinglist?composition_type='+that.data.compositionType + '&tab=' + 'tab2',
     })
   },
   getUserInfo: function (e) {

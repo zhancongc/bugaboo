@@ -1,1 +1,24 @@
 /* pages/rankinglist/rankinglist.wxss */
+.rank-title{ background-color:#fff; text-align: center; width: 100%;height: 60rpx;}
+.rank-title-text {text-align: center;line-height: 60rpx; font-size: 40rpx;}
+
+.tab-title{ background-color:#fff; text-align: center; width: 100%;height: 80rpx; margin-bottom: 20rpx;}
+.tab-title-button {height:60rpx; width: 200rpx; margin: 0 auto; text-align: center; font-size: 25rpx; line-height:60rpx; }
+.selected{ color:#fff; background-repeat:no-repeat; background-size:100% 100%;background-image: url('https://bugaboo.drivetogreen.com/static/images/tab_current.png')}
+.select{ color: #a64c30; background-repeat:no-repeat; background-size:100% 100%;background-image: url('https://bugaboo.drivetogreen.com/static/images/tab.png')}
+
+.rank-avatar {height: 250rpx; width: 100%;}
+.gold { margin: 0 auto; height: 250rpx; width: 250rpx; background-repeat:no-repeat; background-size:100% 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/golden.png') }
+.silver { margin: 0 auto; height: 220rpx; width: 220rpx; background-repeat:no-repeat; background-size:100% 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/silver.png'); margin-top: 30rpx; }
+.copper { margin: 0 auto; height: 220rpx; width: 220rpx; background-repeat:no-repeat; background-size:100% 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/tong.png'); margin-top: 30rpx; }
+
+.avatar1{width: 120rpx; height: 120rpx; margin-top: 30rpx; margin-left: 30rpx; }
+.avatar1 image {height: 100%; width: 100%; border-radius: 60rpx; margin-top: 46rpx; margin-left: 20rpx;}
+.avatar2{width: 140rpx; height: 140rpx; }
+.avatar2 image {height: 100%; width: 100%; border-radius: 70rpx; margin-top: 50rpx; margin-left: 56rpx; }
+
+.rank-name { height: 100rpx; width: 100%; margin-bottom: 20rpx;}
+.text1 { margin: 0 auto; font-size: 24rpx; line-height: 30rpx; color: #fff; text-align: center; }
+
+.rank-list {width: 94%; margin: 0 auto; background-color: #fff; border-radius: 30rpx; box-shadow: 2px 2px 2px #888888; }
+.rank-list-group { width: 92%; margin: 0 auto; }

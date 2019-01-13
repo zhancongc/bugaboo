@@ -1,4 +1,4 @@
-<!--pages/awardlist/awardlist.wxml-->
+
 <view class="back-image raffle-title-image"></view>
 <view class="container" style='margin-top: 20rpx; margin-bottom: 100rpx;'>
 	<view class="main">
@@ -17,7 +17,9 @@
 		</view>
 	</view>
 </view>
-<view class="back-image raffle-panel"></view>
+
+<view class="raffle-panel"></view>
+<!--image src='https://bugaboo.drivetogreen.com/static/images/bg_prize.png' class='panel'></image-->
 
 <i-row>
   <i-col span="8" offset="3" i-class="col-class">
@@ -29,4 +31,3 @@
     <view class='back-image button-right' bindtap="toAwardList">我的奖品</view>
   </i-col>
 </i-row>
-

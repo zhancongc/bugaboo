@@ -14,3 +14,5 @@
 .section{ margin: 40rpx 0rpx 20rpx 0rpx;}
 .share {width: 240rpx; height:80rpx; border: none; margin-top: -80rpx; background: none; border-radius: 20rpx; color: #a64c30; font-size: 35rpx; }
 .modal-image { width: 250rpx; height: 160rpx; margin: 0 auto;  background-image: url('https://bugaboo.drivetogreen.com/static/images/pig.png'); margin-top: 150rpx; }
+.rank-me {width: 100%; height: 60rpx; margin-bottom: 10rpx;}
+.to-rank-me {width: 32rpx; height: 56rpx; margin: 0 auto;  background-image: url('https://bugaboo.drivetogreen.com/static/images/right_arrow.png');}

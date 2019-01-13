@@ -24,13 +24,13 @@
   <i-col span="20" offset="2" i-class="col-class">
     <view class="back-image textarea-image"></view>
     <view class='textarea'>
-      <textarea  maxlength='128' bindblur='setDescription' placeholder-style="color: #ab0c09" placeholder='写下您的新年期许'></textarea>
+      <textarea  maxlength='128' bindblur='setDescription' placeholder-style="color: #ab0c09; font-size:28rpx;" placeholder='写下您的新年期许'></textarea>
     </view>
   </i-col>
 
   <view class='back-image bottom-button-left' bindtap='rotate'>旋转</view>
 
-  <view class='back-image bottom-button-right' bindtap='uploadComposition'>上传</view>
+  <view class='back-image bottom-button-right' bindtap='uploadComposition'>提交</view>
 
 </i-row>
 

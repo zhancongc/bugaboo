@@ -78,7 +78,6 @@ Page({
           var response = res.data;
           console.log(response);
           if (response.constructor === Object) {
-            var viewer;
             if (response.state) {
               that.setData({
                 userId: response.data.user_id,
@@ -90,7 +89,7 @@ Page({
               })
             } else {
               wx.showToast({
-                title: '获取助力作品失败，请稍后重试',
+                title: '获取作品失败，请稍后重试',
                 icon: 'none',
                 mask: true,
                 duration: 1000

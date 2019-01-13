@@ -8,12 +8,11 @@ Page({
     chance: true,
     awards: [
       { 'index': 0, 'name': '谢谢参与', 'image': 'https://bugaboo.drivetogreen.com/static/images/bg_prize.png' },
-      { 'index': 1, 'name': '保温杯', 'image': '' },
-      { 'index': 2, 'name': '笔记本', 'image': '' },
-      { 'index': 3, 'name': '背包', 'image': '' },
-      { 'index': 4, 'name': '优惠券1', 'image': '' },
-      { 'index': 5, 'name': '优惠券2', 'image': '' },
-      { 'index': 6, 'name': '优惠券3', 'image': '' }
+      { 'index': 1, 'name': '定制保温杯', 'image': '' },
+      { 'index': 2, 'name': '限量笔记本', 'image': '' },
+      { 'index': 3, 'name': '限量定制健身包', 'image': '' },
+      { 'index': 4, 'name': '50元代金券', 'image': '' },
+      { 'index': 5, 'name': '100元代金券', 'image': '' }
     ]
   },
 
@@ -56,7 +55,7 @@ Page({
     var duration = 4000;//时长
     // 旋转角度
     that.runDeg = that.runDeg || 0;
-    that.runDeg = that.runDeg + (360 - that.runDeg % 360) + (360 * runNum - that.data.awardIndex * (360 / 7))
+    that.runDeg = that.runDeg + (360 - that.runDeg % 360) + (360 * runNum - that.data.awardIndex * (360 / 6))
     //创建动画
     var animationRun = wx.createAnimation({
       duration: duration,

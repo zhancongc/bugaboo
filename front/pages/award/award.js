@@ -5,14 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    awardrecordId: 0,
+    awardName: 'bugaboo定制保温杯',
+    qrcode: 'https://bugaboo.drivetogreen.com/static/images/person.png',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    that.setData({
+      awardrecordId: options.awardrecord_id
+    });
   },
 
   /**
@@ -26,7 +31,48 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.showToast({
+      icon: 'loading',
+      title: '加载中',
+      mask: true
+    });
+    var that = this;
+    var sessionId = app.globalData.sessionId;
+    console.log('请求作品信息', sessionId);
+    wx.request({
+      url: 'https://bugaboo.drivetogreen.com/user/award',
+      method: 'post',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Session-Id': sessionId
+      },
+      data: {
+        awardrecord_id: this.data.awardrecordId
+      },
+      success: function (res) {
+        wx.hideToast();
+        var response = res.data;
+        console.log(response);
+        if (response.constructor === Object) {
+          if (response.state) {
+            that.setData({
+              awardrecordId: response.data.awardrecord_id,
+              awardName: response.data.award_name,
+              qrcode: response.data.qrcode_image_url
+            })
+          } else {
+            wx.showToast({
+              title: '获取奖品信息失败，请稍后重试',
+              icon: 'none',
+              mask: true,
+              duration: 1000
+            });
+          }
+        }
+      },
+      fail: function (res) { },
+      complete: function (res) { }
+    });
   },
 
   /**
@@ -55,5 +101,22 @@ Page({
    */
   onReachBottom: function () {
 
+  },
+  toAwardList: function () {
+    wx.navigateTo({
+      url: '/pages/awardlist/awardlist',
+    })
+  },
+  toIndex: function () {
+    wx.navigateTo({
+      url: '/pages/index/index',
+    })
+  },
+  preview : function (e) {
+    var that = this;
+    wx.previewImage({
+      current: that.data.qrcode,
+      urls: [that.data.qrcode],
+    })
   }
 })

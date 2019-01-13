@@ -18,6 +18,7 @@ from PIL import Image
 from config import configs
 from functools import wraps
 from app import app, db
+from sqlalchemy import desc
 from flask_login import login_required, login_user, logout_user
 from flask import jsonify, request, render_template, redirect, url_for, flash
 from .package import wxlogin, get_sha1
@@ -619,10 +620,10 @@ def rankinglist(temp_user):
     # 获取排行榜用户信息
     data = list()
     if ranking_list_type in [0, 1]:
-        user_list = User.query.filter_by(user_type=ranking_list_type).order_by(User.follow_times).limit(50).desc()
+        user_list = User.query.filter_by(user_type=ranking_list_type).order_by(desc(User.follow_times)).limit(50)
         for index in range(len(user_list)):
             temp = {
-                'index': index,
+                'number': index,
                 'nickName': user_list['index'].nickName,
                 'avatarUrl': user_list['index'].avatarUrl,
                 'follow_times': user_list['index'].follow_times
@@ -798,6 +799,8 @@ def raffle(temp_user):
         # 发奖
         awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id, awardrecord_type=award.award_type,
                                   awardrecord_token=awardrecord_token, qrcode_image_url=qrcode_image_url)
+        if award_id == 5:
+            awardrecord.informed = True
         db.session.add(awardrecord)
         db.session.commit()
     except Exception as e:
@@ -945,7 +948,7 @@ def user_award(temp_user):
     return jsonify(res)
 
 
-@app.route('/user/award/store', methods=['POST'])
+@app.route('/user/award/inform', methods=['POST'])
 @login_required1
 def user_award_store(temp_user):
     """
@@ -954,11 +957,30 @@ def user_award_store(temp_user):
     """
     res = dict()
     awardrecord_id = request.values.get('awardrecord_id')
+    awardrecord_type = request.values.get('awardrecord_type')
     receiver = request.values.get('receiver')
     phone = request.values.get('phone')
+    address = request.values.get('address')
     store_id = request.values.get('store_id')
     # 检查空值
-    if awardrecord_id is None or receiver is None or phone is None or store_id is None:
+    if awardrecord_id is None or receiver is None or phone is None:
+        res.update({
+            'state': 0,
+            'msg': 'incomplete data'
+        })
+        return jsonify(res)
+    # 检查空值2
+    try:
+        awardrecord_type = int(awardrecord_type)
+    except ValueError as e:
+        print(e)
+        res.update({
+            'state': 0,
+            'msg': 'type error'
+        })
+        logging(json.dumps(res))
+        return jsonify(res)
+    if (awardrecord_type == 1 and address is None) or (awardrecord_type in [3, 4] and store_id is None):
         res.update({
             'state': 0,
             'msg': 'incomplete data'
@@ -968,7 +990,7 @@ def user_award_store(temp_user):
     try:
         awardrecord_id = int(awardrecord_id)
         store_id = int(store_id)
-        receiver = int(receiver)
+        receiver = str(receiver)
     except ValueError as e:
         print(e)
         res.update({
@@ -985,84 +1007,40 @@ def user_award_store(temp_user):
             'msg': 'award and user does not match'
         })
         return jsonify(res)
-    # 检查门店是否存在
-    store_id = Store.query.filter_by(store_id=store_id).first()
-    if store_id is None:
-        res.update({
-            'state': 0,
-            'msg': 'invalid store'
-        })
-        return jsonify(res)
-    # 添加收货记录
-    try:
-        awardrecord.set_address(store_id, receiver, phone)
-        db.session.add(awardrecord)
-        db.session.commit()
-    except Exception as e:
-        print(e)
-        res.update({
-            'state': 0,
-            'msg': 'write to database error'
-        })
-        return jsonify(res)
-    res.update({
-        'state': 1,
-        'msg': 'success'
-    })
-    return jsonify(res)
-
-
-@app.route('/user/award/express', methods=['POST'])
-@login_required1
-def user_award_express(temp_user):
-    """
-    :functino: 上传用户地址，用于快递
-    :return:
-    """
-    res = dict()
-    awardrecord_id = request.values.get('awardrecord_id')
-    receiver = request.values.get('receiver')
-    phone = request.values.get('phone')
-    address = request.values.get('address')
-    # 检查空值
-    if awardrecord_id is None or receiver is None or phone is None or address is None:
-        res.update({
-            'state': 0,
-            'msg': 'incomplete data'
-        })
-        return jsonify(res)
-    # 类型转换
-    try:
-        awardrecord_id = int(awardrecord_id)
-        receiver = int(receiver)
-    except ValueError as e:
-        print(e)
-        res.update({
-            'state': 0,
-            'msg': 'type error'
-        })
-        logging(json.dumps(res))
-        return jsonify(res)
-    # 检查奖品和用户是否对应
-    awardrecord = AwardRecord.query.filter_by(awardrecord_id=awardrecord_id).first()
-    if awardrecord.user_id != temp_user.user_id:
-        res.update({
-            'state': 0,
-            'msg': 'award and user does not match'
-        })
-        return jsonify(res)
-    # 添加收货记录
-    try:
-        awardrecord.set_address(address, receiver, phone)
-        db.session.add(awardrecord)
-        db.session.commit()
-    except Exception as e:
-        print(e)
-        res.update({
-            'state': 0,
-            'msg': 'write to database error'
-        })
-        return jsonify(res)
+    if awardrecord_type in [3, 4]:
+        # 检查门店是否存在
+        store_id = Store.query.filter_by(store_id=store_id).first()
+        if store_id is None:
+            res.update({
+                'state': 0,
+                'msg': 'invalid store'
+            })
+            return jsonify(res)
+        # 添加收货记录
+        try:
+            awardrecord.set_address(store_id, receiver, phone)
+            db.session.add(awardrecord)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            res.update({
+                'state': 0,
+                'msg': 'write to database error'
+            })
+            return jsonify(res)
+    elif awardrecord_type == 1:
+        # 添加收货记录
+        try:
+            awardrecord.set_address(address, receiver, phone)
+            db.session.add(awardrecord)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            res.update({
+                'state': 0,
+                'msg': 'write to database error'
+            })
+            return jsonify(res)
     res.update({
         'state': 1,
         'msg': 'success'

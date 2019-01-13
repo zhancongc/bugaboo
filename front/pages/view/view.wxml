@@ -13,27 +13,30 @@
 
 <i-row>
   <i-col span="19" offset="2" i-class="col-class">
-  <view class="text1 center">帮他赢Bugaboos神秘新年礼物,需要你的祝福</view></i-col>
+  <view class="text1 center">帮他赢Bugaboo神秘新年礼物,需要你的祝福</view></i-col>
   <i-col span="5" offset="2" i-class="col-class">
   <view class="text1">Ta的作品：</view></i-col>
-</i-row>
 
-<i-row>
   <i-col span="24" i-class="col-class">
     <view class="back-image preview">
       <image src="{{ compositionUrl }}"></image>
     </view>
   </i-col>
-    <i-col span="20" offset="2" i-class="col-class">
-      <view class="text1 center">共获得{{ followTimes }}个祝福</view></i-col>
-</i-row>
 
-<i-row>
+  <i-col span="20" offset="2" i-class="col-class">
+    <view class="text1 center">共获得{{ followTimes }}个祝福</view>
+  </i-col>
+
+  <view class="rank-me">
+    <i-col span="18" offset="2" i-class="col-class" wx:for="{{avatarList}}" wx:key="{{item.url}}">
+      <i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar>
+    </i-col>
+    <i-col span="2"><view bindtap='toRankingList' class='to-rank-me back-image'></view></i-col>
+  </view>
+
   <i-col span="20" offset="2" i-class="col-class">
   <view class="text1">帮他成功送祝福的同时，您将获得Bugaboo提供的一次抽奖机会！</view></i-col>
-</i-row>
 
-<i-row>
   <i-col span="8" offset="3" i-class="col-class" style="margin-top: 50rpx;">
     <view class='back-image button-right'></view>
     <button class="share" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>送祝福</button>

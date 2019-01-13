@@ -1,26 +1,99 @@
 
-<i-tabs current="{{ current }}" bindchange="handleChange">
-    <i-tab key="tab1" title="排行榜"></i-tab>
-    <i-tab key="tab2" title="给我祝福的人"></i-tab>
-</i-tabs>
+<i-row>
+  <view class="rank-title">
+    <i-col span="16" offset="4">TOP50祝福排行榜
+    </i-col>
+  </view>
+</i-row>
 
-<i-cell-group wx:if="{{ current == 'tab1' }}">
-    <i-cell wx:for="{{topFifty}}" wx:key="item.number">
-      <i-row>
-          <i-col span="1" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.number}}</i-col>
-          <i-col span="2" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
-          <i-col span="12" i-class="col-class" style="line-height: 48rpx;">{{item.nickName}}</i-col>
-          <i-col span="8" i-class="col-class" style="line-height: 48rpx;">收到祝福{{item.follow_times}}次</i-col>
-      </i-row>
-    </i-cell>
-</i-cell-group>
+<i-row>
+  <view class="tab-title">
+    <i-col span="8" offset="4">
+      <view class="tab-title-button {{current==='tab1'? 'selected':'select'}}" bindtap='toTab1'>{{tabTitle}}</view>
+    </i-col>
+    <i-col span="8">
+      <view class="tab-title-button {{current==='tab2'? 'selected':'select'}}" bindtap='toTab2'>我获得的祝福</view>
+    </i-col>
+  </view>
+</i-row>
 
-<i-cell-group wx:if="{{ current == 'tab2' }}">
-    <i-cell wx:for="{{followMe}}" wx:key="item.number">
-      <i-row>
-          <i-col span="3" offset="1" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
-          <i-col span="15" i-class="col-class" style="line-height: 48rpx;">{{item.nickName}}</i-col>
-          <i-col span="5" i-class="col-class" style="line-height: 48rpx;">助力1次</i-col>
-      </i-row>
-    </i-cell>
-</i-cell-group>
+<view wx:if="{{current == 'tab1'}}">
+
+  <i-row>
+    <view class="rank-avatar">
+    
+      <i-col span="6" offset="1">
+        <view class='silver'>
+          <view class='avatar1'><image src='{{silver.avatarUrl}}'></image></view>
+        </view>
+      </i-col>
+
+      <i-col span="8" offset="1">
+        <view class='gold'>
+          <view class='avatar2'><image src='{{gold.avatarUrl}}'></image></view>
+        </view>
+      </i-col>
+
+      <i-col span="6">
+        <view class='copper'>
+          <view class='avatar1'><image src='{{copper.avatarUrl}}'></image></view>
+        </view>
+      </i-col>
+
+    </view>
+
+    <view class='rank-name'>
+      <i-col span="6" offset="1">
+        <view class='text1'>No.2</view>
+        <view class='text1'>{{silver.nickName}}</view>
+        <view class='text1'>{{silver.follow_times}}</view>
+      </i-col>
+      <i-col span="8" offset="1">
+        <view class='text1'>No.2</view>
+        <view class='text1'>{{gold.nickName}}</view>
+        <view class='text1'>{{gold.follow_times}}</view>
+      </i-col>
+      <i-col span="6" offset="1">
+        <view class='text1'>No.2</view>
+        <view class='text1'>{{copper.nickName}}</view>
+        <view class='text1'>{{copper.follow_times}}</view>
+      </i-col>
+    </view>
+  </i-row>
+
+  <view class="rank-list">
+    <view class="rank-list-group">
+      <i-cell-group>
+        <i-cell wx:for="{{topFifty}}" wx:key="item.number">
+          <i-row>
+              <i-col span="2" i-class="col-class" style="line-height: 48rpx;">{{item.number}}</i-col>
+              <i-col span="2" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
+              <i-col span="15" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.nickName}}</i-col>
+              <i-col span="4" i-class="col-class" style="line-height: 48rpx;">{{item.follow_times}}</i-col>
+          </i-row>
+        </i-cell>
+      </i-cell-group>
+    </view>
+  </view>
+
+</view>
+
+<view wx:if="{{current=='tab2'}}">
+
+  <view class="rank-list">
+    <view class="rank-list-group">
+      <i-cell-group wx:if="{{followMe}}">
+        <i-cell wx:for="{{followMe}}" wx:key="item.number">
+          <i-row>
+              <i-col span="2" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
+              <i-col span="16" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.nickName}}</i-col>
+              <i-col span="5" i-class="col-class" style="line-height: 48rpx;">祝福1次</i-col>
+          </i-row>
+        </i-cell>
+      </i-cell-group>
+    </view>
+  </view>
+  <view class='text1' wx:if="{{followMe.length === 0}}">暂时没有获得祝福</view>
+
+
+</view>

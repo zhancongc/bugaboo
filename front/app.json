@@ -12,7 +12,8 @@
     "pages/view/view",
     "pages/loading/loading",
     "pages/inform/inform",
-    "pages/express/express"
+    "pages/express/express",
+    "pages/select/select"
   ],
   "window":{
     "backgroundTextStyle":"light",

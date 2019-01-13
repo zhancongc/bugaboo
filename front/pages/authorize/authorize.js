@@ -9,26 +9,6 @@ Page({
   data: {
     nextPage: '/pages/index/index'
   },
-  getUserInfo: function (e) {
-    var that = this;
-    console.log(e.detail.userInfo)
-    if (e.detail.userInfo) {
-      //用户按了授权按钮
-      wx.setStorageSync('userInfo', e.detail.userInfo);
-      app.globalData.canUploadUserInfo = true;
-      wx.navigateTo({
-        url: that.data.nextPage,
-      })
-    } else {
-      //用户按了拒绝按钮
-      wx.showToast({
-        icon: 'none',
-        title: '请点击授权',
-        mask: true,
-        duration: 1000
-      })
-    }
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -48,6 +28,26 @@ Page({
       }
     }
     console.log('next_page', next_page)
+  },
+  getUserInfo: function (e) {
+    var that = this;
+    console.log(e.detail.userInfo)
+    if (e.detail.userInfo) {
+      //用户按了授权按钮
+      wx.setStorageSync('userInfo', e.detail.userInfo);
+      app.globalData.canUploadUserInfo = true;
+      wx.navigateTo({
+        url: that.data.nextPage,
+      })
+    } else {
+      //用户按了拒绝按钮
+      wx.showToast({
+        icon: 'none',
+        title: '请点击授权',
+        mask: true,
+        duration: 1000
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面显示

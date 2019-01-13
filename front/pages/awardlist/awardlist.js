@@ -10,14 +10,18 @@ Page({
       { "awardrecord_id": 2, "awardrecord_type": 1, "award_name": "bugaboo定制保温杯", "award_image": "https://bugaboo.drivetogreen.com/static//images/award_bag.png", "award_time": "2019/01/12 12:00", 'checked': true, 'informed': true },
       { "awardrecord_id": 3, "awardrecord_type": 1, "award_name": "bugaboo限量定制健身包", "award_image": "https://bugaboo.drivetogreen.com/static//images/award_notebook.png", "award_time": "2019/01/12 12:00", 'checked': false, 'informed': true },
       { "awardrecord_id": 4, "awardrecord_type": 2, "award_name": "50元天猫商城代金券", "award_image": "https://bugaboo.drivetogreen.com/static//images/award_coupon_50.png", "award_time": "2019/01/12 12:00", 'checked': true, 'informed': true },
-      { "awardrecord_id": 5, "awardrecord_type": 2, "award_name": "100元天猫商城代金券", "award_image": "https://bugaboo.drivetogreen.com/static//images/award_coupon_100.png", "award_time": "2019/01/12 12:00", 'checked': false, 'informed': false }
+      { "awardrecord_id": 5, "awardrecord_type": 2, "award_name": "100元天猫商城代金券", "award_image": "https://bugaboo.drivetogreen.com/static//images/award_coupon_100.png", "award_time": "2019/01/12 12:00", 'checked': false, 'informed': false },
+      { "awardrecord_id": 6, "awardrecord_type": 3, "award_name": "一等奖", "award_image": "https://bugaboo.drivetogreen.com/static//images/award_golden.png", "award_time": "2019/01/12 12:00", 'checked': false, 'informed': false },
+      { "awardrecord_id": 7, "awardrecord_type": 4, "award_name": "二等奖", "award_image": "https://bugaboo.drivetogreen.com/static//images/award_silver.png", "award_time": "2019/01/12 12:00", 'checked': false, 'informed': false }
     ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

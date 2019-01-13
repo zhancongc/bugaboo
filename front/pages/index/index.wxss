@@ -1,5 +1,4 @@
 /**index.wxss**/
-.logo { margin-top: 50rpx; height: 63rpx; width: 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/logo.png') }
 .slogan { margin-top: 20rpx; height: 800rpx; width: 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/slogan.png')}
 .authorize { margin-top: -96rpx; height:80rpx; width: 100%; text-align: center; }
 .title-image { width: 250rpx; height: 50rpx; background-image: url('https://bugaboo.drivetogreen.com/static/images/red_logo.png')}

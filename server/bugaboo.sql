@@ -23,10 +23,6 @@ VALUES ('上海合生汇商场', '上海', '上海市杨浦区翔殷路1099号�
 INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`)
 VALUES ('上海万象城', '上海', '上海市吴中路1551号上海万象城L415商铺', '021 5433 2102');
 INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`)
-VALUES ('上海浦东嘉里城', '上海', '上海市花木路1378号浦东嘉里城地下一层B136/137店铺', '021 6836 8988');
-INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`)
-VALUES ('上海静安嘉里中心', '上海', '上海市南京西路1515号嘉里中心四层N4-02店铺', '021 6025 0577');
-INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`)
 VALUES ('上海丁香国际', '上海', '浦东新区丁香路858号 丁香国际商业中心 L212&L213', '021 6858 3669');
 INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`)
 VALUES ('北京将台路门店', '北京', '北京市朝阳区将台路2号 和乔丽晶一层底商', '010 8450 1589');
@@ -60,8 +56,6 @@ INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`
 VALUES ('深圳万象城', '深圳', '深圳市罗湖区宝安南路1881号华润中心万象城4楼472室 ', '0755 8269 0091');
 INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`)
 VALUES ('深圳万象天地', '深圳', '深圳市南山区粤海街道深南大道9668号华润万象天地 SL4 SL438 号商铺', '0755 8668 8710');
-INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`)
-VALUES ('深圳万象天地', '深圳', '深圳市南山区粤海街道深南大道9668号华润万象天地 SL4 SL421 号商铺', '0755 8668 0120');
 INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`)
 VALUES ('广州IGC天汇广场', '广州', '广州市天河区珠江新城兴民路222号天汇广场igc四层422铺 ', '020 3727 7551');
 INSERT INTO `store` ( `store_name`, `store_city`, `store_address`, `store_phone`)
