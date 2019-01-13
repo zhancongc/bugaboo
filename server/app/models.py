@@ -128,8 +128,7 @@ class User(db.Model):
     login_time = db.Column(db.DateTime, default=datetime.utcnow)
     session_id = db.Column(db.String(40), nullable=False)
     session_id_expire_time = db.Column(db.DateTime, nullable=False)
-    can_raffle = db.Column(db.Boolean, default=False)
-    can_follow = db.Column(db.Boolean, default=True)
+    raffle_times = db.Column(db.Integer, default=0)
     user_type = db.Column(db.Integer, default=0)
     follow_times = db.Column(db.Integer, default=0)
     nickName = db.Column(db.String(32))
@@ -153,12 +152,12 @@ class User(db.Model):
         if not self.is_following(user):
             foll = Follow(follower=self, followed=user)
             self.follow_times += 1
+            self.raffle_times += 1
             db.session.add(foll)
             db.session.add(self)
-            self.can_follow = False
 
     def raffle(self):
-        self.can_raffle = not self.can_raffle
+        self.raffle_times -= 1
 
     def is_following(self, user):
         return self.followed.filter_by(followed_id=user.user_id).first() is not None

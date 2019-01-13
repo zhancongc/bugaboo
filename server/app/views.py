@@ -225,8 +225,7 @@ def user_login():
         'user_id': temp_user.user_id,
         'session_id': session_id,
         'activity_on': activity_on,
-        'can_raffle': temp_user.can_raffle,
-        'can_follow': temp_user.can_follow,
+        'raffle_times': temp_user.raffle_times
     }
     if temp_user:
         composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
@@ -755,9 +754,17 @@ def raffle(temp_user):
     :return: 抽奖信息
     """
     res = dict()
+    if temp_user.raffle_times <= 0:
+        res.update({
+            'state': 0,
+            'msg': 'not have enough raffle times',
+        })
+        return jsonify(res)
+    temp_user.raffle()
     # 抽奖逻辑
     conf = configparser.ConfigParser()
     temp_award_id = raffle_award()
+
     if int(temp_award_id) < 4:
         award_id = temp_award_id
     elif int(temp_award_id) < 9:
