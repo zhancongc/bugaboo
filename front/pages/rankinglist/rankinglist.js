@@ -60,7 +60,7 @@ Page({
   },
   toPreview: function() {
     wx.navigateTo({
-      url: '/pages/preview/preview?composition_id=1'
+      url: '/pages/preview/preview'
     })
   },
   showRank : function () {

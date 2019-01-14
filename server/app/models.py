@@ -10,7 +10,7 @@ class Follow(db.Model):
     followed_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), primary_key=True)
     # 被关注者
     follower_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), primary_key=True)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, default=datetime.now)
 
 
 class Composition(db.Model):
@@ -20,7 +20,7 @@ class Composition(db.Model):
     composition_type = db.Column(db.Integer, default=0, nullable=False)
     composition_msg = db.Column(db.String(256))
     composition_url = db.Column(db.String(512), nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, default=datetime.now)
 
     def sync_user_type(self):
         user = User.query.filter_by(user_id=self.user_id).first()
@@ -63,7 +63,7 @@ class AwardRecord(db.Model):
     __tablename__ = "awardrecord"
     awardrecord_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     award_id = db.Column(db.Integer, db.ForeignKey('award.award_id'), nullable=False)
-    award_time = db.Column(db.DateTime, default=datetime.utcnow)
+    award_time = db.Column(db.DateTime, default=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), nullable=False)
     awardrecord_type = db.Column(db.Integer, nullable=False)
     store_id = db.Column(db.Integer)
@@ -72,13 +72,13 @@ class AwardRecord(db.Model):
     address = db.Column(db.String(256))
     informed = db.Column(db.Boolean, default=False)
     checked = db.Column(db.Boolean, default=False)
-    check_time = db.Column(db.DateTime, default=datetime.utcnow)
+    check_time = db.Column(db.DateTime, default=datetime.now)
     awardrecord_token = db.Column(db.String(128), nullable=False)
     qrcode_image_url = db.Column(db.String(128), nullable=False)
 
     def check(self):
         self.checked = True
-        self.check_time = datetime.utcnow()
+        self.check_time = datetime.now()
 
     def set_address(self, address, receiver, phone):
         self.address = address
@@ -126,7 +126,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     open_id = db.Column(db.String(28), unique=True, index=True, nullable=False)
     session_key = db.Column(db.String(24), nullable=False)
-    login_time = db.Column(db.DateTime, default=datetime.utcnow)
+    login_time = db.Column(db.DateTime, default=datetime.now)
     session_id = db.Column(db.String(40), nullable=False)
     session_id_expire_time = db.Column(db.DateTime, nullable=False)
     raffle_times = db.Column(db.Integer, default=0)
@@ -178,7 +178,7 @@ class God(db.Model):
     god_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     access_token = db.Column(db.String(40), nullable=True)
     ip_addr = db.Column(db.String(15))
-    login_time = db.Column(db.DateTime, default=datetime.utcnow)
+    login_time = db.Column(db.DateTime, default=datetime.now)
     access_token_expire_time = db.Column(db.DateTime, nullable=False)
 
     @staticmethod

@@ -25,15 +25,15 @@ Page({
           if (response.state) {
             if (response.data) {
               var awardList = [];
-              for (i in response.data) {
-                awardList[i].push({
-                  'awardrecord_id': response.data.awardrecord_id,
-                  'awardrecord_type': response.data.awardrecord_type,
-                  'award_image': response.data.award_image,
-                  'award_name': response.data.award_name,
-                  'award_time': response.data.award_time,
-                  'informed': response.data.informed,
-                  'checked': response.data.checked
+              for (var i in response.data) {
+                awardList.push({
+                  'awardrecord_id': response.data[i].awardrecord_id,
+                  'awardrecord_type': response.data[i].awardrecord_type,
+                  'award_image': response.data[i].award_image,
+                  'award_name': response.data[i].award_name,
+                  'award_time': response.data[i].award_time,
+                  'informed': response.data[i].informed,
+                  'checked': response.data[i].checked
                 })
               }
               that.setData({

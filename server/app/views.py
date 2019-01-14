@@ -326,37 +326,35 @@ def user_info_upload(temp_user):
 
 @app.route('/user/composition/info', methods=['GET'])
 @login_required1
-def user_composition_info(temp_user):
+def user_composition(temp_user):
     """
-    :function: 判断是否有作品
-    :return: composition_id, nickName, avatarUrl
+    :function: 自己的作品
+    :return:
     """
     res = dict()
-    # 根据session_id 拉去user_info和composition_id
-    temp_composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
-    if temp_composition is None:
+    # 获取作品信息
+    composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
+    owner = User.query.filter_by(user_id=composition.user_id).first()
+    if composition is None:
         res.update({
-            'state': 2,
-            'msg': 'new user'
+            'state': 0,
+            'msg': 'none composition id'
         })
         return jsonify(res)
-    followers_avatarUrls = list()
-    if temp_user.followers:
-        for user in temp_user.followers:
-            if len(temp_user.followers) <= 8:
-                break
-            followers_avatarUrls.append({'avatarUrl': user.avatarUrl})
     data = dict()
     data.update({
         'user_id': temp_user.user_id,
         'nickName': temp_user.nickName,
         'avatarUrl': temp_user.avatarUrl,
-        'composition_id': temp_composition.composition_id,
-        'followers': followers_avatarUrls
+        'composition_id': composition.composition_id,
+        'composition_type': composition.composition_type,
+        'composition_msg': composition.composition_msg,
+        'composition_url': composition.composition_url,
+        'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
     })
     res.update({
         'state': 1,
-        'msg': 'get user info and composition',
+        'msg': 'my composition',
         'data': data
     })
     return jsonify(res)
@@ -374,7 +372,7 @@ def user_composition_upload(temp_user):
     temp_composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
     if temp_composition:
         res.update({
-            'state': 0,
+            'state': 2,
             'msg': 'you have uploaded composition'
         })
         logging(json.dumps(res))

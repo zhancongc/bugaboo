@@ -27,7 +27,7 @@ Page({
                 var compositionId = response.data.composition_id;
                 app.globalData.compositionId = response.data.composition_id;
                 wx.redirectTo({
-                  url: '/pages/preview/preview?composition_id=' + compositionId,
+                  url: '/pages/preview/preview',
                 })
               }
             } else {

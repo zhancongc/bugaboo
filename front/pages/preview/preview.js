@@ -26,23 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('app.globalData', app.globalData);
-    var that = this;
-    if (options.hasOwnProperty('composition_id')) {
-      that.setData({
-        compositionId: options.composition_id
-      })
-    } else {
-      wx.showToast({
-        title: '获取不到作品信息',
-        icon: 'none',
-        mask: true,
-        duration: 1000
-      });
-      wx.navigateTo({
-        url: '/pages/index/index',
-      })
-    }
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -61,51 +45,41 @@ Page({
       mask: true
     });
     var that = this;
-    if (that.data.compositionId != 0) {
-      var sessionId = app.globalData.sessionId;
-      console.log('请求作品信息', sessionId);
-      wx.request({
-        url: 'https://bugaboo.drivetogreen.com/user/composition',
-        method: 'post',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Session-Id': sessionId
-        },
-        data: {
-          composition_id: this.data.compositionId
-        },
-        success: function (res) {
-          wx.hideToast();
-          var response = res.data;
-          console.log(response);
-          if (response.constructor === Object) {
-            if (response.state) {
-              that.setData({
-                userId: response.data.user_id,
-                nickName: response.data.nickName,
-                avatarUrl: response.data.avatarUrl,
-                compositionId: response.data.composition_id,
-                compositionUrl: response.data.composition_url,
-                compositionType: response.data.composition_type
-              })
-            } else {
-              wx.showToast({
-                title: '获取作品失败，请稍后重试',
-                icon: 'none',
-                mask: true,
-                duration: 1000
-              });
-            }
+    console.log('请求作品信息');
+    wx.request({
+      url: 'https://bugaboo.drivetogreen.com/user/composition/info',
+      method: 'get',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Session-Id': app.globalData.sessionId
+      },
+      success: function (res) {
+        wx.hideToast();
+        var response = res.data;
+        console.log(response);
+        if (response.constructor === Object) {
+          if (response.state) {
+            that.setData({
+              userId: response.data.user_id,
+              nickName: response.data.nickName,
+              avatarUrl: response.data.avatarUrl,
+              compositionId: response.data.composition_id,
+              compositionUrl: response.data.composition_url,
+              compositionType: response.data.composition_type
+            })
+          } else {
+            wx.showToast({
+              title: '获取作品失败，请稍后重试',
+              icon: 'none',
+              mask: true,
+              duration: 1000
+            });
           }
-        },
-        fail: function (res) { },
-        complete: function (res) { }
-      });
-    } else {
-      wx.navigateTo({
-        url: '/pages/index/index',
-      })
-    }
+        }
+      },
+      fail: function (res) { },
+      complete: function (res) { }
+    });
   },
 
   /**

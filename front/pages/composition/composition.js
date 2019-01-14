@@ -74,7 +74,7 @@ Page({
             var response = JSON.parse(res.data);
             console.log(response);
             if (response.constructor === Object) {
-              if (response.state) {
+              if (response.state===1) {
                 wx.showToast({
                   title: '上传成功',
                   icon: 'success',
@@ -86,9 +86,19 @@ Page({
                 })
                 console.log('composition_id', that.data.compositionId);
                 wx.navigateTo({
-                  url: '/pages/preview/preview?composition_id=' + that.data.compositionId,
+                  url: '/pages/preview/preview',
                 })
-              } else {
+              } else if (response.state == 2) {
+                wx.showToast({
+                  title: '您已经上传过作品了',
+                  icon: 'none',
+                  mask: true,
+                  duration: 1500
+                });
+                wx.navigateTo({
+                  url: '/pages/preview/preview',
+                })
+              } else  {
                 wx.showToast({
                   title: '上传失败',
                   icon: 'none',
