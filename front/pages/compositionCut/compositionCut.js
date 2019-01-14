@@ -34,9 +34,10 @@ Page({
     })
   },
   select: function (e) {
+    var that = this;
     var temp = e.currentTarget.dataset.selected;
-    if (this.data.selected !== parseInt(temp)) {
-      this.setData({
+    if (that.data.selected !== parseInt(temp)) {
+      that.setData({
         selected: parseInt(e.currentTarget.dataset.selected)
       })
     }
@@ -84,14 +85,9 @@ Page({
         that.setData({
           compositionSrc: src
         })
-        /*
-        wx.previewImage({
-          current: '', // 当前显示图片的http链接
-          urls: [src] // 需要预览的图片http链接列表
-        })*/
         var tempComposition = JSON.stringify({
-          compositionSrc: this.data.compositionSrc,
-          compositionType: this.data.selected
+          compositionSrc: that.data.compositionSrc,
+          compositionType: that.data.selected
         });
         wx.navigateTo({
           url: '/pages/composition/composition?tempComposition=' + tempComposition,

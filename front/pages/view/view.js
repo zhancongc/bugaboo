@@ -101,58 +101,46 @@ Page({
   },
   getComposition:function () {
     var that = this;
-    if (options.hasOwnProperty('composition_id')) {
-      console.log('请求作品信息', sessionId);
-      wx.request({
-        url: 'https://bugaboo.drivetogreen.com/user/composition',
-        method: 'post',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Session-Id': app.globalData.sessionId
-        },
-        data: {
-          composition_id: that.data.composition_id
-        },
-        success: function (res) {
-          var response = res.data;
-          console.log(response);
-          if (response.constructor === Object) {
-            if (response.state) {
-              that.setData({
-                authorId: response.data.user_id,
-                nickName: response.data.nickName,
-                avatarUrl: response.data.avatarUrl,
-                compositionId: response.data.composition_id,
-                compositionUrl: response.data.composition_url,
-                compositionType: response.data.composition_type,
-                canFollow: response.data.can_follow,
-                avatarList: response.data.followers,
-                followTimes: response.data.follow_times
-              })
-            } else {
-              wx.showToast({
-                title: '获取作品失败，请稍后重试',
-                icon: 'none',
-                mask: true,
-                duration: 1000
-              });
-            }
+    console.log('请求作品信息', that.data.composition_id);
+    wx.request({
+      url: 'https://bugaboo.drivetogreen.com/user/composition',
+      method: 'post',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Session-Id': app.globalData.sessionId
+      },
+      data: {
+        composition_id: that.data.compositionId
+      },
+      success: function (res) {
+        var response = res.data;
+        console.log(response);
+        if (response.constructor === Object) {
+          if (response.state) {
+            that.setData({
+              authorId: response.data.user_id,
+              nickName: response.data.nickName,
+              avatarUrl: response.data.avatarUrl,
+              compositionId: response.data.composition_id,
+              compositionUrl: response.data.composition_url,
+              compositionType: response.data.composition_type,
+              canFollow: response.data.can_follow,
+              avatarList: response.data.followers,
+              followTimes: response.data.follow_times
+            })
+          } else {
+            wx.showToast({
+              title: '获取作品失败，请稍后重试',
+              icon: 'none',
+              mask: true,
+              duration: 1000
+            });
           }
-        },
-        fail: function (res) { },
-        complete: function (res) { }
-      });
-    } else {
-      wx.showToast({
-        title: '获取不到作品信息',
-        icon: 'none',
-        mask: true,
-        duration: 1000
-      });
-      wx.navigateTo({
-        url: '/pages/index/index',
-      })
-    }
+        }
+      },
+      fail: function (res) { },
+      complete: function (res) { }
+    });
   },
   followOwner:function () {
     var that = this;

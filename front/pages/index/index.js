@@ -14,27 +14,25 @@ Page({
     app.userLogin().then(function(res){
       var response = res.data;
       if (response.constructor === Object) {
-        if (response.state) {
+        if (response.state==1) {
           app.globalData.sessionId = response.data.session_id;
           var userInfo = wx.getStorageSync('userInfo')
           if (app.globalData.canUploadUserInfo && userInfo) {
             that.saveUserInfo(userInfo);
             app.globalData.canUploadUserInfo = false;
-          }
-          if (response.state == 1) {
-            if (response.data.activity_on){
-              if (response.data.composition_id) {
-                var compositionId = response.data.composition_id;
-                app.globalData.compositionId = response.data.composition_id;
-                wx.redirectTo({
-                  url: '/pages/preview/preview',
-                })
-              }
-            } else {
-              that.setData({
-                visible2: true
+          }  
+          if (response.data.activity_on){
+            if (response.data.composition_id) {
+              var compositionId = response.data.composition_id;
+              app.globalData.compositionId = response.data.composition_id;
+              wx.redirectTo({
+                url: '/pages/preview/preview',
               })
             }
+          } else {
+            that.setData({
+              visible2: true
+            })
           }
         }
       }

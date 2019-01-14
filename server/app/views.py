@@ -556,7 +556,7 @@ def user_composition(temp_user):
 
     data = dict()
     data.update({
-        'user_id': temp_user.user_id,
+        'user_id': composition.user_id,
         'nickName': temp_user.nickName,
         'avatarUrl': temp_user.avatarUrl,
         'composition_id': composition.composition_id,

@@ -61,6 +61,10 @@ App({
     canUploadUserInfo: false,
     raffleTimes: false,
     // preview & view
-    compositionId: 0
+    compositionId: 0,
+    //share
+    parameter_name: '',
+    parameter_value: '',
+    nextPage: '/pages/index/index'
   }
 })

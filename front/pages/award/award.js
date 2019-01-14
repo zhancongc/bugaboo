@@ -39,17 +39,16 @@ Page({
       mask: true
     });
     var that = this;
-    var sessionId = app.globalData.sessionId;
-    console.log('请求作品信息', sessionId);
+    console.log('请求奖品信息');
     wx.request({
       url: 'https://bugaboo.drivetogreen.com/user/award',
       method: 'post',
       header: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Session-Id': sessionId
+        'Session-Id': app.globalData.sessionId
       },
       data: {
-        awardrecord_id: this.data.awardrecordId
+        awardrecord_id: that.data.awardrecordId
       },
       success: function (res) {
         wx.hideToast();
