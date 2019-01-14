@@ -13,6 +13,7 @@ margin-bottom:30rpx;
 .award-button-text{ height:100rpx; width: 100%; margin-top: 30rpx; text-align: center; color: #a64c30; font-size: 40rpx; line-height:100rpx; background-image: url('https://bugaboo.drivetogreen.com/static/images/medium_btn.png') }
 .award-image { width:250rpx; height:250rpx; margin:0 auto; margin-top:80rpx; }
 .text2 { margin:20rpx 0rpx 20rpx 0rpx; font-size:40rpx; line-height:30rpx; color:#fff; text-align:center; }
+.text3{ margin: 280rpx 0rpx 20rpx 0rpx; font-size: 40rpx; line-height: 40rpx; color: #fff; text-align: center; }
 
 
 /* 转盘 */

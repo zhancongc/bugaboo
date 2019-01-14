@@ -18,8 +18,8 @@ Page({
   },
 
   data: {
-    visible1: true,
-    awardIndex: 1,
+    visible1: false,
+    awardIndex: 0,
     awardName: {
       1: 'bugaboo限量笔记本',
       2: '50元天猫商城代金券',

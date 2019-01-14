@@ -39,28 +39,43 @@
       <view class="i-modal-content">
         <view class="i-modal-title">
           <i-row>
-            <i-col span="20" offset="1" class="title-text">
-            恭喜您！中奖啦！</i-col>
+            <i-col span="20" offset="1" class="title-text" wx:if="{{awardIndex!==0}}">恭喜您！中奖啦！</i-col>
+            <i-col span="20" offset="1" class="title-text" wx:if="{{awardIndex==0}}">很遗憾！未中奖！</i-col>
             <i-col span="2" offset="1">
               <view class='back-image close-image' bindtap='handleClose1'></view></i-col>
           </i-row>
         </view>
         <view class="i-modal-body">
           <i-row>
-            <i-col span="20" offset="2">
-              <view class='back-image award-image' style='background-image: url({{awardImage[awardIndex]}});'></view>
-            </i-col>
-            <i-col span="20" offset="2">
-              <view class='text2 center'>恭喜您！获得</view>
-            </i-col>
-            <i-col span="20" offset="2">
-              <view class='text2 center'>{{awardName[awardIndex]}}</view>
-            </i-col>
-            <view class='modal-button'>
-              <i-col span="12" offset="6" i-class="col-class">
-                <view class='back-image award-button-text' bindtap='toAwardList'>
-                查看我的奖品</view>
+
+            <view wx:if="{{awardIndex!==0}}">
+              <i-col span="20" offset="2">
+                <view class='back-image award-image' style='background-image: url({{awardImage[awardIndex]}});'></view>
               </i-col>
+              <i-col span="20" offset="2">
+                <view class='text2 center'>恭喜您！获得</view>
+              </i-col>
+              <i-col span="20" offset="2">
+                <view class='text2 center'>{{awardName[awardIndex]}}</view>
+              </i-col>
+              <view class='modal-button'>
+                <i-col span="12" offset="6" i-class="col-class">
+                  <view class='back-image award-button-text' bindtap='toAwardList'>
+                  查看我的奖品</view>
+                </i-col>
+              </view>
+            </view>
+
+            <view wx:if="{{awardIndex==0}}">
+              <i-col span="20" offset="2">
+                <view class='text3 center'>谢谢惠顾！再接再厉！</view>
+              </i-col>
+              <view class='modal-button'>
+                <i-col span="12" offset="6" i-class="col-class">
+                  <view class='back-image award-button-text' bindtap='handleClose1'>
+                  我知道了</view>
+                </i-col>
+              </view>
             </view>
           </i-row>
         </view>
