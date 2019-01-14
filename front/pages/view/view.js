@@ -43,7 +43,6 @@ Page({
           var response = res.data;
           console.log(response);
           if (response.constructor === Object) {
-            var viewer;
             if (response.state) {
               that.setData({
                 authorId: response.data.user_id,

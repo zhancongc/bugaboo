@@ -1,4 +1,6 @@
 // pages/award/award.js
+const app = getApp()
+
 Page({
 
   /**
@@ -6,8 +8,8 @@ Page({
    */
   data: {
     awardrecordId: 0,
-    awardName: 'bugaboo定制保温杯',
-    qrcode: 'https://bugaboo.drivetogreen.com/static/images/person.png',
+    awardName: '',
+    qrcode: 'https://bugaboo.drivetogreen.com/static/images/bugaboo.pn;g',
   },
 
   /**
@@ -54,7 +56,7 @@ Page({
         var response = res.data;
         console.log(response);
         if (response.constructor === Object) {
-          if (response.state) {
+          if (response.state==1) {
             that.setData({
               awardrecordId: response.data.awardrecord_id,
               awardName: response.data.award_name,

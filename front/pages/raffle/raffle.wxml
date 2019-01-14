@@ -14,7 +14,7 @@
 					</view>
 				</view>
 			</view>
-			<view bindtap="raffle" class="back-image canvas-btn"></view>	
+			<view bindtap="playReward" class="back-image canvas-btn"></view>	
 		</view>
 	</view>
 </view>

@@ -816,8 +816,8 @@ def raffle(temp_user):
     temp_user.raffle()
     # 抽奖逻辑
     conf = configparser.ConfigParser()
+    conf.read('config.ini')
     temp_award_id = raffle_award()
-
     if int(temp_award_id) < 4:
         award_id = temp_award_id
     elif int(temp_award_id) < 9:
@@ -899,23 +899,18 @@ def user_award_list(temp_user):
     for temp in temp_award_record_list:
         awardrecord = dict()
         awardrecord.update({
-            'award_record_id': temp.awardrecord_id,
-            'award_id': temp.award_id,
-            'user_id': temp.user_id,
+            'awardrecord_id': temp.awardrecord_id,
             'award_time': temp.award_time.strftime('%Y-%m-%d %H:%M'),  # 中奖时间， 需要转成北京时间
             'awardrecord_token': temp.award_record_token,
             'informed': temp.informed,
             'checked': temp.checked,
             'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M'),  # 兑换奖品时间，需要转成北京时间
-            'store_id': temp.store_id,
-            'awardrecord_type': temp.award_record_type
+            'awardrecord_type': temp.awardrecord_type
         })
         award = Award.query.filter_by(award_id=temp.award_id).first()
         awardrecord.update({
-            'award_type': award.award_type,
             'award_name': award.award_name,
-            'award_image': award.award_image,
-            'award_description': award.award_description
+            'award_image': award.award_image
         })
         data.append(awardrecord)
     res.update({
@@ -979,7 +974,7 @@ def user_award(temp_user):
         'checked': awardrecord.checked,
         'check_time': awardrecord.check_time.strftime('%Y-%m-%d %H:%M:%S'),
         'store_id': awardrecord.store_id,
-        'awardrecord_type': awardrecord.award_record_type,
+        'awardrecord_type': awardrecord.awardrecord_type,
         'awardrecord_token': awardrecord.awardrecord_token,
         'qrcode_image_url': awardrecord.qrcode_image_url
     })
@@ -1017,7 +1012,6 @@ def user_award_store(temp_user):
     """
     res = dict()
     awardrecord_id = request.values.get('awardrecord_id')
-    awardrecord_type = request.values.get('awardrecord_type')
     receiver = request.values.get('receiver')
     phone = request.values.get('phone')
     address = request.values.get('address')
@@ -1029,9 +1023,9 @@ def user_award_store(temp_user):
             'msg': 'incomplete data'
         })
         return jsonify(res)
-    # 检查空值2
+    # 类型转换
     try:
-        awardrecord_type = int(awardrecord_type)
+        awardrecord_id = int(awardrecord_id)
     except ValueError as e:
         print(e)
         res.update({
@@ -1040,34 +1034,21 @@ def user_award_store(temp_user):
         })
         logging(json.dumps(res))
         return jsonify(res)
-    if (awardrecord_type == 1 and address is None) or (awardrecord_type in [3, 4] and store_id is None):
+    awardrecord = AwardRecord.query.filter_by(awardrecord_id=awardrecord_id).first()
+    if (awardrecord.awardrecord_type == 1 and address is None) or (awardrecord.awardrecord_type in [3, 4] and store_id is None):
         res.update({
             'state': 0,
             'msg': 'incomplete data'
         })
         return jsonify(res)
-    # 类型转换
-    try:
-        awardrecord_id = int(awardrecord_id)
-        store_id = int(store_id)
-        receiver = str(receiver)
-    except ValueError as e:
-        print(e)
-        res.update({
-            'state': 0,
-            'msg': 'type error'
-        })
-        logging(json.dumps(res))
-        return jsonify(res)
     # 检查奖品和用户是否对应
-    awardrecord = AwardRecord.query.filter_by(awardrecord_id=awardrecord_id).first()
     if awardrecord.user_id != temp_user.user_id:
         res.update({
             'state': 0,
             'msg': 'award and user does not match'
         })
         return jsonify(res)
-    if awardrecord_type in [3, 4]:
+    if awardrecord.awardrecord_type in [3, 4]:
         # 检查门店是否存在
         store_id = Store.query.filter_by(store_id=store_id).first()
         if store_id is None:
@@ -1088,7 +1069,7 @@ def user_award_store(temp_user):
                 'msg': 'write to database error'
             })
             return jsonify(res)
-    elif awardrecord_type == 1:
+    elif awardrecord.awardrecord_type == 1:
         # 添加收货记录
         try:
             awardrecord.set_address(address, receiver, phone)

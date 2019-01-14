@@ -218,6 +218,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    console.log(options);
     that.setData({
       awardrecordId: options.awardrecord_id,
       awardrecordType: options.awardrecord_type
@@ -336,7 +337,7 @@ Page({
   inform: function(){
     var that = this;
     wx.request({
-      url: 'https://bugaboo.drivetogreen.com/user/composition',
+      url: 'https://bugaboo.drivetogreen.com/user/award/inform',
       method: 'post',
       header: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -344,7 +345,6 @@ Page({
       },
       data: {
         awardrecord_id: that.data.awardrecordId,
-        awardrecord_type: that.data.awardrecordType,
         receiver: that.data.receiver,
         phone: that.data.phone,
         store_id: that.data.storeId,

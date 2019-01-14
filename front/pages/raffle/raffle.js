@@ -42,7 +42,7 @@ Page({
   drawAwardRoundel: function () {
     var awards = this.awardsConfig.awards;
     var awardsList = [];
-    var turnNum = 1 / awards.length;  // 文字旋转 turn 值
+    var turnNum = 1 / awards.length;  /* 文字旋转 turn 值*/
 
     // 奖项列表
     for (var i = 0; i < awards.length; i++) {

@@ -2,6 +2,7 @@ from datetime import datetime
 from app import db
 from app import login_manager
 
+
 class Follow(db.Model):
     __tablename__ = "follow"
     follow_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -133,6 +134,7 @@ class User(db.Model):
     follow_times = db.Column(db.Integer, default=0)
     nickName = db.Column(db.String(32))
     avatarUrl = db.Column(db.String(512))
+    rank_number = db.Column(db.String(2))
     # user关注的人
     followed = db.relationship('Follow', foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),
@@ -151,7 +153,7 @@ class User(db.Model):
     def follow(self, user):
         if not self.is_following(user):
             foll = Follow(follower=self, followed=user)
-            self.follow_times += 1
+            user.follow_times += 1
             self.raffle_times += 1
             db.session.add(foll)
             db.session.add(self)
@@ -193,6 +195,16 @@ class God(db.Model):
 
     def get_id(self):
         return self.god_id
+
+
+class Rank(db.Model):
+    """
+    排行榜
+    """
+    number = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    rank_user_id = db.Column(db.Integer)
+    rank_user_type = db.Column(db.Integer)
+    follow_times = db.Column(db.Integer)
 
 
 @login_manager.user_loader

@@ -57,7 +57,7 @@ App({
     // wxlogin
     userId: 0,
     sessionId: '',
-    actvityOn: false,
+    activityOn: false,
     canUploadUserInfo: false,
     raffleTimes: false,
     // preview & view
