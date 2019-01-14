@@ -140,10 +140,17 @@ Page({
    */
   onShareAppMessage: function () {
     // 首先获取user_id和composition_id
+    var that = this;
+    var share_data = {
+      'parameter_name': 'composition_id',
+      'parameter_value': that.data.compositionId,
+      'next_page': '/pages/view/view'
+    };
+    console.log('share_data', share_data);
     return {
       title: '来自'+ this.data.nickName + '的新年祝福',
       imageUrl: this.data.compositionUrl,
-      path: '/pages/view/view?composition='+this.data.compositionId,
+      path: '/pages/authorize/authorize?share_data='+JSON.stringify(share_data),
       success: (res) => { 
         wx.showToast({
           title: '分享成功',

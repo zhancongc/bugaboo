@@ -222,10 +222,16 @@ Page({
       url: '/pages/authorize/authorize',
     })
   },
-  toRankingList: function() { 
+  toRankingList1: function() { 
     var that = this;
     wx.navigateTo({
-      url: '/pages/rankinglist/rankinglist?composition_type='+that.data.compositionType + '&tab=' + 'tab2',
+      url: '/pages/rankinglist/rankinglist?composition_type='+that.data.compositionType,
+    })
+  },
+  toRankingList2: function () {
+    var that = this;
+    wx.navigateTo({
+      url: '/pages/rankinglist/rankinglist?composition_type=' + that.data.compositionType + '&tab=' + 'tab2',
     })
   },
   getUserInfo: function (e) {

@@ -39,6 +39,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     console.log('options', options);
+    var title = compositionType == 1 ? 'Bugaboo用户组' :'非Bugaboo用户组'
     if (options.hasOwnProperty('composition_type')) {
       that.setData({
         compositionType: options.composition_type

@@ -569,7 +569,9 @@ def user_composition(temp_user):
         '''
         user = User.query.filter_by(user_id=composition.user_id).first()
         followers = list()
-        followers.append()
+        temp = user.followers[:8]
+        for i in temp:
+            followers.append()
         data.update({
             'follow_times': user.follow_times,
             'followers': followers

@@ -15,6 +15,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     var next_page = that.data.nextPage;
+    console.log("options", options);
     if (options.hasOwnProperty('share_data')) {
       var response = JSON.parse(options.share_data);
       console.log(response);

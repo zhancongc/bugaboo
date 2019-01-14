@@ -4,7 +4,7 @@
     <i-col span="2" offset="11" i-class="col-class">
       <i-avatar src="{{avatarUrl}}" size="large" shape="square"></i-avatar></i-col>
     <i-col span="11">
-      <view class="back-image top-icon" bindtap="toRankingList"></view>
+      <view class="back-image top-icon" bindtap="toRankingList1"></view>
     </i-col>
     <i-col span="20" offset="2" i-class="col-class">
       <view class="text3 center">您的好友{{nickName}}</view></i-col>
@@ -27,12 +27,12 @@
     <view class="text1 center">共获得{{ followTimes }}个祝福</view>
   </i-col>
 
-  <view class="rank-me">
+  <!--view class="rank-me">
     <i-col span="18" offset="2" i-class="col-class" wx:for="{{avatarList}}" wx:key="{{item.url}}">
       <i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar>
     </i-col>
-    <i-col span="2"><view bindtap='toRankingList' class='to-rank-me back-image'></view></i-col>
-  </view>
+    <i-col span="2"><view bindtap='toRankingList2' class='to-rank-me back-image'></view></i-col>
+  </view-->
 
   <i-col span="20" offset="2" i-class="col-class">
   <view class="text1">帮他成功送祝福的同时，您将获得Bugaboo提供的一次抽奖机会！</view></i-col>
