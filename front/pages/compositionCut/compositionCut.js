@@ -12,7 +12,6 @@ Page({
     modalTitle: '上传规则',
     rotateI: 0,
     compositionSrc: '',
-    compositionType: 0,
     gameGroupIndex: 0,
     selected: 1, // 1 bugaboo用户， 0不是
     cropperOpt: {
@@ -54,7 +53,7 @@ Page({
           var tempFilePath = res.tempFilePaths[0]; //获取图片
           var tempComposition = {
             compositionUrl: tempFilePath,
-            compositionType: that.data.gameGroupIndex
+            compositionType: that.data.selected
           };
           wx.navigateTo({
             url: '/pages/compositionCut/compositionCut?tempComposition=' + JSON.stringify(tempComposition)
@@ -92,7 +91,7 @@ Page({
         })*/
         var tempComposition = JSON.stringify({
           compositionSrc: this.data.compositionSrc,
-          compositionType: this.data.compositionType
+          compositionType: this.data.selected
         });
         wx.navigateTo({
           url: '/pages/composition/composition?tempComposition=' + tempComposition,
@@ -101,77 +100,6 @@ Page({
         console.log('获取图片地址失败，请稍后重试')
       }
     })
-  },
-  uploadComposition: function () {
-    var that = this;
-    wx.showToast({
-      title: '正在上传...',
-      icon: 'loading',
-      mask: true,
-      duration: 10000
-    });
-    var sessionId = app.globalData.sessionId;
-    if (sessionId) {
-      wx.uploadFile({
-        url: 'https://bugaboo.drivetogreen.com/user/composition/upload',
-        filePath: that.data.compositionUrl,
-        name: 'composition',
-        header: {
-          'Content-Type': 'multipart/form-data',
-          'Session-Id': sessionId,
-        },
-        formData: {
-          'composition_type': that.data.compositionType,
-          'composition_angle': that.data.rotateI
-        },
-        success: function (res) {
-          wx.hideToast();
-          try {
-            var response = JSON.parse(res.data);
-            console.log(response);
-            if (response.constructor === Object) {
-              if (response.state) {
-                wx.showToast({
-                  title: '上传成功',
-                  icon: 'success',
-                  mask: true,
-                  duration: 1500
-                });
-                that.setData({
-                  compositionId: response.data.compositionId,
-                })
-                console.log('composition_id', that.data.compositionId);
-                wx.navigateTo({
-                  url: '/pages/preview/preview?composition_id=' + that.data.compositionId,
-                })
-              } else {
-                wx.showToast({
-                  title: '上传失败',
-                  icon: 'none',
-                  mask: true,
-                  duration: 1500
-                })
-              }
-            }
-          }
-          catch (e) {
-            console.log(e);
-          }
-        },
-        fail: function (res) {
-          wx.hideToast();
-          wx.showToast({
-            title: '上传失败',
-            duration: 1000
-          })
-        },
-        complete: function (res) { },
-      })
-    } else {
-      wx.showToast({
-        title: '请重新打开小程序再试'
-      })
-    }
   },
   uploadTap() {
     const self = this;

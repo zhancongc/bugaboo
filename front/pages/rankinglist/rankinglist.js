@@ -39,19 +39,39 @@ Page({
   onLoad: function (options) {
     var that = this;
     console.log('options', options);
-    var title = compositionType == 1 ? 'Bugaboo用户组' :'非Bugaboo用户组'
+    var title = options.composition_type == 1 ? 'Bugaboo用户组' :'非Bugaboo用户组';
     if (options.hasOwnProperty('composition_type')) {
       that.setData({
+        tabTitle: title,
         compositionType: options.composition_type
-      })
+      });
     }
     if (options.hasOwnProperty('tab')) {
       that.setData({
         current: options.tab
-      })
+      });
     }
   },
   onShow: function () {
+    var that = this;
+    if (that.data.current=='tab1') {
+      that.showRank();
+    } else {
+      that.showFollow();
+    }
+  },
+  onHide: function () {
+
+  },
+  onUnload: function () {
+
+  },
+  toPreview: function() {
+    wx.navigateTo({
+      url: '/pages/preview/preview?composition_id=1'
+    })
+  },
+  showRank : function () {
     var that = this;
     wx.request({
       url: 'https://bugaboo.drivetogreen.com/rankinglist',
@@ -69,14 +89,12 @@ Page({
           console.log(response);
           if (response.constructor === Object) {
             if (response.state === 1) {
-              
               that.setData({
                 gold: response.data[0],
                 silver: response.data[1],
                 copper: response.data[2],
-                topFifty: response.data.slice(3,50)
+                topFifty: response.data.slice(3, 50)
               })
-              that.raffle();
             }
           }
         } catch (e) {
@@ -90,15 +108,35 @@ Page({
       }
     })
   },
-  onHide: function () {
-
-  },
-  onUnload: function () {
-
-  },
-  toPreview: function() {
-    wx.navigateTo({
-      url: '/pages/preview/preview?composition_id=1'
+  showFollow: function () {
+    var that = this;
+    wx.request({
+      url: 'https://bugaboo.drivetogreen.com/user/follow',
+      method: 'get',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Session-Id': app.globalData.sessionId
+      },
+      success: function (res) {
+        try {
+          var response = res.data;
+          console.log(response);
+          if (response.constructor === Object) {
+            if (response.state === 1) {
+              that.setData({
+                followMe: response.data
+              })
+            }
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '请稍后重新再试',
+        })
+      }
     })
   },
   toTab1: function (e) {

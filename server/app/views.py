@@ -622,14 +622,21 @@ def rankinglist(temp_user):
     data = list()
     if ranking_list_type in [0, 1]:
         user_list = User.query.filter_by(user_type=ranking_list_type).order_by(desc(User.follow_times)).limit(50)
-        for index in range(len(user_list)):
-            temp = {
-                'number': index,
-                'nickName': user_list['index'].nickName,
-                'avatarUrl': user_list['index'].avatarUrl,
-                'follow_times': user_list['index'].follow_times
-            }
-            list.append(temp)
+        if user_list:
+            for index in range(len(user_list)):
+                temp = {
+                    'number': index,
+                    'nickName': user_list['index'].nickName,
+                    'avatarUrl': user_list['index'].avatarUrl,
+                    'follow_times': user_list['index'].follow_times
+                }
+                list.append(temp)
+        else:
+            res.update({
+                'state': 0,
+                'msg': 'no data'
+            })
+            return jsonify(res)
     else:
         res.update({
             'state': 0,

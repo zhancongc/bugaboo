@@ -26,6 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('app.globalData', app.globalData);
     var that = this;
     if (options.hasOwnProperty('composition_id')) {
       that.setData({
@@ -154,7 +155,7 @@ Page({
       success: (res) => { 
         wx.showToast({
           title: '分享成功',
-        }) 
+        });
       },
       fail: (res) => { 
         wx.showToast({
@@ -189,8 +190,9 @@ Page({
     })
   },
   toRankingList: function () {
+    var that = this;
     wx.navigateTo({
-      url: '/pages/rankinglist/rankinglist',
+      url: '/pages/rankinglist/rankinglist?composition_type='+that.data.compositionType,
     })
   },
   toView: function () {

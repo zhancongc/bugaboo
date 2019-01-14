@@ -48,7 +48,7 @@ Page({
   uploadComposition: function () {
     var that = this;
     wx.showToast({
-      title: '上传中，请耐心等待',
+      title: '上传中...',
       icon: 'loading',
       mask: true,
       duration: 20000

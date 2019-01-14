@@ -27,8 +27,7 @@ App({
                     if (response.state) {
                       that.globalData.sessionId = response.data.session_id;
                       that.globalData.activityOn = response.data.activity_on;
-                      that.globalData.canRaffle = response.data.can_raffle;
-                      that.globalData.canFollow = response.data.can_follow;
+                      that.globalData.raffleTimes = response.data.raffle_times;
                       if (response.state == 1) {
                         var compositionId = response.data.composition_id;
                         that.globalData.compositionId = response.data.composition_id;
@@ -59,8 +58,7 @@ App({
     sessionId: '',
     actvityOn: false,
     canUploadUserInfo: false,
-    canRaffle: false,
-    canFollow: false,
+    raffleTimes: false,
     // preview & view
     compositionId: 0
   }

@@ -5,6 +5,7 @@ var app = getApp();
 Page({
   //奖品配置
   awardsConfig: {
+    raffleTimes: 0,
     chance: true,
     awards: [
       { 'index': 0, 'name': '谢谢参与', 'image': 'https://bugaboo.drivetogreen.com/static/images/bg_prize.png' },
@@ -22,7 +23,12 @@ Page({
     animationData: {},
     btnDisabled: '',
   },
-
+  onShow: function() {
+    var that = this;
+    that.setData({
+      raffleTimes: app.globalData.raffleTimes
+    })
+  },
   onReady: function (e) {
     this.drawAwardRoundel();
 
@@ -83,8 +89,7 @@ Page({
   //发起抽奖
   playReward: function () {
     var that = this;
-    if (app.globalData.canRaffle) {
-      app.globalData.canRaffle = false;
+    if (app.globalData.raffleTimes>0) {
       wx.request({
         url: 'https://bugaboo.drivetogreen.com/raffle',
         method: 'get',
@@ -98,7 +103,9 @@ Page({
             console.log(response);
             if (response.constructor === Object) {
               if (response.state === 1) {
+                app.globalData.raffleTimes -= 1;
                 that.setData({
+                  raffleTimes: app.globalData.raffleTimes,
                   awardIndex: response.data.award_id
                 })
                 that.raffle();
