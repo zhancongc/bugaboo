@@ -570,7 +570,7 @@ def user_composition(temp_user):
 
     # 找到关注者
     owner = User.query.filter_by(user_id=composition.user_id).first()
-    who = owner.follewers.all()
+    who = owner.followers.all()
     followers = []
     temp = who[:8]
     if temp:
