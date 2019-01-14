@@ -326,7 +326,7 @@ def user_info_upload(temp_user):
 
 @app.route('/user/composition/info', methods=['GET'])
 @login_required1
-def user_composition(temp_user):
+def user_composition_info(temp_user):
     """
     :function: 自己的作品
     :return:
