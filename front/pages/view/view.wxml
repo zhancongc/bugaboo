@@ -27,7 +27,7 @@
     <view class="text1 center">共获得{{ followTimes }}个祝福</view>
   </i-col>
 
-  <view class="rank-me" wx:if={{followTimes}}>
+  <view class="rank-me" wx:if="{{followTimes}}">
     <i-col span="18" offset="2" i-class="col-class" wx:for="{{avatarList}}" wx:key="{{item.url}}">
       <i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar>
     </i-col>

@@ -25,6 +25,7 @@ App({
                   console.log(response);
                   if (response.constructor === Object) {
                     if (response.state) {
+                      that.globalData.userId = response.data.user_id,
                       that.globalData.sessionId = response.data.session_id;
                       that.globalData.activityOn = response.data.activity_on;
                       that.globalData.raffleTimes = response.data.raffle_times;

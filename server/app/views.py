@@ -696,7 +696,6 @@ def user_followers(temp_user):
     return jsonify(res)
 
 
-
 @app.route('/user/follow', methods=['POST'])
 @login_required1
 def user_follow(temp_user):

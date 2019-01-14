@@ -17,9 +17,9 @@ Page({
     compositionType: 0,
     canFollow: false,
     followTimes: 0,
-    avatarList: {
-      url: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132'
-    }
+    avatarList: [{
+      avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132'
+    }]
   },
   /**
    * 生命周期函数--监听页面加载
@@ -136,7 +136,7 @@ Page({
       fail: (res) => { }
     }
   },
-  follow:function () {
+  followOwner:function () {
     var that = this;
     var canFollow = app.globalData.canFollow;
     if (canFollow){
@@ -192,22 +192,20 @@ Page({
   },
   handleOpen1: function () {
     var that = this;
+    if (that.data.authorId == app.globalData.userId) {
+      wx.showModal({
+        title: '提示',
+        content: '不能给自己祝福',
+      });
+      return ;
+    }
     var canFollow = that.data.canFollow;
     if (canFollow) {
-      if (app.globalData.userId === that.data.authorId) {
-        wx.showModal({
-          title: '提示',
-          content: '不能给自己祝福',
-        })
-      } else {
-        that.setData({
-          visible1: true
-        });
-      }
+      that.followOwner();
     } else {
       wx.showModal({
         title: '提示',
-        content: '您没有抽奖次数',
+        content: '一个作品你只能祝福一次',
       })
     }
   },
