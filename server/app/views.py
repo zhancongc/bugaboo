@@ -554,6 +554,7 @@ def user_composition(temp_user):
             'msg': 'none composition id'
         })
         return jsonify(res)
+
     data = dict()
     data.update({
         'user_id': temp_user.user_id,
@@ -563,29 +564,43 @@ def user_composition(temp_user):
         'composition_type': composition.composition_type,
         'composition_msg': composition.composition_msg,
         'composition_url': composition.composition_url,
-        'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+        'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+        'followers': []
     })
-    if composition.user_id != temp_user.user_id:
-        '''
-        user = User.query.filter_by(user_id=composition.user_id).all()
-        followers = list()
-        temp = user.followers[:8]
-        for i in temp:
-            followers.append()
+
+    # 找到关注者
+    owner = User.query.filter_by(user_id=composition.user_id).first()
+    who = owner.follewers.all()
+    followers = []
+    temp = who[:8]
+    if temp:
+        for foll in temp:
+            followers.append({'avatarUrl': foll.avatarUrl})
         data.update({
-            'follow_times': user.follow_times,
             'followers': followers
         })
-        '''
-        res.update({
-            'state': 2,
-            'msg': 'others composition',
-            'data': data
+    # 判断是否可以祝福
+    can_follow = True
+    if composition.user_id == temp_user.user_id:
+        can_follow = False
+        data.update({
+            'can_follow': can_follow
         })
-    else:
         res.update({
             'state': 1,
             'msg': 'my composition',
+            'data': data
+        })
+    else:
+        for w in who:
+            if w.followed_id == temp_user.user_id:
+                can_follow = False
+        data.update({
+            'can_follow': can_follow
+        })
+        res.update({
+            'state': 2,
+            'msg': 'others composition',
             'data': data
         })
     return jsonify(res)

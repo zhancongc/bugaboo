@@ -11,25 +11,17 @@ Page({
       follow_times: 55
     },
     silver: {
-      avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132',
-      nickName: '詹聪聪',
-      follow_times: 44
+      avatarUrl: '',
+      nickName: '',
+      follow_times: 0
     },
     copper: {
-      avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132',
-      nickName: '詹聪聪',
-      follow_times: 33
+      avatarUrl: '',
+      nickName: '',
+      follow_times: 0
     },
-    topFifty: [
-      {avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132", nickName: 'zcc1', follow_times: 33, number: 4},
-      { avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132", nickName: 'zcc2', follow_times: 22, number: 5},
-      { avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132", nickName: 'zcc3', follow_times: 11, number: 6}
-    ],
-    followMe: [
-      { avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132", nickName: 'jack' },
-      { avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132", nickName: 'lucy' },
-      { avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132", nickName: 'mike' }
-    ]
+    topFifty: [],
+    followMe: []
   },
   handleChange({ detail }) {
     this.setData({
@@ -89,12 +81,14 @@ Page({
           console.log(response);
           if (response.constructor === Object) {
             if (response.state === 1) {
-              that.setData({
-                gold: response.data[0],
-                silver: response.data[1],
-                copper: response.data[2],
-                topFifty: response.data.slice(3, 50)
-              })
+              if (response.data.length >3) {
+                that.setData({
+                  gold: response.data[0],
+                  silver: response.data[1],
+                  copper: response.data[2],
+                  topFifty: response.data.slice(3, 50)
+                })
+              }
             }
           }
         } catch (e) {
@@ -111,7 +105,7 @@ Page({
   showFollow: function () {
     var that = this;
     wx.request({
-      url: 'https://bugaboo.drivetogreen.com/user/follow',
+      url: 'https://bugaboo.drivetogreen.com/user/followers',
       method: 'get',
       header: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -123,9 +117,11 @@ Page({
           console.log(response);
           if (response.constructor === Object) {
             if (response.state === 1) {
-              that.setData({
-                followMe: response.data
-              })
+              if (response.data.length > 0) {
+                that.setData({
+                  followMe: response.data
+                })
+              }
             }
           }
         } catch (e) {
@@ -146,6 +142,7 @@ Page({
         current: 'tab1'
       })
       console.log('current tab : tab1');
+      that.showRank();
     }
   },
   toTab2: function(e) {
@@ -155,6 +152,7 @@ Page({
         current: 'tab2'
       });
       console.log('current tab : tab2');
+      that.showFollow();
     }
     
   }

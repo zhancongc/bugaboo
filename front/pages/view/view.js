@@ -15,7 +15,7 @@ Page({
     compositionId: 0,
     compositionUrl: '',
     compositionType: 0,
-    followTimes: 1,
+    canFollow: false,
     avatarList: {
       url: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132'
     }
@@ -50,7 +50,9 @@ Page({
                 avatarUrl: response.data.avatarUrl,
                 compositionId: response.data.composition_id,
                 compositionUrl: response.data.composition_url,
-                compositionType: response.data.composition_type
+                compositionType: response.data.composition_type,
+                canFollow: response.data.can_follow,
+                avatarList: response.data.followers
               })
             } else {
               wx.showToast({
@@ -188,7 +190,7 @@ Page({
   },
   handleOpen1: function () {
     var that = this;
-    var canFollow = app.globalData.canFollow;
+    var canFollow = that.data.canFollow;
     if (canFollow) {
       if (app.globalData.userId === that.data.authorId) {
         wx.showModal({

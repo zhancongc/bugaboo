@@ -18,7 +18,7 @@
 .avatar2 image {height: 100%; width: 100%; border-radius: 70rpx; margin-top: 50rpx; margin-left: 56rpx; }
 
 .rank-name { height: 100rpx; width: 100%; margin-bottom: 20rpx;}
-.text1 { margin: 0 auto; font-size: 24rpx; line-height: 30rpx; color: #fff; text-align: center; }
+.text1 { margin: 0 auto; font-size: 30rpx; line-height: 30rpx; color: #fff; text-align: center; margin-top: 40rpx; }
 
 .rank-list {width: 94%; margin: 0 auto; background-color: #fff; border-radius: 30rpx; box-shadow: 2px 2px 2px #888888; }
 .rank-list-group { width: 92%; margin: 0 auto; }
