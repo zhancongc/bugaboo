@@ -9,7 +9,7 @@ Page({
   data: {
     awardrecordId: 0,
     awardName: '',
-    qrcode: 'https://bugaboo.drivetogreen.com/static/images/bugaboo.pn;g',
+    qrcode: 'https://bugaboo.drivetogreen.com/static/images/bugaboo.png',
   },
 
   /**
