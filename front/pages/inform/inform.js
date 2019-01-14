@@ -1,4 +1,5 @@
 // pages/inform/inform.js
+const app = getApp()
 Page({
 
   /**
@@ -9,8 +10,8 @@ Page({
     storeId: 0,
     phone: '',
     address: '',
-    compositionId: 0,
-    compositionType: 0,
+    awardrecordId: 0,
+    awardrecordType: 0,
     storeIndex: 0,
     storeArray: ['请先选择城市'],
     cityIndex: 0,
@@ -312,24 +313,25 @@ Page({
       });
       return ;
     }
-    if (that.data.awardrecorydpe == 1 || that.data.awardrecordType == 2 || that.data.address) {
-        console.log(that.data.storeId);
-    } else {
-      wx.showModal({
-        title: '提示',
-        content: '门店信息不能为空',
-      });
-      return;
-    }
-    if (that.data.awardrecorydpe == 3 || that.data.awardrecordType == 4 || that.data.storeId) {
-      if (that.data.cityIndex && that.data.storeIndex) {
+    if (that.data.awardrecordType == 1) {
+      if (that.data.address) {
+        console.log(that.data.address);
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '详细地址不能为空',
+        });
+        return;
+      }
+    } else if (that.data.awardrecorydpe == 3 || that.data.awardrecordType == 4) {
+      if (that.data.storeId) {
         console.log(that.data.storeId);
       } else {
         wx.showModal({
           title: '提示',
           content: '门店信息不能为空',
         });
-        return ;
+        return;
       }
     }
     that.inform();
@@ -341,7 +343,7 @@ Page({
       method: 'post',
       header: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Session-Id': sessionId
+        'Session-Id': app.globalData.sessionId
       },
       data: {
         awardrecord_id: that.data.awardrecordId,

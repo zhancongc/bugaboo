@@ -1,6 +1,6 @@
 <!--pages/authorize/authorize.wxml-->
-<view class='pages'>
-<i-row>
+<i-row wx:if="{{!loaded}}"></i-row>
+<i-row wx:if="{{loaded}}">
   <i-col span="22" offset="1" i-class="col-class" style="margin-top: 50rpx;">
   <view class="text1">你好!首次登录，请点击下方按钮授权。</view></i-col>
   <i-col span="8" offset="8" i-class="col-class">
@@ -14,4 +14,3 @@
       </view>
     </i-col>
 </i-row>
-</view>

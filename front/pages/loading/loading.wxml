@@ -1,7 +1,0 @@
-<!--pages/loading/loading.wxml-->
-
-<view class="progress-item" style='margin-top: 500rpx;'>
-    <i-progress percent="{{ percent }}" status="{{ status }}" hide-info></i-progress>
-    <i-button bindclick="handleAdd" type="ghost">增加</i-button>
-    <i-button bindclick="handleReduce" type="ghost">减少</i-button>
-</view>

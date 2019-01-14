@@ -31,6 +31,7 @@ Page({
       that.setData({
         compositionId: options.composition_id
       })
+      console.log('待请求的作品id', that.data.compositionId);
     } else {
       wx.showToast({
         title: '获取不到作品信息',
@@ -101,7 +102,7 @@ Page({
   },
   getComposition:function () {
     var that = this;
-    console.log('请求作品信息', that.data.composition_id);
+    console.log('请求作品信息', that.data.compositionId);
     wx.request({
       url: 'https://bugaboo.drivetogreen.com/user/composition',
       method: 'post',
@@ -121,7 +122,6 @@ Page({
               authorId: response.data.user_id,
               nickName: response.data.nickName,
               avatarUrl: response.data.avatarUrl,
-              compositionId: response.data.composition_id,
               compositionUrl: response.data.composition_url,
               compositionType: response.data.composition_type,
               canFollow: response.data.can_follow,
@@ -144,7 +144,7 @@ Page({
   },
   followOwner:function () {
     var that = this;
-    var canFollow = app.globalData.canFollow;
+    var canFollow = that.data.canFollow;
     if (canFollow){
       var sessionId = app.globalData.sessionId;
       wx.request({

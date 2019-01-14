@@ -57,7 +57,6 @@ Page({
         if (response.constructor === Object) {
           if (response.state==1) {
             that.setData({
-              awardrecordId: response.data.awardrecord_id,
               awardName: response.data.award_name,
               qrcode: response.data.qrcode_image_url
             })

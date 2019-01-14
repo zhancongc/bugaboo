@@ -10,34 +10,24 @@ Page({
   },
   onLoad: function () {
     var that = this;
-    // 给app.js 定义一个方法。
-    app.userLogin().then(function(res){
-      var response = res.data;
-      if (response.constructor === Object) {
-        if (response.state==1) {
-          app.globalData.sessionId = response.data.session_id;
-          var userInfo = wx.getStorageSync('userInfo')
-          if (app.globalData.canUploadUserInfo && userInfo) {
-            that.saveUserInfo(userInfo);
-            app.globalData.canUploadUserInfo = false;
-          }  
-          if (response.data.activity_on){
-            if (response.data.composition_id) {
-              var compositionId = response.data.composition_id;
-              app.globalData.compositionId = response.data.composition_id;
-              wx.redirectTo({
-                url: '/pages/preview/preview',
-              })
-            }
-          } else {
-            that.setData({
-              visible2: true
-            })
-          }
-        }
+    console.log(app.globalData);
+    var userInfo = wx.getStorageSync('userInfo')
+    if (app.globalData.canUploadUserInfo && userInfo) {
+      that.saveUserInfo(userInfo);
+      app.globalData.canUploadUserInfo = false;
+    }
+    if (app.globalData.activityOn) {
+      console.log('我的作品id', app.globalData.compositionId);
+      if (app.globalData.compositionId) {
+        wx.redirectTo({
+          url: '/pages/preview/preview',
+        })
       }
-    });
-
+    } else {
+      that.setData({
+        visible2: true
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

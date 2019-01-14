@@ -24,15 +24,12 @@ App({
                   var response = res.data;
                   console.log(response);
                   if (response.constructor === Object) {
-                    if (response.state) {
+                    if (response.state==1) {
                       that.globalData.userId = response.data.user_id,
                       that.globalData.sessionId = response.data.session_id;
                       that.globalData.activityOn = response.data.activity_on;
                       that.globalData.raffleTimes = response.data.raffle_times;
-                      if (response.state == 1) {
-                        var compositionId = response.data.composition_id;
-                        that.globalData.compositionId = response.data.composition_id;
-                      }
+                      that.globalData.compositionId = response.data.composition_id;
                       resolve(res);
                     }
                   }
@@ -60,11 +57,13 @@ App({
     activityOn: false,
     canUploadUserInfo: false,
     raffleTimes: false,
+    //loading
+    loaded: false,
     // preview & view
     compositionId: 0,
     //share
-    parameter_name: '',
-    parameter_value: '',
-    nextPage: '/pages/index/index'
+    parameter_name: 'a',
+    parameter_value: '1',
+    next_page: '/pages/index/index'
   }
 })

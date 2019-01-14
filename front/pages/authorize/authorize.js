@@ -7,9 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    parameter_name: '',
-    parameter_value: '',
-    nextPage: '/pages/index/index'
+    loaded: false,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -26,7 +24,6 @@ Page({
         app.globalData.next_page = response.next_page;
       }
     }
-    console.log('next_page', app.globalData.next_page)
   },
   getUserInfo: function (e) {
     console.log(e.detail.userInfo)
@@ -35,7 +32,7 @@ Page({
       wx.setStorageSync('userInfo', e.detail.userInfo);
       app.globalData.canUploadUserInfo = true;
       wx.navigateTo({
-        url: app.globalData.nextPage + '?' + app.globalData.parameter_name + '=' + app.globalData.parameter_value,
+        url: app.globalData.next_page + '?' + app.globalData.parameter_name + '=' + app.globalData.parameter_value,
       })
     } else {
       //用户按了拒绝按钮
@@ -51,44 +48,39 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    wx.showLoading({
+      title: '加载中',
+    })
     var that = this;
     var path = '/pages/view/view';
-    if (app.globalData.next_page == path){
-      app.userLogin().then(function (res) {
-        var response = res.data;
-        if (response.constructor === Object) {
-          if (response.state==1) {
-            app.globalData.sessionId = response.data.session_id;
-            if (response.data.activity_on) {
-              if (response.data.composition_id) {
-                var compositionId = response.data.composition_id;
-                app.globalData.compositionId = response.data.composition_id;
-                wx.redirectTo({
-                  url: '/pages/preview/preview',
-                })
-              }
-            } else {
-              that.setData({
-                visible2: true
+    app.userLogin().then(function (res) {
+      // 通信完毕
+      app.globalData.loaded = true;
+      console.log('next_page', app.globalData.next_page);
+      if (app.globalData.next_page == path) {
+        wx.hideLoading();
+        wx.navigateTo({
+          url: path + '?' + app.globalData.parameter_name + '=' + app.globalData.parameter_value,
+        })
+      } else {
+        wx.getSetting({
+          success: function (res) {
+            if (res.authSetting['scope.userInfo']) {
+              console.log(res.authSetting['scope.userInfo']);
+              wx.hideLoading();
+              wx.redirectTo({
+                url: app.globalData.next_page,
               })
+            } else {
+              wx.hideLoading();
+              // 不跳转就显示授权
+              that.setData({
+                loaded: true
+              });
             }
           }
-        }
-        wx.navigateTo({
-          url: path+'?'+app.globalData.parameter_name+'='+app.globalData.parameter_value,
         })
-      })
-    } else {
-      wx.getSetting({
-        success: function (res) {
-          if (res.authSetting['scope.userInfo']) {
-            console.log(res.authSetting['scope.userInfo']);
-            wx.redirectTo({
-              url: that.data.nextPage,
-            })
-          }
-        }
-      })
-    }
+      }
+    })
   }
 })
