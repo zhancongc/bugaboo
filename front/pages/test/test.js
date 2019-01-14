@@ -45,12 +45,12 @@ Page({
     })
   },
   onReady: function (e) {
-    this.drawAwardRoundel();
+    //this.drawAwardRoundel();
 
     //分享
-    wx.showShareMenu({
+    /*wx.showShareMenu({
       withShareTicket: true
-    });
+    });*/
   },
 
   //画抽奖圆盘
@@ -76,7 +76,7 @@ Page({
     var duration = 4000;//时长
     // 旋转角度
     that.runDeg = that.runDeg || 0;
-    that.runDeg = that.runDeg + (360 - that.runDeg % 360) + (360 * runNum - that.data.awardIndex * (360 / 6))
+    that.runDeg = that.runDeg + (360 - that.runDeg % 360) + (360 * runNum - (that.data.awardIndex-1) * (360 / 6))
     //创建动画
     var animationRun = wx.createAnimation({
       duration: duration,

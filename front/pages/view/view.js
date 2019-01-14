@@ -17,9 +17,8 @@ Page({
     compositionType: 0,
     canFollow: false,
     followTimes: 0,
-    avatarList: [{
-      avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132'
-    }]
+    /*{avatarUrl:'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132'}*/
+    avatarList: []
   },
   /**
    * 生命周期函数--监听页面加载

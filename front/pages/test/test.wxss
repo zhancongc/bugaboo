@@ -2,11 +2,20 @@
 .raffle-title-image {width: 300rpx; height: 110rpx; margin: 0 auto;  background-image: url('https://bugaboo.drivetogreen.com/static/images/prize_title.png'); margin-top:60rpx;
 margin-bottom:30rpx;
  }
-.raffle-panel { display: none; background-repeat:no-repeat; background-size: 760rpx 760rpx; width: 760rpx; height: 760rpx; margin: -770rpx 0rpx 0prx 0rpx;  background-image: url('https://bugaboo.drivetogreen.com/static/images/bg_prize.png'); margin-top: -770rpx; }
+.raffle {margin: 0 auto; width: 700rpx; height: 700rpx;}
+.raffle-panel { background-repeat:no-repeat; background-size: 100% 100%; margin: 0 auto; width: 700; height: 700rpx; z-index: 0; background-image: url('https://bugaboo.drivetogreen.com/static/images/turnplate.png'); margin-top: 0rpx; }
 .panel {width: 760rpx; height: 760rpx;margin-top: -800rpx;}
+.raffle-btn {
+  position: absolute;
+  left: 250rpx;
+  top: 470rpx;
+  z-index: 400;
+  width: 120px;
+  height: 130px;
+  background-image: url('https://bugaboo.drivetogreen.com/static/images/go.png')
+}
 
 .text1{ margin: 20rpx 0rpx 40rpx 0rpx; font-size: 30rpx; line-height: 30rpx; color: #fff; text-align: center }
-
 .modal-image { width: 250rpx; height: 160rpx; margin: 0 auto;  margin-top: 150rpx; }
 
 .award-button { height:80rpx; width: 100%; position: absolute; bottom: 100rpx; }
@@ -15,7 +24,11 @@ margin-bottom:30rpx;
 .text2 { margin:20rpx 0rpx 20rpx 0rpx; font-size:40rpx; line-height:30rpx; color:#fff; text-align:center; }
 
 
+
+
+
 /* 转盘 */
+/*
 .canvas-container {
   margin: 0 auto;
   position: relative;
@@ -72,7 +85,7 @@ margin-bottom:30rpx;
   transform-origin: 50% 150px;
 }
 
-/* 分隔线 */
+// 分隔线 
 .canvas-line {
   position: absolute;
   left: 0;
@@ -93,9 +106,7 @@ margin-bottom:30rpx;
   transform-origin: 50% 150px;
 }
 
-/**
-* 抽奖按钮
-*/
+//抽奖按钮
 .canvas-btn {
   position: absolute;
   left: 90px;
@@ -109,3 +120,4 @@ margin-bottom:30rpx;
 .canvas-btn.disabled {
   pointer-events: none;
 }
+*/

@@ -573,7 +573,8 @@ def user_composition(temp_user):
     temp = who[:8]
     if temp:
         for foll in temp:
-            followers.append({'avatarUrl': foll.avatarUrl})
+            temp_foll = User.query.filter_by(user_id=foll.follower_id).first()
+            followers.append({'avatarUrl': temp_foll.avatarUrl})
         data.update({
             'followers': followers
         })
