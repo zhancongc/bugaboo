@@ -591,7 +591,7 @@ def user_composition(temp_user):
     return jsonify(res)
 
 
-@app.route('/rankinglist', methods=['POST'])
+@app.route('/rankinglist', methods=['GET', 'POST'])
 @login_required1
 def rankinglist(temp_user):
     """
@@ -622,6 +622,7 @@ def rankinglist(temp_user):
     data = list()
     if ranking_list_type in [0, 1]:
         user_list = User.query.filter_by(user_type=ranking_list_type).order_by(desc(User.follow_times)).limit(50)
+        print(user_list)
         if user_list:
             for index in range(len(user_list)):
                 temp = {
