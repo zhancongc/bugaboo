@@ -194,7 +194,7 @@ def user_login():
     session_id = get_sha1(session_key)
     current_time = datetime.datetime.utcnow()
     login_time = current_time.strftime(configs['development'].STRFTIME_FORMAT)
-    session_id_expire_time = (current_time + datetime.timedelta(minutes=60)).strftime(
+    session_id_expire_time = (current_time + datetime.timedelta(hours=6)).strftime(
         configs['development'].STRFTIME_FORMAT)
     # 更新session信息，如果找不到这个用户，那么创建一个新的用户再更新信息
     temp_user = User.query.filter_by(open_id=open_id).first()
@@ -557,8 +557,8 @@ def user_composition(temp_user):
     data = dict()
     data.update({
         'user_id': composition.user_id,
-        'nickName': temp_user.nickName,
-        'avatarUrl': temp_user.avatarUrl,
+        'nickName': owner.nickName,
+        'avatarUrl': owner.avatarUrl,
         'composition_id': composition.composition_id,
         'composition_type': composition.composition_type,
         'composition_msg': composition.composition_msg,
