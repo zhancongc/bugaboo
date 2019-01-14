@@ -28,8 +28,8 @@
   </i-col>
 
   <view class="rank-me" wx:if="{{followTimes}}">
-    <i-col span="18" offset="2" i-class="col-class" wx:for="{{avatarList}}" wx:key="{{item.url}}">
-      <i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar>
+    <i-col span="18" offset="2" i-class="col-class">
+      <i-avatar  wx:for="{{avatarList}}" wx:key="{{item.url}}" src="{{item.avatarUrl}}" size="small" shape="circle" class="avatar-list"></i-avatar>
     </i-col>
     <i-col span="2"><view bindtap='toRankingList2' class='to-rank-me back-image'></view></i-col>
   </view>
@@ -175,3 +175,9 @@
   </view>
 
 </view>
+
+<i-row>
+  <i-col span="24" offset="0">
+    <i-button bind:click="toRaffle">到抽奖页面</i-button>
+  </i-col>
+</i-row>

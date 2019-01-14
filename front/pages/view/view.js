@@ -219,6 +219,11 @@ Page({
       visible1: false
     });
   },
+  toRaffle: function () {
+    wx.navigateTo({
+      url: '/pages/raffle/raffle',
+    })
+  },
   toIndex: function () {
     wx.navigateTo({
       url: '/pages/index/index',

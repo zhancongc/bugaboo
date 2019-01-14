@@ -2,6 +2,7 @@
 .top-icon { float: right;width: 220rpx; height: 65rpx; margin: 0 auto;  background-image: url('https://bugaboo.drivetogreen.com/static/images/top_icon.png'); }
 .preview { width: 580rpx; height: 580rpx; margin: 0 auto;  background-image: url('https://bugaboo.drivetogreen.com/static/images/pic_wrap.png'); }
 .preview image { width: 535rpx; height: 535rpx; margin-top: 24rpx; margin-left: 24rpx; }
+.avatar-list { margin-left: 10rpx; margin-right: 10rpx; }
 .text1{ margin: 20rpx 0rpx 20rpx 0rpx; font-size: 30rpx; line-height: 30rpx; color: #fff; }
 .text2{ margin: 20rpx 0rpx 20rpx 0rpx; font-size: 40rpx; line-height: 40rpx; color: #fff; text-align: center; }
 .text3{ margin: 20rpx 0rpx 20rpx 0rpx; font-size: 50rpx; line-height: 50rpx; color: #ecc77c; }

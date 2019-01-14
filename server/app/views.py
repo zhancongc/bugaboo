@@ -683,8 +683,9 @@ def user_followers(temp_user):
         })
         return jsonify(res)
     user_list = list()
-    for i in temp_user.followers:
-        temp1 = {'avatarUrl': i.avatarUrl, 'nickName': i.nickName}
+    for foll in temp_user.followers:
+        temp_foll = User.query.filter_by(user_id=foll.follower_id).first()
+        temp1 = {'avatarUrl': temp_foll.avatarUrl, 'nickName': temp_foll.nickName}
         user_list.append(temp1)
     res.update({
         'state': 1,
