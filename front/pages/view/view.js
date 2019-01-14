@@ -16,6 +16,7 @@ Page({
     compositionUrl: '',
     compositionType: 0,
     canFollow: false,
+    followTimes: 0,
     avatarList: {
       url: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132'
     }
@@ -52,7 +53,8 @@ Page({
                 compositionUrl: response.data.composition_url,
                 compositionType: response.data.composition_type,
                 canFollow: response.data.can_follow,
-                avatarList: response.data.followers
+                avatarList: response.data.followers,
+                followTimes: response.data.follow_times
               })
             } else {
               wx.showToast({

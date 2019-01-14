@@ -27,12 +27,12 @@
     <view class="text1 center">共获得{{ followTimes }}个祝福</view>
   </i-col>
 
-  <!--view class="rank-me">
+  <view class="rank-me" wx:if={{followTimes}}>
     <i-col span="18" offset="2" i-class="col-class" wx:for="{{avatarList}}" wx:key="{{item.url}}">
       <i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar>
     </i-col>
     <i-col span="2"><view bindtap='toRankingList2' class='to-rank-me back-image'></view></i-col>
-  </view-->
+  </view>
 
   <i-col span="20" offset="2" i-class="col-class">
   <view class="text1">帮他成功送祝福的同时，您将获得Bugaboo提供的一次抽奖机会！</view></i-col>

@@ -548,6 +548,7 @@ def user_composition(temp_user):
         return jsonify(res)
     # 获取作品信息
     composition = Composition.query.filter_by(composition_id=composition_id).first()
+    owner = User.query.filter_by(user_id=composition.user_id).first()
     if composition is None:
         res.update({
             'state': 0,
@@ -565,11 +566,10 @@ def user_composition(temp_user):
         'composition_msg': composition.composition_msg,
         'composition_url': composition.composition_url,
         'timestamp': composition.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
-        'followers': []
+        'followers': [],
+        'follow_times': owner.follow_times
     })
-
     # 找到关注者
-    owner = User.query.filter_by(user_id=composition.user_id).first()
     who = owner.followers.all()
     followers = []
     temp = who[:8]
