@@ -647,7 +647,7 @@ def rankinglist(temp_user):
 
 @app.route('/user/followers', methods=['GET'])
 @login_required1
-def rankinglist(temp_user):
+def user_followers(temp_user):
     """
     :function: 祝福我的人
     :return:
