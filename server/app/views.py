@@ -645,6 +645,36 @@ def rankinglist(temp_user):
     return jsonify(res)
 
 
+@app.route('/user/followers', methods=['GET'])
+@login_required1
+def rankinglist(temp_user):
+    """
+    :function: 祝福我的人
+    :return:
+    """
+    res = dict()
+    # 获取关注我的人
+    if temp_user.followers is None:
+        res.update({
+            'state': 0,
+            'msg': 'no one follows me',
+            'ranking_list_type': temp_user.user_type
+        })
+        return jsonify(res)
+    user_list = list()
+    for i in temp_user.followers:
+        temp1 = {'avatarUrl': i.avatarUrl, 'nickName': i.nickName}
+        user_list.append(temp1)
+    res.update({
+        'state': 1,
+        'msg': 'success',
+        'ranking_list_type': temp_user.user_type,
+        'data': user_list
+    })
+    return jsonify(res)
+
+
+
 @app.route('/user/follow', methods=['POST'])
 @login_required1
 def user_follow(temp_user):
