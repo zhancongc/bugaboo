@@ -849,10 +849,10 @@ def raffle(temp_user):
     qrcode_url = configs['development'].DOMAIN + configs['development'].QRCODE_URL_PREFIX + awardrecord_token
     # 保存图片到本地
     qrcode_name = str(int(time.mktime(time.gmtime()))) + '_' + awardrecord_token + '.png'
-    qrcode_image_path = '/static/qrcode/'
+    qrcode_image_path = configs['development'].QRCODE_FOLDER
     image = qrcode.make(data=qrcode_url)
     image.save(qrcode_image_path + qrcode_name)
-    qrcode_image_url = configs['development'].DOMAIN + qrcode_image_path + qrcode_name
+    qrcode_image_url = configs['development'].DOMAIN + '/static/qrcode/' + qrcode_name
     try:
         # 发奖
         awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id, awardrecord_type=award.award_type,
