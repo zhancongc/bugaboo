@@ -631,7 +631,7 @@ def rankinglist(temp_user):
                     'avatarUrl': user_list[index].avatarUrl,
                     'follow_times': user_list[index].follow_times
                 }
-                list.append(temp)
+                data.append(temp)
         else:
             res.update({
                 'state': 0,
