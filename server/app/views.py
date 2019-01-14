@@ -627,9 +627,9 @@ def rankinglist(temp_user):
             for index in range(len(user_list)):
                 temp = {
                     'number': index,
-                    'nickName': user_list['index'].nickName,
-                    'avatarUrl': user_list['index'].avatarUrl,
-                    'follow_times': user_list['index'].follow_times
+                    'nickName': user_list[index].nickName,
+                    'avatarUrl': user_list[index].avatarUrl,
+                    'follow_times': user_list[index].follow_times
                 }
                 list.append(temp)
         else:

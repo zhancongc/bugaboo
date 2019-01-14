@@ -139,3 +139,4 @@ INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `awa
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (10, '二等奖', 'https://bestbwzs.com/image/award_silver.png', 4, '二等奖', 'Vesta', 9);
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (11, '三等奖', 'https://bestbwzs.com/image/award_copper.png', 4, '三等奖', 'Juno', 40);
 
+INSERT INTO `user` VALUES ("oyab15UR9j5BbTtj_sKKMHNEtSSw", "bsU86OptkneVzTwopnCKtQ==", "2019-01-14 04:46:09", "2c93b6eb11bd282ff360489fa5d92ebbc6df8e11", "2019-01-14 05:16:09", 0, 0, 0, "詹聪聪", "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132");
