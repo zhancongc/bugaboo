@@ -7,6 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    parameter_name: '',
+    parameter_value: '',
     nextPage: '/pages/index/index'
   },
   /**
@@ -24,6 +26,8 @@ Page({
         var parameter_value = response.parameter_value;
         next_page = response.next_page + '?' + parameter_name + '=' + parameter_value;
         that.setData({
+          parameter_name: parameter_name,
+          parameter_value: parameter_value,
           nextPage: next_page
         })
       }
@@ -55,15 +59,22 @@ Page({
    */
   onShow: function () {
     var that = this;
-    wx.getSetting({
-      success: function (res) {
-        if (res.authSetting['scope.userInfo']) {
-          console.log(res.authSetting['scope.userInfo']);
-          wx.redirectTo({
-            url: that.data.nextPage,
-          })
+    var path = '/pages/view/view';
+    if (that.data.next_page == path){
+      wx.navigateTo({
+        url: path+'?'+that.data.parameter_name+'='+that.data.parameter_value,
+      })
+    } else {
+      wx.getSetting({
+        success: function (res) {
+          if (res.authSetting['scope.userInfo']) {
+            console.log(res.authSetting['scope.userInfo']);
+            wx.redirectTo({
+              url: that.data.nextPage,
+            })
+          }
         }
-      }
-    })
+      })
+    }
   }
 })

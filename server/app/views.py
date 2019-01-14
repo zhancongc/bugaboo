@@ -901,7 +901,7 @@ def user_award_list(temp_user):
         awardrecord.update({
             'awardrecord_id': temp.awardrecord_id,
             'award_time': temp.award_time.strftime('%Y-%m-%d %H:%M'),  # 中奖时间， 需要转成北京时间
-            'awardrecord_token': temp.award_record_token,
+            'awardrecord_token': temp.awardrecord_token,
             'informed': temp.informed,
             'checked': temp.checked,
             'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M'),  # 兑换奖品时间，需要转成北京时间
