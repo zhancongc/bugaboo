@@ -9,16 +9,31 @@ Page({
     chance: true,
     awards: [
       { 'index': 0, 'name': '谢谢参与', 'image': 'https://bugaboo.drivetogreen.com/static/images/bg_prize.png' },
-      { 'index': 1, 'name': '定制保温杯', 'image': '' },
-      { 'index': 2, 'name': '限量笔记本', 'image': '' },
-      { 'index': 3, 'name': '限量定制健身包', 'image': '' },
-      { 'index': 4, 'name': '50元代金券', 'image': '' },
-      { 'index': 5, 'name': '100元代金券', 'image': '' }
+      { 'index': 1, 'name': '限量笔记本', 'image': '' },
+      { 'index': 2, 'name': '50元代金券', 'image': '' },
+      { 'index': 3, 'name': '定制保温杯' , 'image': '' },
+      { 'index': 4, 'name': '100元代金券', 'image': '' },
+      { 'index': 5, 'name': '限量定制健身包' , 'image': '' }
     ]
   },
 
   data: {
-    awardIndex: 0,
+    visible1: true,
+    awardIndex: 1,
+    awardName: {
+      1: 'bugaboo限量笔记本',
+      2: '50元天猫商城代金券',
+      3: 'bugaboo定制保温杯',
+      4: '100元天猫商城代金券',
+      5: 'bugaboo限量定制健身包'
+    },
+    awardImage: {
+      1: 'https://bugaboo.drivetogreen.com/static/images/award_notebook.png',
+      2: 'https://bugaboo.drivetogreen.com/static/images/award_coupon_50.png',
+      3: 'https://bugaboo.drivetogreen.com/static/images/award_bottle.png',
+      4: 'https://bugaboo.drivetogreen.com/static/images/award_coupon_100.png',
+      5: 'https://bugaboo.drivetogreen.com/static/images/award_bag.png'
+    },
     awardsList: {},
     animationData: {},
     btnDisabled: '',
@@ -76,11 +91,14 @@ Page({
     // 中奖提示
     var awardsConfig = that.awardsConfig;
     setTimeout(function () {
+      that.handleOpen1();
+      /*
       wx.showModal({
         title: '恭喜',
         content: '获得' + (awardsConfig.awards[that.data.awardIndex].name),
         showCancel: false
       });
+      */
       that.setData({
         btnDisabled: ''
       });
@@ -128,12 +146,23 @@ Page({
       })
     }
   },
+  handleOpen1: function () {
+    this.setData({
+      visible1: true
+    })
+  },
+  handleClose1: function() {
+    this.setData({
+      visible1: false
+    })
+  },
   toIndex: function() {
     wx.navigateTo({
       url: '/pages/index/index',
     })
   },
   toAwardList: function(){
+    this.handleClose1();
     wx.navigateTo({
       url: '/pages/awardlist/awardlist',
     })

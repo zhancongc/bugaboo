@@ -11,7 +11,8 @@
     "pages/award/award",
     "pages/view/view",
     "pages/inform/inform",
-    "pages/express/express"
+    "pages/express/express",
+    "pages/test/test"
   ],
   "window":{
     "backgroundTextStyle":"light",

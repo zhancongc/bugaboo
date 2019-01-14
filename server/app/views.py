@@ -194,7 +194,7 @@ def user_login():
     session_id = get_sha1(session_key)
     current_time = datetime.datetime.utcnow()
     login_time = current_time.strftime(configs['development'].STRFTIME_FORMAT)
-    session_id_expire_time = (current_time + datetime.timedelta(minutes=30)).strftime(
+    session_id_expire_time = (current_time + datetime.timedelta(minutes=60)).strftime(
         configs['development'].STRFTIME_FORMAT)
     # 更新session信息，如果找不到这个用户，那么创建一个新的用户再更新信息
     temp_user = User.query.filter_by(open_id=open_id).first()
@@ -815,13 +815,19 @@ def raffle(temp_user):
     # 抽奖逻辑
     conf = configparser.ConfigParser()
     conf.read('config.ini')
-    temp_award_id = raffle_award()
-    if int(temp_award_id) < 4:
+    temp_award_id = int(raffle_award())
+    if temp_award_id == 1:
         award_id = temp_award_id
-    elif int(temp_award_id) < 9:
+    elif temp_award_id == 7:
+        award_id = 3
+    elif temp_award_id == 13:
+        award_id = 5
+    elif temp_award_id in [2, 3, 4, 5, 6]:
+        award_id = 2
+    elif temp_award_id in [8, 9, 10, 11, 12]:
         award_id = 4
     else:
-        award_id = 5
+        award_id = 0
     if award_id == 0:
         res.update({
             'state': 1,

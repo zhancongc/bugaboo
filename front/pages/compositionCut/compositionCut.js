@@ -93,7 +93,7 @@ Page({
           url: '/pages/composition/composition?tempComposition=' + tempComposition,
         })
       } else {
-        console.log('获取图片地址失败，请稍后重试')
+        console.log('请稍后重试')
       }
     })
   },

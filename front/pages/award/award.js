@@ -9,7 +9,7 @@ Page({
   data: {
     awardrecordId: 0,
     awardName: '',
-    qrcode: 'https://bugaboo.drivetogreen.com/static/images/bugaboo.png',
+    qrcode: 'https://bugaboo.drivetogreen.com/static/images/bugaboo.jpeg',
   },
 
   /**
@@ -62,7 +62,7 @@ Page({
             })
           } else {
             wx.showToast({
-              title: '获取奖品信息失败，请稍后重试',
+              title: '请稍后重试',
               icon: 'none',
               mask: true,
               duration: 1000

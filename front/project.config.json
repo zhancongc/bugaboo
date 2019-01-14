@@ -36,14 +36,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 6,
 			"list": [
-				{
-					"id": 0,
-					"name": "修图",
-					"pathName": "pages/compositionCut/compositionCut",
-					"query": ""
-				},
 				{
 					"id": -1,
 					"name": "express",
@@ -79,6 +73,12 @@
 					"name": "preview",
 					"pathName": "pages/preview/preview",
 					"query": "composition_id=1"
+				},
+				{
+					"id": -1,
+					"name": "test",
+					"pathName": "pages/test/test",
+					"query": ""
 				}
 			]
 		}

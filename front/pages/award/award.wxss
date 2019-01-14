@@ -2,6 +2,5 @@
 .text2{ margin: 10rpx 0rpx 10rpx 0rpx; font-size: 28rpx; line-height: 34rpx; color: #fff; text-align: center; }
 .large-button { height:100rpx; width: 100%; position: relative; margin: 0 auto; }
 .large-button-text{ height:100rpx; width: 100%; text-align: center; color: #a64c30; font-size: 45rpx; line-height:100rpx; background-image: url('https://bugaboo.drivetogreen.com/static/images/big_btn.png') }
-.award-button {height:100rpx; width: 100%; position: relative; margin: 0 auto; float: left;}
-.award-button { height:80rpx; width: 240rpx; margin-top: 30rpx; margin: 0 auto; text-align: center; color: #a64c30; font-size: 35rpx; line-height:80rpx; background-image: url('https://bugaboo.drivetogreen.com/static//images/small_btn.png')  }
+.award-button { height:80rpx; width: 250rpx; margin-top: 30rpx; margin: 0 auto; text-align: center; color: #a64c30; font-size: 35rpx; line-height:80rpx; background-image: url('https://bugaboo.drivetogreen.com/static//images/small_btn.png')  }
 
