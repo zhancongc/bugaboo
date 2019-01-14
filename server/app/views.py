@@ -619,11 +619,10 @@ def rankinglist(temp_user):
         logging(json.dumps(res))
         return jsonify(res)
     # 获取排行榜用户信息
-    data = list()
     if ranking_list_type in [0, 1]:
         user_list = User.query.filter_by(user_type=ranking_list_type).order_by(desc(User.follow_times)).limit(50).all()
-        print(user_list)
         if user_list:
+            data = []
             for index in range(len(user_list)):
                 temp = {
                     'number': index,
