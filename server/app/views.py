@@ -911,7 +911,8 @@ def user_award_list(temp_user):
             'informed': temp.informed,
             'checked': temp.checked,
             'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M'),  # 兑换奖品时间，需要转成北京时间
-            'awardrecord_type': temp.awardrecord_type
+            'awardrecord_type': temp.awardrecord_type,
+            'award_id': temp.award_id,
         })
         award = Award.query.filter_by(award_id=temp.award_id).first()
         awardrecord.update({

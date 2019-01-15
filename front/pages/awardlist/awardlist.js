@@ -28,6 +28,7 @@ Page({
               for (var i in response.data) {
                 awardList.push({
                   'awardrecord_id': response.data[i].awardrecord_id,
+                  'award_id': response.data[i].award_id,
                   'awardrecord_type': response.data[i].awardrecord_type,
                   'award_image': response.data[i].award_image,
                   'award_name': response.data[i].award_name,
