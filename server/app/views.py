@@ -865,7 +865,7 @@ def raffle(temp_user):
         # 发奖
         awardrecord = AwardRecord(award_id=award_id, user_id=temp_user.user_id, awardrecord_type=award.award_type,
                                   awardrecord_token=awardrecord_token, qrcode_image_url=qrcode_image_url)
-        if award_id == 5:
+        if award_id in [2, 4]:
             awardrecord.informed = True
         db.session.add(awardrecord)
         db.session.commit()
