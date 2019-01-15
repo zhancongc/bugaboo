@@ -592,7 +592,7 @@ def user_composition(temp_user):
         })
     else:
         for w in who:
-            if w.followed_id == temp_user.user_id:
+            if w.follower_id == temp_user.user_id:
                 can_follow = False
         data.update({
             'can_follow': can_follow
