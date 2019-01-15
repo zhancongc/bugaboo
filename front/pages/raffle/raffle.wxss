@@ -1,5 +1,5 @@
 /* pages/raffle/raffle.wxss */
-.raffle-title-image {width: 300rpx; height: 110rpx; margin: 0 auto;  background-image: url('https://bugaboo.drivetogreen.com/static/images/prize_title.png'); margin-top:60rpx;
+.raffle-title-image {width: 340rpx; height: 110rpx; margin: 0 auto;  background-image: url('https://bugaboo.drivetogreen.com/static/images/prize_title.png'); margin-top:60rpx;
 margin-bottom:30rpx;
  }
 .raffle-panel { display: none; background-repeat:no-repeat; background-size: 760rpx 760rpx; width: 760rpx; height: 760rpx; margin: -770rpx 0rpx 0prx 0rpx;  background-image: url('https://bugaboo.drivetogreen.com/static/images/bg_prize.png'); margin-top: -770rpx; }

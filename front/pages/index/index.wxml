@@ -16,6 +16,85 @@
 
 <view class="botton-text" bindtap='toIntro'>了解Bugaboo</view>
 
+<view class='bottom'>
+  <view class='section'>
+    <i-row>
+      <i-col span="2" offset="11">
+        <image class="flower" src='/images/flower.png'></image>
+      </i-col>
+      <i-col span="20" offset="2"><view class="divLine"></view></i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-title">活动规则：</view>
+      </i-col>
+      <i-col span="20" offset="2" class="bottom-sub-title">
+        <view class="bottom-sub-title">祝福排行榜上 Top50 参与者可分别获得一二三等奖。</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">一等奖（ Top1 ）价值约1000元</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">携程礼品卡+bugaboo神秘礼物</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">二等奖（ Top2-Top10 ）价值约500元</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">星巴克星礼卡+bugaboo神秘礼物</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">三等奖（Top11-Top50）价值约300元</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">bugaboo神秘礼物</view>
+      </i-col>
+      </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">活动时间：2019年1月18日至2019年2月10日</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">活动截止日期：2019年2月10日24点</view>
+      </i-col>
+      <i-col span="20" offset="2">
+        <view class="bottom-text">活动最终解释权归bugaboo所有</view>
+      </i-col>
+    </i-row>
+  </view>
+
+  <view class='section'>
+    <i-row>
+    <i-col span="20" offset="2"><view class="divLine"></view></i-col>
+      <i-col span="2" offset="11">
+        <image class="flower" style="transform:rotate(180deg);" src='/images/flower.png'></image>
+      </i-col>
+    </i-row>
+  </view>
+
+</view>
+
 
 <view class="{{ visible1 ? 'mask': '' }}">
   <view class="i-modal {{ visible1 ? 'i-modal-show' : '' }}">
