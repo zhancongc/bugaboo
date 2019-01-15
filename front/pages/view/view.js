@@ -30,6 +30,11 @@ Page({
       that.setData({
         compositionId: options.composition_id
       })
+      if (options.composition_id == app.globalData.compositionId) {
+        wx.navigateTo({
+          url: '/pages/preview/preview',
+        })
+      }
       console.log('待请求的作品id', that.data.compositionId);
     } else {
       wx.showToast({
@@ -56,6 +61,9 @@ Page({
   onShow: function () {
     var that = this;
     that.getComposition();
+    app.globalData.parameter_name = '';
+    app.globalData.parameter_value = '';
+    app.globalData.next_page = '';
   },
 
   /**
@@ -230,6 +238,9 @@ Page({
     })
   },
   toAuthorize: function () {
+    app.globalData.parameter_name = 'a';
+    app.globalData.parameter_value = '1';
+    app.globalData.next_page = '/pages/preview/preview';
     wx.navigateTo({
       url: '/pages/authorize/authorize',
     })
