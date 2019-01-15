@@ -20,6 +20,7 @@ Page({
   data: {
     visible1: false,
     awardIndex: 0,
+    raffling: false,
     awardName: {
       1: 'bugaboo限量笔记本',
       2: '50元天猫商城代金券',
@@ -107,7 +108,13 @@ Page({
   //发起抽奖
   playReward: function () {
     var that = this;
+    if (that.data.raffling) {
+      return;
+    }
     if (app.globalData.raffleTimes>0) {
+      that.setData({
+        raffling: true
+      });
       wx.request({
         url: 'https://bugaboo.drivetogreen.com/raffle',
         method: 'get',
@@ -127,6 +134,9 @@ Page({
                   awardIndex: response.data.award_id
                 })
                 that.raffle();
+                that.setData({
+                  raffling: false
+                });
               }
             }
           } catch (e) {
@@ -136,7 +146,10 @@ Page({
         fail: function (res) {
           wx.showToast({
             title: '请稍后重新再试',
-          })
+          });
+          that.setData({
+            raffling: false
+          });
         }
       })
     } else {
