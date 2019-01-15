@@ -49,12 +49,12 @@
         <view class='text1'>{{silver.follow_times}}</view>
       </i-col>
       <i-col span="8" offset="1">
-        <view class='text1'>No.2</view>
+        <view class='text1'>No.1</view>
         <view class='text1'>{{gold.nickName}}</view>
         <view class='text1'>{{gold.follow_times}}</view>
       </i-col>
       <i-col span="6" offset="1">
-        <view class='text1'>No.2</view>
+        <view class='text1'>No.3</view>
         <view class='text1'>{{copper.nickName}}</view>
         <view class='text1'>{{copper.follow_times}}</view>
       </i-col>

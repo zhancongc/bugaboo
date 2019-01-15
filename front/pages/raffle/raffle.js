@@ -5,7 +5,6 @@ var app = getApp();
 Page({
   //奖品配置
   awardsConfig: {
-    raffleTimes: 0,
     chance: true,
     awards: [
       { 'index': 0, 'name': '谢谢参与', 'image': 'https://bugaboo.drivetogreen.com/static/images/bg_prize.png' },
@@ -21,6 +20,7 @@ Page({
     visible1: false,
     awardIndex: 0,
     raffling: false,
+    raffleTimes: 0,
     awardName: {
       1: 'bugaboo限量笔记本',
       2: '50元天猫商城代金券',
@@ -42,7 +42,7 @@ Page({
   onShow: function() {
     var that = this;
     wx.request({
-      url: 'https://bugaboo.drivetogreen.com/raffle',
+      url: 'https://bugaboo.drivetogreen.com/raffle/times',
       method: 'get',
       header: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -55,8 +55,9 @@ Page({
           if (response.constructor === Object) {
             if (response.state === 1) {
               that.setData({
-                raffleTimes: response.data.raffleTimes
+                raffleTimes: response.data.raffle_times
               });
+              app.globalData.raffleTimes = response.data.raffleTimes
             }
           }
         } catch (e) {
@@ -133,7 +134,7 @@ Page({
   //发起抽奖
   playReward: function () {
     var that = this;
-    if (!that.data.raffling && app.globalData.raffleTimes>0) {
+    if (!that.data.raffling && that.data.raffleTimes>0) {
       that.setData({
         raffling: true
       });
@@ -150,9 +151,9 @@ Page({
             console.log(response);
             if (response.constructor === Object) {
               if (response.state === 1) {
-                app.globalData.raffleTimes -= 1;
+                that.data.raffleTimes -= 1;
                 that.setData({
-                  raffleTimes: app.globalData.raffleTimes,
+                  raffleTimes: that.data.raffleTimes,
                   awardIndex: response.data.award_id
                 })
                 that.raffle();

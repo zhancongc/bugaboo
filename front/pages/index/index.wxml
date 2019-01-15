@@ -28,7 +28,7 @@
         <view class="i-modal-body">
           <i-row>
             <i-col span="20" offset="2">
-            <view class='modal-text'>· 按照规则上传照片参与活动，并邀请好友送祝福，进入辅助排行榜。</view></i-col>
+            <view class='modal-text'>· 按照规则上传照片参与活动，并邀请好友送祝福，进入祝福排行榜。</view></i-col>
             <i-col class="modal-text" span="20" offset="2">
             <view class='modal-text'>· 在规定的时间内，邀请送祝福的好友越多，排名越高。</view></i-col>
             <i-col class="modal-text" span="20" offset="2">

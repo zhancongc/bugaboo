@@ -1202,7 +1202,7 @@ def online_service():
                 "touser": open_id,
                 "msgtype": "text",
                 "text": {
-                    "content": "回复1，关注bugaboo官方公众号之后，可以到小程序【bugaboo助力】中抽奖"
+                    "content": "回复1，关注bugaboo官方公众号之后，可以到小程序【bugaboo用心说爱你】中抽奖"
                 }
             })
         print('打印返回消息')

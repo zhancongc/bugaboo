@@ -5,10 +5,13 @@ Page({
     current: 'tab1',
     tabTitle: 'Bugaboo用户组',
     compositionType: 1,
-    gold: {
-      avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132',
+    /* avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKiboeh23vhCNueUvhwibepopNhqzTNjPB7EhcosK1bnicKFHUicB0DODnD6FwgYAmayLoeL82DmoicBibQ/132',
       nickName: '詹聪聪',
-      follow_times: 55
+      follow_times: 55 */
+    gold: {
+      avatarUrl: '',
+      nickName: '',
+      follow_times: 0
     },
     silver: {
       avatarUrl: '',
