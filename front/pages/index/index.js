@@ -153,4 +153,9 @@ Page({
     })
     this.handleClose2();
   },
+  toIntro: function (e) {
+    wx.navigateTo({
+      url: '/pages/intro/intro',
+    })
+  },
 })

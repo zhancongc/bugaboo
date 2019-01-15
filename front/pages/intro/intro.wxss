@@ -1,0 +1,5 @@
+/* pages/intro/intro.wxss */
+
+.intro { margin-top: 100rpx; margin-bottom: 60rpx; }
+.intro-text { font-size: 30rpx; color: #fff; margin-top: 50rpx; margin-bottom: 10rx; line-height: 50rpx; }
+.intro-image { margin-top: 120rpx; height: 220rpx; width: 100%; background-image: url('https://bugaboo.drivetogreen.com/static/images/stroller.png') }

@@ -1,0 +1,13 @@
+<!--pages/intro/intro.wxml-->
+<i-row>
+  <i-col span="10" offset="7" i-class="col-class">
+    <view class='back-image logo'></view>
+  </i-col>
+  <view class="intro">
+    <i-col span="16" offset="4" i-class="col-class">
+      <view class="intro-text">Bugaboo是一个来自荷兰的移动产品设计公司，从1994年成立至今，我们的目标就是通过颠覆整个行业的产品设计，帮助您畅行无阻地探索世界，同时尽享舒适，彰显个性风尚。</view>
+      <view class='intro-text'>Bugaboo的核心是自由出行，我们鼓励现代父母带娃推着我们的产品去探索世界，享受畅行无阻的预约体验。</view>
+    </i-col>
+  </view>
+</i-row>
+<view class="back-image intro-image"></view>

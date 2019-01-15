@@ -12,6 +12,7 @@
     "pages/view/view",
     "pages/inform/inform",
     "pages/express/express",
+    "pages/intro/intro",
     "pages/test/test"
   ],
   "window":{
