@@ -884,6 +884,24 @@ def raffle(temp_user):
     return jsonify(res)
 
 
+@app.route('/raffle/times', methods=['GET'])
+@login_required1
+def raffle_times(temp_user):
+    data = dict()
+    res = dict()
+    data.update({
+        'raffle_times': temp_user.raffle_times,
+        'nickName': temp_user.nickName,
+        'avatarUrl': temp_user.avatarUrl
+    })
+    res.update({
+        'state': 1,
+        'msg': 'get follower info',
+        'data': data
+    })
+    return jsonify(res)
+
+
 @app.route('/user/award/list', methods=['GET'])
 @login_required1
 def user_award_list(temp_user):
