@@ -108,10 +108,7 @@ Page({
   //发起抽奖
   playReward: function () {
     var that = this;
-    if (that.data.raffling) {
-      return;
-    }
-    if (app.globalData.raffleTimes>0) {
+    if (!that.data.raffling && app.globalData.raffleTimes>0) {
       that.setData({
         raffling: true
       });
