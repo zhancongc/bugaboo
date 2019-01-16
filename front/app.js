@@ -29,7 +29,7 @@ App({
                       that.globalData.sessionId = response.data.session_id;
                       that.globalData.activityOn = response.data.activity_on;
                       that.globalData.raffleTimes = response.data.raffle_times;
-                      that.globalData.compositionId = response.data.composition_id;
+                      that.globalData.myCompositionId = response.data.composition_id;
                       resolve(res);
                     }
                   }
@@ -60,7 +60,7 @@ App({
     //loading
     loaded: false,
     // preview & view
-    compositionId: 0,
+    myCompositionId: 0,
     //share
     parameter_name: 'a',
     parameter_value: '1',

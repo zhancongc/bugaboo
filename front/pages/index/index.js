@@ -17,8 +17,8 @@ Page({
       app.globalData.canUploadUserInfo = false;
     }
     if (app.globalData.activityOn) {
-      console.log('我的作品id', app.globalData.compositionId);
-      if (app.globalData.compositionId) {
+      console.log('我的作品id', app.globalData.myCompositionId);
+      if (app.globalData.myCompositionId) {
         wx.redirectTo({
           url: '/pages/preview/preview',
         })

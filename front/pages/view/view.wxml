@@ -42,7 +42,7 @@
     <button class="share" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>送祝福</button>
   </i-col>
   <i-col span="8" offset="2" i-class="col-class">
-    <view class='back-image button-right' bindtap="toAuthorize">
+    <view class='back-image button-right' bindtap="toIndex">
       我要参加
     </view>
   </i-col>

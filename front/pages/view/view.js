@@ -30,7 +30,7 @@ Page({
       that.setData({
         compositionId: options.composition_id
       })
-      if (options.composition_id == app.globalData.compositionId) {
+      if (options.composition_id == app.globalData.myCompositionId) {
         wx.navigateTo({
           url: '/pages/preview/preview',
         })

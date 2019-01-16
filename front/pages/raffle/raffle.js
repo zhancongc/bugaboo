@@ -5,7 +5,7 @@ var app = getApp();
 Page({
   data: {
     visible1: false,
-    awardIndex: 0,
+    awardIndex: 1,
     raffling: false,
     raffleTimes: 0,
     awardName: {
@@ -88,6 +88,7 @@ Page({
   },
   //发起抽奖
   playReward: function () {
+    console.log("您点了抽奖");
     var that = this;
     if (!that.data.raffling && that.data.raffleTimes>0) {
       that.setData({
