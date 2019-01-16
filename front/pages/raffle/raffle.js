@@ -64,6 +64,7 @@ Page({
     });
   },
   raffle: function() {
+    //console.log("播放抽奖动画");
     var that = this;
     //中奖index
     var runNum = 8;//旋转8周
@@ -88,54 +89,59 @@ Page({
   },
   //发起抽奖
   playReward: function () {
-    console.log("您点了抽奖");
+    //console.log("您点了抽奖");
     var that = this;
-    if (!that.data.raffling && that.data.raffleTimes>0) {
-      that.setData({
-        raffling: true
-      });
-      wx.request({
-        url: 'https://bugaboo.drivetogreen.com/raffle',
-        method: 'get',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Session-Id': app.globalData.sessionId
-        },
-        success: function (res) {
-          try {
-            var response = res.data;
-            console.log(response);
-            if (response.constructor === Object) {
-              if (response.state === 1) {
-                that.data.raffleTimes -= 1;
-                that.setData({
-                  raffleTimes: that.data.raffleTimes,
-                  awardIndex: response.data.award_id
-                })
-                that.raffle();
-                that.setData({
-                  raffling: false
-                });
+    if (that.data.raffling===false) {
+      if ( that.data.raffleTimes>0) {
+        that.setData({
+          raffling: true
+        });
+        console.log("发起抽奖请求(raffling)", that.data.raffling);
+        wx.request({
+          url: 'https://bugaboo.drivetogreen.com/raffle',
+          method: 'get',
+          header: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Session-Id': app.globalData.sessionId
+          },
+          success: function (res) {
+            try {
+              //console.log("收到抽奖请求");
+              var response = res.data;
+              console.log(response);
+              if (response.constructor === Object) {
+                if (response.state === 1) {
+                  that.data.raffleTimes -= 1;
+                  that.setData({
+                    raffleTimes: that.data.raffleTimes,
+                    awardIndex: response.data.award_id
+                  })
+                  that.raffle();
+                  that.setData({
+                    raffling: false
+                  });
+                  //console.log("显示抽奖结果(raffling)", that.data.raffling);
+                }
               }
+            } catch (e) {
+              console.log(e);
             }
-          } catch (e) {
-            console.log(e);
+          },
+          fail: function (res) {
+            wx.showToast({
+              title: '请稍后重新再试',
+            });
+            that.setData({
+              raffling: false
+            });
           }
-        },
-        fail: function (res) {
-          wx.showToast({
-            title: '请稍后重新再试',
-          });
-          that.setData({
-            raffling: false
-          });
-        }
-      })
-    } else {
-      wx.showModal({
-        title: '提示',
-        content: '您没有抽奖次数',
-      })
+        })
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '您没有抽奖次数',
+        })
+      }
     }
   },
   handleOpen1: function () {

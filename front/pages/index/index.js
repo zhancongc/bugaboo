@@ -12,13 +12,13 @@ Page({
     var that = this;
     console.log(app.globalData);
     var userInfo = wx.getStorageSync('userInfo')
-    if (app.globalData.canUploadUserInfo && userInfo) {
+    if (app.globalData.canUploadUserInfo===true && userInfo) {
       that.saveUserInfo(userInfo);
       app.globalData.canUploadUserInfo = false;
     }
     if (app.globalData.activityOn) {
       console.log('我的作品id', app.globalData.myCompositionId);
-      if (app.globalData.myCompositionId) {
+      if (app.globalData.myCompositionId!==0) {
         wx.redirectTo({
           url: '/pages/preview/preview',
         })

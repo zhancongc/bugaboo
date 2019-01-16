@@ -4,25 +4,32 @@
     <view class="text1">我的奖品</view>
   </i-col>
 </i-row>
-<view class="section" wx:for="{{awards}}" wx:key="{{item.awardrecord_id}}">
-  <i-row>
-    <i-col span="4" offset="1">
-      <view class="back-image award-image" 
-      style='background-image: url({{item.award_image}});'></view>
-    </i-col>
-    <i-col span="10" offset="1">
-      <view class="text2">{{item.award_name}}</view>
-      <view class="text3">中奖时间： {{item.award_time}}</view>
-    </i-col>
-    <i-col span="6">
-      <view class="back-image list-button {{item.checked ? 'checked' : 'unchecked' }}">
-        <view  wx:if="{{!item.informed && !item.checked}}" bindtap="toInform" data-awardrecord_info="{{ [item.awardrecord_id,item.awardrecord_type] }}">立即领取</view>
-        <view wx:if="{{item.informed && !item.checked}}" bindtap="toAward" data-awardrecord_id="{{item.awardrecord_id}}">查看详情</view>
-        <view wx:if="{{item.informed && item.checked}}">已领取</view>
-      </view>
-    </i-col>
-    <i-col span="20" offset="2"><view class="divLine"></view></i-col>
-  </i-row>
+
+<view wx:if="{{awards.length>0}}">
+  <view class="section" wx:for="{{awards}}" wx:key="{{item.awardrecord_id}}">
+    <i-row>
+      <i-col span="4" offset="1">
+        <view class="back-image award-image" 
+        style='background-image: url({{item.award_image}});'></view>
+      </i-col>
+      <i-col span="10" offset="1">
+        <view class="text2">{{item.award_name}}</view>
+        <view class="text3">中奖时间： {{item.award_time}}</view>
+      </i-col>
+      <i-col span="6">
+        <view class="back-image list-button {{item.checked ? 'checked' : 'unchecked' }}">
+          <view  wx:if="{{!item.informed && !item.checked}}" bindtap="toInform" data-awardrecord_info="{{ [item.awardrecord_id,item.awardrecord_type] }}">立即领取</view>
+          <view wx:if="{{item.informed && !item.checked}}" bindtap="toAward" data-awardrecord_id="{{item.awardrecord_id}}">查看详情</view>
+          <view wx:if="{{item.informed && item.checked}}">已领取</view>
+        </view>
+      </i-col>
+      <i-col span="20" offset="2"><view class="divLine"></view></i-col>
+    </i-row>
+  </view>
+</view>
+
+<view wx:if="{{awards.length===0}}">
+  <view class="text">暂无奖品</view>
 </view>
 
 <i-row>
@@ -30,7 +37,8 @@
   <i-col span="20" offset="2"><view class='text4'>·线下门店领取时间：2月25日至3月25日</view></i-col>
   <i-col span="20" offset="2"><view class='text4'>·若所在地无线下门店请联系客服</view></i-col>
   <i-col span="20" offset="2"><view class='text4'>客服电话：4006-1535-16</view></i-col>
-  <i-col span="20" offset="2"><view class='text4' style="margin-bottom:40rpx;">·联系客服领取时间：活动结束后一周内，即2月11日  至2月17日（超出领取时间则视为放弃）。</view></i-col>
+  <i-col span="20" offset="2"><view class='text4' style="margin-bottom:40rpx;">·联系客服领取时间：活动结束后一周内。</view></i-col>
+    <i-col span="20" offset="2"><view class='text4'>即2月11日至2月17日（超出领取时间则视为放弃）。</view></i-col>
 </i-row>
 
 

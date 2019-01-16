@@ -4,7 +4,7 @@
 
 <view  class='raffle'>
   <view class='raffle-panel' animation="{{animationData}}"></view>
-  <view bindtap="raffle" class="back-image raffle-btn"></view>
+  <view bindtap="playReward" class="back-image raffle-btn"></view>
 </view>
 
 <i-row>

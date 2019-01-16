@@ -830,6 +830,10 @@ def raffle(temp_user):
         award_id = 4
     else:
         award_id = 0
+    if award_id != 0:
+        award = Award.query.filter_by(award_id=award_id).first()
+        if award.award_number <= 0:
+            award_id = 0
     if award_id == 0:
         res.update({
             'state': 1,
@@ -839,7 +843,6 @@ def raffle(temp_user):
             }
         })
         return jsonify(res)
-    award = Award.query.filter_by(award_id=award_id).first()
     data = dict()
     data.update({
         'award_id': award.award_id,
@@ -867,7 +870,9 @@ def raffle(temp_user):
                                   awardrecord_token=awardrecord_token, qrcode_image_url=qrcode_image_url)
         if award_id in [2, 4]:
             awardrecord.informed = True
+        award.award_number -= 1
         db.session.add(awardrecord)
+        db.session.add(award)
         db.session.commit()
     except Exception as e:
         print(e)
