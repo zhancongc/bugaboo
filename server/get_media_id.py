@@ -1,6 +1,7 @@
 import json
 import requests
 import configparser
+from datetime import datetime
 
 
 class Media(object):
@@ -27,7 +28,7 @@ class Media(object):
 
 
 if __name__ == '__main__':
-
+    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     conf = configparser.ConfigParser()
     conf.read('/home/admin/bugaboo/server/config.ini')
     app_id = conf.get('app', 'app_id')
