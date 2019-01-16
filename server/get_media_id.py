@@ -39,7 +39,7 @@ if __name__ == '__main__':
     print("media_id", media_id)
     conf.set('weixin', 'media_id', media_id)
     conf.set('raffle', 'daily_award', '1111111111111')
-    with open('config.ini', 'w') as fp:
+    with open('/home/admin/bugaboo/server/config.ini', 'w') as fp:
         conf.write(fp)
 
 
