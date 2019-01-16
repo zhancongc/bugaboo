@@ -71,6 +71,9 @@
             <i-col span="20" offset="2">
               <view class='text1 center'>获得一次抽奖机会</view>
             </i-col>
+            <i-col span="20" offset="2">
+              <view class='text1 center'>(提示：请在客服会话中回复数字“1”)</view>
+            </i-col>
             <view class='modal-button'>
               <i-col span="8" offset="8" i-class="col-class">
                 <view class='back-image modal-button-text'></view>

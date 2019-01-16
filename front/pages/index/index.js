@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    rankNumber: 3,
+    rankNumber: 99,
     visible1: false,
     visible2: false
   },

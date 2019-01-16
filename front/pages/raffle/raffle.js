@@ -3,19 +3,6 @@ var util = require("../../utils/util.js");
 var app = getApp();
 
 Page({
-  //奖品配置
-  awardsConfig: {
-    chance: true,
-    awards: [
-      { 'index': 0, 'name': '谢谢参与', 'image': 'https://bugaboo.drivetogreen.com/static/images/bg_prize.png' },
-      { 'index': 1, 'name': '限量笔记本', 'image': '' },
-      { 'index': 2, 'name': '50元代金券', 'image': '' },
-      { 'index': 3, 'name': '定制保温杯' , 'image': '' },
-      { 'index': 4, 'name': '100元代金券', 'image': '' },
-      { 'index': 5, 'name': '限量定制健身包' , 'image': '' }
-    ]
-  },
-
   data: {
     visible1: false,
     awardIndex: 0,
@@ -36,8 +23,7 @@ Page({
       5: 'https://bugaboo.drivetogreen.com/static/images/award_bag.png'
     },
     awardsList: {},
-    animationData: {},
-    btnDisabled: '',
+    animationData: {}
   },
   onShow: function() {
     var that = this;
@@ -72,28 +58,9 @@ Page({
     })
   },
   onReady: function (e) {
-    this.drawAwardRoundel();
-
-    //分享
+    //禁止分享
     wx.showShareMenu({
-      withShareTicket: true
-    });
-  },
-
-  //画抽奖圆盘
-  drawAwardRoundel: function () {
-    var awards = this.awardsConfig.awards;
-    var awardsList = [];
-    var turnNum = 1 / awards.length;  /* 文字旋转 turn 值*/
-
-    // 奖项列表
-    for (var i = 0; i < awards.length; i++) {
-      awardsList.push({ turn: i * turnNum + 'turn', lineTurn: i * turnNum + turnNum / 2 + 'turn', award: awards[i].name });
-    }
-
-    this.setData({
-      btnDisabled: this.awardsConfig.chance ? '' : 'disabled',
-      awardsList: awardsList
+      withShareTicket: false
     });
   },
   raffle: function() {
@@ -111,24 +78,12 @@ Page({
     })
     animationRun.rotate(that.runDeg).step();
     that.setData({
-      animationData: animationRun.export(),
-      btnDisabled: 'disabled'
+      animationData: animationRun.export()
     });
 
     // 中奖提示
-    var awardsConfig = that.awardsConfig;
     setTimeout(function () {
       that.handleOpen1();
-      /*
-      wx.showModal({
-        title: '恭喜',
-        content: '获得' + (awardsConfig.awards[that.data.awardIndex].name),
-        showCancel: false
-      });
-      */
-      that.setData({
-        btnDisabled: ''
-      });
     }.bind(that), duration);
   },
   //发起抽奖

@@ -83,8 +83,8 @@
 </view>
 
 <i-row>
-  <i-col span="24" offset="2" class="tips">
-  挪动照片选择最佳的位置</i-col>
+  <i-col span="24" offset="3" class="tips">
+  提示：挪动照片选择最佳的位置</i-col>
 </i-row>
 
   <view class='back-image bottom-button-left' bindtap='uploadTap'>重选</view>
