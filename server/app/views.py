@@ -59,7 +59,7 @@ def get_user_info(session_id):
 
 
 def raffle_award():
-    if random.randint(1, 100) < 95:
+    if random.randint(1, 100) < 85:
         return 0
     conf = configparser.ConfigParser()
     conf.read('config.ini')
@@ -76,7 +76,6 @@ def raffle_award():
         del temp[temp.index(award_choice)]
         award_array[award_choice] = '0'
         award_string = ''.join(award_array)
-
     else:
         award_string = '0000000000000'
         award_choice = -1

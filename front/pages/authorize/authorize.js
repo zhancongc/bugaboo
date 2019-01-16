@@ -23,6 +23,9 @@ Page({
         app.globalData.parameter_value = response.parameter_value;
         app.globalData.next_page = response.next_page;
       }
+      if (response.next_page==='/pages/raffle/raffle') {
+        app.userLogin();
+      }
     }
   },
   getUserInfo: function (e) {

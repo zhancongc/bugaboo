@@ -18,7 +18,7 @@ Page({
     }
     if (app.globalData.activityOn) {
       console.log('我的作品id', app.globalData.myCompositionId);
-      if (app.globalData.myCompositionId!==0) {
+      if (app.globalData.myCompositionId) {
         wx.redirectTo({
           url: '/pages/preview/preview',
         })

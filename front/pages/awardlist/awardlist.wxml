@@ -29,7 +29,7 @@
 </view>
 
 <view wx:if="{{awards.length===0}}">
-  <view class="text">暂无奖品</view>
+  <view class="text5">暂无奖品</view>
 </view>
 
 <i-row>

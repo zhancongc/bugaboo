@@ -52,12 +52,6 @@
 				},
 				{
 					"id": -1,
-					"name": "award",
-					"pathName": "pages/award/award",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "rankinglist",
 					"pathName": "pages/rankinglist/rankinglist",
 					"query": "composition_type=2"
@@ -90,6 +84,12 @@
 					"id": -1,
 					"name": "view",
 					"pathName": "pages/view/view",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "awardlist",
+					"pathName": "pages/awardlist/awardlist",
 					"query": ""
 				}
 			]

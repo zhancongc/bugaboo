@@ -31,7 +31,7 @@ Page({
         compositionId: options.composition_id
       })
       if (options.composition_id == app.globalData.myCompositionId) {
-        wx.navigateTo({
+        wx.redirectTo({
           url: '/pages/preview/preview',
         })
       }

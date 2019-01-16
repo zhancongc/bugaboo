@@ -6,7 +6,7 @@
   </i-col>
 
   <i-col span="16" offset="4" i-class="col-class">
-    <view class='text2' style='margin-top: 20rpx;'>您的{{awrdName}}</view>
+    <view class='text2' style='margin-top: 20rpx;'>您的{{awardName}}</view>
   </i-col>
 
   <i-col span="16" offset="4" i-class="col-class">

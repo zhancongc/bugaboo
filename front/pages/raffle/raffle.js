@@ -25,6 +25,11 @@ Page({
     awardsList: {},
     animationData: {}
   },
+  onLoad: function () {
+    app.globalData.parameter_name = '',
+    app.globalData.parameter_value = '',
+    app.globalData.next_page = ''
+  },
   onShow: function() {
     var that = this;
     wx.request({

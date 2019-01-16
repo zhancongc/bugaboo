@@ -9,7 +9,7 @@ Page({
   data: {
     awardrecordId: 0,
     awardName: '',
-    qrcode: 'https://bugaboo.drivetogreen.com/static/images/bugaboo.jpeg',
+    qrcode: '',
   },
 
   /**
@@ -114,9 +114,50 @@ Page({
   },
   preview : function (e) {
     var that = this;
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              console.log('授权成功')
+            },
+            fail() {
+              wx.showModal({
+                title: '提示',
+                content: '请开启授权',
+              })
+            }
+          })
+        }
+        var imgSrc = that.data.qrcode;
+        wx.downloadFile({
+          url: imgSrc,
+          success: function (res) {
+            console.log(res);
+            //图片保存到本地
+            wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success: function (data) {
+                wx.showToast({
+                  title: '保存成功',
+                  icon: 'success',
+                  duration: 2000
+                })
+              },
+              fail: function (err) {
+                console.log(err);
+              }
+            })
+          }
+        })
+      }
+    })
+    /*
     wx.previewImage({
       current: that.data.qrcode,
       urls: [that.data.qrcode],
     })
+    */
   }
 })

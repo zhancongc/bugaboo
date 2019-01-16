@@ -169,8 +169,8 @@
 
 </view>
 
-<i-row>
+<!--i-row>
   <i-col span="24" offset="0">
     <i-button bind:click="toRaffle">到抽奖页面</i-button>
   </i-col>
-</i-row>
+</i-row-->

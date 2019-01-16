@@ -125,7 +125,7 @@ Page({
       'parameter_value': that.data.compositionId,
       'next_page': '/pages/view/view'
     };
-    console.log('share_data', share_data);
+    console.log('share_data: ', '/pages/authorize/authorize?share_data=' + JSON.stringify(share_data));
     return {
       title: '来自'+ this.data.nickName + '的新年祝福',
       imageUrl: this.data.compositionUrl,

@@ -1,7 +1,6 @@
 //app.js
 App({
   onLaunch: function () {
-
   },
   userLogin: function () {
     var that = this;
@@ -24,9 +23,9 @@ App({
                   var response = res.data;
                   console.log(response);
                   if (response.constructor === Object) {
-                    if (response.state==1) {
+                    if (response.state == 1) {
                       that.globalData.userId = response.data.user_id,
-                      that.globalData.sessionId = response.data.session_id;
+                        that.globalData.sessionId = response.data.session_id;
                       that.globalData.activityOn = response.data.activity_on;
                       that.globalData.raffleTimes = response.data.raffle_times;
                       that.globalData.myCompositionId = response.data.composition_id;
