@@ -158,4 +158,9 @@ Page({
       url: '/pages/intro/intro',
     })
   },
+  toAwardIntro: function (e) {
+    wx.navigateTo({
+      url: '/pages/awardIntro/awardIntro',
+    })
+  }
 })

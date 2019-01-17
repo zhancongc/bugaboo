@@ -61,9 +61,7 @@ Page({
   onShow: function () {
     var that = this;
     that.getComposition();
-    app.globalData.parameter_name = '';
-    app.globalData.parameter_value = '';
-    app.globalData.next_page = '';
+    app.nextPageInit();
   },
 
   /**
