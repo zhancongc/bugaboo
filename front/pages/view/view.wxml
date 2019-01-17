@@ -103,7 +103,7 @@
   <view class='section'>
     <i-row>
       <i-col span="20" offset="2">
-        <view class="bottom-title">活动规则：</view>
+        <view class="bottom-title">奖品信息：</view>
       </i-col>
       <i-col span="20" offset="2" class="bottom-sub-title">
         <view class="bottom-sub-title">祝福排行榜上 Top50 参与者可分别获得一二三等奖。</view>

@@ -49,6 +49,11 @@ App({
       });
     })
   },
+  nextPageInit: function () {
+    app.globalData.parameter_name = 'a';
+    app.globalData.parameter_value = '1';
+    app.globalData.next_page = '/pages/index/index';
+  },
   globalData: {
     // wxlogin
     userId: 0,

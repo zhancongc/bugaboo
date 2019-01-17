@@ -1183,17 +1183,10 @@ def online_service():
             return 'bad guys'
     if request.method == 'POST':
         message = json.loads(request.get_data(as_text=True))
-        print("message", message)
-        open_id = message['FromUserName']
+        print("客服message: ", message)
+        open_id = message.get('FromUserName')
         response_data = dict()
-        if message['MsgType'] == 'text' and message['Content'] == '1':
-            media_id = conf.get('weixin', 'media_id')
-            response_data.update({
-                "touser": open_id,
-                "msgtype": "image",
-                "image": {"media_id": media_id}
-            })
-        elif message['MsgType'] == 'event' and message['Event'] == 'user_enter_tempsession':
+        if message['MsgType'] == 'event' and message['Event'] == 'user_enter_tempsession':
             response_data.update({
                 "touser": open_id,
                 "msgtype": "text",
@@ -1201,7 +1194,16 @@ def online_service():
                     "content": "回复1，关注bugaboo官方公众号之后，可以到小程序【bugaboo用心说爱你】中抽奖"
                 }
             })
+        elif message['MsgType'] == 'text' and message['Content'] == '1':
+
+            media_id = conf.get('weixin', 'media_id')
+            response_data.update({
+                "touser": open_id,
+                "msgtype": "image",
+                "image": {"media_id": media_id}
+            })
         else:
+            open_id = message['FromUserName']
             response_data.update({
                 "touser": open_id,
                 "msgtype": "text",
@@ -1218,7 +1220,7 @@ def online_service():
             print(res.text)
             return ''
         else:
-            return 'bad news'
+            return ''
 
 
 @app.route('/god/login', methods=['GET', 'POST'])
@@ -1271,5 +1273,4 @@ def god_index():
     return render_template("god_index.html")
 
 
-
-
+#  pages/authorize/authorize?share_data={"parameter_name":"a","parameter_value":1,"next_page":"/pages/raffle/raffle"}

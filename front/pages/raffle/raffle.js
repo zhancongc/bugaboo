@@ -26,9 +26,7 @@ Page({
     animationData: {}
   },
   onLoad: function () {
-    app.globalData.parameter_name = '',
-    app.globalData.parameter_value = '',
-    app.globalData.next_page = ''
+    app.nextPageInit();
   },
   onShow: function() {
     var that = this;
