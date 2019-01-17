@@ -1273,5 +1273,4 @@ def god_index():
     return render_template("god_index.html")
 
 
-
-
+#  pages/authorize/authorize?share_data={"parameter_name":"a","parameter_value":1,"next_page":"/pages/raffle/raffle"}
