@@ -814,7 +814,8 @@ def raffle(temp_user):
             'msg': 'not have enough raffle times',
         })
         return jsonify(res)
-    temp_user.raffle()
+    else:
+        temp_user.raffle_times -= 1
     # 抽奖逻辑
     conf = configparser.ConfigParser()
     conf.read('config.ini')
@@ -836,7 +837,6 @@ def raffle(temp_user):
         if award.award_number <= 0:
             award_id = 0
     if award_id == 0:
-        temp_user.raffle_times -= 1
         db.session.add(temp_user)
         db.session.commit()
         res.update({
