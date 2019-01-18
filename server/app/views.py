@@ -836,6 +836,9 @@ def raffle(temp_user):
         if award.award_number <= 0:
             award_id = 0
     if award_id == 0:
+        temp_user.raffle_times -= 1
+        db.session.add(temp_user)
+        db.session.commit()
         res.update({
             'state': 1,
             'msg': 'Thanks for participate',
@@ -873,10 +876,8 @@ def raffle(temp_user):
             awardrecord.informed = True
         award.award_number -= 1
         temp_user.raffle_times -= 1
-        me = User.query.filter_by(user_id=temp_user.user_id).first()
-        me.raffle_times -= 1
-        # 抽奖次数减一
-        db.session.add(me)
+        temp_user.raffle_times -= 1
+        db.session.add(temp_user)
         db.session.add(awardrecord)
         db.session.add(award)
         db.session.commit()
