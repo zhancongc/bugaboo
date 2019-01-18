@@ -18,7 +18,7 @@ from PIL import Image
 from config import configs
 from functools import wraps
 from app import app, db
-from sqlalchemy import desc
+from sqlalchemy import desc, text
 from flask_login import login_required, login_user, logout_user
 from flask import jsonify, request, render_template, redirect, url_for, flash
 from .package import wxlogin, get_sha1
@@ -635,7 +635,8 @@ def rankinglist(temp_user):
         return jsonify(res)
     # 获取排行榜用户信息
     if ranking_list_type in [0, 1]:
-        user_list = User.query.filter_by(user_type=ranking_list_type).order_by(desc(User.follow_times)).limit(50).all()
+        user_list = User.query.filter(text("user_type=:value1 and follow_times >:value2")).params(
+            value1=ranking_list_type, value2=0).order_by(desc(User.follow_times)).limit(50).all()
         if user_list:
             data = []
             for index in range(len(user_list)):
