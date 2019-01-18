@@ -159,7 +159,10 @@ class User(db.Model):
             db.session.add(self)
 
     def raffle(self):
-        self.raffle_times -= 1
+        if self.raffle_times > 0:
+            self.raffle_times -= 1
+        else:
+            raise Exception
 
     def is_following(self, user):
         return self.followed.filter_by(followed_id=user.user_id).first() is not None

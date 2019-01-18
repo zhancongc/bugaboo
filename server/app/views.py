@@ -815,7 +815,7 @@ def raffle(temp_user):
         })
         return jsonify(res)
     else:
-        temp_user.raffle_times -= 1
+        temp_user.raffle()
     # 抽奖逻辑
     conf = configparser.ConfigParser()
     conf.read('config.ini')
@@ -876,7 +876,6 @@ def raffle(temp_user):
         if award_id in [2, 4]:
             awardrecord.informed = True
         award.award_number -= 1
-        temp_user.raffle_times -= 1
         db.session.add(temp_user)
         db.session.add(awardrecord)
         db.session.add(award)
