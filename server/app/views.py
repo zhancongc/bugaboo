@@ -876,7 +876,6 @@ def raffle(temp_user):
             awardrecord.informed = True
         award.award_number -= 1
         temp_user.raffle_times -= 1
-        temp_user.raffle_times -= 1
         db.session.add(temp_user)
         db.session.add(awardrecord)
         db.session.add(award)

@@ -88,11 +88,14 @@ Page({
     // 中奖提示
     setTimeout(function () {
       that.handleOpen1();
+      that.setData({
+        raffling: false
+      });
     }.bind(that), duration);
   },
   //发起抽奖
   playReward: function () {
-    //console.log("您点了抽奖");
+    console.log("您点了抽奖");
     var that = this;
     if (that.data.raffling===false) {
       if ( that.data.raffleTimes>0) {
@@ -109,7 +112,7 @@ Page({
           },
           success: function (res) {
             try {
-              //console.log("收到抽奖请求");
+              console.log("收到抽奖请求(raffle)", that.data.raffling);
               var response = res.data;
               console.log(response);
               if (response.constructor === Object) {
@@ -120,10 +123,7 @@ Page({
                     awardIndex: response.data.award_id
                   })
                   that.raffle();
-                  that.setData({
-                    raffling: false
-                  });
-                  //console.log("显示抽奖结果(raffling)", that.data.raffling);
+                  console.log("显示抽奖结果(raffling)", that.data.raffling);
                 }
               }
             } catch (e) {
@@ -145,6 +145,11 @@ Page({
           content: '您没有抽奖次数',
         })
       }
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '抽奖中',
+      })
     }
   },
   handleOpen1: function () {

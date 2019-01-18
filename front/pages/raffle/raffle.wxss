@@ -14,3 +14,5 @@ margin-bottom:30rpx;
 .award-image { width:250rpx; height:250rpx; margin:0 auto; margin-top:80rpx; }
 .text2 { margin:20rpx 0rpx 20rpx 0rpx; font-size:40rpx; line-height:30rpx; color:#fff; text-align:center; }
 .text3{ margin: 280rpx 0rpx 20rpx 0rpx; font-size: 40rpx; line-height: 40rpx; color: #fff; text-align: center; }
+
+.forbidden{ pointer-events: none; }

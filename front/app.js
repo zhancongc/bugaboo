@@ -53,9 +53,9 @@ App({
     })
   },
   nextPageInit: function () {
-    app.globalData.parameter_name = 'a';
-    app.globalData.parameter_value = '1';
-    app.globalData.next_page = '/pages/index/index';
+    this.globalData.parameter_name = 'a';
+    this.globalData.parameter_value = '1';
+    this.globalData.next_page = '/pages/index/index';
   },
   globalData: {
     // wxlogin
