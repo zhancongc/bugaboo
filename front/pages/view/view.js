@@ -266,7 +266,7 @@ Page({
         //用户按了授权按钮
         console.log('用户按了授权按钮');
         app.globalData.canUploadUserInfo = true;
-        that.saveUserInfo(userInfo);
+        that.saveUserInfo(e.detail.userInfo);
         that.handleOpen1();
       } else {
         //用户按了拒绝按钮
