@@ -872,6 +872,8 @@ def raffle(temp_user):
         if award_id in [2, 4]:
             awardrecord.informed = True
         award.award_number -= 1
+        temp_user.raffle_times -= 1
+        db.session.add(temp_user)
         db.session.add(awardrecord)
         db.session.add(award)
         db.session.commit()
