@@ -1,4 +1,4 @@
 /* pages/authorize/authorize.wxss */
 .text1 { margin-top: 400rpx; margin-bottom: 100rpx; text-align: center; color:#fff; }
-.authorize {margin-top: -96rpx;height:80rpx;width: 100%;text-align: center;}
-.user-info {width: 260rpx;height:80rpx;border: none;margin-top: 5rpx;background: none;border-radius: 20rpx;}
+.authorize {height:80rpx;width: 100%;text-align: center;background-image: url('https://bugaboo.drivetogreen.com/static/images/small_btn.png') }
+.user-info {width: 100%; height:80rpx; border: none; margin-top: 5rpx;background: none;border-radius: 20rpx;}

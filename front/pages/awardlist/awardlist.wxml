@@ -34,11 +34,9 @@
 
 <i-row>
   <i-col span="20" offset="2"><view class='text4' style='margin-top: 30rpx;'>温馨提示：</view></i-col>
-  <i-col span="20" offset="2"><view class='text4'>·线下门店领取时间：2月25日至3月25日</view></i-col>
-  <i-col span="20" offset="2"><view class='text4'>·若所在地无线下门店请联系客服</view></i-col>
-  <i-col span="20" offset="2"><view class='text4'>客服电话：4006-1535-16</view></i-col>
-  <i-col span="20" offset="2"><view class='text4' style="margin-bottom:40rpx;">·联系客服领取时间：活动结束后一周内。</view></i-col>
-    <i-col span="20" offset="2"><view class='text4'>即2月11日至2月17日（超出领取时间则视为放弃）。</view></i-col>
+  <i-col span="20" offset="2"><view class='text4'>1.线下门店领取时间：2月25日至3月25日</view></i-col>
+  <i-col span="20" offset="2"><view class='text4'>2.若所在地无线下门店请联系客服，客服电话：4006-1535-16</view></i-col>
+  <i-col span="20" offset="2"><view class='text4' style="margin-bottom:40rpx;">3.联系客服领取时间：2月11日至2月17日（超出领取时间则视为放弃）。</view></i-col>
 </i-row>
 
 

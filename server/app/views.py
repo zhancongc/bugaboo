@@ -224,7 +224,9 @@ def user_login():
         'user_id': temp_user.user_id,
         'session_id': session_id,
         'activity_on': activity_on,
-        'raffle_times': temp_user.raffle_times
+        'raffle_times': temp_user.raffle_times,
+        'avatarUrl': temp_user.avatarUrl,
+        'nickName': temp_user.nickName
     }
     if temp_user:
         composition = Composition.query.filter_by(user_id=temp_user.user_id).first()
@@ -638,7 +640,7 @@ def rankinglist(temp_user):
             data = []
             for index in range(len(user_list)):
                 temp = {
-                    'number': index,
+                    'number': index+1,
                     'nickName': user_list[index].nickName,
                     'avatarUrl': user_list[index].avatarUrl,
                     'follow_times': user_list[index].follow_times

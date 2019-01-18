@@ -4,13 +4,8 @@
   <i-col span="22" offset="1" i-class="col-class" style="margin-top: 50rpx;">
   <view class="text1">你好!首次登录，请点击下方按钮授权。</view></i-col>
   <i-col span="8" offset="8" i-class="col-class">
-    <view>
-      <image src='/images/small_btn.png' class='small-button'></image>
+    <view class='back-image authorize'>
+      <button class="user-info" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>授权</button>
     </view>
   </i-col>
-    <i-col span="8" offset="8" i-class="col-class">
-      <view class='authorize'>
-        <button class="user-info" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>授权</button>
-      </view>
-    </i-col>
 </i-row>

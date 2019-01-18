@@ -23,11 +23,11 @@
 
 <i-row>
   <i-col span="8" offset="3" i-class="col-class" style="margin-top: 50rpx;">
-    <view class='back-image button-right'></view>
+    <view class='back-image page-button'></view>
     <button class="share" open-type="share">邀请送祝福</button>
   </i-col>
   <i-col span="8" offset="2" i-class="col-class">
-    <view class='back-image button-right' bindtap="toRankingList">
+    <view class='back-image page-button' bindtap="toRankingList">
       查看排名
     </view>
   </i-col>

@@ -68,7 +68,7 @@
           <i-row>
               <i-col span="2" i-class="col-class" style="line-height: 48rpx;">{{item.number}}</i-col>
               <i-col span="2" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
-              <i-col span="15" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.nickName}}</i-col>
+              <i-col span="15" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.nickName?item.nickName:'匿名用户'}}</i-col>
               <i-col span="4" i-class="col-class" style="line-height: 48rpx;">{{item.follow_times}}</i-col>
           </i-row>
         </i-cell>
@@ -86,7 +86,7 @@
         <i-cell wx:for="{{followMe}}" wx:key="item.number">
           <i-row>
               <i-col span="2" i-class="col-class"><i-avatar src="{{item.avatarUrl}}" size="small" shape="circle"></i-avatar></i-col>
-              <i-col span="16" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.nickName}}</i-col>
+              <i-col span="16" offset="1" i-class="col-class" style="line-height: 48rpx;">{{item.nickName?item.nickName:'匿名用户'}}</i-col>
               <i-col span="5" i-class="col-class" style="line-height: 48rpx;">祝福1次</i-col>
           </i-row>
         </i-cell>

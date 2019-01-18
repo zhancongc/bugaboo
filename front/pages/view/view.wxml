@@ -7,7 +7,7 @@
       <view class="back-image top-icon" bindtap="toRankingList1"></view>
     </i-col>
     <i-col span="20" offset="2" i-class="col-class">
-      <view class="text3 center">您的好友{{nickName}}</view></i-col>
+      <view class="text3 center">{{nickName?'您的好友'+nickName:'匿名用户'}}</view></i-col>
   </i-row>
 </view>
 
@@ -38,11 +38,11 @@
   <view class="text1">帮他成功送祝福的同时，您将获得Bugaboo提供的一次抽奖机会！</view></i-col>
 
   <i-col span="8" offset="3" i-class="col-class" style="margin-top: 50rpx;">
-    <view class='back-image button-right'></view>
+    <view class='back-image page-button'></view>
     <button class="share" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>送祝福</button>
   </i-col>
   <i-col span="8" offset="2" i-class="col-class">
-    <view class='back-image button-right' bindtap="toIndex">
+    <view class='back-image page-button' bindtap="toIndex">
       我要参加
     </view>
   </i-col>

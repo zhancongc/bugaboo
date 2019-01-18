@@ -29,6 +29,9 @@ App({
                       that.globalData.activityOn = response.data.activity_on;
                       that.globalData.raffleTimes = response.data.raffle_times;
                       that.globalData.myCompositionId = response.data.composition_id;
+                      that.globalData.myAvatarUrl = response.data.avatarUrl;
+                      resolve(res);
+                      that.globalData.myNickName = response.data.nickName;
                       resolve(res);
                     }
                   }
@@ -65,6 +68,8 @@ App({
     loaded: false,
     // preview & view
     myCompositionId: 0,
+    myAvatarUrl: '',
+    myNickName: '',
     //share
     parameter_name: 'a',
     parameter_value: '1',

@@ -126,6 +126,7 @@ Page({
       'next_page': '/pages/view/view'
     };
     console.log('share_data: ', '/pages/authorize/authorize?share_data=' + JSON.stringify(share_data));
+    var sharerName = this.data.nickName ? this.data.nickName  : '某人'
     return {
       title: '来自'+ this.data.nickName + '的新年祝福',
       imageUrl: this.data.compositionUrl,
