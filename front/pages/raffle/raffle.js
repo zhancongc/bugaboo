@@ -117,9 +117,10 @@ Page({
               console.log(response);
               if (response.constructor === Object) {
                 if (response.state === 1) {
-                  that.data.raffleTimes -= 1;
+                  //that.data.raffleTimes -= 1;
                   that.setData({
-                    raffleTimes: that.data.raffleTimes,
+                    //raffleTimes: that.data.raffleTimes,
+                    raffleTimes: response.data.raffle_times,
                     awardIndex: response.data.award_id
                   })
                   that.raffle();

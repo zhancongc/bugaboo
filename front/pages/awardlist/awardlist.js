@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    /*{ "awardrecord_id": 1, "awardrecord_type": 1, "award_name": "bugaboo限量笔记本", "award_image": "https://bugaboo.drivetogreen.com/static//images/award_bottle.png", "award_time": "2019/01/12 12:00", 'checked': false, 'informed': false }*/
+    /*{ "awardrecord_id": 1, "awardrecord_type": 1, "award_name": "bugaboo限量笔记本", "award_image": "https://bugaboo.drivetogreen.com/static/images/award_bottle.png", "award_time": "2019/01/12 12:00", 'checked': false, 'informed': false }*/
     awards: []
   },
 
@@ -82,31 +82,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    wx.request({
-      url: 'https://bugaboo.drivetogreen.com/raffle',
-      method: 'get',
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Session-Id': app.globalData.sessionId
-      },
-      success: function (res) {
-        try {
-          var response = res.data;
-          console.log(response);
-          if (response.constructor === Object) {
-            if (response.state == 1) {
-            }
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      },
-      fail: function (res) {
-        wx.showToast({
-          title: '请稍后重新再试',
-        })
-      }
-    })
   },
 
   /**

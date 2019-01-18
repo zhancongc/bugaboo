@@ -853,7 +853,8 @@ def raffle(temp_user):
         'award_name': award.award_name,
         'award_image': award.award_image,
         'award_type': award.award_type,
-        'award_description': award.award_description
+        'award_description': award.award_description,
+        'raffle_times': temp_user.raffle_times
     })
     app_secret = conf.get('app', 'app_secret')
     sh = hashlib.sha1()
