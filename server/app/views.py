@@ -873,7 +873,10 @@ def raffle(temp_user):
             awardrecord.informed = True
         award.award_number -= 1
         temp_user.raffle_times -= 1
-        db.session.add(temp_user)
+        me = User.query.filter_by(user_id=temp_user.user_id).first()
+        me.raffle_times -= 1
+        # 抽奖次数减一
+        db.session.add(me)
         db.session.add(awardrecord)
         db.session.add(award)
         db.session.commit()
