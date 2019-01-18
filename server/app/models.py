@@ -31,7 +31,7 @@ class Composition(db.Model):
         return True
 
     def __repr__(self):
-        return '<Post %r>' % self.title
+        return '<Post %r>' % self.composition_id
 
 
 class Award(db.Model):
