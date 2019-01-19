@@ -28,6 +28,12 @@ Page({
       }
     }
   },
+  onReady: function (e) {
+    //禁止分享
+    wx.showShareMenu({
+      withShareTicket: false
+    });
+  },
   getUserInfo: function (e) {
     console.log(e.detail.userInfo)
     if (e.detail.userInfo) {

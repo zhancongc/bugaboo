@@ -18,10 +18,12 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
+  onReady: function (e) {
+    //禁止分享
+    wx.showShareMenu({
+      withShareTicket: false
+    });
   },
-
   /**
    * 生命周期函数--监听页面显示
    */

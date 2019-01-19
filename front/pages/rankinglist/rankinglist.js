@@ -55,6 +55,12 @@ Page({
       that.showFollow();
     }
   },
+  onReady: function (e) {
+    //禁止分享
+    wx.showShareMenu({
+      withShareTicket: false
+    });
+  },
   onHide: function () {
 
   },

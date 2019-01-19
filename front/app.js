@@ -61,7 +61,7 @@ App({
     // wxlogin
     userId: 0,
     sessionId: '',
-    activityOn: false,
+    activityOn: true,
     canUploadUserInfo: false,
     raffleTimes: false,
     //loading
