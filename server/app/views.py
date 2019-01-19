@@ -109,13 +109,13 @@ def login_required1(func):
                 'msg': 'cannot found session_id'
             })
             return jsonify(res)
-        current = datetime.datetime.utcnow()
-        expire = user.session_id_expire_time
-        if current > expire:
-            res.update({
-                'state': 0,
-                'msg': 'session_id expired'
-            })
+        # current = datetime.datetime.now()
+        # expire = user.session_id_expire_time
+        # if current > expire:
+        #    res.update({
+        #        'state': 0,
+        #        'msg': 'session_id expired'
+        #    })
         return func(user, *args, **kwargs)
     return authenticate
 
