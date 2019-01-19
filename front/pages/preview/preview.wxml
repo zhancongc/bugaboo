@@ -112,7 +112,7 @@
 
 </view>
 
-<i-row>
+<!--i-row>
   <i-col span="24" offset="0">
     <i-button bind:click="toView">到分享页面</i-button>
     <i-button open-type='contact'>到客服页面</i-button>
@@ -121,5 +121,5 @@
     <i-button bind:click="toAuthorize">到授权页面</i-button>
     <i-button bind:click="toCompositionCut">到作品上传页面</i-button>
   </i-col>
-</i-row>
+</i-row-->
 

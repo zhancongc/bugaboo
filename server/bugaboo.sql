@@ -128,9 +128,9 @@ CREATE TABLE `award` (
 	`award_description` VARCHAR(1024) COMMENT '奖品描述'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (1, 'bugaboo限量笔记本', 'https://bugaboo.drivetogreen.com/static/images/award_notebook.png', 1, '文艺范', 'Venus', 20);
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (2, '50元天猫商城代金券', 'https://bugaboo.drivetogreen.com/static/images/award_coupon_50.png', 2, '满500减50', 'Jupiter', 100);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (2, '50元天猫商城代金券(满500元可用)', 'https://bugaboo.drivetogreen.com/static/images/award_coupon_50.png', 2, '满500减50', 'Jupiter', 100);
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (3, 'bugaboo定制保温杯', 'https://bugaboo.drivetogreen.com/static/images/award_bottle.png', 1, '大叔范', 'Mercury', 20);
-INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (4, '100元天猫商城代金券', 'https://bugaboo.drivetogreen.com/static/images/award_coupon_100.png', 2, '满1000减100', 'Saturn', 100);
+INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (4, '100元天猫商城代金券(满1000元可用)', 'https://bugaboo.drivetogreen.com/static/images/award_coupon_100.png', 2, '满1000减100', 'Saturn', 100);
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (5, 'bugaboo限量定制健身包', 'https://bugaboo.drivetogreen.com/static/images/award_bag.png', 1, '旅行范', 'Mars', 20);
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (6, '一等奖', 'https://bestbwzs.com/image/award_golden.png', 3, '一等奖', 'Uranus', 1);
 INSERT INTO `award` (`award_id`, `award_name`, `award_image`, `award_type`, `award_description`, `exchange_token`, `award_number`) VALUES (7, '二等奖', 'https://bestbwzs.com/image/award_silver.png', 3, '二等奖', 'Neptune', 9);
