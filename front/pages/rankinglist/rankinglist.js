@@ -56,10 +56,6 @@ Page({
     }
   },
   onReady: function (e) {
-    //禁止分享
-    wx.showShareMenu({
-      withShareTicket: false
-    });
   },
   onHide: function () {
 
@@ -72,12 +68,27 @@ Page({
    */
   onShareAppMessage: function () {
     // 首先获取user_id和composition_id
+    var that = this;
+    var share_data = {
+      'parameter_name': 'a',
+      'parameter_value': '1',
+      'next_page': '/pages/index/index'
+    };
+    console.log('share_data: ', '/pages/authorize/authorize?share_data=' + JSON.stringify(share_data));
     return {
       title: '送你神秘新年礼物，更有送祝福抽大奖活动',
-      path: 'pages/index/index',
       imageUrl: 'https://bugaboo.drivetogreen.com/static/images/share.jpg',
-      success: (res) => { },
-      fail: (res) => { }
+      path: '/pages/authorize/authorize?share_data=' + JSON.stringify(share_data),
+      success: (res) => {
+        wx.showToast({
+          title: '分享成功',
+        });
+      },
+      fail: (res) => {
+        wx.showToast({
+          title: '分享失败',
+        })
+      }
     }
   },
   toPreview: function() {
@@ -87,6 +98,10 @@ Page({
   },
   showRank : function () {
     var that = this;
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    });
     wx.request({
       url: 'https://bugaboo.drivetogreen.com/rankinglist',
       method: 'post',
@@ -98,6 +113,7 @@ Page({
         ranking_list_type: that.data.compositionType
       },
       success: function (res) {
+        wx.hideLoading();
         try {
           var response = res.data;
           console.log(response);
@@ -118,6 +134,7 @@ Page({
         }
       },
       fail: function (res) {
+        wx.hideLoading();
         wx.showToast({
           title: '请稍后重新再试',
         })
@@ -126,6 +143,10 @@ Page({
   },
   showFollow: function () {
     var that = this;
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    });
     wx.request({
       url: 'https://bugaboo.drivetogreen.com/user/followers',
       method: 'get',
@@ -134,6 +155,7 @@ Page({
         'Session-Id': app.globalData.sessionId
       },
       success: function (res) {
+        wx.hideLoading();
         try {
           var response = res.data;
           console.log(response);
@@ -151,6 +173,7 @@ Page({
         }
       },
       fail: function (res) {
+        wx.hideLoading();
         wx.showToast({
           title: '请稍后重新再试',
         })
@@ -164,7 +187,9 @@ Page({
         current: 'tab1'
       })
       console.log('current tab : tab1');
-      that.showRank();
+      if (that.data.topFifty.length === 0) {
+        that.showRank();
+      }
     }
   },
   toTab2: function(e) {
@@ -174,8 +199,9 @@ Page({
         current: 'tab2'
       });
       console.log('current tab : tab2');
-      that.showFollow();
+      if (that.data.followMe.length === 0) {
+        that.showFollow();
+      } 
     }
-    
   }
 })

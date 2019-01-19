@@ -76,6 +76,8 @@
     </view>
   </view>
 
+  <view style='height: 40rpx; width: 100%;'></view>
+
 </view>
 
 <view wx:if="{{current=='tab2'}}">
@@ -95,5 +97,6 @@
   </view>
   <view class='text1' wx:if="{{followMe.length === 0}}">暂时没有获得祝福</view>
 
+<view style='height: 40rpx; width: 100%;'></view>
 
 </view>

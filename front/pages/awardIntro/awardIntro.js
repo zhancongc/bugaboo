@@ -64,6 +64,28 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    // 首先获取user_id和composition_id
+    var that = this;
+    var share_data = {
+      'parameter_name': 'a',
+      'parameter_value': '1',
+      'next_page': '/pages/index/index'
+    };
+    console.log('share_data: ', '/pages/authorize/authorize?share_data=' + JSON.stringify(share_data));
+    return {
+      title: '送你神秘新年礼物，更有送祝福抽大奖活动',
+      imageUrl: 'https://bugaboo.drivetogreen.com/static/images/share.jpg',
+      path: '/pages/authorize/authorize?share_data=' + JSON.stringify(share_data),
+      success: (res) => {
+        wx.showToast({
+          title: '分享成功',
+        });
+      },
+      fail: (res) => {
+        wx.showToast({
+          title: '分享失败',
+        })
+      }
+    }
   }
 })

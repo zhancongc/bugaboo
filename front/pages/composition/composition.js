@@ -143,10 +143,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function (e) {
-    //禁止分享
-    wx.showShareMenu({
-      withShareTicket: false
-    });
+
   },
 
   /**
@@ -188,12 +185,27 @@ Page({
  */
   onShareAppMessage: function () {
     // 首先获取user_id和composition_id
+    var that = this;
+    var share_data = {
+      'parameter_name': 'a',
+      'parameter_value': '1',
+      'next_page': '/pages/index/index'
+    };
+    console.log('share_data: ', '/pages/authorize/authorize?share_data=' + JSON.stringify(share_data));
     return {
-      title: 'Bugaboo新年说爱你',
-      path: 'pages/index/index',
-      imageUrl: 'https://bugaboo.drivetogreen.com/static/images/bugaboo.jpeg',
-      success: (res) => { },
-      fail: (res) => { }
+      title: '送你神秘新年礼物，更有送祝福抽大奖活动',
+      imageUrl: 'https://bugaboo.drivetogreen.com/static/images/share.jpg',
+      path: '/pages/authorize/authorize?share_data=' + JSON.stringify(share_data),
+      success: (res) => {
+        wx.showToast({
+          title: '分享成功',
+        });
+      },
+      fail: (res) => {
+        wx.showToast({
+          title: '分享失败',
+        })
+      }
     }
   }
 })
