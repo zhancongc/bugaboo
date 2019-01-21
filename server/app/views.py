@@ -1132,16 +1132,18 @@ def receive_award(awardrecord_token):
     :function: 领奖专用链接 session_id, awardrecord_token解密为用户的user_id, award_id和application_secret
     :return: 返回领奖成功的页面
     """
+    if datetime.datetime.now():
+        pass
     awardrecord_token = html.escape(awardrecord_token)
     awardrecord = AwardRecord.query.filter_by(awardrecord_token=awardrecord_token).first()
     if awardrecord is None:
-        return render_template('receive_award.html')
+        return render_template('none_award.html')
     award = Award.query.filter_by(award_id=awardrecord.award_id).first()
     if award:
         return render_template('receive_award.html',
                                award_name=award.award_name, award_description=award.award_description,
                                checked=awardrecord.checked, awardrecord_token=awardrecord.awardrecord_token)
-    return render_template('none_award.html')
+    return render_template('receive_award.html')
 
 
 @app.route('/acquire/award', methods=['POST'])
