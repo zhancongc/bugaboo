@@ -152,7 +152,7 @@ class User(db.Model):
 
     def follow(self, user):
         if not self.is_following(user):
-            foll = Follow(follower=self, followed=user)
+            foll = Follow(follower=self.user_id, followed=user.user_id)
             user.follow_times += 1
             self.raffle_times += 1
             db.session.add(foll)
