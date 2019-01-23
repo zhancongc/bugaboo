@@ -862,6 +862,7 @@ def raffle(temp_user):
     sh.update(str(temp_user.user_id).encode())
     sh.update(str(award_id).encode())
     sh.update(app_secret.encode())
+    sh.update(str(int(time.time())).encode())
     awardrecord_token = sh.hexdigest()
     qrcode_url = configs['development'].DOMAIN + configs['development'].QRCODE_URL_PREFIX + awardrecord_token
     # 保存图片到本地
