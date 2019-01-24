@@ -1143,7 +1143,7 @@ def receive_award(awardrecord_token):
     print(award, awardrecords)
     if award:
         return render_template('receive_award.html', award_name=award.award_name, award_image=award.award_image,
-                               time_up=True, checked=awardrecords[0].checked, token=awardrecords[0].awardrecord_token,
+                               time_up=time_up, checked=awardrecords[0].checked, token=awardrecords[0].awardrecord_token,
                                form=ExchangeAwardForm())
     else:
         return render_template('none_award.html', form=ExchangeAwardForm)
