@@ -19,4 +19,14 @@ class GodLoginForm(FlaskForm):
     submit = SubmitField()
 
 
+class ExchangeAwardForm(FlaskForm):
+    """
+    登陆表单
+    """
+    awardrecord_token = StringField('awardrecord_token', validators=[DataRequired()])
+    exchange_token = PasswordField('exchange_token', validators=[DataRequired()])
+    submit = SubmitField()
+
+
+
 

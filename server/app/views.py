@@ -23,7 +23,7 @@ from flask_login import login_required, login_user, logout_user
 from flask import jsonify, request, render_template, redirect, url_for, flash
 from .package import wxlogin, get_sha1
 from .models import User, UserInfo, Composition, AwardRecord, Award, Store, God, Follow
-from .forms import GodLoginForm
+from .forms import GodLoginForm, ExchangeAwardForm
 
 
 def get_access_token():
@@ -1133,18 +1133,20 @@ def receive_award(awardrecord_token):
     :function: 领奖专用链接 session_id, awardrecord_token解密为用户的user_id, award_id和application_secret
     :return: 返回领奖成功的页面
     """
-    if datetime.datetime.now():
-        pass
+    deadline = 1549814400
+    time_up = time.mktime(datetime.datetime.now().timetuple()) > deadline
     awardrecord_token = html.escape(awardrecord_token)
-    awardrecord = AwardRecord.query.filter_by(awardrecord_token=awardrecord_token).first()
-    if awardrecord is None:
-        return render_template('none_award.html')
-    award = Award.query.filter_by(award_id=awardrecord.award_id).first()
+    awardrecords = AwardRecord.query.filter_by(awardrecord_token=awardrecord_token).all()
+    if not awardrecords:
+        return render_template('none_award.html', form=ExchangeAwardForm)
+    award = Award.query.filter_by(award_id=awardrecords[0].award_id).first()
+    print(award, awardrecords)
     if award:
-        return render_template('receive_award.html',
-                               award_name=award.award_name, award_description=award.award_description,
-                               checked=awardrecord.checked, awardrecord_token=awardrecord.awardrecord_token)
-    return render_template('receive_award.html')
+        return render_template('receive_award.html', award_name=award.award_name, award_image=award.award_image,
+                               time_up=True, checked=awardrecords[0].checked, token=awardrecords[0].awardrecord_token,
+                               form=ExchangeAwardForm())
+    else:
+        return render_template('none_award.html', form=ExchangeAwardForm)
 
 
 @app.route('/acquire/award', methods=['POST'])
@@ -1153,6 +1155,8 @@ def acquire_award():
     :functino: 兑奖
     :return:
     """
+    if ExchangeAwardForm().validate_on_submit():
+        pass
     awardrecord_token = request.values.get('awardrecord_token')
     exchange_token = request.values.get('exchange_token')
     if awardrecord_token and exchange_token:

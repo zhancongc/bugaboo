@@ -10,51 +10,73 @@
 {% endblock %}
 
 {% block content %}
+
+{% if time_up %}
     {% if checked %}
-        <div class="row">
-            <div class="col s12 m6">
-                <div class="card blue darken-4">
-                    <div class="card-content white-text">
-                        <span class="card-title">{{ award_name }}</span>
-                            <p>{{ award_description }}</p>
+    <div class="row">
+        <div class="col s12 l6 offset-l3">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row center-align">
+                        <div class="card-title">{{ award_name }}</div>
+                        <span class="card-title">此奖品已被兑换</span>
+                        <p>兑换时间：2019年2月11日~2019年2月17日</p>
+                        <p>本活动最终解释权归Bugaboo所有</p>
                     </div>
-                    <div class="card-action">
-                        <form class="col s12" name="exchange" method="post" action="{{ url_for('acquire_award') }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="row">
+            <div class="col s12 l6 offset-l3">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="card-title center-align">{{ award_name }}</div>
+                            <form class="col s12" name="exchange" method="post" action="{{ url_for('acquire_award') }}">
                             {{ form.csrf_token }}
                             {% if form.csrf_token.errors %}
                                 <div class="warning">You have submitted an invalid CSRF token</div>
                             {% endif %}
                              <div class="row">
-                                <div class="input-field validate col s0">
-                                    <input placeholder="请填写兑换码" name="awardrecord_token" type="password" class="validate" value="{{ token }}">
+                                <div class="input-field validate col s12">
+                                    <input disabled name="awardrecord_token" type="text" class="validate" value="{{ token }}">
                                     <label for="username">兑换码</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field validate col s12 l6">
+                                <div class="input-field validate col s12">
                                     <input placeholder="请填写兑换口令" name="exchange_token" type="password" class="validate">
                                     <label for="username">口令</label>
                                 </div>
                             </div>
-                            <a class="waves-effect waves-light btn col s12 l6" id="submit" type="submit" onclick="exchange.submit();">
+                            <a class="waves-effect waves-light btn col s12 #e57373 red lighten-2" id="submit" type="submit" onclick="exchange.submit();">
                                 兑换<i class="material-icons right">send</i></a>
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% else %}
-        <div class="row">
-            <div class="col s12 m6">
-                <div class="card blue darken-4">
-                    <div class="card-content white-text">
-                        <span class="card-title">提示</span>
-                        <p>该奖品不存在</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     {% endif %}
+{% else %}
+    <div class="row">
+        <div class="col s12 l6 offset-l3">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row center-align">
+                        <div class="card-title">{{ award_name }}</div>
+                        <span class="card-title">尚未到兑换时间</span>
+                        <p>兑换时间：2019年2月11日~2019年2月17日</p>
+                        <p>如有疑问请咨询客服，客服电话：4006-1535-16</p>
+                        <p>本活动最终解释权归Bugaboo所有</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}
 
 {%  block footer %}

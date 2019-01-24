@@ -31,7 +31,7 @@ class Composition(db.Model):
         return True
 
     def __repr__(self):
-        return '<Post %r>' % self.composition_id
+        return '<Composition %r>' % self.composition_id
 
 
 class Award(db.Model):
@@ -50,7 +50,7 @@ class Award(db.Model):
     exchange_token = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
-        return '<Post %r>' % self.name
+        return '<Award %r>' % self.award_name
 
 
 class AwardRecord(db.Model):
@@ -92,6 +92,9 @@ class AwardRecord(db.Model):
         self.phone = phone
         self.informed = True
 
+    def __repr__(self):
+        return '<AwardRecord %r>' % self.awardrecord_id
+
 
 class Store(db.Model):
     """
@@ -103,6 +106,9 @@ class Store(db.Model):
     store_city = db.Column(db.String(32))
     store_address = db.Column(db.String(256))
     store_phone = db.Column(db.String(32))
+
+    def __repr__(self):
+        return '<Store %r>' % self.store_name
 
 
 class UserInfo(db.Model):
@@ -116,6 +122,9 @@ class UserInfo(db.Model):
     gender = db.Column(db.Integer)
     language = db.Column(db.String(8))
     province = db.Column(db.String(32))
+
+    def __repr__(self):
+        return '<UserInfo %r>' % self.user_id
 
 
 class User(db.Model):
@@ -198,6 +207,9 @@ class God(db.Model):
 
     def get_id(self):
         return self.god_id
+
+    def __repr__(self):
+        return '<God %r>' % self.god_id
 
 
 class Rank(db.Model):
