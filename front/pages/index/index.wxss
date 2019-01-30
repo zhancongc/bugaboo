@@ -4,7 +4,6 @@
 .title-image { width: 250rpx; height: 50rpx; background-image: url('https://bugaboo.drivetogreen.com/static/images/red_logo.png')}
 .rank-text1 { margin-top: 150rpx; text-align: center; line-height: 50rpx; font-size: 40rpx; color: #fff }
 .rank-text2 { margin: 20rpx 0rpx 20rpx 0rpx; font-size: 40rpx; line-height: 50rpx; text-align: center; color: #fff }
-.rank-text3 { margin: 5rpx 0rpx 20rpx 0rpx; font-size: 50rpx; line-height: 80rpx; text-align: center; color:#ecc77c }
 
 .botton-text{ text-decoration:underline; font-size: 30rpx; color: #fff; margin-top: 40rpx; text-align: center; }
 

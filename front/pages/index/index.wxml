@@ -59,7 +59,7 @@
 </view>
 
 
-<!--view class="{{ visible2 ? 'mask': '' }}">
+<view class="{{ visible2 ? 'mask': '' }}">
   <view class="i-modal {{ visible2 ? 'i-modal-show' : '' }}">
     <view class="i-modal-main">
       <view class="i-modal-content">
@@ -76,25 +76,16 @@
             <i-col span="20" offset="2">
               <view class='rank-text1'>恭喜您！获得祝福榜</view>
             </i-col>
-            <i-col span="2" offset="9">
-              <view class='rank-text2'>第</view>
+            <i-col span="8" offset="8">
+              <view class='rank-text2'>第<text style='font-size: 40rpx; line-height: 80rpx; text-align: center; color: #ecc77c;'>{{rankNumber}}</text>名</view>
             </i-col>
-            <i-col span="2" offset="0">
-              <view class='rank-text3'>{{ rankNumber }}</view>
-            </i-col>
-            <i-col span="2">
-              <view class='rank-text2'>名</view>
-            </i-col>
-
             <view class='modal-button'>
-              <i-col span="8" offset="8" i-class="col-class">
-                <view class='back-image modal-button-text' bindtap='toAwardList'>领取奖励</view>
-              </i-col>
+              <i-col span="8" offset="8" i-class="col-class"><view class='back-image modal-button-text' bindtap='toAwardList'>领取奖励</view></i-col>
             </view>
           </i-row>
         </view>
       </view>
     </view>
   </view>
-</view-->
+</view>
    

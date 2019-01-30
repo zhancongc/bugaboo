@@ -25,7 +25,8 @@ Page({
       }
     } else {
       that.setData({
-        visible2: true
+        visible2: true,
+        rankNumber: app.globalData.rankNumber
       })
     }
   },
@@ -150,7 +151,7 @@ Page({
       visible1: true
     });
   },
-  //参加活动
+  //参加活动2
   handleOpen2: function (e) {
     this.setData({
       visible2: true
@@ -158,10 +159,14 @@ Page({
   },
   //事件处理函数
   toComposition: function (e) {
-    wx.navigateTo({
-      url: '/pages/compositionCut/compositionCut',
-    })
     this.handleClose1();
+    if (app.globalData.activityOn) {
+      wx.navigateTo({
+        url: '/pages/compositionCut/compositionCut',
+      })
+    } else {
+      this.handleOpen2()
+    }
   },
   toAwardList: function(e) {
     wx.navigateTo({

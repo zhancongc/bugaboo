@@ -61,10 +61,12 @@ App({
     // wxlogin
     userId: 0,
     sessionId: '',
-    activityOn: true,
     canUploadUserInfo: false,
     raffleTimes: false,
-    //loading
+    // activity
+    activityOn: true,
+    rankNumber: 99,
+    // loading
     loaded: false,
     // preview & view
     myCompositionId: 0,
