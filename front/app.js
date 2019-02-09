@@ -29,6 +29,7 @@ App({
                       that.globalData.activityOn = response.data.activity_on;
                       that.globalData.raffleTimes = response.data.raffle_times;
                       that.globalData.myCompositionId = response.data.composition_id;
+                      that.globalData.rankNumber = response.data.rankNumber;
                       that.globalData.myAvatarUrl = response.data.avatarUrl;
                       resolve(res);
                       that.globalData.myNickName = response.data.nickName;
@@ -64,8 +65,9 @@ App({
     canUploadUserInfo: false,
     raffleTimes: false,
     // activity
-    activityOn: true,
+    activityOn: false,
     rankNumber: 99,
+    user_type: 0,
     // loading
     loaded: false,
     // preview & view

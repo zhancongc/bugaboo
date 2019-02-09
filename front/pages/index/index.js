@@ -11,6 +11,8 @@ Page({
   onLoad: function (options) {
     var that = this;
     console.log(app.globalData);
+    that.setData({ rankNumber: app.globalData.rankNumber });
+    rankNumber: app.globalData.rankNumber
     var userInfo = wx.getStorageSync('userInfo')
     if (app.globalData.canUploadUserInfo===true && userInfo) {
       that.saveUserInfo(userInfo);
@@ -25,8 +27,7 @@ Page({
       }
     } else {
       that.setData({
-        visible2: true,
-        rankNumber: app.globalData.rankNumber
+        visible2: true
       })
     }
   },
@@ -171,6 +172,12 @@ Page({
   toAwardList: function(e) {
     wx.navigateTo({
       url: '/pages/awardlist/awardlist',
+    })
+    this.handleClose2();
+  },
+  toRankingList: function (e) {
+    wx.navigateTo({
+      url: '/pages/rankinglist/rankinglist?composition_type='+'0',
     })
     this.handleClose2();
   },
