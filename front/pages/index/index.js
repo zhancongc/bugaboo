@@ -11,6 +11,8 @@ Page({
   onLoad: function (options) {
     var that = this;
     console.log(app.globalData);
+    that.setData({ rankNumber: app.globalData.rankNumber });
+    rankNumber: app.globalData.rankNumber
     var userInfo = wx.getStorageSync('userInfo')
     if (app.globalData.canUploadUserInfo===true && userInfo) {
       that.saveUserInfo(userInfo);
@@ -150,7 +152,7 @@ Page({
       visible1: true
     });
   },
-  //参加活动
+  //参加活动2
   handleOpen2: function (e) {
     this.setData({
       visible2: true
@@ -158,14 +160,24 @@ Page({
   },
   //事件处理函数
   toComposition: function (e) {
-    wx.navigateTo({
-      url: '/pages/compositionCut/compositionCut',
-    })
     this.handleClose1();
+    if (app.globalData.activityOn) {
+      wx.navigateTo({
+        url: '/pages/compositionCut/compositionCut',
+      })
+    } else {
+      this.handleOpen2()
+    }
   },
   toAwardList: function(e) {
     wx.navigateTo({
       url: '/pages/awardlist/awardlist',
+    })
+    this.handleClose2();
+  },
+  toRankingList: function (e) {
+    wx.navigateTo({
+      url: '/pages/rankinglist/rankinglist?composition_type='+'0',
     })
     this.handleClose2();
   },

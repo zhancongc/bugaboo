@@ -22,7 +22,7 @@ from sqlalchemy import desc, text
 from flask_login import login_required, login_user, logout_user
 from flask import jsonify, request, render_template, redirect, url_for, flash
 from .package import wxlogin, get_sha1
-from .models import User, UserInfo, Composition, AwardRecord, Award, Store, God, Follow
+from .models import User, UserInfo, Composition, AwardRecord, Award, Store, God, Follow, Rank
 from .forms import GodLoginForm, ExchangeAwardForm
 
 
@@ -220,13 +220,22 @@ def user_login():
     conf = configparser.ConfigParser()
     conf.read('config.ini')
     activity_on = conf.getboolean('app', 'activity_on')
+    rank_user = Rank.query.filter_by(rank_user_id=temp_user.user_id).first()
+    if rank_user:
+        if rank_user.number > 50:
+            rank_number = rank_user.number - 50
+        else:
+            rank_number = rank_user.number
+    else:
+        rank_number = 99
     data = {
         'user_id': temp_user.user_id,
         'session_id': session_id,
         'activity_on': activity_on,
         'raffle_times': temp_user.raffle_times,
         'avatarUrl': temp_user.avatarUrl,
-        'nickName': temp_user.nickName
+        'nickName': temp_user.nickName,
+        'rank_number': rank_number
     }
     if temp_user:
         composition = Composition.query.filter_by(user_id=temp_user.user_id).first()

@@ -203,20 +203,20 @@ Page({
   },
   handleOpen1: function () {
     var that = this;
-    if (that.data.authorId == app.globalData.userId) {
-      wx.showModal({
-        title: '提示',
-        content: '不能给自己祝福',
-      });
-      return ;
-    }
-    var canFollow = that.data.canFollow;
-    if (canFollow) {
-      that.followOwner();
+    if (app.globalData.activityOn) {
+      var canFollow = that.data.canFollow;
+      if (canFollow) {
+        that.followOwner();
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '一个作品你只能祝福一次',
+        })
+      }
     } else {
       wx.showModal({
         title: '提示',
-        content: '一个作品你只能祝福一次',
+        content: '活动已经结束，不能再祝福了',
       })
     }
   },

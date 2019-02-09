@@ -29,6 +29,7 @@ App({
                       that.globalData.activityOn = response.data.activity_on;
                       that.globalData.raffleTimes = response.data.raffle_times;
                       that.globalData.myCompositionId = response.data.composition_id;
+                      that.globalData.rankNumber = response.data.rankNumber;
                       that.globalData.myAvatarUrl = response.data.avatarUrl;
                       resolve(res);
                       that.globalData.myNickName = response.data.nickName;
@@ -61,10 +62,13 @@ App({
     // wxlogin
     userId: 0,
     sessionId: '',
-    activityOn: true,
     canUploadUserInfo: false,
     raffleTimes: false,
-    //loading
+    // activity
+    activityOn: false,
+    rankNumber: 99,
+    user_type: 0,
+    // loading
     loaded: false,
     // preview & view
     myCompositionId: 0,
