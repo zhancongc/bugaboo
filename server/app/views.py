@@ -1097,8 +1097,8 @@ def user_award_store(temp_user):
         return jsonify(res)
     if awardrecord.awardrecord_type in [3, 4]:
         # 检查门店是否存在
-        store_id = Store.query.filter_by(store_id=store_id).first()
-        if store_id is None:
+        store = Store.query.filter_by(store_id=store_id).first()
+        if store is None:
             res.update({
                 'state': 0,
                 'msg': 'invalid store'
@@ -1106,7 +1106,7 @@ def user_award_store(temp_user):
             return jsonify(res)
         # 添加收货记录
         try:
-            awardrecord.set_store(store_id, receiver, phone)
+            awardrecord.set_store(store.store_id, receiver, phone)
             db.session.add(awardrecord)
             db.session.commit()
         except Exception as e:
