@@ -949,11 +949,14 @@ def user_award_list(temp_user):
             'award_time': temp.award_time.strftime('%Y-%m-%d %H:%M'),  # 中奖时间， 需要转成北京时间
             'awardrecord_token': temp.awardrecord_token,
             'informed': temp.informed,
-            'checked': temp.checked,
-            'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M'),  # 兑换奖品时间，需要转成北京时间
             'awardrecord_type': temp.awardrecord_type,
             'award_id': temp.award_id,
         })
+        if temp.checked:
+            awardrecord.update({
+                'checked': temp.checked,
+                'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M'),  # 兑换奖品时间，需要转成北京时间
+            })
         award = Award.query.filter_by(award_id=temp.award_id).first()
         awardrecord.update({
             'award_name': award.award_name,
@@ -1142,7 +1145,8 @@ def receive_award(awardrecord_token):
     :function: 领奖专用链接 session_id, awardrecord_token解密为用户的user_id, award_id和application_secret
     :return: 返回领奖成功的页面
     """
-    deadline = 1549814400
+    # deadline = 1549814400
+    deadline = 1548814400
     time_up = time.mktime(datetime.datetime.now().timetuple()) > deadline
     awardrecord_token = html.escape(awardrecord_token)
     awardrecords = AwardRecord.query.filter_by(awardrecord_token=awardrecord_token).all()
@@ -1153,7 +1157,8 @@ def receive_award(awardrecord_token):
     if award:
         return render_template('receive_award.html', award_name=award.award_name, award_image=award.award_image,
                                time_up=time_up, checked=awardrecords[0].checked, token=awardrecords[0].awardrecord_token,
-                               form=ExchangeAwardForm())
+                               form=ExchangeAwardForm(), award_num=len(awardrecords),
+                               check_time=awardrecords[0].check_time)
     else:
         return render_template('none_award.html', form=ExchangeAwardForm)
 
@@ -1164,16 +1169,19 @@ def acquire_award():
     :functino: 兑奖
     :return:
     """
-    if ExchangeAwardForm().validate_on_submit():
-        pass
-    awardrecord_token = request.values.get('awardrecord_token')
-    exchange_token = request.values.get('exchange_token')
-    if awardrecord_token and exchange_token:
-        awardrecord = AwardRecord.query.filter_by(awardrecord_token=awardrecord_token).first()
-        awardrecord.check()
-        db.session.add(awardrecord)
-        db.session.commit()
-        return render_template('exchange_result.html', is_exchange=True)
+    form = ExchangeAwardForm()
+    if form.validate_on_submit():
+        awardrecord_token = form.awardrecord_token.data
+        exchange_token = form.exchange_token.data
+        print('exchange_token', exchange_token)
+        if awardrecord_token and exchange_token:
+            awardrecord = AwardRecord.query.filter_by(awardrecord_token=awardrecord_token).first()
+            if awardrecord:
+                is_checked = awardrecord.check(exchange_token)
+                db.session.add(awardrecord)
+                db.session.commit()
+                if is_checked:
+                    return render_template('exchange_result.html', is_exchange=True)
     return render_template('exchange_result.html', is_exchange=False)
 
 

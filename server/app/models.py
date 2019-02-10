@@ -76,9 +76,14 @@ class AwardRecord(db.Model):
     awardrecord_token = db.Column(db.String(128), nullable=False)
     qrcode_image_url = db.Column(db.String(128), nullable=False)
 
-    def check(self):
-        self.checked = True
-        self.check_time = datetime.now()
+    def check(self, exchange_token):
+        if self.checked:
+            return False
+        if exchange_token == 'Bugaboo2019':
+            self.checked = True
+            self.check_time = datetime.now()
+            return True
+        return False
 
     def set_address(self, address, receiver, phone):
         self.address = address

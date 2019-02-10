@@ -18,9 +18,10 @@
             <div class="card">
                 <div class="card-content">
                     <div class="row center-align">
-                        <div class="card-title">{{ award_name }}</div>
-                        <span class="card-title">此奖品已被兑换</span>
-                        <p>兑换时间：2019年2月11日~2019年2月17日</p>
+                        <div class="card-title">{{ award_name }}x{{ award_num }}</div>
+                        <span class="card-title">此奖品已被兑换</span><br>
+                        <span class="card-content">被兑换时间：{{ check_time }}</span>
+                        <p>如有疑问请咨询客服，客服电话：4006-1535-16</p>
                         <p>本活动最终解释权归Bugaboo所有</p>
                     </div>
                 </div>
@@ -33,7 +34,7 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="row">
-                            <div class="card-title center-align">{{ award_name }}</div>
+                            <div class="card-title center-align">{{ award_name }}x{{ award_num }}</div>
                             <form class="col s12" name="exchange" method="post" action="{{ url_for('acquire_award') }}">
                             {{ form.csrf_token }}
                             {% if form.csrf_token.errors %}
@@ -41,14 +42,14 @@
                             {% endif %}
                              <div class="row">
                                 <div class="input-field validate col s12">
-                                    <input disabled name="awardrecord_token" type="text" class="validate" value="{{ token }}">
-                                    <label for="username">兑换码</label>
+                                    <input name="awardrecord_token" type="text" class="validate" value="{{ token }}">
+                                    <label for="awardrecord_token">兑换码</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field validate col s12">
                                     <input placeholder="请填写兑换口令" name="exchange_token" type="password" class="validate">
-                                    <label for="username">口令</label>
+                                    <label for="exchange_token">口令</label>
                                 </div>
                             </div>
                             <a class="waves-effect waves-light btn col s6 offset-s3 #e57373 red lighten-2" id="submit" type="submit" onclick="exchange.submit();">

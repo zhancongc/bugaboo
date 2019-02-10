@@ -10,6 +10,7 @@ Page({
     awardrecordId: 0,
     awardName: '',
     qrcode: '',
+    awardrecordType: undefined
   },
 
   /**
@@ -61,6 +62,7 @@ Page({
           if (response.state==1) {
             that.setData({
               awardName: response.data.award_name,
+              awardrecordType: response.data.awardrecord_type,
               qrcode: response.data.qrcode_image_url
             })
           } else {
