@@ -43,6 +43,12 @@ def to_award(temp_user, award):
         print(e)
         return False
 
+target = Rank.query.filter_by(number=101).all()
+award = Award.query.filter_by(award_id=11).first()
+for temp_user in target:
+    to_award(temp_user, award)
+
+'''
 # 非Bugaboo用户
 target = Rank.query.filter_by(number=1).all()
 award = Award.query.filter_by(award_id=6).first()
@@ -74,3 +80,5 @@ target = Rank.query.filter(Rank.number<=100, Rank.number>=61).all()
 award = Award.query.filter_by(award_id=11).first()
 for temp_user in target:
     to_award(temp_user, award)
+
+'''

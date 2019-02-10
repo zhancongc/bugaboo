@@ -29,7 +29,7 @@ App({
                       that.globalData.activityOn = response.data.activity_on;
                       that.globalData.raffleTimes = response.data.raffle_times;
                       that.globalData.myCompositionId = response.data.composition_id;
-                      that.globalData.rankNumber = response.data.rankNumber;
+                      that.globalData.rankNumber = response.data.rank_number;
                       that.globalData.myAvatarUrl = response.data.avatarUrl;
                       resolve(res);
                       that.globalData.myNickName = response.data.nickName;
