@@ -1106,7 +1106,7 @@ def user_award_store(temp_user):
             return jsonify(res)
         # 添加收货记录
         try:
-            awardrecord.set_address(store_id, receiver, phone)
+            awardrecord.set_store(store_id, receiver, phone)
             db.session.add(awardrecord)
             db.session.commit()
         except Exception as e:
