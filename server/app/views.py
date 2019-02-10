@@ -951,10 +951,10 @@ def user_award_list(temp_user):
             'informed': temp.informed,
             'awardrecord_type': temp.awardrecord_type,
             'award_id': temp.award_id,
+            'checked': temp.checked
         })
         if temp.checked:
             awardrecord.update({
-                'checked': temp.checked,
                 'check_time': temp.check_time.strftime('%Y-%m-%d %H:%M'),  # 兑换奖品时间，需要转成北京时间
             })
         award = Award.query.filter_by(award_id=temp.award_id).first()
@@ -1022,12 +1022,15 @@ def user_award(temp_user):
         'receiver': awardrecord.receiver,
         'phone': awardrecord.phone,
         'checked': awardrecord.checked,
-        'check_time': awardrecord.check_time.strftime('%Y-%m-%d %H:%M:%S'),
         'store_id': awardrecord.store_id,
         'awardrecord_type': awardrecord.awardrecord_type,
         'awardrecord_token': awardrecord.awardrecord_token,
         'qrcode_image_url': awardrecord.qrcode_image_url
     })
+    if awardrecord.checked:
+        data.update({
+            'check_time': awardrecord.check_time.strftime('%Y-%m-%d %H:%M:%S'),  # 兑换奖品时间，需要转成北京时间
+        })
     award = Award.query.filter_by(award_id=awardrecord.award_id).first()
     data.update({
         'award_type': award.award_type,
