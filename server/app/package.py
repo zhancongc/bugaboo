@@ -9,8 +9,6 @@ import json
 import requests
 import hashlib
 import datetime
-from app import app
-from config import configs
 import configparser
 
 
